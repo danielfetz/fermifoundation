@@ -282,7 +282,7 @@ button {
   font-family: var(--serif);
   font-size: 38px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.1;
 }
 .lead {
   margin: 40px 0 28px;
