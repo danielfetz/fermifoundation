@@ -532,6 +532,7 @@ button {
 @media (max-width: 780px) {
   .lead,
   .page__intro { font-size: 19px; }
+  .lead { margin-top: 30px; }
   .home-section > h2,
   .contact { font-size: 28px; }
   .home-section__intro,
