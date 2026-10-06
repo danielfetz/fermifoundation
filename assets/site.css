@@ -212,8 +212,8 @@ button {
 }
 .hero__fermi {
   position: absolute;
-  /* The cutout starts 0.117 of the strip's height into the image; keep its top edge 4px below the strip */
-  top: calc(4px - var(--hero-h) * 0.117);
+  /* The cutout starts 0.117 of the strip's height into the image; keep its top edge 10px below the strip */
+  top: calc(10px - var(--hero-h) * 0.117);
   left: calc(var(--hero-h) * -0.45);
   width: auto;
   max-width: none;
