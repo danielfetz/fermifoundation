@@ -131,7 +131,6 @@ button {
 .nav {
   position: relative;
   z-index: 100;
-  transition: background-color 150ms var(--ease);
 }
 .nav.is-open {
   background: var(--cream);
@@ -305,8 +304,7 @@ button {
   font-family: var(--serif);
   font-size: 38px;
   font-weight: 700;
-  line-height: 1.406;
-  text-wrap: balance;
+  line-height: 1.2;
 }
 .home-section__intro {
   margin-top: 10px;
@@ -333,7 +331,7 @@ button {
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 700;
-  line-height: 1.406;
+  line-height: 1.2;
 }
 .card__body {
   margin-top: 10px;
@@ -362,7 +360,6 @@ button {
   font-size: 44px;
   font-weight: 700;
   line-height: 1.2;
-  text-wrap: balance;
 }
 /* Same distance from the title as the home page's intro: 40px there, but this title is smaller and set looser */
 .page__intro {
@@ -389,8 +386,7 @@ button {
   font-family: var(--serif);
   font-size: 30px;
   font-weight: 700;
-  line-height: 1.406;
-  text-wrap: balance;
+  line-height: 1.2;
 }
 .section__intro,
 .text {
