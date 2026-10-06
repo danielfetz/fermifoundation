@@ -203,17 +203,17 @@ button {
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page strip: the Enrico Fermi cutout in front of Rome, his birthplace, in black and white.
+/* Home page strip: the Enrico Fermi cutout in front of a pencil drawing of Rome, his birthplace.
    A light fade under the menu keeps the links readable. */
 .home { position: relative; --hero-h: max(220px, calc(453 * var(--u))); }
 .hero {
   position: relative;
   height: var(--hero-h);
   overflow: hidden;
-  background-color: #cfcbc2;
+  background-color: #ebe6da;
   background-image:
     linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
-    url(/assets/img/rome.webp);
+    url(/assets/img/rome-drawn.webp);
   background-position: center 45%;
   background-size: cover;
 }
