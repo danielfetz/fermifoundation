@@ -6,6 +6,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `sponsor/`, `about/`: the inner pages
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF)
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `enrico-fermi.webp` is the photo,
+  `enrico-fermi-paper.svg` the paper cutout behind it
 
 The menu and footer are repeated on every page, so change them on all five.
 

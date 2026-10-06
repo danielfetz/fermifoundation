@@ -217,13 +217,12 @@ button {
 }
 .hero__fermi {
   position: absolute;
-  /* The cutout starts 0.117 of --fermi-h into the image; keep its top edge 10px below the strip */
-  top: calc(10px - var(--fermi-h) * 0.117);
+  /* The paper behind him starts 0.1237 of --fermi-h into the image; keep its top edge 10px below the strip */
+  top: calc(10px - var(--fermi-h) * 0.1237);
   left: calc(var(--fermi-h) * -0.45);
   width: auto;
   max-width: none;
   height: calc(var(--fermi-h) * 1.7);
-  filter: drop-shadow(0 1px 1px rgba(15, 35, 55, 0.2)) drop-shadow(0 3px 9px rgba(15, 35, 55, 0.12));
   user-select: none;
 }
 /* Menu floats over the sky; outside the hero so the mobile sheet isn't clipped */
@@ -256,11 +255,15 @@ button {
 .paper__edge {
   position: absolute;
   left: 0;
+  display: block;
   width: 100%;
+  max-width: none;
   pointer-events: none;
+  user-select: none;
 }
-.paper__edge--top { bottom: 100%; height: calc(190.6 * var(--w)); }
-.paper__edge--bottom { top: 100%; height: calc(212.16 * var(--w)); }
+/* Each edge overlaps the sheet by 1px, so no hairline shows between them at fractional zoom levels */
+.paper__edge--top { bottom: calc(100% - 1px); height: calc(190.6 * var(--w)); }
+.paper__edge--bottom { top: calc(100% - 1px); height: calc(212.16 * var(--w)); }
 
 /* Home page content */
 .home__content {
