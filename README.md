@@ -5,7 +5,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `index.html`: the home page, about hosting Fermi Poker tournaments
 - `how-to-play/`, `organize/`, `about/`: the inner pages
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the PDFs)
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF)
 
 The menu and footer are repeated on every page, so change them on all four.
 
