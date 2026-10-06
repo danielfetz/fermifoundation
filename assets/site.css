@@ -203,13 +203,19 @@ button {
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page sky strip with the Enrico Fermi cutout */
+/* Home page strip: the Enrico Fermi cutout in front of Rome, his birthplace, in black and white.
+   A light fade under the menu keeps the links readable. */
 .home { position: relative; --hero-h: max(220px, calc(453 * var(--u))); }
 .hero {
   position: relative;
   height: var(--hero-h);
   overflow: hidden;
-  background-image: linear-gradient(to bottom, #add4f0, #d1e4f0);
+  background-color: #cfcbc2;
+  background-image:
+    linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
+    url(/assets/img/rome.webp);
+  background-position: center 45%;
+  background-size: cover;
 }
 .hero__fermi {
   position: absolute;
@@ -496,6 +502,14 @@ button {
   color: rgba(255, 254, 242, 0.6);
   font-size: 14px;
 }
+.footer__credit {
+  max-width: 1100px;
+  margin: 6px auto 0;
+  color: rgba(255, 254, 242, 0.6);
+  font-size: 14px;
+}
+.footer__credit a { text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.footer__credit a:hover { color: var(--cream); }
 @media (min-width: 721px) {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
