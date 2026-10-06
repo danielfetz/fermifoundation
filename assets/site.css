@@ -360,12 +360,26 @@ button {
   line-height: 1.2;
   text-wrap: balance;
 }
+/* Same distance from the title as the home page's intro: 40px there, but this title is smaller and set looser */
 .page__intro {
-  margin-top: 14px;
+  margin-top: 38.5px;
   font-size: 24px;
   line-height: 1.406;
 }
 .page__intro > * + * { margin-top: 1.406em; }
+/* Small download link under a page title, e.g. the rule sheet on How to play */
+.download {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 17px;
+  transition: color 150ms var(--ease);
+}
+.download svg { width: 20px; height: 20px; flex: none; }
+.download:hover { color: var(--blue); }
 .section { margin-top: 56px; scroll-margin-top: 32px; }
 .section > h2 {
   font-family: var(--serif);
@@ -552,6 +566,7 @@ button {
   .lead,
   .page__intro { font-size: 19px; }
   .lead { margin-top: 30px; }
+  .page__intro { margin-top: 27px; }
   .home-section > h2,
   .contact { font-size: 28px; }
   .home-section__intro,
@@ -567,4 +582,5 @@ button {
 }
 @media (max-width: 720px) {
   .page__title { font-size: 32px; }
+  .page__intro { margin-top: 30.5px; }
 }
