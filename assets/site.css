@@ -316,14 +316,14 @@ button {
 .box h3 {
   color: #000;
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   line-height: 1.406;
 }
 .card__body {
   margin-top: 10px;
-  font-size: 15.5px;
-  line-height: 1.406;
+  font-size: 18px;
+  line-height: 1.5;
 }
 .card__body > * + * { margin-top: 0.7em; }
 .card__links { display: flex; flex-wrap: wrap; column-gap: 16px; }
@@ -391,7 +391,7 @@ button {
 }
 .box__body {
   margin-top: 8px;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
@@ -404,7 +404,7 @@ button {
 }
 .table-box table {
   width: 100%;
-  font-size: 16px;
+  font-size: 18px;
   font-variant-numeric: tabular-nums;
   text-align: left;
 }
@@ -527,7 +527,12 @@ button {
   .home-section__intro,
   .section__intro,
   .text,
-  .list { font-size: 17px; }
+  .list,
+  .card__body,
+  .box__body,
+  .table-box table { font-size: 17px; }
+  .card h3,
+  .box h3 { font-size: 20px; }
 }
 @media (max-width: 720px) {
   .page__title { font-size: 32px; }
