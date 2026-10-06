@@ -207,7 +207,7 @@ button {
    so the 10px gap above him doesn't cost any of his jacket at the bottom. */
 .home {
   position: relative;
-  --fermi-h: max(220px, calc(453 * var(--u)));
+  --fermi-h: max(253px, calc(521 * var(--u)));
   --hero-h: calc(var(--fermi-h) + 11px);
 }
 .hero {
