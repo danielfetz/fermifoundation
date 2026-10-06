@@ -51,8 +51,8 @@
       <div class="page__intro">
         <p>
           Fermi Poker resembles poker, but instead of being dealt random cards, you make guesses about questions that
-          seem unknowable at first. Write down a secret guess, bet on it, get hints, bet again, and win with the best
-          guess or a good bluff.
+          seem unknowable at first, like “How many dentists work in the US?” Write down a secret guess, bet on it, get
+          hints, bet again, and win with the best guess or a good bluff.
         </p>
       </div>
 
@@ -71,7 +71,7 @@
         <p class="section__intro">Six steps, and the pot goes to the best guess.</p>
         <ol class="boxes">
           <li class="box"><h3>1. Ante</h3><div class="box__body"><p>Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</p></div></li>
-          <li class="box"><h3>2. Guess</h3><div class="box__body"><p>Everyone secretly writes down a range they think contains the answer, for example “400–1100”. Then betting round 1.</p></div></li>
+          <li class="box"><h3>2. Guess</h3><div class="box__body"><p>Everyone secretly writes down a range they think contains the answer, for example <span class="nowrap">“400–1100”</span>. Then betting round 1.</p></div></li>
           <li class="box"><h3>3. Hint 1</h3><div class="box__body"><p>Then betting round 2.</p></div></li>
           <li class="box"><h3>4. Hint 2</h3><div class="box__body"><p>Then betting round 3.</p></div></li>
           <li class="box"><h3>5. Answer reveal</h3><div class="box__body"><p>Then betting round 4.</p></div></li>
@@ -88,8 +88,24 @@
         </ul>
         <div class="boxes">
           <div class="box">
-            <h3>How many dentists work in the US?</h3>
-            <div class="box__body"><p>Break it down: How often do you go to a dentist? How long is an average visit? Annual working hours per dentist? US population?</p></div>
+            <h3>Example: How many dentists work in the US?</h3>
+            <div class="box__body">
+              <p>
+                If you know how many dentists work in your town, you could scale that up. If not, break the question into
+                smaller ones you can estimate, the way Enrico Fermi trained his students:
+              </p>
+              <ol class="list list--steps">
+                <li><strong>How often do people go to the dentist?</strong> Start with yourself: maybe once a year, and most people probably go about as often.</li>
+                <li><strong>How long is a visit?</strong> About 45 minutes.</li>
+                <li><strong>How many patients does a dentist see?</strong> At 8 hours a day, about 10 a day. Over 250 working days, that’s 2,500 a year.</li>
+                <li><strong>How many visits are there?</strong> The US has about 340 million people, so about 340 million visits a year.</li>
+                <li><strong>Divide:</strong> 340,000,000 ÷ 2,500 ≈ 136,000 dentists.</li>
+              </ol>
+              <p>
+                So your best guess is around 140,000. Then decide how wide to make your range: a narrow one like
+                <span class="nowrap">“120,000–160,000”</span> beats wider ones if it contains the answer, a wide one like <span class="nowrap">“100,000–250,000”</span> is safer.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -119,12 +135,11 @@
 
       <section class="section">
         <h2>Who wins the pot</h2>
-        <p class="section__intro">
-          The <strong>narrowest range that contains the answer</strong> wins. Width is the high endpoint minus the low
-          one: if the answer is 500, a range of “200–600” (400) beats a range of
-          “400–1100” (700).
-        </p>
         <div class="boxes">
+          <div class="box">
+            <h3>At the showdown</h3>
+            <div class="box__body"><p>The <strong>narrowest range that contains the answer</strong> wins. Width is the high endpoint minus the low one: if the answer is 500, a range of <span class="nowrap">“200–600”</span> (400) beats a range of <span class="nowrap">“400–1100”</span> (700).</p></div>
+          </div>
           <div class="box"><h3>Equally narrow?</h3><div class="box__body"><p>Split the pot.</p></div></div>
           <div class="box"><h3>No range contains the answer?</h3><div class="box__body"><p>The range whose midpoint (halfway between low and high) is closest to the answer wins.</p></div></div>
           <div class="box"><h3>Everyone else folded?</h3><div class="box__body"><p>The last remaining player wins and doesn’t have to reveal their guess.</p></div></div>
