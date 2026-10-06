@@ -98,6 +98,8 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
+/* With the mobile menu open, it matches the menu instead */
+html.menu-open { --page-bg: var(--cream); }
 body {
   margin: 0;
   min-height: 100vh;

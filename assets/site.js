@@ -6,6 +6,8 @@ const sheet = nav && nav.querySelector('.nav__sheet')
 if (toggle && sheet) {
   const setOpen = open => {
     nav.classList.toggle('is-open', open)
+    // The page background follows, so Safari paints the strip under the notch in the menu's color too
+    document.documentElement.classList.toggle('menu-open', open)
     sheet.hidden = !open
     toggle.setAttribute('aria-expanded', String(open))
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
