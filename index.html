@@ -1,137 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Fermi Foundation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Special+Elite&display=swap" rel="stylesheet">
-<style>
-:root {
-  --cream: #f4eedb;
-  --ink: #1c1b18;
-  --ink-soft: #555044;
-  --blue: #1f9bd3;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
-  padding: 7vh 8vw 12vh;
-}
-
-a {
-  color: var(--blue);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(31,155,211,0.4);
-  transition: border-color 0.2s;
-}
-a:hover { border-color: var(--blue); }
-
-.wrap { max-width: 640px; }
-
-.brand {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 19px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.brand-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-}
-
-.mission {
-  font-size: 30px;
-  line-height: 1.3;
-  margin-top: 64px;
-  max-width: 560px;
-}
-
-.heading {
-  font-size: 14px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--ink-soft);
-  margin-top: 72px;
-  margin-bottom: 28px;
-}
-
-.program {
-  margin-bottom: 40px;
-}
-
-.program-name {
-  font-size: 23px;
-  font-weight: 500;
-}
-
-.program-desc {
-  font-size: 19px;
-  color: var(--ink-soft);
-  margin-top: 4px;
-  max-width: 540px;
-}
-
-.footer {
-  font-size: 17px;
-  color: var(--ink-soft);
-  margin-top: 72px;
-}
-
-.footer p { margin-bottom: 6px; }
-
-@media (max-width: 600px) {
-  body { padding: 6vh 7vw 10vh; }
-  .mission { font-size: 24px; margin-top: 48px; }
-  .heading { margin-top: 56px; }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fermi Poker</title>
+  <meta name="description" content="Fermi Poker tournaments at schools and universities, honoring Enrico Fermi on his 125th birthday.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preload" href="/assets/fonts/pt-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/pt-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/pt-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
 </head>
 <body>
-<div class="wrap">
+<div class="home">
+  <!-- Sky strip with the Enrico Fermi cutout (U.S. Department of Energy photo, c. 1943-49, public domain) -->
+  <header class="hero">
+    <img class="hero__fermi" src="/assets/img/enrico-fermi.webp" alt="Enrico Fermi" width="1936" height="1600">
+  </header>
 
-  <div class="brand">
-    FERMI FOUNDATION
+  <div class="home__nav">
+    <nav class="nav nav--home">
+      <div class="nav__bar">
+        <a class="nav__logo" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
+        <ul class="nav__links">
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/how-to-play/">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+          <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="nav__sheet" id="nav-sheet" hidden>
+        <ul>
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/how-to-play/">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
   </div>
 
-  <p class="mission">Named for the physicist Enrico Fermi, the Foundation identifies exceptional young people from around the world and supports their development.</p>
+  <main class="paper paper--home">
+    <svg class="paper__edge paper__edge--top" aria-hidden="true" viewBox="0 0 1728 190.6" preserveAspectRatio="none">
+      <defs>
+        <filter id="paper-edge-top" x="0" y="-40" width="1728" height="300" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="7"/>
+          <feOffset dy="-2"/>
+          <feComposite in2="SourceAlpha" operator="out"/>
+          <feColorMatrix values="0 0 0 0 0.08  0 0 0 0 0.11  0 0 0 0 0.14  0 0 0 0.16 0"/>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M0,39 L181,24 L261,62 L272,56 L414,41 L591,73 L827,23 L921,53 L1022,64 L1185,23 L1195,26 L1318,64 L1523,38 L1683,71 L1728,25 L1728,191 L0,191 Z" fill="#f7f7ea" filter="url(#paper-edge-top)"/>
+    </svg>
 
-  <p class="heading">Our Programs</p>
+    <div class="home__content">
+      <p class="kicker">Celebrating Enrico Fermi's 125th birthday</p>
+      <h1 class="home__title">Host a Fermi Poker tournament</h1>
 
-  <div class="program">
-    <div class="program-name">Global Talent Identification</div>
-    <p class="program-desc">Our aspiration is to build a global talent identification system, finding young people who have an accurate model of the world, think quantitatively, revise their beliefs when the facts change, and are adept at taking the perspective of others. We do this primarily by sponsoring Fermi Poker tournaments at schools and universities around the world, with hundreds of events planned this year to mark Enrico Fermi&rsquo;s 125th birthday.</p>
-  </div>
+      <div class="lead">
+        <p>
+          This year marks the 125th birthday of Enrico Fermi. To honor him, we're helping students run Fermi
+          Poker tournaments at schools and universities.
+        </p>
+        <p>
+          Fermi Poker is an educational estimation game that borrows some mechanics from poker. Instead of cards,
+          players get a Fermi question, like “How many dentists work in the US?” Everyone writes down a
+          range, then bets with play money while hints reveal new information between the betting rounds. There's
+          no real-money wagering.
+        </p>
+        <p>
+          The goal is to make quantitative reasoning, world-modeling, Bayesian updating, estimation and calibration
+          fun and social. Two organizers can be enough, and we'd like to support student organizers with small
+          budgets for pizza and prize pools, much like hackathons.
+        </p>
+      </div>
 
-  <div class="program">
-    <div class="program-name">Fermi Poker</div>
-    <p class="program-desc">We plan to popularize the game of Fermi Poker around the world. It combines poker mechanics with Fermi estimation, which is the art of decomposing a hard problem into smaller, more answerable parts, a skill Enrico Fermi famously taught his students. But the game does more than that. It is inherently social, rewarding players who excel at taking the perspective of others, and it helps them build a better model of the world. We hope it will inspire a new generation to think the way Fermi did.</p>
-  </div>
+      <section class="home-section">
+        <h2>Start here</h2>
+        <div class="home-section__body">
+          <div class="cards">
+            <div class="card">
+              <h3>How to play</h3>
+              <div class="card__body">
+                <p>Ante, a secret guess, two hints, four betting rounds and a showdown. The narrowest range that contains the answer wins.</p>
+                <p class="card__links"><a class="link" href="/how-to-play/">Read the rules</a></p>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Organize a tournament</h3>
+              <div class="card__body">
+                <p>Poker chips, question cards, a venue and tables, and whether to play a freezeout or a shootout.</p>
+                <p class="card__links"><a class="link" href="/organize/">Read the guide</a></p>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Print and play</h3>
+              <div class="card__body">
+                <p>One rule sheet for every table, and the organizer guide for you.</p>
+                <p class="card__links">
+                  <a class="link" href="/files/fermi-poker-rules.pdf">Rule sheet (PDF)</a>
+                  <a class="link" href="/files/how-to-organize-fermi-poker.pdf">Organizer guide (PDF)</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <div class="program">
-    <div class="program-name"><a href="https://amideiprize.org">The Amidei Prize</a></div>
-    <p class="program-desc">A prize established to honour Adolfo Amidei, the mentor who recognised the talent of the thirteen-year-old Enrico Fermi. It is awarded to those who have identified exceptional young people and supported their development through sustained personal effort.</p>
-  </div>
+      <section class="home-section" id="learn">
+        <h2>What players learn</h2>
+        <p class="home-section__intro">Fermi Poker trains a cluster of skills that are genuinely useful outside the game.</p>
+        <div class="home-section__body">
+          <div class="cards">
+            <div class="card">
+              <h3>Fermi estimation</h3>
+              <div class="card__body"><p>Breaking a seemingly unanswerable question into smaller parts you can actually reason about. It’s the core skill of quantitative thinking, and it’s dramatically undertaught.</p></div>
+            </div>
+            <div class="card">
+              <h3>Calibration</h3>
+              <div class="card__body"><p>Developing an accurate sense of what you know and what you don’t. A range that’s too narrow risks missing entirely; one that’s too wide rarely wins. Over many rounds, players get better at putting numbers on their own uncertainty.</p></div>
+            </div>
+            <div class="card">
+              <h3>Bayesian updating</h3>
+              <div class="card__body"><p>Each hint is a piece of evidence, and the interesting question isn’t whether to update but by how much. Players who learn to adjust in proportion to the evidence have a lasting advantage over those who anchor.</p></div>
+            </div>
+            <div class="card">
+              <h3>World-modeling</h3>
+              <div class="card__body"><p>Every question is really about how the world is structured: how dense cities are, how people spend their time, what things cost. The game rewards an accurate model of the world, and builds one.</p></div>
+            </div>
+            <div class="card">
+              <h3>Cognitive empathy</h3>
+              <div class="card__body"><p>A raise after the second hint means something. So does a long pause before a fold. And unlike regular poker, a question about car insurance plays differently against a car enthusiast than against a high schooler, so part of the game is seeing it from the other players’ side.</p></div>
+            </div>
+            <div class="card">
+              <h3>Knowing whom to trust</h3>
+              <div class="card__body"><p>Figuring out whom to trust is most of the way to having correct beliefs. At the table, confident rhetoric and charisma say little about who estimates well; a track record does. And expertise depends on the domain: the player who nails questions about cars may be lost on biology.</p></div>
+            </div>
+            <div class="card">
+              <h3>An antidote to number numbness</h3>
+              <div class="card__body"><p>Every question makes you weigh how big a number really is, until a million and a billion stop sounding alike.</p></div>
+            </div>
+          </div>
+          <p class="closing">
+            Most of all, Fermi Poker is social. The pace is relaxed enough for real conversation between actions, and
+            each question gives the table something concrete to argue about. Players tend to leave not just knowing who
+            won, but a bit more informed about how the world works.
+          </p>
+        </div>
+      </section>
 
-  <div class="footer">
-    <p>For inquiries, write to <a href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
-  </div>
+      <section class="home-section" id="faq">
+        <h2>Frequently asked questions</h2>
+        <div class="home-section__body">
+          <div class="cards">
+            <div class="card">
+              <h3>Is it gambling?</h3>
+              <div class="card__body"><p>No. You bet with play money, never real money, and nothing is dealt at random: the pot goes to the best estimate, or to the best bluff. The Fermi Poker app is rated PEGI 3 on Google Play and 13+ on the App Store.</p></div>
+            </div>
+            <div class="card">
+              <h3>Why Enrico Fermi?</h3>
+              <div class="card__body"><p>Fermi was famous for quick, accurate estimates from very little information, and he posed questions like these to his students, which is why they’re called Fermi questions. His best-known example asked how many piano tuners work in Chicago. Fermi Poker honors him on his 125th birthday.</p></div>
+            </div>
+            <div class="card">
+              <h3>What do players learn?</h3>
+              <div class="card__body"><p>Estimation, calibration and updating on evidence, plus reading the people around the table. More under <a class="link" href="#learn">What players learn</a>.</p></div>
+            </div>
+            <div class="card">
+              <h3>Do you need to know poker?</h3>
+              <div class="card__body"><p>No. The rules fit on one page, and the betting works like regular poker: check, bet or raise, call, fold, or go all-in. <a class="link" href="/how-to-play/">Read the rules</a>.</p></div>
+            </div>
+            <div class="card">
+              <h3>Do you need to be good at math?</h3>
+              <div class="card__body"><p>No. You don’t need to know the answer, only a range that contains it. Breaking a question into parts you can reason about gets you surprisingly close, and two hints help along the way.</p></div>
+            </div>
+            <div class="card">
+              <h3>How many players do you need?</h3>
+              <div class="card__body"><p>Four to six per table works best. For a tournament, plan a table for every six players: 24 players fill four tables, 36 fill six.</p></div>
+            </div>
+            <div class="card">
+              <h3>How long does it take?</h3>
+              <div class="card__body"><p>A table plays about 10 questions per hour. Before the first question, plan 15 to 30 minutes for check-in and explaining the rules.</p></div>
+            </div>
+            <div class="card">
+              <h3>What do you need to host one?</h3>
+              <div class="card__body"><p>Poker chips (about 20 per player), printed question cards, something to write guesses on, and a room with tables. Two organizers can be enough. <a class="link" href="/organize/">See the organizer guide</a>.</p></div>
+            </div>
+            <div class="card">
+              <h3>Where do the questions come from?</h3>
+              <div class="card__body"><p>Print them from our print-and-play PDFs, or write your own about your country, city or university.</p></div>
+            </div>
+            <div class="card">
+              <h3>Is there support for organizers?</h3>
+              <div class="card__body"><p>We'd like to support student organizers with small event budgets for things like pizza and prize pools, much like hackathons. Get in touch at <a class="link" href="mailto:daniel@fermi.org">daniel@fermi.org</a>.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <h2 class="contact">Got more questions? Contact <a class="link" href="mailto:daniel@fermi.org">daniel@fermi.org</a></h2>
+    </div>
+
+    <svg class="paper__edge paper__edge--bottom" aria-hidden="true" viewBox="0 0 1728 212.16" preserveAspectRatio="none">
+      <defs>
+        <filter id="paper-edge-bottom" x="0" y="-40" width="1728" height="300" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="9"/>
+          <feOffset dy="4"/>
+          <feComposite in2="SourceAlpha" operator="out"/>
+          <feColorMatrix values="0 0 0 0 0.08  0 0 0 0 0.11  0 0 0 0 0.14  0 0 0 0.5 0"/>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M0,0 L1728,0 L1728,168 L1515,137 L1396,174 L1183,166 L1035,149 L877,140 L865,141 L763,160 L666,155 L429,169 L415,166 L329,146 L227,169 L0,156 Z" fill="#f7f7ea" filter="url(#paper-edge-bottom)"/>
+    </svg>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <span class="logo logo--footer"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span>
+        <p class="footer__blurb">Fermi Poker tournaments at schools and universities, honoring Enrico Fermi on his 125th birthday.</p>
+      </div>
+      <div>
+        <h2>Fermi Poker</h2>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/how-to-play/">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Elsewhere</h2>
+        <ul>
+          <li><a href="/files/fermi-poker-rules.pdf">Rule sheet (PDF)</a></li>
+          <li><a href="/files/how-to-organize-fermi-poker.pdf">Organizer guide (PDF)</a></li>
+          <li><a href="https://fermi.poker">Fermi Poker app</a></li>
+          <li><a href="https://amideiprize.org">Amidei Prize</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__legal">© 2026 Fermi Foundation. Estimation skills for curious minds.</p>
+  </footer>
 </div>
 </body>
 </html>

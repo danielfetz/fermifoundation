@@ -1,0 +1,516 @@
+/* Fermi Foundation site. Plain CSS, no build step. */
+
+/* Fonts (self-hosted, SIL Open Font License) */
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/pt-sans-400-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/pt-sans-400-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/pt-sans-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/pt-sans-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/pt-serif-700-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(/assets/fonts/pt-serif-700-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Local fallbacks sized like the web fonts, so text doesn't jump when they load */
+@font-face {
+  font-family: 'PT Sans Fallback';
+  src: local('Arial');
+  ascent-override: 105.3%;
+  descent-override: 28.55%;
+  line-gap-override: 0%;
+  size-adjust: 96.68%;
+}
+@font-face {
+  font-family: 'PT Serif Fallback';
+  src: local('Times New Roman');
+  ascent-override: 94.22%;
+  descent-override: 25.93%;
+  line-gap-override: 0%;
+  size-adjust: 110.28%;
+}
+
+:root {
+  --sans: 'PT Sans', 'PT Sans Fallback', system-ui, sans-serif;
+  --serif: 'PT Serif', 'PT Serif Fallback', Georgia, serif;
+  --ink: #151d23;
+  --ink-soft: #32424e;
+  --rule: rgba(21, 29, 35, 0.5);
+  --paper: #f7f7ea;
+  --cream: #fffef2;
+  --blue: #009dff;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Design units: 1u is 1px on a 1728px-wide canvas and shrinks on narrower screens (--w keeps scaling up) */
+  --u: min(1px, calc(100vw / 1728));
+  --w: calc(100vw / 1728);
+}
+
+/* Reset */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  border: 0 solid;
+}
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.406;
+}
+h1, h2, h3, p, ul, ol { margin: 0; }
+h1, h2, h3 { font-size: inherit; font-weight: inherit; }
+ul, ol { list-style: none; padding: 0; }
+a { color: inherit; text-decoration: inherit; }
+img, svg { display: block; vertical-align: middle; }
+img { max-width: 100%; height: auto; }
+strong { font-weight: bolder; }
+sup { position: relative; top: -0.5em; font-size: 75%; line-height: 0; vertical-align: baseline; }
+table { border-collapse: collapse; text-indent: 0; }
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: none;
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+/* Menu */
+.nav {
+  position: relative;
+  z-index: 100;
+  transition: background-color 150ms var(--ease);
+}
+.nav.is-open {
+  background: var(--cream);
+  box-shadow: 0 1px 0 rgba(21, 29, 35, 0.12);
+}
+.nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1200px;
+  min-height: 64px;
+  margin: 0 auto;
+  padding: 14px 24px;
+}
+.nav__logo { display: block; }
+/* The home page has Fermi on the left of the sky strip, so the logo only shows with the menu open */
+.nav--home:not(.is-open) .nav__logo { visibility: hidden; }
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: 26px;
+  font-size: 17px;
+}
+.nav__links a {
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 150ms var(--ease);
+}
+.nav__links a:hover,
+.nav__links a[aria-current='page'] { border-color: var(--ink); }
+.nav__toggle {
+  display: inline-flex;
+  padding: 6px;
+}
+.nav__toggle svg { width: 24px; height: 24px; }
+.nav.is-open .nav__icon-open,
+.nav:not(.is-open) .nav__icon-close { display: none; }
+.nav__sheet {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 8px 24px 18px;
+  background: var(--cream);
+  box-shadow: 0 1px 0 rgba(21, 29, 35, 0.12);
+}
+.nav__sheet ul { display: grid; gap: 4px; }
+.nav__sheet a {
+  display: block;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(21, 29, 35, 0.12);
+  font-size: 18px;
+}
+.nav__sheet a[aria-current='page'] { font-weight: 700; }
+@media (min-width: 900px) {
+  .nav__links { display: flex; }
+  .nav__toggle,
+  .nav__sheet { display: none; }
+}
+
+/* Logo: a small photo of Fermi next to the name, set like the headings */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+}
+.logo img { width: 34px; height: 34px; }
+.logo--footer { gap: 12px; font-size: 30px; }
+.logo--footer img { width: 46px; height: 46px; }
+
+/* Home page sky strip with the Enrico Fermi cutout */
+.home { position: relative; --hero-h: max(220px, calc(453 * var(--u))); }
+.hero {
+  position: relative;
+  height: var(--hero-h);
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #add4f0, #d1e4f0);
+}
+.hero__fermi {
+  position: absolute;
+  top: calc(var(--hero-h) * -0.12);
+  left: calc(var(--hero-h) * -0.45);
+  width: auto;
+  max-width: none;
+  height: calc(var(--hero-h) * 1.7);
+  filter: drop-shadow(0 1px 1px rgba(15, 35, 55, 0.2)) drop-shadow(0 3px 9px rgba(15, 35, 55, 0.12));
+  user-select: none;
+}
+/* Menu floats over the sky; outside the hero so the mobile sheet isn't clipped */
+.home__nav { position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+
+/* Inner pages: a band of sky with the menu */
+.sky {
+  position: relative;
+  background-image: linear-gradient(to bottom, #77bef1, #d3e5f1);
+}
+.sky__space { height: 190px; }
+
+/* Sheet of paper, torn at both ends */
+.paper {
+  position: relative;
+  z-index: 1;
+  background: var(--paper);
+}
+.paper--home { margin-top: calc(120 * var(--w)); }
+.paper--page { margin-top: calc(60 * var(--w)); min-height: 60vh; }
+.paper__edge {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.paper__edge--top { bottom: 100%; height: calc(190.6 * var(--w)); }
+.paper__edge--bottom { top: 100%; height: calc(212.16 * var(--w)); }
+
+/* Home page content */
+.home__content {
+  width: min(850px, 100% - 40px);
+  margin: 0 auto;
+  padding-bottom: 114px;
+}
+.kicker {
+  margin-bottom: 8px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.406;
+}
+.home__title {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+.lead {
+  margin: 40px 0 28px;
+  font-size: 24px;
+  line-height: 1.406;
+}
+.lead > * + * { margin-top: 1.406em; }
+.closing {
+  margin-top: 28px;
+  font-size: 24px;
+  line-height: 1.406;
+}
+.home-section { margin-top: 68px; scroll-margin-top: 32px; }
+.home-section > h2,
+.contact {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.406;
+  text-wrap: balance;
+}
+.home-section__intro {
+  margin-top: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.home-section__body { margin-top: 28px; }
+.contact { margin: 64px 0 24px; text-align: center; }
+
+/* Two-column card grid, wider than the text column */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+  width: min(909px, 100%);
+}
+.card {
+  padding: 21px 25px;
+  border: 4px solid var(--rule);
+}
+.card h3,
+.box h3 {
+  color: #000;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.406;
+}
+.card__body {
+  margin-top: 10px;
+  font-size: 15.5px;
+  line-height: 1.406;
+}
+.card__body > * + * { margin-top: 0.7em; }
+.card__links { display: flex; flex-wrap: wrap; column-gap: 16px; }
+@media (min-width: 721px) {
+  .cards { margin-left: 50%; transform: translateX(-50%); }
+  /* An odd card out at the end spans both columns */
+  .card:last-child:nth-child(odd) { grid-column: span 2 / span 2; }
+}
+@media (max-width: 720px) {
+  .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+}
+
+/* Inner page content */
+.page {
+  width: min(758px, 100% - 40px);
+  margin: 0 auto;
+  padding: 24px 0 96px;
+}
+.page__title {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.page__intro {
+  margin-top: 14px;
+  font-size: 24px;
+  line-height: 1.406;
+}
+.section { margin-top: 56px; scroll-margin-top: 32px; }
+.section > h2 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.406;
+  text-wrap: balance;
+}
+.section__intro,
+.text {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.section__intro,
+.section > .text { margin-top: 16px; }
+.texts { margin-top: 24px; }
+.texts > * + * { margin-top: 16px; }
+.list {
+  margin-top: 16px;
+  padding-left: 1.2em;
+  list-style: disc;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.list > * + * { margin-top: 6px; }
+.list li::marker { color: var(--ink-soft); }
+
+/* Bordered boxes */
+.boxes { margin-top: 16px; }
+.boxes > * + * { margin-top: 15px; }
+.box {
+  display: block;
+  padding: 22px 26px;
+  border: 4px solid var(--rule);
+}
+.box__body {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.box__body > * + * { margin-top: 0.7em; }
+
+/* Quick math table on the organizer page */
+.table-box {
+  margin-top: 16px;
+  padding: 18px 26px;
+  border: 4px solid var(--rule);
+}
+.table-box table {
+  width: 100%;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+.table-box thead tr { border-bottom: 2px solid var(--rule); }
+.table-box th { font-family: var(--serif); font-weight: 700; }
+.table-box th,
+.table-box td { padding-top: 8px; padding-bottom: 8px; }
+.table-box th:not(:last-child),
+.table-box td:not(:last-child) { padding-right: 12px; }
+.table-box tbody tr { border-bottom: 1px solid rgba(21, 29, 35, 0.12); }
+.table-box tbody tr:last-child { border-bottom-width: 0; }
+.table-note {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+/* Buttons and links */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 2px solid;
+  border-radius: 9999px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: background-color 150ms var(--ease), transform 150ms var(--ease);
+}
+.btn:active { transform: scale(0.97); }
+.btn--primary {
+  border-color: transparent;
+  background: var(--blue);
+  box-shadow: 0 0 6.3px rgba(129, 207, 255, 0.25);
+  color: #fff;
+}
+.btn--primary:hover { background: #0089de; }
+.btn--ghost { border-color: var(--rule); color: var(--ink); }
+.btn--ghost:hover { background: rgba(21, 29, 35, 0.06); }
+.link {
+  color: var(--ink);
+  text-decoration: underline 2px var(--blue);
+  text-underline-offset: 3px;
+  transition: color 150ms var(--ease);
+}
+.link:hover { color: var(--blue); }
+
+/* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
+.footer {
+  position: relative;
+  padding: calc(212.16 * var(--w) + 72px) 24px 56px;
+  background: var(--ink);
+  color: var(--cream);
+}
+.footer__grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.footer__blurb {
+  max-width: 34ch;
+  margin-top: 12px;
+  color: rgba(255, 254, 242, 0.75);
+  font-size: 16px;
+}
+.footer h2 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 700;
+}
+.footer ul { display: grid; gap: 6px; margin-top: 12px; }
+.footer ul a {
+  color: rgba(255, 254, 242, 0.8);
+  font-size: 16px;
+}
+.footer ul a:hover {
+  color: var(--cream);
+  text-decoration: underline var(--blue);
+  text-underline-offset: 3px;
+}
+.footer__legal {
+  max-width: 1100px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 254, 242, 0.18);
+  color: rgba(255, 254, 242, 0.6);
+  font-size: 14px;
+}
+@media (min-width: 721px) {
+  .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+
+@media (max-width: 780px) {
+  .lead,
+  .closing,
+  .page__intro { font-size: 19px; }
+  .home-section > h2,
+  .contact { font-size: 28px; }
+  .home-section__intro,
+  .section__intro,
+  .text,
+  .list { font-size: 17px; }
+}
+@media (max-width: 720px) {
+  .page__title { font-size: 32px; }
+}

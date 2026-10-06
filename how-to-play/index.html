@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to play Fermi Poker</title>
+  <meta name="description" content="The Fermi Poker rules: ante, a secret guess, hints, four betting rounds, and the showdown.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preload" href="/assets/fonts/pt-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/pt-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/pt-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
+</head>
+<body>
+  <div class="sky">
+    <nav class="nav">
+      <div class="nav__bar">
+        <a class="nav__logo" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
+        <ul class="nav__links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/how-to-play/" aria-current="page">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+          <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="nav__sheet" id="nav-sheet" hidden>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/how-to-play/" aria-current="page">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="sky__space"></div>
+  </div>
+
+  <main class="paper paper--page">
+    <svg class="paper__edge paper__edge--top" aria-hidden="true" viewBox="0 0 1728 190.6" preserveAspectRatio="none">
+      <defs>
+        <filter id="paper-edge-top" x="0" y="-40" width="1728" height="300" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="7"/>
+          <feOffset dy="-2"/>
+          <feComposite in2="SourceAlpha" operator="out"/>
+          <feColorMatrix values="0 0 0 0 0.08  0 0 0 0 0.11  0 0 0 0 0.14  0 0 0 0.16 0"/>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M0,39 L181,24 L261,62 L272,56 L414,41 L591,73 L827,23 L921,53 L1022,64 L1185,23 L1195,26 L1318,64 L1523,38 L1683,71 L1728,25 L1728,191 L0,191 Z" fill="#f7f7ea" filter="url(#paper-edge-top)"/>
+    </svg>
+
+    <div class="page">
+      <h1 class="page__title">How to play Fermi Poker</h1>
+      <div class="page__intro">
+        <p>
+          Fermi Poker resembles poker, but instead of being dealt random cards, you make guesses about questions that
+          seem unknowable at first. Write down a secret guess, bet on it, get hints, bet again, and win with the best
+          guess or a good bluff.
+        </p>
+      </div>
+
+      <section class="section">
+        <h2>Before you start</h2>
+        <ul class="list">
+          <li>Everyone starts with the same number of chips.</li>
+          <li>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</li>
+          <li>Don't look up answers on phones or elsewhere.</li>
+          <li>The organizer announces the ante and how often it goes up, for example every 20 minutes.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>How a question is played</h2>
+        <p class="section__intro">Six steps, and the pot goes to the best guess.</p>
+        <ol class="boxes">
+          <li class="box"><h3>1. Ante</h3><div class="box__body"><p>Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</p></div></li>
+          <li class="box"><h3>2. Guess</h3><div class="box__body"><p>Everyone secretly writes down a range they think contains the answer, for example “400–1100”. Then betting round 1.</p></div></li>
+          <li class="box"><h3>3. Hint 1</h3><div class="box__body"><p>Then betting round 2.</p></div></li>
+          <li class="box"><h3>4. Hint 2</h3><div class="box__body"><p>Then betting round 3.</p></div></li>
+          <li class="box"><h3>5. Answer reveal</h3><div class="box__body"><p>Then betting round 4.</p></div></li>
+          <li class="box"><h3>6. Showdown</h3><div class="box__body"><p>The remaining players reveal their ranges, and the best one wins the pot. Revealing is voluntary for everyone who folded.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2>Your guess</h2>
+        <ul class="list">
+          <li>Write it secretly and place it face down. Once betting round 1 starts, you can't change it.</li>
+          <li>A range includes both of its endpoints.</li>
+          <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they're clearly written and not ambiguous.</li>
+        </ul>
+        <div class="boxes">
+          <div class="box">
+            <h3>How many dentists work in the US?</h3>
+            <div class="box__body"><p>Break it down: How often do you go to a dentist? How long is an average visit? Annual working hours per dentist? US population?</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Betting</h2>
+        <p class="section__intro">Play moves clockwise. On your turn you can:</p>
+        <div class="boxes">
+          <div class="box"><h3>Check</h3><div class="box__body"><p>Pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</p></div></div>
+          <div class="box"><h3>Bet or raise</h3><div class="box__body"><p>Increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</p></div></div>
+          <div class="box"><h3>Call</h3><div class="box__body"><p>Match the highest bet so far.</p></div></div>
+          <div class="box"><h3>Fold</h3><div class="box__body"><p>Drop out of this question. You give up the chips you’ve put in, but risk nothing more.</p></div></div>
+          <div class="box"><h3>All-in</h3><div class="box__body"><p>Bet all your chips. This is possible even if what you have left is less than the highest bet.</p></div></div>
+        </div>
+        <div class="texts">
+          <p class="text">
+            A betting round ends once everyone has acted and matched the highest bet or folded. Within a betting round,
+            you can only raise again if someone else raised after you.
+          </p>
+          <p class="text">
+            If you're all-in, you can win from each player only as much as you put in yourself. Extra bets go into a
+            side pot that only the players who paid into it can win. Can't pay the ante? You're automatically
+            all-in.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Who wins the pot</h2>
+        <p class="section__intro">
+          The <strong>narrowest range that contains the answer</strong> wins. Width is the high endpoint minus the low
+          one: if the answer is 500, a range of “200–600” (400) beats a range of
+          “400–1100” (700).
+        </p>
+        <div class="boxes">
+          <div class="box"><h3>Equally narrow?</h3><div class="box__body"><p>Split the pot.</p></div></div>
+          <div class="box"><h3>No range contains the answer?</h3><div class="box__body"><p>The range whose midpoint (halfway between low and high) is closest to the answer wins.</p></div></div>
+          <div class="box"><h3>Everyone else folded?</h3><div class="box__body"><p>The last remaining player wins and doesn’t have to reveal their guess.</p></div></div>
+          <div class="box"><h3>Everyone, or all but one, is all-in?</h3><div class="box__body"><p>Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</p></div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>End of the game</h2>
+        <p class="text">A player with no chips left is out. The game usually ends when one player has all the chips.</p>
+      </section>
+
+      <section class="section">
+        <h2>Optional game variants</h2>
+        <div class="boxes">
+          <div class="box">
+            <h3>Single numbers or powers of ten</h3>
+            <div class="box__body"><p>Guess a single number instead of a range, or allow powers of ten only (10<sup>1</sup>, 10<sup>2</sup>, 10<sup>3</sup>…).</p></div>
+          </div>
+          <div class="box"><h3>60-second clock</h3><div class="box__body"><p>Once half the players have written their guesses, the rest have 60 seconds.</p></div></div>
+          <div class="box"><h3>Mirror card</h3><div class="box__body"><p>Usable once per player: write another player's name to copy their guess.</p></div></div>
+        </div>
+        <div class="buttons">
+          <a class="btn btn--primary" href="/files/fermi-poker-rules.pdf">Rule sheet (PDF)</a>
+          <a class="btn btn--ghost" href="/organize/">Organize a tournament</a>
+        </div>
+      </section>
+    </div>
+
+    <svg class="paper__edge paper__edge--bottom" aria-hidden="true" viewBox="0 0 1728 212.16" preserveAspectRatio="none">
+      <defs>
+        <filter id="paper-edge-bottom" x="0" y="-40" width="1728" height="300" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="9"/>
+          <feOffset dy="4"/>
+          <feComposite in2="SourceAlpha" operator="out"/>
+          <feColorMatrix values="0 0 0 0 0.08  0 0 0 0 0.11  0 0 0 0 0.14  0 0 0 0.5 0"/>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <path d="M0,0 L1728,0 L1728,168 L1515,137 L1396,174 L1183,166 L1035,149 L877,140 L865,141 L763,160 L666,155 L429,169 L415,166 L329,146 L227,169 L0,156 Z" fill="#f7f7ea" filter="url(#paper-edge-bottom)"/>
+    </svg>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <span class="logo logo--footer"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span>
+        <p class="footer__blurb">Fermi Poker tournaments at schools and universities, honoring Enrico Fermi on his 125th birthday.</p>
+      </div>
+      <div>
+        <h2>Fermi Poker</h2>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/how-to-play/">How to play</a></li>
+          <li><a href="/organize/">Organize</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Elsewhere</h2>
+        <ul>
+          <li><a href="/files/fermi-poker-rules.pdf">Rule sheet (PDF)</a></li>
+          <li><a href="/files/how-to-organize-fermi-poker.pdf">Organizer guide (PDF)</a></li>
+          <li><a href="https://fermi.poker">Fermi Poker app</a></li>
+          <li><a href="https://amideiprize.org">Amidei Prize</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__legal">© 2026 Fermi Foundation. Estimation skills for curious minds.</p>
+  </footer>
+</body>
+</html>
