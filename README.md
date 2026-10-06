@@ -12,5 +12,5 @@ The menu and footer are repeated on every page, so change them on all four.
 To preview, run `python3 -m http.server` here and open http://localhost:8000.
 
 The Enrico Fermi photo is a U.S. Department of Energy photo (c. 1943–49) in the public domain.
-The pencil drawing of Rome behind him is made from [Roma-vista11.jpg](https://commons.wikimedia.org/wiki/File:Roma-vista11.jpg)
-by Mac, CC BY-SA 2.5; the home page footer credits it.
+The Rome behind him is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
+[public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite.

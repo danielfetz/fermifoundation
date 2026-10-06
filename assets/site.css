@@ -203,8 +203,8 @@ button {
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page strip: the Enrico Fermi cutout in front of a pencil drawing of Rome, his birthplace.
-   A light fade under the menu keeps the links readable. */
+/* Home page strip: the Enrico Fermi cutout in front of Rome, his birthplace, in Piranesi's etching
+   of the Forum (c. 1775), re-inked in soft graphite. A light fade under the menu keeps the links readable. */
 .home { position: relative; --hero-h: max(220px, calc(453 * var(--u))); }
 .hero {
   position: relative;
@@ -213,7 +213,7 @@ button {
   background-color: #ebe6da;
   background-image:
     linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
-    url(/assets/img/rome-drawn.webp);
+    url(/assets/img/forum-piranesi.webp);
   background-position: center 45%;
   background-size: cover;
 }
@@ -514,6 +514,10 @@ button {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
 
+@media (min-width: 781px) {
+  .kicker { margin-bottom: 12px; font-size: 26px; }
+  .home__title { font-size: 54px; }
+}
 @media (max-width: 780px) {
   .lead,
   .closing,
