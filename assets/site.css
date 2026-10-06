@@ -371,14 +371,14 @@ button {
 .download {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: fit-content;
-  margin-top: 10px;
+  margin-top: 12px;
   color: var(--ink-soft);
-  font-size: 17px;
+  font-size: 21px;
   transition: color 150ms var(--ease);
 }
-.download svg { width: 20px; height: 20px; flex: none; }
+.download svg { width: 24px; height: 24px; flex: none; }
 .download:hover { color: var(--blue); }
 .section { margin-top: 56px; scroll-margin-top: 32px; }
 .section > h2 {
@@ -567,6 +567,8 @@ button {
   .page__intro { font-size: 19px; }
   .lead { margin-top: 30px; }
   .page__intro { margin-top: 27px; }
+  .download { gap: 8px; margin-top: 10px; font-size: 18px; }
+  .download svg { width: 20px; height: 20px; }
   .home-section > h2,
   .contact { font-size: 28px; }
   .home-section__intro,
