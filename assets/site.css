@@ -292,8 +292,8 @@ button {
 .lead > * + * { margin-top: 1.406em; }
 .closing {
   margin-top: 28px;
-  font-size: 24px;
-  line-height: 1.406;
+  font-size: 18px;
+  line-height: 1.5;
 }
 .home-section { margin-top: 68px; scroll-margin-top: 32px; }
 .home-section > h2,
@@ -531,11 +531,11 @@ button {
 }
 @media (max-width: 780px) {
   .lead,
-  .closing,
   .page__intro { font-size: 19px; }
   .home-section > h2,
   .contact { font-size: 28px; }
   .home-section__intro,
+  .closing,
   .section__intro,
   .text,
   .list,
