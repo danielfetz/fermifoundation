@@ -427,6 +427,27 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
+/* A box that folds open, like the worked example on How to play */
+.box--fold > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+  cursor: pointer;
+}
+.box--fold > summary::-webkit-details-marker { display: none; }
+.box--fold > summary::after {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 11px;
+  margin: 0 4px 6px;
+  border-right: 2.5px solid var(--ink);
+  border-bottom: 2.5px solid var(--ink);
+  transform: rotate(45deg);
+}
+.box--fold[open] > summary::after { margin-bottom: -4px; transform: rotate(-135deg); }
 /* A label on a box's top right corner, like "Recommended" */
 .badge {
   position: absolute;

@@ -92,8 +92,8 @@
           <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they're clearly written and not ambiguous.</li>
         </ul>
         <div class="boxes">
-          <div class="box">
-            <h3>Example: How many dentists work in the US?</h3>
+          <details class="box box--fold">
+            <summary><h3>Example: How many dentists work in the US?</h3></summary>
             <div class="box__body">
               <p>
                 I had no idea. If I knew how many dentists work in my town, I could scale that up, but I don’t. So I
@@ -122,22 +122,19 @@
                 where my picture of the world was wrong:
               </p>
               <ul class="list">
-                <li><strong>How often:</strong> <a class="link" href="https://meps.ahrq.gov/mepsweb/data_files/publications/st555/stat555.shtml">about half of Americans</a> see a dentist in a given year, and those who do go about twice. So once a year was right on average, just not the way I pictured it.</li>
-                <li><strong>Patients per day:</strong> a checkup does take 45 minutes or so, but a hygienist does the cleaning and the dentist joins for the exam. So a practice handles <a class="link" href="https://www.ada.org/resources/research/health-policy-institute/dental-practice-research/dental-practice-trends">about 3,600 visits a year</a> per dentist, 15 to 20 a day. More than my 10.</li>
-                <li><strong>Working time:</strong> dentists spend about 36 hours a week in the office, 30 of them with patients. Less than my 40.</li>
+                <li><strong>How often:</strong> this is where I went wrong. <a class="link" href="https://www.cdc.gov/nchs/products/databriefs/db531.htm">About two in three adults</a>, and most children, see a dentist each year, and many go twice for checkups, plus extra visits for fillings, crowns or braces. That’s about 1.5 visits per person, or roughly 500 million a year. I had pictured one checkup each.</li>
+                <li><strong>Patients per day:</strong> 500 million visits shared by 205,000 dentists is about 2,400 each, or 10 a day. That one held up.</li>
               </ul>
               <p>
-                With these numbers, my method gives about 100,000 dentists, even further off. So the biggest gap is in
-                the model itself: it only counts dentists who treat patients full time, but the Association also counts
-                dentists who teach, serve in the military, work for the government or are still in training, and some
-                work part time.
+                With 1.5 visits per person, my steps give 340 million × 1.5 ÷ 2,500 ≈ 204,000, almost exactly the real
+                number.
               </p>
               <p>
                 That’s the point of breaking a question down. A single gut guess of 140,000 would just have been wrong.
-                Written out step by step, my reasoning showed me exactly which parts of my picture of the world to fix.
+                Written out step by step, my reasoning showed me exactly which part of my picture of the world to fix.
               </p>
             </div>
-          </div>
+          </details>
         </div>
       </section>
 
