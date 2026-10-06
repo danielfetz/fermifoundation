@@ -203,8 +203,13 @@ button {
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page strip with the Enrico Fermi cutout */
-.home { position: relative; --hero-h: max(220px, calc(453 * var(--u))); }
+/* Home page strip with the Enrico Fermi cutout. He is sized by --fermi-h; the strip is 11px taller,
+   so the 10px gap above him doesn't cost any of his jacket at the bottom. */
+.home {
+  position: relative;
+  --fermi-h: max(220px, calc(453 * var(--u)));
+  --hero-h: calc(var(--fermi-h) + 11px);
+}
 .hero {
   position: relative;
   height: var(--hero-h);
@@ -212,12 +217,12 @@ button {
 }
 .hero__fermi {
   position: absolute;
-  /* The cutout starts 0.117 of the strip's height into the image; keep its top edge 10px below the strip */
-  top: calc(10px - var(--hero-h) * 0.117);
-  left: calc(var(--hero-h) * -0.45);
+  /* The cutout starts 0.117 of --fermi-h into the image; keep its top edge 10px below the strip */
+  top: calc(10px - var(--fermi-h) * 0.117);
+  left: calc(var(--fermi-h) * -0.45);
   width: auto;
   max-width: none;
-  height: calc(var(--hero-h) * 1.7);
+  height: calc(var(--fermi-h) * 1.7);
   filter: drop-shadow(0 1px 1px rgba(15, 35, 55, 0.2)) drop-shadow(0 3px 9px rgba(15, 35, 55, 0.12));
   user-select: none;
 }
