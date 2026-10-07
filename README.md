@@ -13,6 +13,10 @@ The menu and footer are repeated on every page, so change them on all five.
 
 To preview, run `python3 -m http.server` here and open http://localhost:8000.
 
+Page views are counted with Vercel Web Analytics, through the two script tags at the end of each page's `<head>`.
+Vercel serves its script only on the deployment, so a local preview shows a harmless 404 for
+`/_vercel/insights/script.js`.
+
 The Enrico Fermi photo is a U.S. Department of Energy photo (c. 1943–49) in the public domain.
 The Rome behind him is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite.
