@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fermi Poker</title>
-  <meta name="description" content="Fermi Poker tournaments at schools and universities, honoring Enrico Fermi on his 125th birthday.">
+  <meta name="description" content="Fermi Poker tournaments at schools and universities, celebrating Enrico Fermi's 125th birthday.">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preload" href="/assets/fonts/pt-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/pt-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -63,13 +63,14 @@
 
       <div class="lead">
         <p>
-          <span id="fermi-birthday">September 29, 2026 marked the 125th birthday of Enrico Fermi.</span> To honor him,
+          <span id="fermi-birthday">September 29, 2026 marked the 125th birthday of Enrico Fermi.</span> To celebrate,
           we're planning to sponsor hundreds of Fermi Poker tournaments at schools and universities.
         </p>
         <script>
           // The opening sentence follows the calendar in the visitor's time zone: for 30 days after September 29, 2026
-          // "Nine days ago was Enrico Fermi's 125th birthday.", then "This year marks…" until the end of 2026, then the
-          // sentence above, which stays true. Inline, so it never flashes; without JavaScript the sentence above stays.
+          // "Nine days ago was Enrico Fermi's 125th birthday.", then "This year marks…" until the end of 2026, then
+          // "Last September was…" until his next birthday, then the sentence above, which stays true. Inline, so it
+          // never flashes; without JavaScript the sentence above stays.
           {
             const now = new Date()
             const year = now.getFullYear()
@@ -83,6 +84,7 @@
               : days === 1 ? "Yesterday was Enrico Fermi's 125th birthday."
               : daysAgo ? daysAgo[0].toUpperCase() + daysAgo.slice(1) + " days ago was Enrico Fermi's 125th birthday."
               : year === 2026 ? 'This year marks the 125th birthday of Enrico Fermi.'
+              : year === 2027 && days < 365 ? "Last September was Enrico Fermi's 125th birthday."
               : null
             if (sentence) document.getElementById('fermi-birthday').textContent = sentence
           }
@@ -251,7 +253,7 @@
     <div class="footer__grid">
       <div>
         <span class="logo logo--footer"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span>
-        <p class="footer__blurb">We bring Fermi Poker to schools and universities to honor Enrico Fermi on his 125th birthday.</p>
+        <p class="footer__blurb">We bring Fermi Poker to schools and universities to celebrate Enrico Fermi's 125th birthday.</p>
       </div>
       <div>
         <h2>Fermi Poker</h2>
