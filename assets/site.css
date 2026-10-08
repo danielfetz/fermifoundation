@@ -584,6 +584,7 @@ button {
 @media (min-width: 781px) {
   .kicker { margin-bottom: 12px; font-size: 26px; }
   .home__title { font-size: 54px; }
+  .sky__space { height: 270px; }
 }
 @media (max-width: 780px) {
   :root { --page-bg: #e7e5d8; }
