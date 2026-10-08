@@ -409,8 +409,6 @@ button {
 .list > * + * { margin-top: 6px; }
 .list li::marker { color: var(--ink-soft); }
 .list--steps { list-style: decimal; }
-/* More air between items that run over several lines, like the hosting steps */
-.list--loose > * + * { margin-top: 14px; }
 .nowrap { white-space: nowrap; }
 .box__body > .list { margin-top: 0.7em; }
 
