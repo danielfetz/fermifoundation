@@ -63,9 +63,28 @@
 
       <div class="lead">
         <p>
-          This year marks the 125th birthday of Enrico Fermi. To honor him, we're planning to sponsor hundreds of Fermi
-          Poker tournaments at schools and universities.
+          <span id="fermi-birthday">This year marks the 125th birthday of Enrico Fermi.</span> To honor him, we're
+          planning to sponsor hundreds of Fermi Poker tournaments at schools and universities.
         </p>
+        <script>
+          // "Nine days ago was Enrico Fermi's 125th birthday.": counts the days since September 29, 2026 in the
+          // visitor's time zone, for a year. Inline, so the sentence above (kept without JavaScript) never flashes.
+          {
+            const now = new Date()
+            const days = Math.round((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - Date.UTC(2026, 8, 29)) / 864e5)
+            const small = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
+              'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+            const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+            const words = n => n < 20 ? small[n]
+              : n < 100 ? tens[Math.floor(n / 10)] + (n % 10 ? '-' + small[n % 10] : '')
+              : small[Math.floor(n / 100)] + ' hundred' + (n % 100 ? ' ' + words(n % 100) : '')
+            if (days >= 0 && days < 365) {
+              const when = days === 0 ? 'Today is' : days === 1 ? 'Yesterday was' : words(days) + ' days ago was'
+              document.getElementById('fermi-birthday').textContent =
+                when[0].toUpperCase() + when.slice(1) + " Enrico Fermi's 125th birthday."
+            }
+          }
+        </script>
         <p>
           Fermi Poker is an estimation game that combines the emotional stakes and social dynamics of poker with the
           analytical yet creative skill of Fermi estimation. Instead of being dealt random cards, you make guesses about
