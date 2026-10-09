@@ -427,6 +427,12 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
+/* The example question that runs through the steps on How to play, set apart from the rules */
+.box__body > .box__example {
+  padding-left: 14px;
+  border-left: 3px solid rgba(21, 29, 35, 0.22);
+  color: var(--ink-soft);
+}
 /* A box that folds open, like the worked example on How to play */
 .box--fold > summary {
   display: flex;
