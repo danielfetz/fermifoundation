@@ -24,3 +24,46 @@ if (toggle && sheet) {
     }
   })
 }
+
+// Host sign-up: the answers go to a Google Form, which doesn't let the page read its reply. So the browser checks the
+// required fields, and once the request is sent we show the thanks. Without JavaScript the form posts to Google directly.
+const hostForm = document.querySelector('#host-form')
+const hostFormDone = document.querySelector('#host-form-done')
+
+if (hostForm && hostFormDone) {
+  const button = hostForm.querySelector('button[type="submit"]')
+  const error = hostForm.querySelector('.form__error')
+
+  hostForm.addEventListener('submit', async event => {
+    event.preventDefault()
+    // Only bots fill in the hidden field: pretend it worked
+    const isBot = hostForm.elements.website.value !== ''
+
+    const data = new URLSearchParams()
+    for (const [name, value] of new FormData(hostForm)) {
+      if (!name.startsWith('entry.')) continue
+      const date = hostForm.elements[name].type === 'date' && value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+      if (date) {
+        // Google takes a date as separate year, month and day
+        data.append(`${name}_year`, date[1])
+        data.append(`${name}_month`, String(Number(date[2])))
+        data.append(`${name}_day`, String(Number(date[3])))
+      } else {
+        data.append(name, value)
+      }
+    }
+
+    button.disabled = true
+    error.hidden = true
+    try {
+      if (!isBot) await fetch(hostForm.action, { method: 'POST', mode: 'no-cors', body: data })
+      hostForm.hidden = true
+      hostFormDone.hidden = false
+      hostFormDone.focus()
+    } catch {
+      error.hidden = false
+    } finally {
+      button.disabled = false
+    }
+  })
+}

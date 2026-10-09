@@ -55,17 +55,81 @@
       <h1 class="page__title">Host a tournament</h1>
       <div class="page__intro">
         <p>
-          We're here to help you do it. Write to us and we'll send you all the information you need to run a Fermi Poker
-          tournament, including questions and tips on writing your own. We may also be able to cover the cost of things like
-          poker chips and <span class="nowrap">dry-erase markers</span>.
+          We're here to help you do it. Fill out the form below and we'll send you all the information you need to run a
+          Fermi Poker tournament, including questions and tips on writing your own. We may also be able to cover the cost of
+          things like poker chips and <span class="nowrap">dry-erase markers</span>.
         </p>
-        <p>Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
       </div>
+
+      <!-- Sign-up: our own form, but the answers go to a Google Form (and from there to a Google Sheet). The names are
+           the Google Form's field IDs; assets/site.js sends it and shows the thanks. -->
+      <section class="section" id="sign-up">
+        <h2>Tell us about your tournament</h2>
+        <form class="form" id="host-form" method="post"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSedrDBgiFtLCRzoa89NS37JuW8GJ1IdJbVU7rrM0b7nzaFuOg/formResponse">
+          <label class="field">
+            <span class="field__label">Your name</span>
+            <input name="entry.944777299" type="text" autocomplete="name" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Email</span>
+            <input name="entry.823906579" type="email" autocomplete="email" required>
+          </label>
+          <label class="field">
+            <span class="field__label">School, university or organization</span>
+            <input name="entry.1487216815" type="text" autocomplete="organization" required>
+          </label>
+          <label class="field">
+            <span class="field__label">City and country</span>
+            <span class="field__hint">Where will the tournament take place?</span>
+            <input name="entry.1968065858" type="text" required>
+          </label>
+          <label class="field field--short">
+            <span class="field__label">Expected number of players</span>
+            <span class="field__hint">Your best guess is fine.</span>
+            <input name="entry.322329381" type="number" min="1" inputmode="numeric" required>
+          </label>
+          <label class="field field--short">
+            <span class="field__label">Expected date</span>
+            <span class="field__hint">It's okay if the date is tentative.</span>
+            <input name="entry.1555696815" type="date" required>
+          </label>
+          <fieldset class="field">
+            <legend class="field__label">Would you like us to sponsor your tournament?</legend>
+            <span class="field__hint">We may be able to cover the cost of things like poker chips and dry-erase markers. The
+              sponsorship amount depends on the number of players, and tournaments we sponsor must be free to enter.</span>
+            <span class="choices">
+              <label class="choice"><input type="radio" name="entry.1903212903" value="Yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="entry.1903212903" value="No"> No</label>
+            </span>
+          </fieldset>
+          <label class="field">
+            <span class="field__label">Tell us more <span class="field__optional">(optional)</span></span>
+            <span class="field__hint">Who's organizing it, who will play, and anything else we should know.</span>
+            <textarea name="entry.1242649101" rows="4"></textarea>
+          </label>
+          <!-- Spam trap: hidden from people, but bots fill it in -->
+          <div class="form__trap" aria-hidden="true">
+            <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Send</button>
+            <p class="form__alt">Prefer email? Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+          </div>
+          <p class="form__error" role="alert" hidden>
+            Sending didn't work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
+          </p>
+        </form>
+        <div class="form-done" id="host-form-done" tabindex="-1" hidden>
+          <h3>Thanks!</h3>
+          <p>We'll get back to you soon.</p>
+        </div>
+      </section>
 
       <section class="section">
         <h2>Step by step</h2>
         <ol class="boxes">
-          <li class="box"><h3>1. Write to us</h3><div class="box__body"><p>Tell us where and when you'd like to hold your tournament and, if you already know, how many players you expect. We'll email you Fermi questions and tips for running the tournament, and we're here to help along the way. We'll also let you know whether we can sponsor it, and for how much.</p></div></li>
+          <li class="box"><h3>1. Fill out the form</h3><div class="box__body"><p>Tell us about your tournament using the <a class="link" href="#sign-up">form above</a>. We'll email you Fermi questions and tips for running it, and we're here to help along the way. We'll also let you know whether we can sponsor it, and for how much.</p></div></li>
           <li class="box"><h3>2. Organize a room</h3><div class="box__body"><p>Ideally, find a room with round tables that seat six players each, with enough space between them so everyone can write down their guesses in secret. Other tables work too, and so do four or five players per table.</p></div></li>
           <li class="box"><h3>3. Spread the word</h3><div class="box__body"><p>What works depends on where you host it. At a math summer camp, an announcement may be all you need. At a school or university, you could put up posters, announce it in class, or use your club's channels. Consider a sign-up list, so you know how many players to expect.</p></div></li>
           <li class="box"><h3>4. Get poker chips and something to write on</h3><div class="box__body"><p>Plan about 20 chips per player: a standard 500-chip poker set, around $60, is enough for 25 players. For writing down the guesses, notepads and pens work, as do <span class="nowrap">mini-whiteboards</span> or erasable cards with <span class="nowrap">dry-erase</span> markers.</p></div></li>

@@ -526,6 +526,57 @@ button {
 }
 .link:hover { color: var(--blue); }
 
+/* Sign-up form on the Host page: square fields like the boxes, the blue pill to send */
+.form { display: grid; gap: 22px; margin-top: 24px; }
+.form[hidden] { display: none; }
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+.field > legend { margin-bottom: 6px; padding: 0; }
+.field__label { font-size: 17px; font-weight: 700; line-height: 1.4; }
+.field__optional { color: var(--ink-soft); font-weight: 400; }
+.field__hint { margin-top: -3px; color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+.field input:not([type='radio']),
+.field textarea {
+  width: 100%;
+  padding: 10px 13px;
+  border: 2px solid var(--rule);
+  border-radius: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  font-size: 18px;
+  line-height: 1.4;
+  transition: border-color 150ms var(--ease), box-shadow 150ms var(--ease);
+}
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--ink);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 157, 255, 0.35);
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field--short input { max-width: 240px; }
+.choices { display: flex; gap: 28px; margin-top: 2px; font-size: 18px; }
+.choice { display: inline-flex; align-items: center; gap: 9px; cursor: pointer; }
+.choice input { width: 20px; height: 20px; margin: 0; accent-color: var(--ink); }
+.form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 4px; }
+.form__actions .btn { min-width: 120px; font-size: 17px; }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.form__alt,
+.form__error { font-size: 16px; line-height: 1.5; }
+.form__alt { color: var(--ink-soft); }
+.form__error { color: #a4231c; }
+/* Off-screen rather than display: none, which some bots skip */
+.form__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-done { margin-top: 24px; padding: 22px 26px; border: 4px solid var(--rule); outline: none; }
+.form-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
+.form-done p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
+
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
 .footer {
   position: relative;
