@@ -71,7 +71,7 @@ body.play { background: transparent; }
 
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
 
-/* A card, as printed: which card it is, its text, and what comes next */
+/* A card, as printed: which card it is, its text, and what the table does now */
 .pc {
   --pc-ink: #151515;
   position: relative;
@@ -102,15 +102,15 @@ body.play { background: transparent; }
 .pc__text { font-size: 20px; line-height: 1.38; }
 .pc__value { font-family: 'IBM Plex Mono', monospace; font-size: 30px; line-height: 1.2; }
 .pc__note { margin-top: 8px; color: #6a6a6a; font-size: 15px; line-height: 1.35; }
-.pc__next { padding-top: 9px; border-top: 1.5px dashed #6a6a6a; font-size: 14px; line-height: 1.35; }
-.pc__next b { font-weight: 700; }
+.pc__now { padding-top: 9px; border-top: 1.5px dashed #6a6a6a; font-size: 14px; line-height: 1.35; }
+.pc__now b { font-weight: 700; }
 /* The one-line version a card folds to on phones */
 .pc__peek { display: none; overflow: hidden; font-size: 15px; line-height: 1.4; white-space: nowrap; text-overflow: ellipsis; }
 .pc__peek b { margin-right: 3px; font-weight: 700; }
 
-/* The pile: each card lies over the "Next" line of the one before, which is over by then */
+/* The pile: each card lies over the "Now" line of the one before, which is over by then */
 .pile .pc + .pc { margin-top: -48px; }
-.pile .pc:not(:last-child) .pc__next { visibility: hidden; }
+.pile .pc:not(:last-child) .pc__now { visibility: hidden; }
 .pile .pc:nth-child(1) { --r: -0.9deg; --x: -3px; }
 .pile .pc:nth-child(2) { --r: 0.6deg; --x: 4px; }
 .pile .pc:nth-child(3) { --r: -0.5deg; --x: -2px; }
@@ -131,7 +131,7 @@ body.play { background: transparent; }
   .pc--focus .pc__text { font-size: 26px; line-height: 1.3; }
   .pc--focus .pc__value { font-size: 38px; }
   .pc--focus .pc__note { font-size: 17px; }
-  .pc--focus .pc__next { font-size: 15px; }
+  .pc--focus .pc__now { font-size: 15px; }
   .pile .pc:not(.pc--focus) .pc__text { font-size: 18px; }
 }
 /* Phones (not tablets, which have room): from hint 2 on, the question stays readable in small type and the hints
@@ -145,9 +145,9 @@ body.play { background: transparent; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body { padding-bottom: 0; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body > :first-child { margin-top: 7px; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__text { font-size: 17px; line-height: 1.35; }
-  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__next { display: none; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__now { display: none; }
   .pile.is-folded .pc--focus:not(:last-child) { min-height: 0; padding-bottom: 26px; }
-  .pile.is-folded .pc--focus:not(:last-child) .pc__next { display: none; }
+  .pile.is-folded .pc--focus:not(:last-child) .pc__now { display: none; }
   .pile.is-folded .pc + .pc { margin-top: -16px; }
   /* Folded at the bottom of the pile, with no card lying on it: even padding */
   .pile.is-folded .pc:last-child:not(.pc--focus) { padding-bottom: 12px; }
@@ -238,8 +238,8 @@ body.play { background: transparent; }
   .pc--focus .pc__text { font-size: 30px; }
   .pc__value,
   .pc--focus .pc__value { font-size: 44px; }
-  .pc__next,
-  .pc--focus .pc__next { font-size: 16px; }
+  .pc__now,
+  .pc--focus .pc__now { font-size: 16px; }
   .pile .pc + .pc { margin-top: -52px; }
 }
 
@@ -264,7 +264,7 @@ body.play { background: transparent; }
   .pc__text { font-size: 28px; line-height: 1.3; }
   .pc__value { font-size: 44px; }
   .pc__note { font-size: 17px; }
-  .pc__next { font-size: 16px; }
+  .pc__now { font-size: 16px; }
   .pile .pc + .pc { margin-top: -52px; }
   .deck { position: relative; left: auto; bottom: auto; width: 250px; height: 300px; margin-bottom: 6px; transform: none; }
   .back { height: 300px; }

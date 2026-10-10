@@ -61,7 +61,8 @@
   const theCard = (i) => (i === 0 ? 'the question' : i === 3 ? 'the answer' : CARDS[i].name.toLowerCase());
   const verb = () => (mouse.matches ? 'Click' : 'Tap');
 
-  // A card face up: which card it is, its text, and what comes next. The one-line version shows when it's folded.
+  // A card face up: which card it is, its text, and what the table does now. The one-line version shows when it's
+  // folded.
   function card(q, i) {
     const body = i === 3
       ? el('div', 'pc__body', el('p', 'pc__value', q.answer), ...(q.note ? [el('p', 'pc__note', q.note)] : []))
@@ -70,12 +71,12 @@
       el('p', 'pc__peek', el('b', '', CARDS[i].name), ' ' + textOf(q, i)),
       el('div', 'pc__top', el('b', '', CARDS[i].name), el('span', '', `${i + 1} of 4`)),
       body,
-      el('p', 'pc__next', el('b', '', 'Next:'), ' ' + CARDS[i].then));
+      el('p', 'pc__now', el('b', '', 'Now:'), ' ' + CARDS[i].then));
     node.dataset.card = i;
     return node;
   }
 
-  // A card face down, on top of the deck
+  // A card face down, on top of the deck: when to turn it over, which card it is, and the button
   function back(top, side, name, action, label) {
     const node = el('button', 'back back--next',
       el('span', 'back__top', el('b', '', top), el('span', '', side)),
@@ -104,15 +105,15 @@
     let button;
     if (left > 0) {
       button = n === 3
-        ? back('Up next', '4 of 4', 'Answer', 'Hold to turn over', 'Hold to turn over the answer')
-        : back('Up next', `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
+        ? back('After betting round 3', '4 of 4', 'Answer', 'Hold to turn over', 'Hold to turn over the answer')
+        : back(`After betting round ${n}`, `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
       if (n === 3) button.dataset.hold = '';
     } else {
       // All four turned over: the next question's four cards wait on the deck
       const last = state.q === questions.length - 1;
       button = last
-        ? back('Up next', '1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
-        : back('Up next', '1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
+        ? back('After the showdown', '1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
+        : back('After the showdown', '1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
       button.dataset.next = '';
     }
     const cards = left || 4;
