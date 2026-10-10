@@ -427,14 +427,15 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
-/* The example question that runs through the steps on How to play, set apart from the rules */
-.box__body > .box__example {
+/* The example question that runs through the steps on How to play, set apart from the rules by a light line.
+   Each paragraph gets its own line, so a hint or answer and what the players make of it read as separate blocks. */
+.box__body > p.box__example,
+.box__example > p {
   padding-left: 14px;
   border-left: 3px solid rgba(21, 29, 35, 0.22);
   color: var(--ink-soft);
 }
-/* The hint or answer on its own line, then what the players make of it */
-.box__example > * + * { margin-top: 0.45em; }
+.box__example > p + p { margin-top: 0.7em; }
 /* A box that folds open, like the worked example on How to play */
 .box--fold > summary {
   display: flex;
