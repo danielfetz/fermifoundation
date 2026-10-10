@@ -429,9 +429,8 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
-/* The example question that runs through the steps on How to play, folded under each step's rule and set apart from
-   it by a light line. Each paragraph gets its own line, so a hint or answer and what the players make of it read as
-   separate blocks. */
+/* The example question that runs through the steps on How to play, folded under each step's rule: a shaded panel, with
+   the question, hints and answer as small cards like the printed ones players turn over */
 .box__example > summary {
   width: fit-content;
   /* A taller tap target that takes up no extra space */
@@ -458,12 +457,36 @@ button {
 }
 .box__example[open] > summary { margin-bottom: calc(0.6em - 6px); }
 .box__example[open] > summary::after { margin-bottom: -1px; transform: rotate(-135deg); }
-.box__example > p {
-  padding-left: 14px;
-  border-left: 3px solid rgba(21, 29, 35, 0.22);
-  color: var(--ink-soft);
+.example {
+  padding: 16px 20px 18px;
+  background: rgba(21, 29, 35, 0.055);
 }
-.box__example > p + p { margin-top: 0.7em; }
+.example > * + * { margin-top: 0.75em; }
+.game-card {
+  width: fit-content;
+  max-width: 100%;
+  padding: 11px 16px 13px;
+  border: 2px solid var(--rule);
+  border-radius: 8px;
+  background: var(--cream);
+  box-shadow: 0 2px 0 rgba(21, 29, 35, 0.12);
+}
+.game-card__label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.game-card__text {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 700;
+  line-height: 1.35;
+}
 /* A box that folds open, like the worked example on How to play */
 .box--fold > summary {
   display: flex;
@@ -694,6 +717,7 @@ button {
   .table-box table { font-size: 17px; }
   .card h3,
   .box h3 { font-size: 20px; }
+  .example { margin: 0 -8px; padding: 14px 16px 16px; }
 }
 @media (max-width: 720px) {
   .page__title { font-size: 32px; }
