@@ -433,6 +433,8 @@ button {
   border-left: 3px solid rgba(21, 29, 35, 0.22);
   color: var(--ink-soft);
 }
+/* The hint or answer on its own line, then what the players make of it */
+.box__example > * + * { margin-top: 0.45em; }
 /* A box that folds open, like the worked example on How to play */
 .box--fold > summary {
   display: flex;
