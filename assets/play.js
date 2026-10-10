@@ -14,7 +14,7 @@
   if (!pile || !deck || !questions.length) return;
 
   const CARDS = [
-    { name: 'Question', then: 'write your guess, then betting round 1.' },
+    { name: 'Question', then: 'put in the ante, write your guess, then betting round 1.' },
     { name: 'Hint 1', then: 'betting round 2.' },
     { name: 'Hint 2', then: 'betting round 3.' },
     { name: 'Answer', then: 'betting round 4, then the showdown.' },

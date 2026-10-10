@@ -111,9 +111,9 @@ body.play { background: transparent; }
 .pc__peek { display: none; overflow: hidden; font-size: 15px; line-height: 1.4; white-space: nowrap; text-overflow: ellipsis; }
 .pc__peek b { margin-right: 3px; font-weight: 700; }
 
-/* The pile: each card lies over the "Now" line of the one before, which is over by then */
-.pile .pc + .pc { margin-top: -48px; }
-.pile .pc:not(:last-child) .pc__now { visibility: hidden; }
+/* The pile: each card lies over the bottom edge of the one before. A covered card's "Now" line is over by then. */
+.pile .pc + .pc { margin-top: -14px; }
+.pile .pc:not(:last-child) .pc__now { display: none; }
 .pile .pc:nth-child(1) { --r: -0.9deg; --x: -3px; }
 .pile .pc:nth-child(2) { --r: 0.6deg; --x: 4px; }
 .pile .pc:nth-child(3) { --r: -0.5deg; --x: -2px; }
@@ -243,7 +243,7 @@ body.play { background: transparent; }
   .pc--focus .pc__value { font-size: 44px; }
   .pc__now,
   .pc--focus .pc__now { font-size: 16px; }
-  .pile .pc + .pc { margin-top: -52px; }
+  .pile .pc + .pc { margin-top: -16px; }
 }
 
 /* Laptops and big tablets: the pile and the deck side by side, and every card in full */
@@ -268,7 +268,7 @@ body.play { background: transparent; }
   .pc__value { font-size: 44px; }
   .pc__note { font-size: 17px; }
   .pc__now { font-size: 16px; }
-  .pile .pc + .pc { margin-top: -52px; }
+  .pile .pc + .pc { margin-top: -16px; }
   .deck { position: relative; left: auto; bottom: auto; width: 250px; height: 300px; margin-bottom: 6px; transform: none; }
   .back { height: 300px; }
   /* On the deck: which card on top, the portrait in the middle, the button at the bottom */
