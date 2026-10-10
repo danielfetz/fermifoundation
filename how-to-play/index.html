@@ -6,9 +6,9 @@
   <title>How to play Fermi Poker</title>
   <meta name="description" content="The Fermi Poker rules: ante, a secret guess, hints, four betting rounds, and the showdown.">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preload" href="/assets/fonts/pt-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/pt-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/pt-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
@@ -82,6 +82,9 @@
         <ol class="boxes">
           <li class="box"><h3>1. Ante</h3><div class="box__body"><p>Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</p>
             <details class="box__example"><summary>Example</summary>
+              <p>The ante is 100, so Alice, Bob and Carol each put in 100. That’s already 300 in the pot before anyone has seen
+              the question. Because the ante is paid on every question and goes up over time, nobody can afford to just wait
+              for a question they’re sure about.</p>
               <p>“How many new cars were sold in the US last year?”</p>
             </details></div></li>
           <li class="box"><h3>2. Guess</h3><div class="box__body"><p>Everyone secretly writes down a range they think contains the answer. Then betting <span class="nowrap">round 1</span>.</p>
@@ -118,7 +121,7 @@
           <li class="box"><h3>6. Showdown</h3><div class="box__body"><p>The remaining players reveal their ranges, and the best one wins the pot. Revealing is voluntary for everyone who folded.</p>
             <details class="box__example"><summary>Example</summary>
               <p>Alice shows <span class="nowrap">“5–30 million”</span>, Bob <span class="nowrap">“10–20 million”</span>. Both contain
-              the answer, but Bob’s range is narrower: 10 million wide, against 25 million for Alice. So Bob wins the pot.
+              the answer, but Bob’s range is narrower: 10 million wide, against 25 million for Alice. So Bob wins the pot of 4,900.
               Carol is relieved: “1–4 million” would have lost anyway, players who folded don’t have to show their range, and folding early cost only the ante.</p>
             </details></div></li>
         </ol>
