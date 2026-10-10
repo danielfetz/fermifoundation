@@ -427,9 +427,35 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
-/* The example question that runs through the steps on How to play, set apart from the rules by a light line.
-   Each paragraph gets its own line, so a hint or answer and what the players make of it read as separate blocks. */
-.box__body > p.box__example,
+/* The example question that runs through the steps on How to play, folded under each step's rule and set apart from
+   it by a light line. Each paragraph gets its own line, so a hint or answer and what the players make of it read as
+   separate blocks. */
+.box__example > summary {
+  width: fit-content;
+  /* A taller tap target that takes up no extra space */
+  margin: -6px 0;
+  padding: 6px 0;
+  color: var(--ink-soft);
+  font-size: 16px;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+  transition: color 150ms var(--ease);
+}
+.box__example > summary:hover { color: var(--ink); }
+.box__example > summary::-webkit-details-marker { display: none; }
+.box__example > summary::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 0 3px 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+.box__example[open] > summary { margin-bottom: calc(0.6em - 6px); }
+.box__example[open] > summary::after { margin-bottom: -1px; transform: rotate(-135deg); }
 .box__example > p {
   padding-left: 14px;
   border-left: 3px solid rgba(21, 29, 35, 0.22);
