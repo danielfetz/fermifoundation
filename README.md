@@ -15,6 +15,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 
 The menu and footer are repeated on every page, so change them on all five.
 
+Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
+uses the same picture, `assets/img/link-preview.jpg` (1200 × 630): a screenshot of the top of the home page with
+the menu hidden and the headline set larger. The tags need absolute URLs, so they name https://fermi.org.
+
 To preview, run `python3 -m http.server` here and open http://localhost:8000.
 
 Page views are counted with Vercel Web Analytics, through the two script tags at the end of each page's `<head>`.
