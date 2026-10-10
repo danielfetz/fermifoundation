@@ -1,16 +1,18 @@
 /* Fermi Foundation site. Plain CSS, no build step. */
 
-/* Fonts (self-hosted, SIL Open Font License) */
+/* Fonts: PT Sans and PT Serif, self-hosted (SIL Open Font License). The Latin files are our own copies without the
+   fonts' kerning around spaces, which made the gap after a period narrower than a word space ("so far.Alice").
+   As modified versions they go by their own names, as the license asks; the latin-ext files are unchanged. */
 @font-face {
-  font-family: 'PT Sans';
+  font-family: 'Fermi Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/assets/fonts/pt-sans-400-latin.woff2) format('woff2');
+  src: url(/assets/fonts/fermi-sans-400-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: 'Fermi Sans';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -18,15 +20,15 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: 'Fermi Sans';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/assets/fonts/pt-sans-700-latin.woff2) format('woff2');
+  src: url(/assets/fonts/fermi-sans-700-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'PT Sans';
+  font-family: 'Fermi Sans';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -34,15 +36,15 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
-  font-family: 'PT Serif';
+  font-family: 'Fermi Serif';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/assets/fonts/pt-serif-700-latin.woff2) format('woff2');
+  src: url(/assets/fonts/fermi-serif-700-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'PT Serif';
+  font-family: 'Fermi Serif';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -51,7 +53,7 @@
 }
 /* Local fallbacks sized like the web fonts, so text doesn't jump when they load */
 @font-face {
-  font-family: 'PT Sans Fallback';
+  font-family: 'Fermi Sans Fallback';
   src: local('Arial');
   ascent-override: 105.3%;
   descent-override: 28.55%;
@@ -59,7 +61,7 @@
   size-adjust: 96.68%;
 }
 @font-face {
-  font-family: 'PT Serif Fallback';
+  font-family: 'Fermi Serif Fallback';
   src: local('Times New Roman');
   ascent-override: 94.22%;
   descent-override: 25.93%;
@@ -68,8 +70,8 @@
 }
 
 :root {
-  --sans: 'PT Sans', 'PT Sans Fallback', system-ui, sans-serif;
-  --serif: 'PT Serif', 'PT Serif Fallback', Georgia, serif;
+  --sans: 'Fermi Sans', 'Fermi Sans Fallback', system-ui, sans-serif;
+  --serif: 'Fermi Serif', 'Fermi Serif Fallback', Georgia, serif;
   --ink: #151d23;
   --ink-soft: #32424e;
   --rule: rgba(21, 29, 35, 0.5);
