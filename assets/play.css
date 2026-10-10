@@ -69,23 +69,6 @@ body.play { background: transparent; }
 /* The table: on phones the pile, with the deck fixed at the bottom of the screen */
 .table { width: min(560px, 100% - 36px); margin: 8px auto 0; padding-bottom: 170px; }
 
-/* Before the first card: what to do */
-.table__note {
-  display: grid;
-  place-content: center;
-  gap: 6px;
-  min-height: 200px;
-  padding: 24px;
-  border: 2px dashed rgba(21, 29, 35, 0.35);
-  border-radius: 6px;
-  background: rgba(255, 254, 242, 0.6);
-  color: var(--ink-soft);
-  font-size: 17px;
-  line-height: 1.45;
-  text-align: center;
-}
-.table__note[hidden] { display: none; }
-.table__note b { color: var(--ink); font-family: var(--serif); font-size: 26px; line-height: 1.2; }
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
 
 /* A card, as printed: which card it is, its text, and what comes next */
@@ -133,9 +116,12 @@ body.play { background: transparent; }
 .pile .pc:nth-child(3) { --r: -0.5deg; --x: -2px; }
 .pile .pc:nth-child(4) { --r: 0.7deg; --x: 3px; }
 .pc--focus { box-shadow: 0 1px 1px rgba(30, 22, 8, 0.08), 0 22px 40px -16px rgba(30, 22, 8, 0.55); }
-/* A card just turned over slides in from the deck */
-.pc--new { animation: pc-in 280ms var(--ease) both; }
-@keyframes pc-in { from { opacity: 0; translate: var(--from, 0 40px); } }
+/* Dealing a card (play.js): the deck's top card turns over where it lies, on a layer above the deck, and the card it
+   turns into flies to the pile, turning face up on the way */
+.pile { perspective: 1600px; }
+.flip-layer { position: fixed; z-index: 20; pointer-events: none; perspective: 900px; }
+/* Cards you can tap to open (phones) */
+.pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 
 @media (max-width: 899px) {
   /* The card in focus gets the room */
@@ -149,34 +135,23 @@ body.play { background: transparent; }
   .pile .pc:not(.pc--focus) .pc__text { font-size: 18px; }
 }
 /* Phones (not tablets, which have room): from hint 2 on, the question stays readable in small type and the hints
-   fold to one line. Tap one to read it in full. */
+   fold to one line. Tapping a folded card opens it in its place and folds the open one. */
 @media (max-width: 899px) and (max-height: 1000px) {
-  .pile.is-folded .pc:not(:first-child):not(.pc--focus) { padding-top: 11px; padding-bottom: 22px; cursor: pointer; }
+  .pile.is-folded .pc:not(:first-child):not(.pc--focus) { padding-top: 11px; padding-bottom: 22px; }
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) > :not(.pc__peek) { display: none; }
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) .pc__peek { display: block; }
-  .pile.is-folded .pc:first-child { padding-top: 11px; padding-bottom: 24px; cursor: pointer; }
-  .pile.is-folded .pc:first-child .pc__top { padding-bottom: 5px; font-size: 14px; }
-  .pile.is-folded .pc:first-child .pc__body { padding-bottom: 0; }
-  .pile.is-folded .pc:first-child .pc__body > :first-child { margin-top: 7px; }
-  .pile.is-folded .pc:first-child .pc__text { font-size: 17px; line-height: 1.35; }
-  .pile.is-folded .pc:first-child .pc__next { display: none; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) { padding-top: 11px; padding-bottom: 24px; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__top { padding-bottom: 5px; font-size: 14px; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body { padding-bottom: 0; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body > :first-child { margin-top: 7px; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__text { font-size: 17px; line-height: 1.35; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) .pc__next { display: none; }
+  .pile.is-folded .pc--focus:not(:last-child) { min-height: 0; padding-bottom: 26px; }
+  .pile.is-folded .pc--focus:not(:last-child) .pc__next { display: none; }
   .pile.is-folded .pc + .pc { margin-top: -16px; }
+  /* Folded at the bottom of the pile, with no card lying on it: even padding */
+  .pile.is-folded .pc:last-child:not(.pc--focus) { padding-bottom: 12px; }
 }
-
-/* A folded card, tapped: it comes to the front until you tap again */
-.lift {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  padding: 86px 18px 0;
-  background: rgba(40, 30, 15, 0.24);
-  cursor: pointer;
-  animation: fade-in 160ms var(--ease) both;
-}
-.lift .pc { width: min(560px, 100%); margin: 0 auto; --r: -1.2deg; outline: none;
-  box-shadow: 0 2px 2px rgba(30, 22, 8, 0.1), 0 34px 60px -20px rgba(30, 22, 8, 0.7); }
-.lift .pc__next { color: var(--blue); font-weight: 700; }
-@keyframes fade-in { from { opacity: 0; } }
 
 /* The deck: the cards still face down. On phones it peeks up from the bottom of the screen. */
 .deck {
@@ -283,9 +258,7 @@ body.play { background: transparent; }
     margin: 0;
     padding: 0 32px 24px;
   }
-  .table__note { min-height: 300px; font-size: 19px; }
-  .table__note b { font-size: 30px; }
-  .pc { padding: 18px 26px 16px; --from: 70px 0; }
+  .pc { padding: 18px 26px 16px; }
   .pc__top { font-size: 17px; }
   .pc__body > :first-child { margin-top: 14px; }
   .pc__text { font-size: 28px; line-height: 1.3; }
@@ -319,11 +292,6 @@ body.play { background: transparent; }
   .pc__text { font-size: 24px; }
   .pc__value { font-size: 38px; }
   .pc__body { padding-bottom: 12px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pc--new,
-  .lift { animation: none; }
 }
 
 .sr-only {

@@ -1,11 +1,11 @@
 // Play page: the question, hint and answer cards on screen, for tables without printed cards.
-// Cards turned over land on a pile; the rest wait face down in the deck. The answer turns over only when held, so
-// nobody reveals it by accident. On phones, from hint 2 on, earlier cards fold to one line (see play.css), and tapping
-// one shows it in full. Where you are is remembered on this device.
+// Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
+// and turn over and fly onto the pile when dealt. The answer turns over only when held, so nobody reveals it by accident.
+// On phones, from hint 2 on, earlier cards fold to one line (see play.css); tapping one opens it in its place and
+// folds the others. Where you are is remembered on this device.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
-  const note = document.getElementById('table-note');
   const deck = document.getElementById('deck');
   const count = document.getElementById('play-count');
   const live = document.getElementById('play-live');
@@ -21,12 +21,16 @@
   ];
   const HOLD_MS = 600;
   const STORE = 'fermi-play';
+  const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
   // Phones fold earlier cards (the same media query as in play.css)
   const folding = matchMedia('(max-width: 899px) and (max-height: 1000px)');
   const mouse = matchMedia('(pointer: fine)');
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  // Cards flip with the CSS rotate property; browsers without it get the same flight, just without the flip
+  const canFlip = window.CSS?.supports?.('rotate', 'y 180deg');
+  const moving = () => !calm.matches && typeof pile.animate === 'function';
 
-  // Which question you're on, and how many of each question's cards are turned over
+  // Which question you're on, and how many of each question's cards are turned over (always at least the question)
   let state = { q: 0, shown: {} };
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
@@ -37,7 +41,9 @@
   const save = () => {
     try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {}
   };
-  const shownOf = (q) => Math.min(4, Math.max(0, state.shown[q] | 0));
+  const shownOf = (q) => Math.min(4, Math.max(1, state.shown[q] | 0));
+  // On phones: the earlier card opened in the pile (-1: the newest one is open)
+  let open = -1;
 
   const el = (tag, className, ...children) => {
     const node = document.createElement(tag);
@@ -45,16 +51,22 @@
     node.append(...children);
     return node;
   };
+  const portrait = () => {
+    const img = el('img');
+    img.src = '/assets/img/fermi-logo.webp';
+    img.alt = '';
+    return img;
+  };
   const textOf = (q, i) => (i === 0 ? q.question : i === 3 ? q.answer : q.hints[i - 1]);
   const theCard = (i) => (i === 0 ? 'the question' : i === 3 ? 'the answer' : CARDS[i].name.toLowerCase());
   const verb = () => (mouse.matches ? 'Click' : 'Tap');
 
   // A card face up: which card it is, its text, and what comes next. The one-line version shows when it's folded.
-  function card(q, i, tag = 'li') {
+  function card(q, i) {
     const body = i === 3
       ? el('div', 'pc__body', el('p', 'pc__value', q.answer), ...(q.note ? [el('p', 'pc__note', q.note)] : []))
       : el('div', 'pc__body', el('p', 'pc__text', textOf(q, i)));
-    const node = el(tag, 'pc',
+    const node = el('li', 'pc',
       el('p', 'pc__peek', el('b', '', CARDS[i].name), ' ' + textOf(q, i)),
       el('div', 'pc__top', el('b', '', CARDS[i].name), el('span', '', `${i + 1} of 4`)),
       body,
@@ -65,36 +77,16 @@
 
   // A card face down, on top of the deck
   function back(top, side, name, action, label) {
-    const portrait = el('img');
-    portrait.src = '/assets/img/fermi-logo.webp';
-    portrait.alt = '';
     const node = el('button', 'back back--next',
       el('span', 'back__top', el('b', '', top), el('span', '', side)),
       el('span', 'back__row', el('span', 'back__kind', name), el('span', 'back__tap', action)),
-      el('span', 'back__mark', portrait, 'Fermi Poker'));
+      el('span', 'back__mark', portrait(), 'Fermi Poker'));
     node.type = 'button';
     node.setAttribute('aria-label', label);
     return node;
   }
 
-  function render(fresh = false) {
-    closeLift(false);
-    const q = questions[state.q];
-    const n = shownOf(state.q);
-    const hadFocus = deck.contains(document.activeElement);
-    count.textContent = `Question ${state.q + 1}`;
-    prev.disabled = state.q === 0;
-    next.disabled = state.q === questions.length - 1;
-
-    pile.replaceChildren(...Array.from({ length: n }, (_, i) => card(q, i)));
-    pile.classList.toggle('is-folded', n >= 3);
-    const top = pile.lastElementChild;
-    if (top) top.classList.add('pc--focus');
-    if (top && fresh) top.classList.add('pc--new');
-    note.hidden = n > 0;
-    note.querySelector('b').textContent = `Question ${state.q + 1}`;
-    markFolded();
-
+  function renderDeck(n, dealt) {
     const left = 4 - n;
     if (left > 0) {
       const button = n === 3
@@ -113,40 +105,108 @@
       button.dataset.next = '';
       deck.replaceChildren(button);
     }
+    // The card that was underneath settles on top
+    if (dealt && moving()) {
+      deck.querySelector('.back--next').animate([{ opacity: 0.4, translate: '0 8px' }, { opacity: 1, translate: '0 0' }],
+        { duration: 300, delay: 150, easing: EASE, fill: 'backwards' });
+    }
+  }
+
+  // from: where the card leaves the deck (its box), when a card was just dealt
+  function render(from = null) {
+    const q = questions[state.q];
+    const n = shownOf(state.q);
+    const hadFocus = deck.contains(document.activeElement);
+    count.textContent = `Question ${state.q + 1}`;
+    prev.disabled = state.q === 0;
+    next.disabled = state.q === questions.length - 1;
+    pile.replaceChildren(...Array.from({ length: n }, (_, i) => card(q, i)));
+    pile.classList.toggle('is-folded', n >= 3);
+    applyOpen();
+    renderDeck(n, !!from);
     if (hadFocus) deck.querySelector('button')?.focus({ preventScroll: true });
-    if (top && fresh) top.scrollIntoView({ block: 'nearest', behavior: calm.matches ? 'auto' : 'smooth' });
+    if (from) {
+      const top = pile.lastElementChild;
+      top.scrollIntoView({ block: 'nearest' });
+      fly(top, from);
+    }
+  }
+
+  // Dealing a card: the deck's top card turns over where it lies. As it turns edge-on, the card it turns into takes
+  // over and flies to its place on the pile, turning face up on the way. Returns the box the flight starts from.
+  function liftTopCard() {
+    const top = deck.querySelector('.back--next');
+    if (!top) return null;
+    const at = deck.getBoundingClientRect();
+    const box = { left: at.left, top: at.top, width: top.offsetWidth, height: top.offsetHeight };
+    if (moving() && canFlip) {
+      const layer = el('div', 'flip-layer', top.cloneNode(true));
+      Object.assign(layer.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px` });
+      layer.inert = true;
+      layer.setAttribute('aria-hidden', 'true');
+      document.body.append(layer);
+      layer.firstChild.classList.remove('is-holding');
+      layer.firstChild.animate([{ rotate: 'y 0deg', translate: '0 0' }, { rotate: 'y 90deg', translate: '0 -12px' }],
+        { duration: 170, easing: 'ease-in', fill: 'forwards' }).finished.catch(() => {}).then(() => layer.remove());
+    }
+    return box;
+  }
+  function fly(node, from) {
+    if (!moving()) return;
+    const to = node.getBoundingClientRect();
+    const scale = Math.min(1, from.width / to.width);
+    const dx = from.left + from.width / 2 - (to.left + to.width / 2);
+    const dy = from.top + from.height / 2 - (to.top + to.height / 2);
+    const timing = { duration: 440, delay: canFlip ? 150 : 0, easing: EASE, fill: 'backwards' };
+    node.animate([{ translate: `${dx}px ${dy}px`, scale: String(scale) }, { translate: '0 0', scale: '1' }], timing);
+    node.animate([{ opacity: 0 }, { opacity: 1 }], { ...timing, duration: canFlip ? 60 : 200, easing: 'linear' });
+    if (canFlip) node.animate([{ rotate: 'y -90deg' }, { rotate: 'y 0deg' }], { ...timing, easing: 'cubic-bezier(0.3, 0.6, 0.3, 1)' });
   }
 
   // Taps that come too quickly after a card was turned over are ignored, so a double tap can't turn over two cards
   let quietUntil = 0;
+  let busy = false;
   function turnOver() {
     const n = shownOf(state.q);
-    if (n >= 4 || Date.now() < quietUntil) return;
+    if (busy || n >= 4 || Date.now() < quietUntil) return;
     quietUntil = Date.now() + 400;
     state.shown[state.q] = n + 1;
+    open = -1;
     save();
-    render(true);
+    render(liftTopCard());
     const q = questions[state.q];
     live.textContent = n === 3 ? `Answer: ${q.answer}. ${q.note || ''}` : `${CARDS[n].name}: ${textOf(q, n)}`;
   }
-  function go(q) {
-    if (q < 0 || q >= questions.length) return;
-    state.q = q;
-    save();
-    render();
-    live.textContent = `Question ${q + 1}`;
-  }
-  function startNext() {
-    if (Date.now() < quietUntil) return;
+  // The next question: the cards on the table are collected, then its question card flies in
+  async function startNext() {
+    if (busy || Date.now() < quietUntil) return;
     quietUntil = Date.now() + 400;
-    if (state.q < questions.length - 1) return go(state.q + 1);
-    state = { q: 0, shown: {} };
+    busy = true;
+    if (moving()) {
+      const cards = [...pile.children];
+      await Promise.all(cards.map((node, i) => node.animate(
+        [{ opacity: 1 }, { opacity: 0, translate: '-48px 6px', scale: '0.96' }],
+        { duration: 240, delay: (cards.length - 1 - i) * 45, easing: 'ease-in', fill: 'forwards' },
+      ).finished.catch(() => {})));
+    }
+    if (state.q < questions.length - 1) state.q += 1;
+    else state = { q: 0, shown: {} };
+    open = -1;
+    save();
+    busy = false;
+    render(liftTopCard());
+    live.textContent = `Question ${state.q + 1}: ${questions[state.q].question}`;
+  }
+  function go(q) {
+    if (busy || q < 0 || q >= questions.length) return;
+    state.q = q;
+    open = -1;
     save();
     render();
-    live.textContent = 'Question 1';
+    live.textContent = `Question ${q + 1}: ${questions[q].question}`;
   }
 
-  // The deck: a click turns over a hint or the question; the answer needs a press of HOLD_MS
+  // The deck: a click turns over a hint, the answer needs a press of HOLD_MS
   let holding = null;
   let holdTimer = 0;
   let lastPress = 0;
@@ -206,63 +266,58 @@
     if (event.target.closest('[data-hold]')) event.preventDefault();
   });
 
-  // Phones: folded cards can be tapped to read them in full
-  function markFolded() {
+  // Phones: one card in a folded pile is open, the newest unless you tap another. Tapping a folded card opens it in
+  // its place and folds the open one; tapping an earlier open card goes back to the newest.
+  function applyOpen() {
+    const cards = [...pile.children];
+    const newest = cards.length - 1;
     const folded = folding.matches && pile.classList.contains('is-folded');
-    for (const node of pile.children) {
-      if (folded && node !== pile.lastElementChild) {
+    if (!folded) open = -1;
+    const focus = open >= 0 && open < newest ? open : newest;
+    cards.forEach((node, i) => {
+      node.classList.toggle('pc--focus', i === focus);
+      if (folded && !(i === focus && i === newest)) {
         node.tabIndex = 0;
         node.setAttribute('role', 'button');
-        node.setAttribute('aria-label', `Show ${theCard(Number(node.dataset.card))} in full`);
+        node.setAttribute('aria-expanded', String(i === focus));
+        node.setAttribute('aria-label', i === focus ? `Back to ${theCard(newest)}` : `Show ${theCard(i)}`);
       } else {
-        node.removeAttribute('tabindex');
-        node.removeAttribute('role');
-        node.removeAttribute('aria-label');
+        for (const name of ['tabindex', 'role', 'aria-expanded', 'aria-label']) node.removeAttribute(name);
       }
-    }
+    });
   }
-  let lift = null;
-  function openLift(i) {
-    closeLift(false);
-    const shown = card(questions[state.q], i, 'div');
-    shown.classList.add('pc--focus');
-    shown.querySelector('.pc__next').replaceChildren(`${verb()} to put it back`);
-    shown.tabIndex = -1;
-    lift = el('div', 'lift', shown);
-    lift.setAttribute('role', 'dialog');
-    lift.setAttribute('aria-modal', 'true');
-    lift.setAttribute('aria-label', CARDS[i].name);
-    lift.dataset.card = i;
-    lift.addEventListener('click', () => closeLift());
-    document.body.append(lift);
-    shown.focus({ preventScroll: true });
+  function setOpen(i) {
+    const cards = [...pile.children];
+    const before = cards.map((node) => node.getBoundingClientRect().top);
+    open = i;
+    applyOpen();
+    if (!moving()) return;
+    // The cards slide to their new places, and the opened one's text fades in
+    cards.forEach((node, k) => {
+      const dy = before[k] - node.getBoundingClientRect().top;
+      if (Math.abs(dy) > 0.5) node.animate([{ translate: `0 ${dy}px` }, { translate: '0 0' }], { duration: 300, easing: EASE });
+    });
+    pile.querySelector('.pc--focus .pc__body')?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
   }
-  function closeLift(refocus = true) {
-    if (!lift) return;
-    const from = lift.dataset.card;
-    lift.remove();
-    lift = null;
-    if (refocus) pile.querySelector(`[data-card="${from}"]`)?.focus({ preventScroll: true });
+  function toggle(node) {
+    setOpen(node.classList.contains('pc--focus') ? -1 : Number(node.dataset.card));
   }
   pile.addEventListener('click', (event) => {
     const node = event.target.closest('.pc[role="button"]');
-    if (node) openLift(Number(node.dataset.card));
+    if (node && !busy) toggle(node);
   });
   pile.addEventListener('keydown', (event) => {
     const node = event.target.closest('.pc[role="button"]');
     if (!node || !isPress(event)) return;
     event.preventDefault();
-    openLift(Number(node.dataset.card));
-  });
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeLift();
+    if (!busy) toggle(node);
   });
 
   prev.addEventListener('click', () => go(state.q - 1));
   next.addEventListener('click', () => go(state.q + 1));
   folding.addEventListener('change', () => {
-    closeLift(false);
-    markFolded();
+    open = -1;
+    applyOpen();
   });
   mouse.addEventListener('change', () => render());
 
