@@ -182,8 +182,8 @@ body.play { background: transparent; }
   user-select: none;
   touch-action: manipulation;
 }
-.back--under { transform: translate(7px, -9px) rotate(2.2deg); }
-.back--next { transform: rotate(-0.8deg); }
+/* Where each card lies in the deck (play.js sets the offsets, deeper cards peek out above) */
+.back { transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--dr, 0deg)); }
 .back__top {
   display: flex;
   justify-content: space-between;
@@ -268,8 +268,6 @@ body.play { background: transparent; }
   .pile .pc + .pc { margin-top: -52px; }
   .deck { position: relative; left: auto; bottom: auto; width: 250px; height: 300px; margin-bottom: 6px; transform: none; }
   .back { height: 300px; }
-  .back--under { transform: translate(9px, -10px) rotate(3deg); }
-  .back--next { transform: rotate(-1.5deg); }
   /* On the deck: which card on top, the portrait in the middle, the button at the bottom */
   .back__row { display: contents; }
   .back__kind { order: 1; margin-top: 10px; }

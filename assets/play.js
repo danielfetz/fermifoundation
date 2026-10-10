@@ -86,30 +86,61 @@
     return node;
   }
 
+  // The deck, piled as it is: each card a little offset from the one above, so you can see how many are left
+  const STACK = [
+    { x: 0, y: 0, r: -0.8 },
+    { x: 6, y: -8, r: 1.6 },
+    { x: -5, y: -15, r: -2.2 },
+    { x: 8, y: -21, r: 2.6 },
+  ];
+  function place(node, depth) {
+    const { x, y, r } = STACK[depth];
+    node.style.setProperty('--dx', `${x}px`);
+    node.style.setProperty('--dy', `${y}px`);
+    node.style.setProperty('--dr', `${r}deg`);
+  }
   function renderDeck(n, dealt) {
     const left = 4 - n;
+    let button;
     if (left > 0) {
-      const button = n === 3
+      button = n === 3
         ? back('Up next', '4 of 4', 'Answer', 'Hold to turn over', 'Hold to turn over the answer')
         : back('Up next', `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
       if (n === 3) button.dataset.hold = '';
-      const under = el('div', 'back back--under');
-      under.setAttribute('aria-hidden', 'true');
-      deck.replaceChildren(...(left > 1 ? [under] : []), button, el('p', 'deck__left', `${left} card${left > 1 ? 's' : ''} left`));
     } else {
-      // All four turned over: the next question waits on the deck
+      // All four turned over: the next question's four cards wait on the deck
       const last = state.q === questions.length - 1;
-      const button = last
-        ? back('Up next', '', 'Question 1', 'Start again', 'Start again from question 1')
-        : back('Up next', '', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
+      button = last
+        ? back('Up next', '1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
+        : back('Up next', '1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
       button.dataset.next = '';
-      deck.replaceChildren(button);
     }
-    // The card that was underneath settles on top
-    if (dealt && moving()) {
-      deck.querySelector('.back--next').animate([{ opacity: 0.4, translate: '0 8px' }, { opacity: 1, translate: '0 0' }],
-        { duration: 300, delay: 150, easing: EASE, fill: 'backwards' });
-    }
+    const cards = left || 4;
+    // Deepest first, so each lies under the next; the top card, with its button, last
+    const pile = Array.from({ length: cards - 1 }, (_, k) => {
+      const node = el('div', 'back back--under');
+      node.setAttribute('aria-hidden', 'true');
+      place(node, cards - 1 - k);
+      return node;
+    });
+    place(button, 0);
+    pile.push(button);
+    deck.replaceChildren(...pile, ...(left > 0 ? [el('p', 'deck__left', `${left} card${left > 1 ? 's' : ''} left`)] : []));
+    if (!dealt || !moving()) return;
+    pile.forEach((node, k) => {
+      const depth = cards - 1 - k;
+      if (left > 0) {
+        // A card was dealt: the ones below each move up a place
+        const from = STACK[depth + 1];
+        const to = STACK[depth];
+        node.animate([{ translate: `${from.x - to.x}px ${from.y - to.y}px`, rotate: `${from.r - to.r}deg` }, { translate: '0 0', rotate: '0deg' }],
+          { duration: 320, delay: 120, easing: EASE, fill: 'backwards' });
+      } else {
+        // The answer was dealt: the next question's cards arrive, one after another
+        node.animate([{ opacity: 0, translate: '0 70px' }, { opacity: 1, translate: '0 0' }],
+          { duration: 380, delay: 320 + k * 70, easing: EASE, fill: 'backwards' });
+      }
+    });
   }
 
   // from: where the card leaves the deck (its box), when a card was just dealt
