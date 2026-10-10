@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Play Fermi Poker</title>
+  <meta name="description" content="Play Fermi Poker without printed cards: turn over the question, the hints and the answer on a phone, tablet or laptop.">
+  <!-- Still being tried out, with sample questions: kept out of search engines for now -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preload" href="/assets/fonts/fermi-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/ibm-plex-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/play.css">
+  <script src="/play/questions.js" defer></script>
+  <script src="/assets/play.js" defer></script>
+  <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="play">
+  <div class="rome" aria-hidden="true"></div>
+
+  <header class="ph">
+    <a class="ph__home" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
+    <nav class="ph-count" aria-label="Questions">
+      <button type="button" data-go="-1" aria-label="Previous question">‹</button>
+      <span id="play-count">Question 1</span>
+      <button type="button" data-go="1" aria-label="Next question">›</button>
+    </nav>
+  </header>
+
+  <!-- The cards turned over lie on the pile; the rest wait face down in the deck. assets/play.js deals them. -->
+  <main class="table">
+    <div class="table__pile">
+      <p class="table__note" id="table-note"><b>Question 1</b>Everyone puts in the ante. Then turn over the question.</p>
+      <ol class="pile" id="pile" aria-label="Cards turned over"></ol>
+      <noscript><p class="table__noscript">Turning over the cards needs JavaScript.</p></noscript>
+    </div>
+    <div class="deck" id="deck"></div>
+  </main>
+
+  <p class="sr-only" id="play-live" aria-live="polite"></p>
+</body>
+</html>
