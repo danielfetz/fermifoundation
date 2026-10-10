@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fermi Poker</title>
-  <meta name="description" content="Fermi Poker tournaments at schools and universities, celebrating Enrico Fermi's 125th birthday.">
+  <meta name="description" content="Fermi Poker tournaments at schools and universities, celebrating Enrico Fermi’s 125th birthday.">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preload" href="/assets/fonts/pt-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/pt-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="home">
-  <!-- Enrico Fermi cutout (U.S. Department of Energy photo, c. 1943-49, public domain) on a paper cutout, in front of Piranesi's etching of the Roman Forum -->
+  <!-- Enrico Fermi cutout (U.S. Department of Energy photo, c. 1943-49, public domain) on a paper cutout, in front of Piranesi’s etching of the Roman Forum -->
   <header class="hero">
     <img class="hero__fermi" src="/assets/img/enrico-fermi-paper.svg" alt="" aria-hidden="true" width="1936" height="1600">
     <img class="hero__fermi" src="/assets/img/enrico-fermi.webp" alt="Enrico Fermi" width="1936" height="1600">
@@ -58,17 +58,17 @@
     <img class="paper__edge paper__edge--top" src="/assets/img/edge-top.svg" alt="" aria-hidden="true">
 
     <div class="home__content">
-      <p class="kicker">Celebrating Enrico Fermi's 125th birthday</p>
+      <p class="kicker">Celebrating Enrico Fermi’s 125th birthday</p>
       <h1 class="home__title">Bring Fermi Poker to your school or university</h1>
 
       <div class="lead">
         <p>
           <span id="fermi-birthday">September 29, 2026 marked the 125th birthday of Enrico Fermi.</span> To celebrate his
-          life and work, we're planning to sponsor hundreds of Fermi Poker tournaments at schools and universities.
+          life and work, we’re planning to sponsor hundreds of Fermi Poker tournaments at schools and universities.
         </p>
         <script>
-          // The opening sentence follows the calendar in the visitor's time zone: for 30 days after September 29, 2026
-          // "Nine days ago was Enrico Fermi's 125th birthday.", then "This year marks…" until the end of 2026, then
+          // The opening sentence follows the calendar in the visitor’s time zone: for 30 days after September 29, 2026
+          // "Nine days ago was Enrico Fermi’s 125th birthday.", then "This year marks…" until the end of 2026, then
           // "Last September was…" until his next birthday, then the sentence above, which stays true. Inline, so it
           // never flashes; without JavaScript the sentence above stays.
           {
@@ -80,11 +80,11 @@
             const words = n => n < 20 ? small[n] : ['twenty', 'thirty'][Math.floor(n / 10) - 2] + (n % 10 ? '-' + small[n % 10] : '')
             const daysAgo = days > 1 && days <= 30 && words(days)
             const sentence =
-              days === 0 ? "Today is Enrico Fermi's 125th birthday."
-              : days === 1 ? "Yesterday was Enrico Fermi's 125th birthday."
-              : daysAgo ? daysAgo[0].toUpperCase() + daysAgo.slice(1) + " days ago was Enrico Fermi's 125th birthday."
+              days === 0 ? "Today is Enrico Fermi’s 125th birthday."
+              : days === 1 ? "Yesterday was Enrico Fermi’s 125th birthday."
+              : daysAgo ? daysAgo[0].toUpperCase() + daysAgo.slice(1) + " days ago was Enrico Fermi’s 125th birthday."
               : year === 2026 ? 'This year marks the 125th birthday of Enrico Fermi.'
-              : year === 2027 && days < 365 ? "Last September was Enrico Fermi's 125th birthday."
+              : year === 2027 && days < 365 ? "Last September was Enrico Fermi’s 125th birthday."
               : null
             if (sentence) document.getElementById('fermi-birthday').textContent = sentence
           }
@@ -97,7 +97,7 @@
           everyone else out.
         </p>
         <p>
-          Want to host your own tournament? It's free, and we may even pay for things like poker chips,
+          Want to host your own tournament? It’s free, and we may even pay for things like poker chips,
           <span class="nowrap">dry-erase markers</span> and small prizes. Fill out our <a class="link" href="/host/#sign-up">short form</a> or
           write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
         </p>
@@ -110,14 +110,14 @@
             <div class="card">
               <h3>How to play</h3>
               <div class="card__body">
-                <p>Learn the rules step by step, with an example of how to break down a question. There's also a <span class="nowrap">one-page</span> rule sheet you can print out.</p>
+                <p>Learn the rules step by step, with an example of how to break down a question. There’s also a <span class="nowrap">one-page</span> rule sheet you can print out.</p>
                 <p class="card__links"><a class="link" href="/how-to-play/">Read the rules</a></p>
               </div>
             </div>
             <div class="card">
               <h3>Host a tournament</h3>
               <div class="card__body">
-                <p>We're here to help you do it. We'll send you all the information you need to run a Fermi Poker tournament, including questions and tips on writing your own. We may also be able to cover the cost of things like poker chips and <span class="nowrap">dry-erase markers</span>.</p>
+                <p>We’re here to help you do it. We’ll send you all the information you need to run a Fermi Poker tournament, including questions and tips on writing your own. We may also be able to cover the cost of things like poker chips and <span class="nowrap">dry-erase markers</span>.</p>
                 <p class="card__links"><a class="link" href="/host/">Get started</a></p>
               </div>
             </div>
@@ -162,7 +162,7 @@
             </div>
             <div class="card">
               <h3>Cognitive empathy</h3>
-              <div class="card__body"><p>It’s one thing to know what other people feel, and another to understand how they think and why they believe what they believe. Regular poker rewards reading tells, like a trembling hand. Fermi Poker also makes you model what each player knows and how their cultural or educational background influences their answers. Asked how many new cars are sold in the US each year, will someone from rural Texas guess higher than someone from a bike-friendly European city? Like a flight simulator, the game lets you practice this dozens of times in a few hours.</p></div>
+              <div class="card__body"><p>It’s one thing to know what other people feel, and another to understand how they think and why they believe what they believe. Regular poker rewards reading tells, like a trembling hand. Fermi Poker also makes you model what each player knows and how their cultural or educational background influences their answers. Asked how many new cars are sold in the US each year, will someone from rural Texas guess higher than someone from a <span class="nowrap">bike-friendly</span> European city? Like a flight simulator, the game lets you practice this dozens of times in a few hours.</p></div>
             </div>
             <div class="card">
               <h3>Knowing whom to trust</h3>
@@ -174,7 +174,7 @@
             </div>
             <div class="card">
               <h3>Taking emotion seriously</h3>
-              <div class="card__body"><p>Michael Nielsen has argued that we learn best when the emotional stakes are as high as possible without losing the ability to think calmly, like a game show contestant who loses the prize on a wrong answer and remembers the right one for life. Fermi Poker creates such moments all the time. Take the question “How many chickens are slaughtered for meat each year?” You’re sure it’s no more than 10 billion, so you go all-in, and then the answer comes in: over 75 billion. You’ll remember that far longer than if you’d heard it in a lecture.</p></div>
+              <div class="card__body"><p>Michael Nielsen has argued that we learn best when the emotional stakes are as high as possible without losing the ability to think calmly, like a game show contestant who loses the prize on a wrong answer and remembers the right one for life. Fermi Poker creates such moments all the time. Take the question “How many chickens are slaughtered for meat each year?” You’re sure it’s no more than 10 billion, so you go <span class="nowrap">all-in</span>, and then the answer comes in: over 75 billion. You’ll remember that far longer than if you’d heard it in a lecture.</p></div>
             </div>
           </div>
           <p class="closing">
@@ -211,7 +211,7 @@
             </div>
             <div class="card">
               <h3>How many players do you need?</h3>
-              <div class="card__body"><p>In theory, six players at a single table are enough. For sponsorship, though, we mostly consider tournaments with 18 or more players. Smaller tournaments can still get everything else they need from us, like the rule sheets and questions.</p></div>
+              <div class="card__body"><p>In theory, a single table of four to six players is enough. For sponsorship, though, we mostly consider tournaments with 18 or more players. Smaller tournaments can still get everything else they need from us, like the rule sheets and questions.</p></div>
             </div>
             <div class="card">
               <h3>How long does a tournament take?</h3>
@@ -219,11 +219,11 @@
             </div>
             <div class="card">
               <h3>What does a host do?</h3>
-              <div class="card__body"><p>Find a room and spread the word about the tournament. Print our rule sheets, one per table, and the question, hint and answer cards. Get poker chips, dry-erase markers and <span class="nowrap">mini-whiteboards</span> or cards for writing guesses, and maybe some water and snacks. On the day, open with a 2–3 minute introduction to Enrico Fermi and his life, then explain the game.</p></div>
+              <div class="card__body"><p>Find a room and spread the word about the tournament. Print our rule sheets, one per table, and the question, hint and answer cards. Get poker chips, <span class="nowrap">dry-erase markers</span> and <span class="nowrap">mini-whiteboards</span> or cards for writing guesses, and maybe some water and snacks. On the day, open with a 2–3 minute introduction to Enrico Fermi and his life, then explain the game.</p></div>
             </div>
             <div class="card">
               <h3>Is there support for hosts?</h3>
-              <div class="card__body"><p>Yes. We’ll help you plan your tournament. If we sponsor it, we also cover the cost of things like poker chips, markers and <span class="nowrap">mini-whiteboards</span>. The sponsorship amount depends on how many players you expect. Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p></div>
+              <div class="card__body"><p>Yes, and it’s free. We’ll help you plan your tournament. If we sponsor it, we also cover the cost of things like poker chips, <span class="nowrap">dry-erase markers</span> and <span class="nowrap">mini-whiteboards</span>, and sometimes small prizes. The sponsorship amount depends on how many players you expect. Fill out our <a class="link" href="/host/#sign-up">short form</a> or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p></div>
             </div>
             <div class="card">
               <h3>Can you charge an entry fee?</h3>
@@ -235,7 +235,7 @@
             </div>
             <div class="card">
               <h3>When should it take place?</h3>
-              <div class="card__body"><p>Any time starting in November, when our materials will be ready. Ideally this year or early next year, while Fermi’s 125th birthday is still recent.</p></div>
+              <div class="card__body"><p>Any time from November 2026, when our materials are ready. Ideally by early 2027, while Fermi’s 125th birthday is still recent.</p></div>
             </div>
             <div class="card">
               <h3>Why is it named after Enrico Fermi?</h3>
@@ -245,7 +245,7 @@
         </div>
       </section>
 
-      <h2 class="contact">Anything else you'd like to know? Write to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a></h2>
+      <h2 class="contact">Anything else you’d like to know? Write to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a></h2>
     </div>
 
     <img class="paper__edge paper__edge--bottom" src="/assets/img/edge-bottom.svg" alt="" aria-hidden="true">
@@ -255,7 +255,7 @@
     <div class="footer__grid">
       <div>
         <span class="logo logo--footer"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span>
-        <p class="footer__blurb">We bring Fermi Poker to schools and universities to celebrate Enrico Fermi's 125th birthday.</p>
+        <p class="footer__blurb">We bring Fermi Poker to schools and universities to celebrate Enrico Fermi’s 125th birthday.</p>
       </div>
       <div>
         <h2>Fermi Poker</h2>
