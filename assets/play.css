@@ -30,7 +30,7 @@ body.play { background: transparent; }
     #ebe6da url(/assets/img/forum-piranesi.webp) 33% 35% / cover;
 }
 
-/* Header: the logo, and which question you're on */
+/* Header: the logo, the rules, and a menu for skipping a question or going back to the last one */
 .ph {
   display: flex;
   align-items: center;
@@ -40,34 +40,76 @@ body.play { background: transparent; }
 }
 .ph .logo { font-size: 20px; white-space: nowrap; }
 .ph .logo img { width: 32px; height: 32px; }
-.ph-count {
+.ph__tools { display: flex; align-items: center; gap: 8px; }
+.ph-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 1px;
-  padding: 3px;
+  justify-content: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px 0 12px;
   border-radius: 999px;
   background: rgba(255, 254, 242, 0.9);
-  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
-  white-space: nowrap;
-}
-.ph-count button {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
   color: var(--ink);
-  font: 700 18px/1 var(--sans);
+  font: 700 15px/1 var(--sans);
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
   transition: background-color 150ms var(--ease);
 }
-/* A bigger area to tap than the arrow shows */
-.ph-count button::after { content: ""; position: absolute; inset: -8px -3px; }
-.ph-count button:hover:not(:disabled) { background: rgba(21, 29, 35, 0.08); }
-.ph-count button:disabled { opacity: 0.3; cursor: default; }
-.ph-count span { padding: 0 4px; font-family: var(--serif); font-size: 16px; font-weight: 700; }
+.ph-btn svg { flex: none; width: 18px; height: 18px; }
+.ph-btn--round { width: 36px; padding: 0; }
+/* A bigger area to tap than the button shows */
+.ph-btn::after { content: ""; position: absolute; inset: -5px -3px; }
+.ph-btn:hover,
+.ph-btn[aria-expanded="true"] { background: #fff; }
+.ph-more { position: relative; }
+.ph-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 10px);
+  right: 0;
+  width: max-content;
+  min-width: 240px;
+  max-width: calc(100vw - 28px);
+  padding: 6px;
+  border-radius: 12px;
+  background: #fffef8;
+  box-shadow: 0 2px 4px rgba(21, 29, 35, 0.12), 0 24px 48px -16px rgba(21, 29, 35, 0.5);
+  transform-origin: top right;
+  animation: ph-menu-in 140ms var(--ease);
+}
+@keyframes ph-menu-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+.ph-menu button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 16px 11px 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+}
+.ph-menu button[hidden] { display: none; }
+.ph-menu button + button::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid rgba(21, 29, 35, 0.1); }
+.ph-menu button:hover { background: rgba(21, 29, 35, 0.06); }
+.ph-menu svg { flex: none; width: 20px; height: 20px; color: var(--ink-soft); }
+.ph-menu small { display: block; margin-top: 2px; color: var(--ink-soft); font-size: 13.5px; font-weight: 400; }
 .ph__home:focus-visible,
-.ph-count button:focus-visible,
+.ph-btn:focus-visible,
+.ph-menu button:focus-visible,
+.rules__close:focus-visible,
 .back:focus-visible,
 .pc:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.ph-menu button:focus-visible { outline-offset: -3px; }
+/* Very narrow phones: the Rules button without its icon */
+@media (max-width: 350px) {
+  .ph-btn:not(.ph-btn--round) svg { display: none; }
+}
 
 /* The table: on phones the pile, with the deck fixed at the bottom of the screen */
 .table { width: min(560px, 100% - 36px); margin: 8px auto 0; padding-bottom: 170px; }
@@ -293,6 +335,121 @@ body.play { background: transparent; }
   .pc__text { font-size: 24px; }
   .pc__value { font-size: 38px; }
   .pc__body { padding-bottom: 12px; }
+}
+
+/* The rule sheet, set like the printed one. On phones it slides up from the bottom; on bigger screens it opens in
+   the middle, in two columns on laptops. The page behind it stays where it was. */
+.rules {
+  --pc-ink: #151515;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: calc(100% - 40px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  background: #fffef8;
+  color: var(--pc-ink);
+  font-family: 'IBM Plex Sans', sans-serif;
+  box-shadow: 0 -12px 40px -16px rgba(21, 29, 35, 0.55);
+}
+.rules[open] { display: flex; flex-direction: column; animation: rules-up 320ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.rules::backdrop { background: rgba(21, 29, 35, 0.45); }
+.rules[open]::backdrop { animation: rules-fade-in 260ms ease-out; }
+.rules.is-closing { animation: rules-down 200ms ease-in forwards; }
+.rules.is-closing::backdrop { animation: rules-fade-out 200ms ease-in forwards; }
+@keyframes rules-up { from { transform: translateY(100%); } }
+@keyframes rules-down { to { transform: translateY(100%); } }
+@keyframes rules-in { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+@keyframes rules-out { to { opacity: 0; transform: translateY(10px) scale(0.98); } }
+@keyframes rules-fade-in { from { opacity: 0; } }
+@keyframes rules-fade-out { to { opacity: 0; } }
+html:has(.rules[open]) { overflow: hidden; }
+.rules__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px 10px 22px;
+  border-bottom: 1.5px solid var(--pc-ink);
+}
+.rules__head h2 { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.rules__close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--pc-ink);
+  transition: background-color 150ms var(--ease);
+}
+.rules__close:hover { background: rgba(21, 29, 35, 0.07); }
+.rules__close svg { width: 22px; height: 22px; }
+.rules__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 22px 26px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+/* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
+.rules__body:focus { outline: none; }
+/* Space above a section is its padding rather than a margin, so on laptops both columns start at the same height */
+.rules section { padding-top: 20px; }
+.rules h3 {
+  margin-bottom: 9px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.rules b { font-weight: 700; }
+.rules ul,
+.rules ol { padding-left: 20px; }
+.rules ul { list-style: disc; }
+.rules ol { list-style: decimal; }
+.rules li::marker { color: #6a6a6a; }
+.rules li + li { margin-top: 5px; }
+.rules section > * + p,
+.rules section > p + ul { margin-top: 9px; }
+/* The optional variants in a dashed box, as on the printed sheet */
+.rules section.rules__optional { margin-top: 26px; padding: 12px 16px 14px; border: 1.5px dashed #6a6a6a; border-radius: 4px; }
+.rules__optional h3 { border-bottom: 0; }
+.rules__more { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; font-size: 15px; }
+.rules__more a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.rules__more a:hover { color: var(--blue); }
+.rules__more a:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+@media (min-width: 700px) {
+  .rules {
+    inset: 0;
+    width: min(640px, 100% - 64px);
+    max-height: min(100% - 64px, 920px);
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(21, 29, 35, 0.15), 0 30px 70px -20px rgba(21, 29, 35, 0.6);
+  }
+  .rules[open] { animation-name: rules-in; animation-duration: 240ms; }
+  .rules.is-closing { animation-name: rules-out; animation-duration: 160ms; }
+  .rules.is-closing::backdrop { animation-duration: 160ms; }
+  .rules__head { padding: 14px 16px 12px 30px; }
+  .rules__body { padding: 0 30px 28px; }
+}
+/* Laptops: two columns, split where the printed sheet splits them */
+@media (min-width: 900px) {
+  .rules { width: min(880px, 100% - 64px); }
+  .rules__cols { columns: 2; column-gap: 44px; }
+  .rules__cols > section { break-inside: avoid; }
+  .rules__betting { break-before: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ph-menu,
+  .rules[open],
+  .rules[open]::backdrop { animation: none; }
 }
 
 .sr-only {

@@ -16,7 +16,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   printed cards. Its questions are in `play/questions.js` (sample questions for now); its styles and script are
   `assets/play.css` and `assets/play.js`. Its cards use the printed cards' fonts, IBM Plex Sans and IBM Plex Mono
   (`assets/fonts/ibm-plex-*.woff2`, Open Font License, self-hosted as Google Fonts serves them). It isn't in the menu
-  yet and is kept out of search engines (`noindex`) while it's being tried out.
+  yet and is kept out of search engines (`noindex`) while it's being tried out. Its Rules button opens a copy of the
+  rule sheet (the PDF's text without its introduction and example), so when the rules change, change it along with
+  the PDF and How to play. The ⋯ menu skips a question or goes back to the last one, and while the page is open it
+  keeps the screen on.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all five.
 

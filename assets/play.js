@@ -2,15 +2,19 @@
 // Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
 // and turn over and fly onto the pile when dealt. The answer turns over only when held, so nobody reveals it by accident.
 // On phones, from hint 2 on, earlier cards fold to one line (see play.css); tapping one opens it in its place and
-// folds the others. Where you are is remembered on this device.
+// folds the others. Where you are is remembered on this device. The header has the rules, and a menu for skipping a
+// question or going back to the last one.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
   const deck = document.getElementById('deck');
-  const count = document.getElementById('play-count');
   const live = document.getElementById('play-live');
-  const prev = document.querySelector('[data-go="-1"]');
-  const next = document.querySelector('[data-go="1"]');
+  const moreButton = document.getElementById('more-open');
+  const menu = document.getElementById('more');
+  const skipItem = menu.querySelector('[data-skip]');
+  const backItem = menu.querySelector('[data-back]');
+  const rulesButton = document.getElementById('rules-open');
+  const rules = document.getElementById('rules');
   if (!pile || !deck || !questions.length) return;
 
   const CARDS = [
@@ -149,9 +153,9 @@
     const q = questions[state.q];
     const n = shownOf(state.q);
     const hadFocus = deck.contains(document.activeElement);
-    count.textContent = `Question ${state.q + 1}`;
-    prev.disabled = state.q === 0;
-    next.disabled = state.q === questions.length - 1;
+    document.getElementById('skip-to').textContent = `Question ${state.q < questions.length - 1 ? state.q + 2 : 1} instead`;
+    document.getElementById('back-to').textContent = `Back to question ${state.q}`;
+    backItem.hidden = state.q === 0;
     pile.replaceChildren(...Array.from({ length: n }, (_, i) => card(q, i)));
     pile.classList.toggle('is-folded', n >= 3);
     applyOpen();
@@ -345,13 +349,115 @@
     if (!busy) toggle(node);
   });
 
-  prev.addEventListener('click', () => go(state.q - 1));
-  next.addEventListener('click', () => go(state.q + 1));
   folding.addEventListener('change', () => {
     open = -1;
     applyOpen();
   });
   mouse.addEventListener('change', () => render());
+
+  // The menu: skipping this question (the cards are collected, as after the showdown) or going back to the last one.
+  // It closes when you choose, tap elsewhere, press Escape or tab away.
+  function showMenu(show) {
+    menu.hidden = !show;
+    moreButton.setAttribute('aria-expanded', String(show));
+  }
+  moreButton.addEventListener('click', (event) => {
+    showMenu(menu.hidden);
+    // From the keyboard, straight to the first choice
+    if (!menu.hidden && event.detail === 0) skipItem.focus();
+  });
+  skipItem.addEventListener('click', () => {
+    showMenu(false);
+    moreButton.focus({ preventScroll: true });
+    startNext();
+  });
+  backItem.addEventListener('click', () => {
+    showMenu(false);
+    moreButton.focus({ preventScroll: true });
+    go(state.q - 1);
+  });
+  // A tap elsewhere only closes the menu: it doesn't also turn over the card it lands on
+  let swallow = false;
+  document.addEventListener('pointerdown', (event) => {
+    swallow = !menu.hidden && !event.target.closest('.ph-more');
+    if (swallow) showMenu(false);
+  });
+  document.addEventListener('click', (event) => {
+    if (!swallow || event.detail === 0) return;
+    swallow = false;
+    event.stopPropagation();
+    event.preventDefault();
+  }, true);
+  menu.addEventListener('keydown', (event) => {
+    const items = [...menu.querySelectorAll('button:not([hidden])')];
+    const at = items.indexOf(document.activeElement);
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      items[(at + (event.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || menu.hidden) return;
+    showMenu(false);
+    moreButton.focus();
+  });
+  menu.addEventListener('focusout', (event) => {
+    // Only when focus moves on to something else: a tap that takes focus nowhere is handled on pointerdown
+    if (event.relatedTarget && !event.relatedTarget.closest('.ph-more')) showMenu(false);
+  });
+
+  // The rule sheet opens at the top, ready to scroll. Close, Escape or a tap beside it closes it, sliding away again.
+  const rulesBody = rules.querySelector('.rules__body');
+  let closing = 0;
+  function closeRules() {
+    if (!rules.open || closing) return;
+    if (!moving()) return rules.close();
+    rules.classList.add('is-closing');
+    // In case the animation never ends (a hidden tab, say)
+    closing = setTimeout(() => rules.close(), 400);
+  }
+  rules.addEventListener('animationend', (event) => {
+    if (closing && /^rules-(down|out)$/.test(event.animationName)) rules.close();
+  });
+  rules.addEventListener('close', () => {
+    clearTimeout(closing);
+    closing = 0;
+    rules.classList.remove('is-closing');
+    rulesButton.focus({ preventScroll: true });
+  });
+  rulesButton.addEventListener('click', () => {
+    showMenu(false);
+    rules.showModal();
+    rulesBody.scrollTop = 0;
+    rulesBody.focus({ preventScroll: true });
+  });
+  rules.querySelector('[data-close]').addEventListener('click', closeRules);
+  // A click on the dialog itself, not its contents, is a click on the dimmed page around it
+  rules.addEventListener('click', (event) => {
+    if (event.target === rules) closeRules();
+  });
+  rules.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeRules();
+  });
+
+  // Phones dim and lock after a minute or so, often in the middle of a betting round: while the page is on screen,
+  // it keeps the screen on. The browser lets go when you switch away, so it asks again when you come back.
+  let awake = null;
+  let asking = false;
+  async function stayAwake() {
+    if (awake || asking || document.visibilityState !== 'visible' || !navigator.wakeLock) return;
+    asking = true;
+    try {
+      awake = await navigator.wakeLock.request('screen');
+      awake.addEventListener('release', () => { awake = null; });
+    } catch {}
+    asking = false;
+  }
+  document.addEventListener('visibilitychange', stayAwake);
+  // Some browsers only allow it after a tap
+  document.addEventListener('click', stayAwake);
+  stayAwake();
 
   render();
 })();

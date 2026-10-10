@@ -27,11 +27,28 @@
 
   <header class="ph">
     <a class="ph__home" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
-    <nav class="ph-count" aria-label="Questions">
-      <button type="button" data-go="-1" aria-label="Previous question">‹</button>
-      <span id="play-count">Question 1</span>
-      <button type="button" data-go="1" aria-label="Next question">›</button>
-    </nav>
+    <div class="ph__tools">
+      <button type="button" class="ph-btn" id="rules-open" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>
+        Rules
+      </button>
+      <!-- What a table rarely needs: skipping a question (someone knows it already) and going back to the last one -->
+      <div class="ph-more">
+        <button type="button" class="ph-btn ph-btn--round" id="more-open" aria-expanded="false" aria-controls="more" aria-label="More">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+        </button>
+        <div class="ph-menu" id="more" hidden>
+          <button type="button" data-skip>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5l8 7-8 7z"/><path d="M17 5v14"/></svg>
+            <span>Skip this question<small id="skip-to">Question 2 instead</small></span>
+          </button>
+          <button type="button" data-back hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
+            <span><span id="back-to">Back to the last question</span><small>With its cards as you left them</small></span>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- The cards turned over lie on the pile; the rest wait face down in the deck. assets/play.js deals them. -->
@@ -44,5 +61,87 @@
   </main>
 
   <p class="sr-only" id="play-live" aria-live="polite"></p>
+
+  <!-- The rule sheet, with the same text as the printed one (files/fermi-poker-rules.pdf) but without its introduction
+       and example. When the rules change, change both. -->
+  <dialog class="rules" id="rules" aria-labelledby="rules-title">
+    <div class="rules__head">
+      <h2 id="rules-title">Rules</h2>
+      <button type="button" class="rules__close" data-close aria-label="Close the rules">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="rules__body" tabindex="-1">
+      <div class="rules__cols">
+        <section>
+          <h3>Before you start</h3>
+          <ul>
+            <li>Everyone starts with the same amount of chips.</li>
+            <li>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</li>
+            <li>Don’t use phones, calculators or the internet.</li>
+            <li>The organizer announces the ante and how often it goes up, for example every 20 minutes.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>How a question is played</h3>
+          <ol>
+            <li><b>Ante.</b> Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</li>
+            <li><b>Guess.</b> Everyone secretly writes down a range they think contains the answer, for example <span class="nowrap">“400–1100”</span>. Then betting <span class="nowrap">round 1</span>.</li>
+            <li><b>Hint 1.</b> Then betting round 2.</li>
+            <li><b>Hint 2.</b> Then betting round 3.</li>
+            <li><b>Answer reveal.</b> Then betting round 4.</li>
+            <li><b>Showdown.</b> The remaining players reveal their ranges, and the best one wins the pot. Revealing is voluntary for everyone who folded.</li>
+          </ol>
+        </section>
+        <section>
+          <h3>Your guess</h3>
+          <ul>
+            <li>Write it secretly and place it face down. Once betting round 1 starts, you can’t change it.</li>
+            <li>A range includes both of its endpoints.</li>
+            <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they’re clearly written and not ambiguous.</li>
+          </ul>
+        </section>
+        <section class="rules__optional">
+          <h3>Optional game variants</h3>
+          <ul>
+            <li><b>Single numbers</b> instead of ranges, or <b>powers of ten only</b> (10<sup>1</sup>, 10<sup>2</sup>, 10<sup>3</sup>…).</li>
+            <li><b>60-second clock:</b> once half the players have written their guesses, the rest have 60 seconds.</li>
+            <li><b>Mirror card</b> (usable once per player): write another player’s name to copy their guess.</li>
+          </ul>
+        </section>
+        <section class="rules__betting">
+          <h3>Betting</h3>
+          <p>Play moves clockwise. On your turn you can:</p>
+          <ul>
+            <li><b>Check:</b> pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</li>
+            <li><b>Bet or raise:</b> increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</li>
+            <li><b>Call:</b> match the highest bet so far.</li>
+            <li><b>Fold:</b> drop out of this question. You give up the chips you’ve put in, but risk nothing more.</li>
+            <li><b>All-in:</b> bet all your chips. This is possible even if what you have left is less than the highest bet.</li>
+          </ul>
+          <p>A betting round ends once everyone has acted and matched the highest bet or folded. Within a betting round, you can only raise again if someone else raised after you.</p>
+          <p>If you’re <span class="nowrap">all-in</span>, you can win from each player only as much as you put in yourself. Extra bets go into a side pot that only the players who paid into it can win. Can’t pay the ante? You’re automatically <span class="nowrap">all-in</span>.</p>
+        </section>
+        <section>
+          <h3>Who wins the pot</h3>
+          <ul>
+            <li>The <b>narrowest range that contains the answer</b> wins. Width is the high endpoint minus the low one: if the answer is 500, a range of <span class="nowrap">“200–600”</span> (400) beats a range of <span class="nowrap">“400–1100”</span> (700).</li>
+            <li>Equally narrow? Split the pot.</li>
+            <li>No range contains the answer? The range whose midpoint (halfway between low and high) is closest to the answer wins.</li>
+            <li>Everyone else folded? The last remaining player wins and doesn’t have to reveal their guess.</li>
+            <li>Everyone, or all but one, is <span class="nowrap">all-in</span>? Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</li>
+          </ul>
+        </section>
+        <section>
+          <h3>End of the game</h3>
+          <p>A player with no chips left is out. The game usually ends when one player has all the chips.</p>
+        </section>
+      </div>
+      <p class="rules__more">
+        <a href="/how-to-play/">The rules with an example</a>
+        <a href="/files/fermi-poker-rules.pdf">The rule sheet to print</a>
+      </p>
+    </div>
+  </dialog>
 </body>
 </html>
