@@ -429,6 +429,8 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
+/* Optional extras, like the game variants on How to play: the same box, dashed */
+.box--optional { border-style: dashed; }
 /* The example question that runs through the steps on How to play, folded under each step's rule: a shaded panel, with
    the question, hints and answer as small cards like the printed ones players turn over */
 .box__example > summary {
