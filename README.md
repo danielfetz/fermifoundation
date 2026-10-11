@@ -19,7 +19,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   yet and is kept out of search engines (`noindex`) while it's being tried out. Its Rules button opens a copy of the
   rule sheet (the PDF's text without its introduction and example), so when the rules change, change it along with
   the PDF and How to play. The ⋯ menu skips a question or goes back to the last one, and while the page is open it
-  keeps the screen on.
+  keeps the screen on. The deck's cards are thin cream paper with the table's etching showing through them, lined
+  up with it: `play.js` knows the etching's size and place on the table (`ETCHING`), so change it along with the
+  `.rome` background in `play.css`.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all five.
 

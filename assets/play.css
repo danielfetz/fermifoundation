@@ -32,7 +32,8 @@ body.play {
   min-height: 0;
   background: transparent;
 }
-/* The etching is the table: it fills the screen, softened so the cards stand out, a little darker at the edges */
+/* The etching is the table: it fills the screen, softened so the cards stand out, a little darker at the edges.
+   The deck's cards show it through them, so play.js knows its size and place (ETCHING): change them together. */
 .rome {
   position: absolute;
   inset: 0;
@@ -153,20 +154,21 @@ body.play {
 .table__pile { position: relative; }
 .pile--was { position: absolute; top: 0; left: 0; right: 0; pointer-events: none; }
 
-/* A card, as printed: which card it is, its text, and what the table does now */
+/* A card, as printed: which card it is, its text, and what the table does now. A thin line runs inside its edge, as
+   on the cards in the deck. */
 .pc {
   --pc-ink: #151515;
+  --pc-frame: inset 0 0 0 7px #fffef8, inset 0 0 0 8.5px rgba(27, 35, 42, 0.5), 0 0 0 1px rgba(27, 35, 42, 0.16);
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 14px;
-  border: 1.5px solid #3b3b3b;
-  border-radius: 3px;
+  padding: 19px 23px 16px;
+  border-radius: 5px;
   background: #fffef8;
   color: var(--pc-ink);
   font-family: 'IBM Plex Sans', sans-serif;
   transform: translateX(var(--x, 0px)) rotate(var(--r, 0deg));
-  box-shadow: 0 1px 1px rgba(30, 22, 8, 0.08), 0 8px 18px -8px rgba(30, 22, 8, 0.32);
+  box-shadow: var(--pc-frame), 0 1px 1px rgba(30, 22, 8, 0.08), 0 8px 18px -8px rgba(30, 22, 8, 0.32);
   transition: box-shadow 250ms var(--ease);
 }
 .pc__top {
@@ -198,7 +200,7 @@ body.play {
 .pile .pc:nth-child(2) { --r: 0.6deg; --x: 4px; }
 .pile .pc:nth-child(3) { --r: -0.5deg; --x: -2px; }
 .pile .pc:nth-child(4) { --r: 0.7deg; --x: 3px; }
-.pc--focus { box-shadow: 0 1px 1px rgba(30, 22, 8, 0.08), 0 22px 40px -16px rgba(30, 22, 8, 0.55); }
+.pc--focus { box-shadow: var(--pc-frame), 0 1px 1px rgba(30, 22, 8, 0.08), 0 22px 40px -16px rgba(30, 22, 8, 0.55); }
 /* Dealing a card (play.js): the deck's top card turns over where it lies, on a layer above the deck, and the card it
    turns into flies to the pile, turning face up on the way */
 .pile { perspective: 1600px; }
@@ -210,7 +212,7 @@ body.play {
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 
 /* The card in focus gets the room */
-.pc--focus { min-height: 236px; padding: 20px 22px 16px; }
+.pc--focus { min-height: 236px; padding: 23px 25px 19px; }
 .pc--focus .pc__top { font-size: 17px; }
 .pc--focus .pc__body > :first-child { margin-top: 16px; }
 .pc--focus .pc__text { font-size: 23px; line-height: 1.32; }
@@ -222,10 +224,10 @@ body.play {
    stays readable in smaller type and the hints fold to one line. Tapping a folded card opens it in its place and
    folds the open one. */
 @media (max-height: 1000px) {
-  .pile.is-folded .pc:not(:first-child):not(.pc--focus) { padding-top: 11px; padding-bottom: 22px; }
+  .pile.is-folded .pc:not(:first-child):not(.pc--focus) { padding-top: 15px; padding-bottom: 24px; }
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) > :not(.pc__peek) { display: none; }
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) .pc__peek { display: block; }
-  .pile.is-folded .pc:first-child:not(.pc--focus) { padding-top: 11px; padding-bottom: 24px; }
+  .pile.is-folded .pc:first-child:not(.pc--focus) { padding-top: 15px; padding-bottom: 26px; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__top { padding-bottom: 5px; font-size: 14px; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body { padding-bottom: 0; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__body > :first-child { margin-top: 7px; }
@@ -235,7 +237,7 @@ body.play {
   .pile.is-folded .pc--focus:not(:last-child) .pc__now { display: none; }
   .pile.is-folded .pc + .pc { margin-top: -16px; }
   /* Folded at the bottom of the pile, with no card lying on it: even padding */
-  .pile.is-folded .pc:last-child:not(.pc--focus) { padding-bottom: 12px; }
+  .pile.is-folded .pc:last-child:not(.pc--focus) { padding-bottom: 16px; }
 }
 
 /* The deck: the cards still face down, peeking up from the bottom of the screen. Their top 132px stand above --edge;
@@ -251,6 +253,7 @@ body.play {
 }
 /* Measures --edge for play.js: the bottom edge of the screen for pinned things */
 .edge-probe { position: fixed; bottom: 0; left: 0; width: 0; height: 0; visibility: hidden; pointer-events: none; }
+/* A card face down: thin cream paper, with the same line inside its edge as the cards face up */
 .back {
   position: absolute;
   top: 0;
@@ -262,13 +265,29 @@ body.play {
   height: 300px;
   padding: 18px 22px;
   border-radius: 5px;
-  color: #fffef2;
+  color: #1b232a;
   text-align: left;
-  background: repeating-linear-gradient(45deg, rgba(255, 254, 242, 0.04) 0 2px, transparent 2px 9px), #1b232a;
-  box-shadow: inset 0 0 0 7px #1b232a, inset 0 0 0 8.5px rgba(255, 254, 242, 0.4), 0 -6px 26px -8px rgba(30, 22, 8, 0.5);
+  background: #f2ecdc;
+  box-shadow: inset 0 0 0 7px #f2ecdc, inset 0 0 0 8.5px rgba(27, 35, 42, 0.45), 0 0 0 1px rgba(27, 35, 42, 0.16),
+    0 1px 2px rgba(40, 25, 10, 0.25), 0 -8px 22px -8px rgba(40, 25, 10, 0.5);
   -webkit-touch-callout: none;
   user-select: none;
   touch-action: manipulation;
+}
+/* The etching of the table shows through it, faintly, lined up with the table: play.js works out where the etching
+   lies under each card (--etching-at, --etching-size). Only its lines darken the cream, not its paper. */
+.back::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: url(/assets/img/forum-piranesi.webp) var(--etching-at, 0 0) / var(--etching-size, cover) no-repeat;
+  filter: grayscale(1) contrast(1.3);
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+  clip-path: inset(8.5px round 1px);
+  pointer-events: none;
 }
 /* Where each card lies in the deck (play.js sets the offsets, deeper cards peek out above) */
 .back { transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--dr, 0deg)); }
@@ -277,22 +296,24 @@ body.play {
   justify-content: space-between;
   width: 100%;
   padding-bottom: 7px;
-  border-bottom: 1px solid rgba(255, 254, 242, 0.28);
-  color: rgba(255, 254, 242, 0.72);
+  border-bottom: 1px solid rgba(27, 35, 42, 0.42);
+  color: rgba(27, 35, 42, 0.62);
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 14px;
 }
-.back__top b { color: #fffef2; font-weight: 600; }
+.back__top b { color: #1b232a; font-weight: 600; }
 .back__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; margin-top: 10px; }
 .back__kind { font-family: 'IBM Plex Sans', sans-serif; font-size: 25px; font-weight: 700; line-height: 1.2; }
+/* The button, white like those in the header */
 .back__tap {
   padding: 7px 16px;
   border-radius: 999px;
-  background: var(--blue);
-  color: #fff;
+  background: #fffef8;
+  color: var(--ink);
   font: 700 15px/1.2 var(--sans);
   text-align: center;
   white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(27, 35, 42, 0.22), 0 1px 2px rgba(21, 29, 35, 0.14), 0 8px 18px -10px rgba(21, 29, 35, 0.45);
 }
 
 /* Tablets and laptops: the same table, wider and in bigger type, to read from around it */
@@ -300,7 +321,7 @@ body.play {
   .table__pile,
   .deck { width: min(640px, 100% - 64px); }
   .pc,
-  .pc--focus { padding: 18px 26px 16px; }
+  .pc--focus { padding: 20px 27px 17px; }
   .pc__top,
   .pc--focus .pc__top { font-size: 17px; }
   .pile .pc:not(.pc--focus) .pc__text { font-size: 24px; }

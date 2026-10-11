@@ -14,6 +14,7 @@
   const backItem = menu.querySelector('[data-back]');
   const rulesButton = document.getElementById('rules-open');
   const rules = document.getElementById('rules');
+  const rome = document.querySelector('.rome');
   if (!pile || !deck || !questions.length) return;
 
   const CARDS = [
@@ -96,6 +97,26 @@
     node.style.setProperty('--dy', `${y}px`);
     node.style.setProperty('--dr', `${r}deg`);
   }
+  // The deck's cards are thin paper: the etching of the table shows through them, lined up with it. It lies on the
+  // table as .rome's background has it in play.css: 2560 × 1021 pixels, covering the table, placed at 33% 35%.
+  const ETCHING = { width: 2560, height: 1021, x: 0.33, y: 0.35 };
+  function lineUpEtching() {
+    if (!rome) return;
+    const table = rome.getBoundingClientRect();
+    const scale = Math.max(table.width / ETCHING.width, table.height / ETCHING.height);
+    const width = ETCHING.width * scale;
+    const height = ETCHING.height * scale;
+    const left = table.left + (table.width - width) * ETCHING.x;
+    const top = table.top + (table.height - height) * ETCHING.y;
+    // Each card where it lies in the deck, at rest (its slight turn left out)
+    const at = deck.getBoundingClientRect();
+    for (const node of deck.children) {
+      const x = at.left + parseFloat(node.style.getPropertyValue('--dx'));
+      const y = at.top + parseFloat(node.style.getPropertyValue('--dy'));
+      node.style.setProperty('--etching-at', `${left - x}px ${top - y}px`);
+      node.style.setProperty('--etching-size', `${width}px ${height}px`);
+    }
+  }
   function renderDeck(n, dealt) {
     const left = 4 - n;
     let button;
@@ -120,6 +141,7 @@
     place(button, 0);
     pile.push(button);
     deck.replaceChildren(...pile);
+    lineUpEtching();
     if (!dealt || !moving()) return;
     pile.forEach((node, k) => {
       const depth = cards - 1 - k;
@@ -486,7 +508,11 @@
   // above it, and the deck and the page run on below it, behind the bar (see play.css).
   const probe = el('div', 'edge-probe');
   document.body.append(probe);
-  const measureEdge = () => document.body.style.setProperty('--edge', `${probe.getBoundingClientRect().top}px`);
+  // The deck moves with it, and the table may have changed size: the etching is lined up again
+  const measureEdge = () => {
+    document.body.style.setProperty('--edge', `${probe.getBoundingClientRect().top}px`);
+    lineUpEtching();
+  };
   measureEdge();
   addEventListener('resize', measureEdge);
   window.visualViewport?.addEventListener('resize', measureEdge);
