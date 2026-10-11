@@ -318,10 +318,10 @@ body.play {
   font-size: 14px;
 }
 .back__top b { color: #1b232a; font-weight: 600; }
-/* Which card it is, on one line next to the button: a little smaller on narrow phones, so that "New question" fits
-   (on the narrowest, the button goes under it instead) */
+/* Which card it is, on one line next to the button: a little smaller on narrow phones, so that "New question" and
+   "Current question" fit, from phones 360px wide on (on narrower ones, the button goes under it instead) */
 .back__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; width: 100%; margin-top: 10px; }
-.back__kind { font-family: 'IBM Plex Sans', sans-serif; font-size: min(25px, 6.5vw); font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.back__kind { font-family: 'IBM Plex Sans', sans-serif; font-size: min(25px, 6.2vw); font-weight: 700; line-height: 1.2; white-space: nowrap; }
 /* The button, white like those in the header */
 .back__tap {
   padding: 7px 16px;
