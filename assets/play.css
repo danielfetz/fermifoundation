@@ -150,9 +150,15 @@ body.play {
 .table__pile { width: min(560px, 100% - 36px); margin: 0 auto; }
 
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
-/* While cards change shape, a copy of the pile as it was lies over it for a moment, fading out (play.js) */
+/* While cards change shape, copies of the pile lie over it for a moment (play.js): the pile as it was, and the pile as
+   it is now, of which only what's new on the cards changing shows. Their cards lie in turn (play.js sets z-index), so
+   neither copy is a layer of its own. */
 .table__pile { position: relative; }
-.pile--was { position: absolute; top: 0; left: 0; right: 0; pointer-events: none; }
+.pile--was,
+.pile--now { position: absolute; top: 0; left: 0; right: 0; perspective: none; pointer-events: none; }
+.pile--now > .pc { background: none; box-shadow: none; }
+/* A card's name, going between its top line and its folded line (play.js) */
+.pc__name { position: absolute; margin: 0; font-weight: 700; line-height: normal; white-space: nowrap; }
 
 /* A card, as printed: which card it is, its text, and what the table does now. A thin line runs inside its edge, as
    on the cards in the deck. */
@@ -225,7 +231,7 @@ body.play {
    folds the open one. */
 @media (max-height: 1000px) {
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) { padding-top: 15px; padding-bottom: 24px; }
-  .pile.is-folded .pc:not(:first-child):not(.pc--focus) > :not(.pc__peek) { display: none; }
+  .pile.is-folded .pc:not(:first-child):not(.pc--focus) > :not(.pc__peek):not(.pc__name) { display: none; }
   .pile.is-folded .pc:not(:first-child):not(.pc--focus) .pc__peek { display: block; }
   .pile.is-folded .pc:first-child:not(.pc--focus) { padding-top: 15px; padding-bottom: 26px; }
   .pile.is-folded .pc:first-child:not(.pc--focus) .pc__top { padding-bottom: 5px; font-size: 14px; }
