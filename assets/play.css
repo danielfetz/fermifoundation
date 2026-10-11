@@ -217,6 +217,9 @@ body.play {
    then tilt, and what stands still straight onto the page, tilted letter by letter, which looks a hair different; so
    each card would shift a little the moment it stops moving (as it lands, or changes shape). */
 .pc { will-change: transform; }
+/* Letters exactly as wide in every type size. Some browsers round each letter's width to whole pixels, each size its
+   own way, so the letters of a line would shuffle about as a card's text grows or shrinks (play.js). */
+.pc { text-rendering: geometricPrecision; }
 /* Cards you can tap to open */
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 

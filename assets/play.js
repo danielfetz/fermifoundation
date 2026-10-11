@@ -241,41 +241,33 @@
   const near = (x, y) => Math.abs(x - y) < 0.01;
   const samePart = (a, b) => (!a && !b)
     || (!!a && !!b && near(a.left, b.left) && near(a.top, b.top) && near(a.width, b.width) && a.font === b.font && a.pad === b.pad);
-  // Moves and scales a node over the change of shape, setting its transform frame by frame in step with the change
-  // (an animation that only keeps time) rather than animating it: browsers draw what's animated on a layer of its
-  // own, where text falls on the screen's pixels a little differently than on the card, so it would shift a little
-  // the moment the card takes over. For the same reason it arrives a little before the card has its new shape, and
-  // stands still from then on, without any transform, just as on the card. (It comes to rest while still moving a
-  // hair, so the last rounding to the screen's pixels, which browsers do only for what stands still, is part of the
-  // movement rather than a step after it.)
-  function move(node, from, to) {
-    const clock = node.animate([], { duration: MORPH_MS * 0.8, easing: EASE, fill: 'both' });
-    const place = () => {
-      const e = Math.min(1, (clock.effect.getComputedTiming().progress ?? 1) / 0.97);
-      const at = (key) => from[key] + (to[key] - from[key]) * e;
-      node.style.transform = `translate(${at('x')}px, ${at('y')}px) scale(${at('scale')})`;
-      if (e === 1 && !to.x && !to.y && to.scale === 1) node.style.transform = '';
-    };
-    const frame = () => {
-      place();
-      if (node.isConnected && clock.playState !== 'finished') requestAnimationFrame(frame);
-    };
-    place();
-    requestAnimationFrame(frame);
-    clock.finished.then(place, () => {});
-    return clock;
-  }
-  // A text's words, each made a box of its own (so it can fade on its own), and where each lies in the text. Only for
-  // plain text.
+  // A plain text's words: where each starts and ends in the text, where it lies as the text is laid out, and on which
+  // line, and where each line lies (to the fraction of a pixel, measured with the card's slight turn undone for the
+  // moment)
   const plain = (node) => [...node.childNodes].every((child) => child.nodeType === Node.TEXT_NODE);
-  function wordsOf(node) {
-    node.replaceChildren(...node.textContent.split(/(\s+)/).map((text) => {
-      if (!text.trim()) return text;
-      const word = el('span', '', text);
-      word.style.display = 'inline-block';
-      return word;
-    }));
-    return [...node.children].map((word) => ({ node: word, x: word.offsetLeft, y: word.offsetTop }));
+  function wordsOf(node, card) {
+    node.normalize();
+    const text = node.firstChild;
+    const turn = card.style.transform;
+    card.style.transform = 'none';
+    const at = node.getBoundingClientRect();
+    const range = document.createRange();
+    const tops = [];
+    const words = text ? [...text.data.matchAll(/\S+/g)].map((match) => {
+      range.setStart(text, match.index);
+      range.setEnd(text, match.index + match[0].length);
+      const box = range.getBoundingClientRect();
+      if (!tops.length || box.top - tops[tops.length - 1] > 1) tops.push(box.top);
+      return { start: match.index, end: match.index + match[0].length, left: box.left - at.left - node.clientLeft,
+        right: box.right - at.left - node.clientLeft, line: tops.length - 1 };
+    }) : [];
+    card.style.transform = turn;
+    return { data: text?.data ?? '', words, lines: tops.map((top) => top - tops[0]) };
+  }
+  // A text's line height, in its type size
+  function leadingOf(node, font) {
+    const height = getComputedStyle(node).lineHeight;
+    return height.endsWith('px') ? parseFloat(height) / font : parseFloat(height);
   }
   function morph(was) {
     if (!was || !moving()) return;
@@ -288,6 +280,13 @@
     const animations = [];
     const run = (node, keyframes, timing) => {
       animations.push(node.animate(keyframes, { duration: MORPH_MS, easing: EASE, fill: 'both', ...timing }));
+    };
+    // One thing giving way to another at a given moment, at once: the one shows until then, the other from then on.
+    // (By its visibility rather than its opacity, so that neither is drawn on a layer of its own meanwhile.)
+    const swap = (from, to, at) => {
+      const timing = { duration: at, easing: 'steps(1, end)' };
+      run(from, [{ visibility: 'visible' }, { visibility: 'hidden' }], timing);
+      run(to, [{ visibility: 'hidden' }, { visibility: 'visible' }], { ...timing, fill: 'backwards' });
     };
     pile.after(before, after);
     // Measured first, all at once, with the cards' slight turns undone for the moment: each card's parts as they were,
@@ -325,11 +324,12 @@
       // A card changing shape: its shadow becomes the new one, and each part goes its own way, out of the flow
       run(old, [{ boxShadow: getComputedStyle(old).boxShadow }, { boxShadow: settledShadow(cards[i]) }]);
       for (const part of [...then, ...now]) {
-        if (part) Object.assign(part.node.style, { position: 'absolute', left: `${part.left}px`, top: `${part.top}px`, width: `${part.width}px`, margin: '0', transformOrigin: '0 0' });
+        if (part) Object.assign(part.node.style, { position: 'absolute', left: `${part.left}px`, top: `${part.top}px`, width: `${part.width}px`, margin: '0' });
       }
       // A card folding to its one line, or opening from it: its name goes from one to the other, growing or
-      // shrinking on the way, while the rest of each fades. At the end, the name as it is now takes over where the
-      // gliding one has come to.
+      // shrinking on the way, while the rest of each fades. Once the gliding name has come to rest, the name as it is
+      // now takes its place, at once: they look the same there, and fading one into the other would draw the name
+      // twice over itself for a moment.
       const [oldTop, oldLine, newTop, newLine] = [then[0], then[1], now[0], now[1]];
       const ends = oldTop && newLine && !oldLine && !newTop ? [oldTop, newLine] : oldLine && newTop && !oldTop && !newLine ? [oldLine, newTop] : null;
       if (ends) {
@@ -337,45 +337,85 @@
         start.node.style.visibility = 'hidden';
         const name = el('b', 'pc__name', start.node.textContent);
         ghost.append(name);
-        run(name, [{ left: `${start.left}px`, top: `${start.top}px`, fontSize: start.font }, { left: `${end.left}px`, top: `${end.top}px`, fontSize: end.font }]);
-        run(name, [{ opacity: 1 }, { opacity: 1, offset: 0.8 }, { opacity: 0 }], { easing: 'linear' });
-        run(end.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.7, easing: 'linear', fill: 'backwards' });
+        run(name, [{ left: `${start.left}px`, top: `${start.top}px`, fontSize: start.font }, { left: `${end.left}px`, top: `${end.top}px`, fontSize: end.font }],
+          { duration: MORPH_MS * 0.8 });
+        swap(name, end.node, MORPH_MS * 0.85);
       }
       then.forEach((a, k) => {
         const b = now[k];
         if (a && b && PARTS[k] === '.pc__top') {
-          // The card's name and number, on one line over a rule as wide as the card: their type grows or shrinks and
-          // the rule widens or narrows, until they are as they are now
+          // The card's name, over a rule as wide as the card: its type grows or shrinks and the rule widens or
+          // narrows, until they are as they are now (a little before the card is, so nothing in it is still moving
+          // by a hair when the card takes over)
           b.node.style.visibility = 'hidden';
           run(a.node, [{ left: `${a.left}px`, top: `${a.top}px`, width: `${a.width}px`, fontSize: `${a.font}px`, paddingBottom: a.pad },
-            { left: `${b.left}px`, top: `${b.top}px`, width: `${b.width}px`, fontSize: `${b.font}px`, paddingBottom: b.pad }]);
+            { left: `${b.left}px`, top: `${b.top}px`, width: `${b.width}px`, fontSize: `${b.font}px`, paddingBottom: b.pad }], { duration: MORPH_MS * 0.8 });
         } else if (a && b && plain(a.node) && plain(b.node) && a.node.textContent === b.node.textContent) {
-          // The same text on both sides, which may break into lines differently. As it was and as it is now, it grows
-          // or shrinks to its new size and place, the two together. As it was, it's set in the larger of the two sizes
-          // and scaled down, so it stays sharp; as it is now, in its own size, so that in the end it's exactly as on
-          // the card. The words that keep their place in their line show throughout: halfway, as each lies on itself,
-          // the word as it is now takes over. The ones that move to another line, or along theirs, fade from where
-          // they were to where they are now.
-          const size = Math.max(a.font, b.font);
-          Object.assign(a.node.style, { fontSize: `${size}px`, width: `${(a.width * size) / a.font}px` });
-          const [oldWords, newWords] = [a, b].map((part) => wordsOf(part.node));
+          // The same text on both sides, which may break into lines differently. Line by line it moves, and grows or
+          // shrinks, to its new place and size, each line set in the size it has at the moment rather than scaled
+          // (so it's drawn as sharply as on the card) and as one run of text (so its letters lie exactly as on the
+          // card: anything that splits a line shifts the letters after it by a hair). So it starts exactly as it was
+          // and ends exactly as it is now. The words a line starts with that were on that line before, in the same
+          // place, show throughout; the ones that come to a line from another, or move along theirs, fade from where
+          // they were to where they are now. (Never the same word twice over itself, fading one into the other: that
+          // looks bold.) They fade by their colour, so that nothing is drawn on a layer of its own meanwhile.
+          const [oldText, newText] = [[a, old], [b, ghost]].map(([part, card]) => wordsOf(part.node, card));
+          const [la, lb] = [a, b].map((part) => leadingOf(part.node, part.font));
+          const [inkA, inkB] = [a, b].map((part) => getComputedStyle(part.node).color);
+          const kept = oldText.words.map((word, w) => word.line === newText.words[w].line
+            && Math.abs(word.left / a.font - newText.words[w].left / b.font) < 0.05);
           const dx = b.left - a.left;
           const dy = b.top - a.top;
-          animations.push(move(a.node, { x: 0, y: 0, scale: a.font / size }, { x: dx, y: dy, scale: b.font / size }),
-            move(b.node, { x: -dx, y: -dy, scale: a.font / b.font }, { x: 0, y: 0, scale: 1 }));
-          // (What fades in is left as it is once it has: nothing new is drawn on a layer of its own at the end)
-          oldWords.forEach((word, w) => {
-            const same = newWords[w];
-            // Where each lies in its text, in its type size
-            const kept = Math.abs(word.x / size - same.x / b.font) < 0.2 && Math.abs(word.y / size - same.y / b.font) < 0.3;
-            if (kept) {
-              run(same.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.35, easing: 'linear', fill: 'backwards' });
-              run(word.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.5, easing: 'linear' });
-            } else {
-              run(word.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.2, easing: 'ease-out' });
-              run(same.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.35, delay: MORPH_MS * 0.15, easing: 'ease-out', fill: 'backwards' });
+          // A line of a text, from its word `from` up to (not with) its word `to`, as a row of its own, going from
+          // [left, top, type size, line height] to the same. If its words before `shown` don't show, they're cut
+          // away, halfway into the space after them.
+          const row = (text, font, from, to, shown, path) => {
+            const { words } = text;
+            const line = el('div', '', text.data.slice(words[from].start, words[to - 1].end));
+            line.style.position = 'absolute';
+            line.style.whiteSpace = 'nowrap';
+            if (shown > from) {
+              const cut = ((words[shown - 1].right + words[shown].left) / 2 - words[from].left) / font;
+              line.style.clipPath = `inset(-1em -1em -1em ${cut}em)`;
             }
+            run(line, path.map(([left, top, size, leading]) => ({ left: `${left}px`, top: `${top}px`, fontSize: `${size}px`, lineHeight: String(leading) })),
+              { duration: MORPH_MS * 0.8 });
+            return line;
+          };
+          // Each line's words: its first, the first of them that doesn't stay, and the one after its last
+          const rowsOf = (text) => text.lines.map((_, i) => {
+            const on = text.words.flatMap((word, w) => (word.line === i ? [w] : []));
+            const moving = on.find((w) => !kept[w]);
+            return [on[0], moving ?? on[on.length - 1] + 1, on[on.length - 1] + 1];
           });
+          // As it was: of each line, only what doesn't stay, fading as the whole text goes where it's going and grows
+          // or shrinks to its new size
+          const grow = b.font / a.font;
+          a.node.replaceChildren(...rowsOf(oldText).flatMap(([first, moving, last], i) => {
+            if (moving === last) return [];
+            const at = [oldText.words[first].left, oldText.lines[i]];
+            const line = row(oldText, a.font, first, last, moving, [[...at, a.font, la], [at[0] * grow + dx, at[1] * grow + dy, b.font, la]]);
+            run(line, [{ color: inkA }, { color: 'transparent' }], { duration: MORPH_MS * 0.2, easing: 'ease-out' });
+            return [line];
+          }));
+          // As it is now: each line from where its first words were, if they were on that line before, or else from
+          // where it would have been with the whole text in its old size. The words that stay show throughout, the
+          // others fade in. (Left as they are once they have: nothing changes at the end.)
+          b.node.replaceChildren(...rowsOf(newText).flatMap(([first, moving, last], i) => {
+            const at = [newText.words[first].left, newText.lines[i]];
+            const from = moving > first
+              ? [oldText.words[first].left - dx, oldText.lines[i] - dy, a.font, la]
+              : [at[0] / grow - dx, at[1] * ((a.font * la) / (b.font * lb)) - dy, a.font, la];
+            const path = [from, [...at, b.font, lb]];
+            const lines = [];
+            if (moving > first) lines.push(row(newText, b.font, first, moving, first, path));
+            if (moving < last) {
+              const line = row(newText, b.font, first, last, moving, path);
+              run(line, [{ color: 'transparent' }, { color: inkB }], { duration: MORPH_MS * 0.35, delay: MORPH_MS * 0.15, easing: 'ease-out', fill: 'backwards' });
+              lines.push(line);
+            }
+            return lines;
+          }));
         } else {
           // Shown only before, or only now: one fades out quickly as the other fades in, so the card is never blank
           if (a) run(a.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.25, easing: 'ease-out' });
