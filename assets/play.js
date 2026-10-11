@@ -166,9 +166,10 @@
 
   // When cards change shape (the pile folding as a card is dealt, or a folded card opening), nothing jumps. Like an
   // accordion, a card that changes shape lets its text fade, shrinks or grows to its new size, and fades in its new
-  // text, while the cards below glide along. For that, a copy of the pile as it was lies over the pile for a moment
-  // and does the shrinking and growing; the pile itself is already in its new shape underneath, its cards moving in
-  // step with the copy's.
+  // text, while the cards below glide along. A copy of the pile as it was does this in front of the pile, which is
+  // already in its new shape: once the old text has faded, the copy takes on the pile's new look, and at the end, when
+  // it matches the pile exactly, it goes. Meanwhile the pile's own cards stay transparent, so each card shows once,
+  // its edges throughout. (A card being dealt flies in on the pile itself.)
   const MORPH_MS = 300;
   let morphing = null;
   let settleUntil = 0;
@@ -176,57 +177,67 @@
     morphing?.();
     if (!moving()) return null;
     const cards = [...pile.children];
-    return { copy: pile.cloneNode(true), tops: cards.map((node) => node.offsetTop), heights: cards.map((node) => node.offsetHeight) };
+    return { copy: pile.cloneNode(true), heights: cards.map((node) => node.offsetHeight), margins: cards.map((node) => getComputedStyle(node).marginTop) };
   }
   function morph(was) {
     if (!was || !moving()) return;
     const cards = [...pile.children];
-    const ghosts = [...was.copy.children].slice(0, cards.length);
-    const shaped = ghosts.map((ghost, i) => Math.abs(was.heights[i] - cards[i].offsetHeight) >= 1);
+    const { copy } = was;
+    const ghosts = [...copy.children].slice(0, cards.length);
+    if (!ghosts.length) return;
+    const changed = ghosts.map((ghost, i) => Math.abs(was.heights[i] - cards[i].offsetHeight) >= 1);
     const animations = [];
-    const run = (node, keyframes, timing) => animations.push(node.animate(keyframes, { duration: MORPH_MS, easing: EASE, ...timing }));
-    ghosts.forEach((ghost, i) => {
-      const node = cards[i];
-      const dy = was.tops[i] - node.offsetTop;
-      if (Math.abs(dy) > 0.5) run(node, [{ translate: `0 ${dy}px` }, { translate: '0 0' }]);
-      if (shaped[i]) for (const part of node.children) run(part, [{ opacity: 0 }, { opacity: 1 }], { duration: 220, delay: 120, easing: 'ease-out', fill: 'backwards' });
-    });
-    const copy = was.copy;
-    const finish = () => {
-      if (morphing === finish) morphing = null;
-      animations.forEach((animation) => animation.finish());
-      copy.remove();
+    const run = (node, keyframes, timing) => {
+      const animation = node.animate(keyframes, { duration: MORPH_MS, easing: EASE, ...timing });
+      animations.push(animation);
+      return animation;
     };
-    morphing = finish;
-    if (!shaped.includes(true)) return;
     copy.removeAttribute('id');
     copy.removeAttribute('aria-label');
     copy.classList.add('pile--was');
     copy.inert = true;
     copy.setAttribute('aria-hidden', 'true');
     pile.after(copy);
-    const first = animations.length;
-    const margins = ghosts.map((ghost, i) => [getComputedStyle(ghost).marginTop, getComputedStyle(cards[i]).marginTop]);
+    const hidden = cards.slice(0, ghosts.length);
+    for (const node of hidden) node.style.opacity = '0';
+    // Each card of the copy takes its new size and place
     ghosts.forEach((ghost, i) => {
-      // The next card lies over this one's bottom edge. If that card changes shape, its new self underneath the copy
-      // shows through as the copy fades, so the copy of this one must leave that edge to it.
-      if (shaped[i + 1]) {
-        const overlap = Math.max(0, ...margins[i + 1].map((margin) => -parseFloat(margin)));
-        ghost.style.clipPath = `inset(-60px -60px ${overlap}px -60px)`;
-      }
-      const [from, to] = margins[i];
-      if (!shaped[i]) {
-        if (from !== to) run(ghost, [{ marginTop: from }, { marginTop: to }], { fill: 'forwards' });
-        return;
-      }
-      // Its text fades, the card takes its new size, and at the end it fades into the card underneath
       ghost.style.overflow = 'hidden';
-      run(ghost, [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: from },
-        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: to }], { fill: 'forwards' });
-      run(ghost, [{ opacity: 1 }, { opacity: 0 }], { duration: 80, delay: 120, easing: 'linear', fill: 'forwards' });
-      for (const part of ghost.children) run(part, [{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
+      run(ghost, [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: was.margins[i] },
+        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: getComputedStyle(cards[i]).marginTop }], { fill: 'forwards' });
     });
-    Promise.all(animations.slice(first).map((animation) => animation.finished)).then(() => copy.remove(), () => {});
+    // The old text of the cards changing shape fades out; then the copy looks as the pile does now, and the new text
+    // fades in
+    const fading = ghosts.flatMap((ghost, i) => (changed[i]
+      ? [...ghost.children].map((part) => run(part, [{ opacity: 1 }, { opacity: 0 }], { duration: 80, easing: 'linear', fill: 'forwards' }))
+      : []));
+    let swapped = false;
+    const swap = () => {
+      if (swapped) return;
+      swapped = true;
+      copy.className = `${pile.className} pile--was`;
+      ghosts.forEach((ghost, i) => {
+        ghost.className = cards[i].className;
+        if (changed[i]) for (const part of ghost.children) run(part, [{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out', fill: 'forwards' });
+      });
+    };
+    let ended = false;
+    const finish = () => {
+      if (ended) return;
+      ended = true;
+      if (morphing === finish) morphing = null;
+      swap();
+      animations.forEach((animation) => animation.finish());
+      copy.remove();
+      for (const node of hidden) node.style.opacity = '';
+    };
+    morphing = finish;
+    Promise.all(fading.map((animation) => animation.finished))
+      .then(() => {
+        swap();
+        return Promise.all(animations.map((animation) => animation.finished));
+      })
+      .then(finish, () => {});
   }
 
   // Dealing a card: the deck's top card turns over where it lies. As it turns edge-on, the card it turns into takes

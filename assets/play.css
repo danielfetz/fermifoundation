@@ -133,6 +133,7 @@ body.play { background: transparent; }
   font-family: 'IBM Plex Sans', sans-serif;
   transform: translateX(var(--x, 0px)) rotate(var(--r, 0deg));
   box-shadow: 0 1px 1px rgba(30, 22, 8, 0.08), 0 8px 18px -8px rgba(30, 22, 8, 0.32);
+  transition: box-shadow 250ms var(--ease);
 }
 .pc__top {
   display: flex;
@@ -398,6 +399,7 @@ html:has(.rules[open]) { overflow: hidden; }
   .ph-menu,
   .rules[open],
   .rules[open]::backdrop { animation: none; }
+  .pc { transition: none; }
 }
 
 .sr-only {
