@@ -141,7 +141,7 @@ body.play {
   overscroll-behavior: contain;
   padding: 8px 0 170px;
   /* Scrolling a card into view keeps it clear of the deck */
-  scroll-padding: 8px 0 160px;
+  scroll-padding: 8px 0 168px;
 }
 .table__pile { width: min(560px, 100% - 36px); margin: 0 auto; }
 
