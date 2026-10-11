@@ -246,7 +246,7 @@
     const top = deck.querySelector('.back--next');
     if (!top) return null;
     const at = deck.getBoundingClientRect();
-    const box = { left: at.left, top: at.top, width: top.offsetWidth, height: top.offsetHeight };
+    const box = { left: at.left + top.offsetLeft, top: at.top + top.offsetTop, width: top.offsetWidth, height: top.offsetHeight };
     if (moving() && canFlip) {
       const layer = el('div', 'flip-layer', top.cloneNode(true));
       Object.assign(layer.style, { left: `${box.left}px`, top: `${box.top}px`, width: `${box.width}px`, height: `${box.height}px` });

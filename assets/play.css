@@ -395,6 +395,27 @@ html:has(.rules[open]) { overflow: hidden; }
   .rules__cols > section { break-inside: avoid; }
   .rules__betting { break-before: column; }
 }
+/* Being tried out (/play/?bar=glass). Safari on iPhones (iOS 26) fills the strip behind its bottom bar with the colour
+   of a fixed element at the bottom edge, here the dark deck, and fixed elements end where that strip begins. Here it
+   finds none, so its glass bar shows the page instead, as on the home page: only the top card's two rows take taps,
+   so Safari looks past the deck, and the etching is part of the page, so it runs on behind the bar. So the deck
+   doesn't end in a hard line there, it fades out at the bottom. */
+html[data-bar="glass"] body.play { position: relative; min-height: 100lvh; }
+html[data-bar="glass"] .rome { position: absolute; z-index: 0; }
+html[data-bar="glass"] .ph { position: relative; z-index: 2; }
+html[data-bar="glass"] .table { position: relative; z-index: 1; }
+html[data-bar="glass"] .deck,
+html[data-bar="glass"] .back { pointer-events: none; }
+html[data-bar="glass"] .back--next > .back__top,
+html[data-bar="glass"] .back--next > .back__row { pointer-events: auto; }
+/* The deck reaches higher, so the cards peeking out above the top one and their shadows stay inside the fade */
+html[data-bar="glass"] .deck {
+  height: 180px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent);
+}
+html[data-bar="glass"] .back { top: 48px; }
+
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
   .rules[open],

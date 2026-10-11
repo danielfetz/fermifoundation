@@ -14,6 +14,10 @@
   <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/play.css">
+  <!-- Being tried out: /play/?bar=glass shows the page behind iOS Safari's bottom bar (see play.css) -->
+  <script>
+    try { const bar = new URLSearchParams(location.search).get('bar'); if (bar) document.documentElement.dataset.bar = bar; } catch {}
+  </script>
   <script src="/play/questions.js" defer></script>
   <script src="/assets/play.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
