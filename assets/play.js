@@ -1,9 +1,8 @@
 // Play page: the question, hint and answer cards on screen, for tables without printed cards.
 // Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
-// and turn over and fly onto the pile when dealt. The answer turns over only when held, so nobody reveals it by accident.
-// On phones, from hint 2 on, earlier cards fold to one line (see play.css); tapping one opens it in its place and
-// folds the others. Where you are is remembered on this device. The header has the rules, and a menu for skipping a
-// question or going back to the last one.
+// and turn over and fly onto the pile when tapped. On phones, from hint 2 on, earlier cards fold to one line (see
+// play.css); tapping one opens it in its place and folds the others. Where you are is remembered on this device.
+// The header has the rules, and a menu for skipping a question or going back to the last one.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
@@ -23,7 +22,6 @@
     { name: 'Hint 2', then: 'betting round 3.' },
     { name: 'Answer', then: 'betting round 4, then the showdown.' },
   ];
-  const HOLD_MS = 600;
   const STORE = 'fermi-play';
   const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
   // Phones fold earlier cards (the same media query as in play.css)
@@ -108,10 +106,7 @@
     const left = 4 - n;
     let button;
     if (left > 0) {
-      button = n === 3
-        ? back('After betting round 3', '4 of 4', 'Answer', 'Hold to turn over', 'Hold to turn over the answer')
-        : back(`After betting round ${n}`, `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
-      if (n === 3) button.dataset.hold = '';
+      button = back(`After betting round ${n}`, `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
     } else {
       // All four turned over: the next question's four cards wait on the deck
       const last = state.q === questions.length - 1;
@@ -181,7 +176,6 @@
       layer.inert = true;
       layer.setAttribute('aria-hidden', 'true');
       document.body.append(layer);
-      layer.firstChild.classList.remove('is-holding');
       layer.firstChild.animate([{ rotate: 'y 0deg', translate: '0 0' }, { rotate: 'y 90deg', translate: '0 -12px' }],
         { duration: 170, easing: 'ease-in', fill: 'forwards' }).finished.catch(() => {}).then(() => layer.remove());
     }
@@ -199,13 +193,15 @@
     if (canFlip) node.animate([{ rotate: 'y -90deg' }, { rotate: 'y 0deg' }], { ...timing, easing: 'cubic-bezier(0.3, 0.6, 0.3, 1)' });
   }
 
-  // Taps that come too quickly after a card was turned over are ignored, so a double tap can't turn over two cards
+  // Taps on the deck that come too quickly after a card was turned over are ignored, so a double tap can't turn over
+  // two cards. After hint 2 and after the answer for a little longer, so a double tap there can't also turn over the
+  // answer, or start the next question.
   let quietUntil = 0;
   let busy = false;
   function turnOver() {
     const n = shownOf(state.q);
-    if (busy || n >= 4 || Date.now() < quietUntil) return;
-    quietUntil = Date.now() + 400;
+    if (busy || n >= 4) return;
+    quietUntil = Date.now() + (n >= 2 ? 1000 : 400);
     state.shown[state.q] = n + 1;
     open = -1;
     save();
@@ -213,9 +209,10 @@
     const q = questions[state.q];
     live.textContent = n === 3 ? `Answer: ${q.answer}. ${q.note || ''}` : `${CARDS[n].name}: ${textOf(q, n)}`;
   }
-  // The next question: the cards on the table are collected, then its question card flies in
+  // The next question (from the deck, or skipped from the menu): the cards on the table are collected, then its
+  // question card flies in
   async function startNext() {
-    if (busy || Date.now() < quietUntil) return;
+    if (busy) return;
     quietUntil = Date.now() + 400;
     busy = true;
     if (moving()) {
@@ -242,64 +239,17 @@
     live.textContent = `Question ${q + 1}: ${questions[q].question}`;
   }
 
-  // The deck: a click turns over a hint, the answer needs a press of HOLD_MS
-  let holding = null;
-  let holdTimer = 0;
-  let lastPress = 0;
-  let downOn = null;
-  function startHold(button) {
-    if (holding) return;
-    holding = button;
-    button.classList.add('is-holding');
-    holdTimer = setTimeout(() => {
-      stopHold();
-      turnOver();
-    }, HOLD_MS);
-  }
-  function stopHold() {
-    clearTimeout(holdTimer);
-    holding?.classList.remove('is-holding');
-    holding = null;
-  }
+  // The deck: a tap or a click turns over the card on top, or, after the answer, starts the next question
   const isPress = (event) => event.key === ' ' || event.key === 'Enter';
   deck.addEventListener('click', (event) => {
     const button = event.target.closest('button.back');
-    if (!button) return;
-    // A pointer click counts only on the card where the press began: holding the answer and letting go over the
-    // next question that replaces it doesn't start that question
-    if (event.detail > 0 && button !== downOn) return;
-    if ('next' in button.dataset) return startNext();
-    if (!('hold' in button.dataset)) return turnOver();
-    // A click on the answer without a press before it comes from assistive technology, which can't hold
-    if (Date.now() - lastPress > 1000) turnOver();
-  });
-  deck.addEventListener('pointerdown', (event) => {
-    lastPress = Date.now();
-    downOn = event.target.closest('button.back');
-    if (downOn && 'hold' in downOn.dataset && event.isPrimary && event.button === 0) startHold(downOn);
-  });
-  deck.addEventListener('pointerup', stopHold);
-  deck.addEventListener('pointercancel', stopHold);
-  deck.addEventListener('pointerout', (event) => {
-    if (holding && !holding.contains(event.relatedTarget)) stopHold();
+    if (!button || Date.now() < quietUntil) return;
+    if ('next' in button.dataset) startNext();
+    else turnOver();
   });
   deck.addEventListener('keydown', (event) => {
-    if (!isPress(event)) return;
-    // A key held down repeats; the repeats must not turn over the card that comes up next
-    if (event.repeat) return event.preventDefault();
-    const button = event.target.closest('button.back[data-hold]');
-    if (!button) return;
-    event.preventDefault();
-    lastPress = Date.now();
-    startHold(button);
-  });
-  deck.addEventListener('keyup', (event) => {
-    if (!isPress(event)) return;
-    lastPress = Date.now();
-    stopHold();
-  });
-  deck.addEventListener('contextmenu', (event) => {
-    if (event.target.closest('[data-hold]')) event.preventDefault();
+    // A key held down repeats; the repeats must not turn over the cards that come up next
+    if (isPress(event) && event.repeat) event.preventDefault();
   });
 
   // Phones: one card in a folded pile is open, the newest unless you tap another. Tapping a folded card opens it in
