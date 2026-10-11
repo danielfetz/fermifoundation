@@ -232,6 +232,23 @@ button {
   height: calc(var(--fermi-h) * 1.7);
   user-select: none;
 }
+/* Poker chips at the foot of the strip, in the etching's own colours: only where there's room for them beside Fermi
+   and under the menu. chips.svg is drawn in the strip's coordinates at 1440 × 426 (the box 700–1400 × 200–430), its
+   stacks around 81% across; it grows and shrinks with the strip. */
+.hero__chips { display: none; }
+@media (min-width: 900px) {
+  .hero__chips {
+    display: block;
+    position: absolute;
+    top: calc(var(--hero-h) * 200 / 426);
+    left: calc(81% - var(--hero-h) * 466.4 / 426);
+    width: auto;
+    max-width: none;
+    height: calc(var(--hero-h) * 230 / 426);
+    pointer-events: none;
+    user-select: none;
+  }
+}
 /* Menu floats over the sky; outside the hero so the mobile sheet isn't clipped */
 .home__nav { position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
 

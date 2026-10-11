@@ -11,7 +11,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
   original names for unmodified fonts. The `latin-ext` files are unchanged.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `enrico-fermi.webp` is the photo,
-  `enrico-fermi-paper.svg` the paper cutout behind it
+  `enrico-fermi-paper.svg` the paper cutout behind it; `chips.svg` the poker chips at the foot of the home page's
+  strip, drawn for the site in the etching's colours (on screens 900px wide and up)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js` (sample questions for now); its styles and script are
   `assets/play.css` and `assets/play.js`. Its cards use the printed cards' fonts, IBM Plex Sans and IBM Plex Mono
