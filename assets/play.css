@@ -115,6 +115,9 @@ body.play { background: transparent; }
 .table { width: min(560px, 100% - 36px); margin: 8px auto 0; padding-bottom: 170px; }
 
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
+/* While cards change shape, a copy of the pile as it was lies over it for a moment, fading out (play.js) */
+.table__pile { position: relative; }
+.pile--was { position: absolute; top: 0; left: 0; right: 0; pointer-events: none; }
 
 /* A card, as printed: which card it is, its text, and what the table does now */
 .pc {
@@ -172,7 +175,7 @@ body.play { background: transparent; }
 .pc--focus { min-height: 236px; padding: 20px 22px 16px; scroll-margin: 80px 0 160px; }
 .pc--focus .pc__top { font-size: 17px; }
 .pc--focus .pc__body > :first-child { margin-top: 16px; }
-.pc--focus .pc__text { font-size: 22px; line-height: 1.32; }
+.pc--focus .pc__text { font-size: 23px; line-height: 1.32; }
 .pc--focus .pc__value { font-size: 38px; }
 .pc--focus .pc__note { font-size: 17px; }
 .pc--focus .pc__now { font-size: 15px; }

@@ -143,8 +143,8 @@
     });
   }
 
-  // from: where the card leaves the deck (its box), when a card was just dealt
-  function render(from = null) {
+  // from: where the card leaves the deck (its box), when a card was just dealt; was: the pile before that (snapshot)
+  function render(from = null, was = null) {
     const q = questions[state.q];
     const n = shownOf(state.q);
     const hadFocus = deck.contains(document.activeElement);
@@ -156,11 +156,70 @@
     applyOpen();
     renderDeck(n, !!from);
     if (hadFocus) deck.querySelector('button')?.focus({ preventScroll: true });
+    morph(was);
     if (from) {
       const top = pile.lastElementChild;
       top.scrollIntoView({ block: 'nearest' });
       fly(top, from);
     }
+  }
+
+  // When cards change shape (the pile folding as a card is dealt, or a folded card opening), nothing jumps. Like an
+  // accordion, a card that changes shape lets its text fade, shrinks or grows to its new size, and fades in its new
+  // text, while the cards below glide along. For that, a copy of the pile as it was lies over the pile for a moment
+  // and does the shrinking and growing; the pile itself is already in its new shape underneath, its cards moving in
+  // step with the copy's.
+  const MORPH_MS = 300;
+  let morphing = null;
+  let settleUntil = 0;
+  function snapshot() {
+    morphing?.();
+    if (!moving()) return null;
+    const cards = [...pile.children];
+    return { copy: pile.cloneNode(true), tops: cards.map((node) => node.offsetTop), heights: cards.map((node) => node.offsetHeight) };
+  }
+  function morph(was) {
+    if (!was || !moving()) return;
+    const cards = [...pile.children];
+    const ghosts = [...was.copy.children].slice(0, cards.length);
+    const shaped = ghosts.map((ghost, i) => Math.abs(was.heights[i] - cards[i].offsetHeight) >= 1);
+    const animations = [];
+    const run = (node, keyframes, timing) => animations.push(node.animate(keyframes, { duration: MORPH_MS, easing: EASE, ...timing }));
+    ghosts.forEach((ghost, i) => {
+      const node = cards[i];
+      const dy = was.tops[i] - node.offsetTop;
+      if (Math.abs(dy) > 0.5) run(node, [{ translate: `0 ${dy}px` }, { translate: '0 0' }]);
+      if (shaped[i]) for (const part of node.children) run(part, [{ opacity: 0 }, { opacity: 1 }], { duration: 220, delay: 120, easing: 'ease-out', fill: 'backwards' });
+    });
+    const copy = was.copy;
+    const finish = () => {
+      if (morphing === finish) morphing = null;
+      animations.forEach((animation) => animation.finish());
+      copy.remove();
+    };
+    morphing = finish;
+    if (!shaped.includes(true)) return;
+    copy.removeAttribute('id');
+    copy.removeAttribute('aria-label');
+    copy.classList.add('pile--was');
+    copy.inert = true;
+    copy.setAttribute('aria-hidden', 'true');
+    pile.after(copy);
+    const first = animations.length;
+    ghosts.forEach((ghost, i) => {
+      const margins = [getComputedStyle(ghost).marginTop, getComputedStyle(cards[i]).marginTop];
+      if (!shaped[i]) {
+        if (margins[0] !== margins[1]) run(ghost, [{ marginTop: margins[0] }, { marginTop: margins[1] }], { fill: 'forwards' });
+        return;
+      }
+      // Its text fades, the card takes its new size, and at the end it fades into the card underneath
+      ghost.style.overflow = 'hidden';
+      run(ghost, [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: margins[0] },
+        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: margins[1] }], { fill: 'forwards' });
+      run(ghost, [{ opacity: 1 }, { opacity: 0 }], { duration: 80, delay: 120, easing: 'linear', fill: 'forwards' });
+      for (const part of ghost.children) run(part, [{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
+    });
+    Promise.all(animations.slice(first).map((animation) => animation.finished)).then(() => copy.remove(), () => {});
   }
 
   // Dealing a card: the deck's top card turns over where it lies. As it turns edge-on, the card it turns into takes
@@ -183,6 +242,7 @@
   }
   function fly(node, from) {
     if (!moving()) return;
+    settleUntil = Date.now() + 650;
     const to = node.getBoundingClientRect();
     const scale = Math.min(1, from.width / to.width);
     const dx = from.left + from.width / 2 - (to.left + to.width / 2);
@@ -194,18 +254,18 @@
   }
 
   // Taps on the deck that come too quickly after a card was turned over are ignored, so a double tap can't turn over
-  // two cards. After hint 2 and after the answer for a little longer, so a double tap there can't also turn over the
-  // answer, or start the next question.
+  // two cards
   let quietUntil = 0;
   let busy = false;
   function turnOver() {
     const n = shownOf(state.q);
     if (busy || n >= 4) return;
-    quietUntil = Date.now() + (n >= 2 ? 1000 : 400);
+    quietUntil = Date.now() + 400;
+    const was = snapshot();
     state.shown[state.q] = n + 1;
     open = -1;
     save();
-    render(liftTopCard());
+    render(liftTopCard(), was);
     const q = questions[state.q];
     live.textContent = n === 3 ? `Answer: ${q.answer}. ${q.note || ''}` : `${CARDS[n].name}: ${textOf(q, n)}`;
   }
@@ -273,30 +333,25 @@
     });
   }
   function setOpen(i) {
-    const cards = [...pile.children];
-    const before = cards.map((node) => node.getBoundingClientRect().top);
+    const was = snapshot();
     open = i;
     applyOpen();
-    if (!moving()) return;
-    // The cards slide to their new places, and the opened one's text fades in
-    cards.forEach((node, k) => {
-      const dy = before[k] - node.getBoundingClientRect().top;
-      if (Math.abs(dy) > 0.5) node.animate([{ translate: `0 ${dy}px` }, { translate: '0 0' }], { duration: 300, easing: EASE });
-    });
-    pile.querySelector('.pc--focus .pc__body')?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: 'ease-out' });
+    morph(was);
   }
+  // Not while a card is still flying in
   function toggle(node) {
+    if (busy || Date.now() < settleUntil) return;
     setOpen(node.classList.contains('pc--focus') ? -1 : Number(node.dataset.card));
   }
   pile.addEventListener('click', (event) => {
     const node = event.target.closest('.pc[role="button"]');
-    if (node && !busy) toggle(node);
+    if (node) toggle(node);
   });
   pile.addEventListener('keydown', (event) => {
     const node = event.target.closest('.pc[role="button"]');
     if (!node || !isPress(event)) return;
     event.preventDefault();
-    if (!busy) toggle(node);
+    toggle(node);
   });
 
   folding.addEventListener('change', () => {
