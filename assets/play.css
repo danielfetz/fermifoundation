@@ -203,6 +203,9 @@ body.play {
    turns into flies to the pile, turning face up on the way */
 .pile { perspective: 1600px; }
 .flip-layer { position: absolute; z-index: 20; pointer-events: none; perspective: 900px; }
+/* The newest card stays on a layer of its own once it has landed, as it was in flight. Otherwise browsers redraw it
+   as it lands, and its tilted dashed line jumps by a pixel. */
+.pile > .pc:last-child { will-change: transform; }
 /* Cards you can tap to open */
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 

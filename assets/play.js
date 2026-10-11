@@ -213,6 +213,9 @@
       if (swapped) return;
       swapped = true;
       copy.className = `${pile.className} pile--was`;
+      // A hidden stand-in for each card dealt since, so that the copy's last card is the pile's last card too: the card
+      // that was newest no longer shows what to do now
+      copy.append(...cards.slice(ghosts.length).map(() => Object.assign(el('li'), { hidden: true })));
       ghosts.forEach((ghost, i) => {
         ghost.className = cards[i].className;
         if (changed[i]) for (const part of ghost.children) run(part, [{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out', fill: 'forwards' });
