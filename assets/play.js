@@ -206,16 +206,23 @@
     copy.setAttribute('aria-hidden', 'true');
     pile.after(copy);
     const first = animations.length;
+    const margins = ghosts.map((ghost, i) => [getComputedStyle(ghost).marginTop, getComputedStyle(cards[i]).marginTop]);
     ghosts.forEach((ghost, i) => {
-      const margins = [getComputedStyle(ghost).marginTop, getComputedStyle(cards[i]).marginTop];
+      // The next card lies over this one's bottom edge. If that card changes shape, its new self underneath the copy
+      // shows through as the copy fades, so the copy of this one must leave that edge to it.
+      if (shaped[i + 1]) {
+        const overlap = Math.max(0, ...margins[i + 1].map((margin) => -parseFloat(margin)));
+        ghost.style.clipPath = `inset(-60px -60px ${overlap}px -60px)`;
+      }
+      const [from, to] = margins[i];
       if (!shaped[i]) {
-        if (margins[0] !== margins[1]) run(ghost, [{ marginTop: margins[0] }, { marginTop: margins[1] }], { fill: 'forwards' });
+        if (from !== to) run(ghost, [{ marginTop: from }, { marginTop: to }], { fill: 'forwards' });
         return;
       }
       // Its text fades, the card takes its new size, and at the end it fades into the card underneath
       ghost.style.overflow = 'hidden';
-      run(ghost, [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: margins[0] },
-        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: margins[1] }], { fill: 'forwards' });
+      run(ghost, [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: from },
+        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: to }], { fill: 'forwards' });
       run(ghost, [{ opacity: 1 }, { opacity: 0 }], { duration: 80, delay: 120, easing: 'linear', fill: 'forwards' });
       for (const part of ghost.children) run(part, [{ opacity: 1 }, { opacity: 0 }], { duration: 90, easing: 'linear', fill: 'forwards' });
     });
