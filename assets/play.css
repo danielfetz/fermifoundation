@@ -18,12 +18,25 @@
   src: url(/assets/fonts/ibm-plex-mono-400-latin.woff2) format('woff2');
 }
 
+/* The page fills the screen down to its very bottom edge, which on iPhones is behind Safari's bar, and doesn't scroll
+   itself: the pile does, if it has to. Nothing on it is pinned (position: fixed), because Safari cuts pinned things
+   off where its bar begins and fills the strip behind the bar with their colour; the page itself runs on behind it,
+   the deck too. */
+html.play-page { overflow: hidden; }
+body.play {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100lvh;
+  overflow: hidden;
+  background: transparent;
+}
 /* The etching is the table: it fills the screen, softened so the cards stand out, a little darker at the edges */
-body.play { background: transparent; }
 .rome {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background:
     radial-gradient(ellipse 75% 70% at 50% 45%, transparent 55%, rgba(70, 55, 30, 0.13)),
     linear-gradient(to bottom, rgba(247, 247, 234, 0.85), rgba(247, 247, 234, 0.22) 150px, rgba(247, 247, 234, 0.3)),
@@ -32,6 +45,9 @@ body.play { background: transparent; }
 
 /* Header: the logo, the rules, and a menu for skipping a question or going back to the last one */
 .ph {
+  position: relative;
+  z-index: 4;
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -111,8 +127,19 @@ body.play { background: transparent; }
   .ph-btn:not(.ph-btn--round) svg { display: none; }
 }
 
-/* The table: the pile, with the deck fixed at the bottom of the screen */
-.table { width: min(560px, 100% - 36px); margin: 8px auto 0; padding-bottom: 170px; }
+/* The table: the pile, scrolling on its own if it has to, with the deck at the bottom of the screen. --edge is where
+   the screen ends for pinned things (play.js measures it: on iPhones, the top of Safari's bar); below it, the deck
+   runs on behind the bar. */
+.table {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 0 calc(100lvh - var(--edge, 100svh) + 170px);
+}
+.table__pile { width: min(560px, 100% - 36px); margin: 0 auto; }
 
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
 /* While cards change shape, a copy of the pile as it was lies over it for a moment, fading out (play.js) */
@@ -168,12 +195,12 @@ body.play { background: transparent; }
 /* Dealing a card (play.js): the deck's top card turns over where it lies, on a layer above the deck, and the card it
    turns into flies to the pile, turning face up on the way */
 .pile { perspective: 1600px; }
-.flip-layer { position: fixed; z-index: 20; pointer-events: none; perspective: 900px; }
+.flip-layer { position: absolute; z-index: 20; pointer-events: none; perspective: 900px; }
 /* Cards you can tap to open */
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 
 /* The card in focus gets the room */
-.pc--focus { min-height: 236px; padding: 20px 22px 16px; scroll-margin: 80px 0 160px; }
+.pc--focus { min-height: 236px; padding: 20px 22px 16px; scroll-margin: 80px 0 calc(100lvh - var(--edge, 100svh) + 160px); }
 .pc--focus .pc__top { font-size: 17px; }
 .pc--focus .pc__body > :first-child { margin-top: 16px; }
 .pc--focus .pc__text { font-size: 23px; line-height: 1.32; }
@@ -201,16 +228,19 @@ body.play { background: transparent; }
   .pile.is-folded .pc:last-child:not(.pc--focus) { padding-bottom: 12px; }
 }
 
-/* The deck: the cards still face down, peeking up from the bottom of the screen */
+/* The deck: the cards still face down, peeking up from the bottom of the screen. Its top 132px stand above --edge;
+   below, it runs on to the bottom of the page, behind Safari's bar on iPhones. */
 .deck {
-  position: fixed;
-  z-index: 10;
+  position: absolute;
+  z-index: 3;
   left: 50%;
+  top: calc(var(--edge, 100svh) - 132px);
   bottom: 0;
   width: min(560px, 100% - 36px);
-  height: 132px;
   transform: translateX(-50%);
 }
+/* Measures --edge for play.js: the bottom edge of the screen for pinned things */
+.edge-probe { position: fixed; bottom: 0; left: 0; width: 0; height: 0; visibility: hidden; pointer-events: none; }
 .back {
   position: absolute;
   top: 0;
@@ -260,7 +290,7 @@ body.play { background: transparent; }
 
 /* Tablets and laptops: the same table, wider and in bigger type, to read from around it */
 @media (min-width: 700px) {
-  .table,
+  .table__pile,
   .deck { width: min(640px, 100% - 64px); }
   .pc,
   .pc--focus { padding: 18px 26px 16px; }
@@ -287,7 +317,7 @@ body.play { background: transparent; }
 }
 
 /* The rule sheet, set like the printed one. On phones it slides up from the bottom; on bigger screens it opens in
-   the middle, in two columns on laptops. The page behind it stays where it was. */
+   the middle, in two columns on laptops. The page behind it stays where it was (it doesn't scroll anyway). */
 .rules {
   --pc-ink: #151515;
   inset: auto 0 0;
@@ -314,7 +344,6 @@ body.play { background: transparent; }
 @keyframes rules-out { to { opacity: 0; transform: translateY(10px) scale(0.98); } }
 @keyframes rules-fade-in { from { opacity: 0; } }
 @keyframes rules-fade-out { to { opacity: 0; } }
-html:has(.rules[open]) { overflow: hidden; }
 .rules__head {
   display: flex;
   align-items: center;
@@ -395,27 +424,6 @@ html:has(.rules[open]) { overflow: hidden; }
   .rules__cols > section { break-inside: avoid; }
   .rules__betting { break-before: column; }
 }
-/* Being tried out (/play/?bar=glass). Safari on iPhones (iOS 26) fills the strip behind its bottom bar with the colour
-   of a fixed element at the bottom edge, here the dark deck, and fixed elements end where that strip begins. Here it
-   finds none, so its glass bar shows the page instead, as on the home page: only the top card's two rows take taps,
-   so Safari looks past the deck, and the etching is part of the page, so it runs on behind the bar. So the deck
-   doesn't end in a hard line there, it fades out at the bottom. */
-html[data-bar="glass"] body.play { position: relative; min-height: 100lvh; }
-html[data-bar="glass"] .rome { position: absolute; z-index: 0; }
-html[data-bar="glass"] .ph { position: relative; z-index: 2; }
-html[data-bar="glass"] .table { position: relative; z-index: 1; }
-html[data-bar="glass"] .deck,
-html[data-bar="glass"] .back { pointer-events: none; }
-html[data-bar="glass"] .back--next > .back__top,
-html[data-bar="glass"] .back--next > .back__row { pointer-events: auto; }
-/* The deck reaches higher, so the cards peeking out above the top one and their shadows stay inside the fade */
-html[data-bar="glass"] .deck {
-  height: 180px;
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent);
-}
-html[data-bar="glass"] .back { top: 48px; }
-
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
   .rules[open],

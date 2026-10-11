@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="play-page">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,10 +14,6 @@
   <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/play.css">
-  <!-- Being tried out: /play/?bar=glass shows the page behind iOS Safari's bottom bar (see play.css) -->
-  <script>
-    try { const bar = new URLSearchParams(location.search).get('bar'); if (bar) document.documentElement.dataset.bar = bar; } catch {}
-  </script>
   <script src="/play/questions.js" defer></script>
   <script src="/assets/play.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -61,8 +57,8 @@
       <ol class="pile" id="pile" aria-label="Cards turned over"></ol>
       <noscript><p class="table__noscript">Turning over the cards needs JavaScript.</p></noscript>
     </div>
-    <div class="deck" id="deck"></div>
   </main>
+  <div class="deck" id="deck"></div>
 
   <p class="sr-only" id="play-live" aria-live="polite"></p>
 

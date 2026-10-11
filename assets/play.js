@@ -160,6 +160,8 @@
     if (from) {
       const top = pile.lastElementChild;
       top.scrollIntoView({ block: 'nearest' });
+      // Only the pile scrolls; the page itself, which that may have moved, stays where it is
+      document.scrollingElement.scrollTop = 0;
       fly(top, from);
     }
   }
@@ -481,6 +483,15 @@
   // Some browsers only allow it after a tap
   document.addEventListener('click', stayAwake);
   stayAwake();
+
+  // Where the screen ends for pinned things: on iPhones, the top of Safari's bottom bar. The deck's top 132px stand
+  // above it, and the deck and the page run on below it, behind the bar (see play.css).
+  const probe = el('div', 'edge-probe');
+  document.body.append(probe);
+  const measureEdge = () => document.body.style.setProperty('--edge', `${probe.getBoundingClientRect().top}px`);
+  measureEdge();
+  addEventListener('resize', measureEdge);
+  window.visualViewport?.addEventListener('resize', measureEdge);
 
   render();
 })();
