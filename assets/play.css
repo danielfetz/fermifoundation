@@ -140,6 +140,8 @@ body.play {
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 8px 0 170px;
+  /* Scrolling a card into view keeps it clear of the deck */
+  scroll-padding: 8px 0 160px;
 }
 .table__pile { width: min(560px, 100% - 36px); margin: 0 auto; }
 
@@ -202,7 +204,7 @@ body.play {
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 
 /* The card in focus gets the room */
-.pc--focus { min-height: 236px; padding: 20px 22px 16px; scroll-margin: 80px 0 160px; }
+.pc--focus { min-height: 236px; padding: 20px 22px 16px; }
 .pc--focus .pc__top { font-size: 17px; }
 .pc--focus .pc__body > :first-child { margin-top: 16px; }
 .pc--focus .pc__text { font-size: 23px; line-height: 1.32; }

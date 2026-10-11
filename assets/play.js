@@ -150,13 +150,14 @@
     renderDeck(n, !!from);
     if (hadFocus) deck.querySelector('button')?.focus({ preventScroll: true });
     morph(was);
-    if (from) {
-      const top = pile.lastElementChild;
-      top.scrollIntoView({ block: 'nearest' });
-      // Only the pile scrolls; the page itself, which that may have moved, stays where it is
-      document.scrollingElement.scrollTop = 0;
-      fly(top, from);
-    }
+    reveal();
+    if (from) fly(pile.lastElementChild, from);
+  }
+  // The newest card in view, clear of the deck (also after a reload, on small screens). Only the pile scrolls; the
+  // page itself, which that may have moved, stays where it is.
+  function reveal() {
+    pile.lastElementChild?.scrollIntoView({ block: 'nearest' });
+    document.scrollingElement.scrollTop = 0;
   }
 
   // When cards change shape (the pile folding as a card is dealt, or a folded card opening), nothing jumps. Like an
@@ -487,4 +488,6 @@
   window.visualViewport?.addEventListener('resize', measureEdge);
 
   render();
+  // The cards are set in web fonts: once they're in, the cards may be a little taller
+  document.fonts?.ready.then(reveal);
 })();
