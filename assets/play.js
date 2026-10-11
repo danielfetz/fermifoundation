@@ -1,8 +1,8 @@
 // Play page: the question, hint and answer cards on screen, for tables without printed cards.
 // Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
-// and turn over and fly onto the pile when tapped. On phones, from hint 2 on, earlier cards fold to one line (see
-// play.css); tapping one opens it in its place and folds the others. Where you are is remembered on this device.
-// The header has the rules, and a menu for skipping a question or going back to the last one.
+// and turn over and fly onto the pile when tapped. On screens up to 1000px tall, from hint 2 on, earlier cards fold
+// to one line (see play.css); tapping one opens it in its place and folds the others. Where you are is remembered
+// on this device. The header has the rules, and a menu for skipping a question or going back to the last one.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
@@ -24,8 +24,8 @@
   ];
   const STORE = 'fermi-play';
   const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
-  // Phones fold earlier cards (the same media query as in play.css)
-  const folding = matchMedia('(max-width: 899px) and (max-height: 1000px)');
+  // Screens up to 1000px tall fold earlier cards (the same media query as in play.css)
+  const folding = matchMedia('(max-height: 1000px)');
   const mouse = matchMedia('(pointer: fine)');
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
   // Cards flip with the CSS rotate property; browsers without it get the same flight, just without the flip
@@ -44,7 +44,7 @@
     try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {}
   };
   const shownOf = (q) => Math.min(4, Math.max(1, state.shown[q] | 0));
-  // On phones: the earlier card opened in the pile (-1: the newest one is open)
+  // In a folded pile: the earlier card opened (-1: the newest one is open)
   let open = -1;
 
   const el = (tag, className, ...children) => {
@@ -125,7 +125,7 @@
     });
     place(button, 0);
     pile.push(button);
-    deck.replaceChildren(...pile, ...(left > 0 ? [el('p', 'deck__left', `${left} card${left > 1 ? 's' : ''} left`)] : []));
+    deck.replaceChildren(...pile);
     if (!dealt || !moving()) return;
     pile.forEach((node, k) => {
       const depth = cards - 1 - k;
@@ -252,7 +252,7 @@
     if (isPress(event) && event.repeat) event.preventDefault();
   });
 
-  // Phones: one card in a folded pile is open, the newest unless you tap another. Tapping a folded card opens it in
+  // One card in a folded pile is open, the newest unless you tap another. Tapping a folded card opens it in
   // its place and folds the open one; tapping an earlier open card goes back to the newest.
   function applyOpen() {
     const cards = [...pile.children];
