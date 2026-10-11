@@ -53,12 +53,6 @@
     node.append(...children);
     return node;
   };
-  const portrait = () => {
-    const img = el('img');
-    img.src = '/assets/img/fermi-logo.webp';
-    img.alt = '';
-    return img;
-  };
   const textOf = (q, i) => (i === 0 ? q.question : i === 3 ? q.answer : q.hints[i - 1]);
   const theCard = (i) => (i === 0 ? 'the question' : i === 3 ? 'the answer' : CARDS[i].name.toLowerCase());
   const verb = () => (mouse.matches ? 'Click' : 'Tap');
@@ -82,8 +76,7 @@
   function back(top, side, name, action, label) {
     const node = el('button', 'back back--next',
       el('span', 'back__top', el('b', '', top), el('span', '', side)),
-      el('span', 'back__row', el('span', 'back__kind', name), el('span', 'back__tap', action)),
-      el('span', 'back__mark', portrait(), 'Fermi Poker'));
+      el('span', 'back__row', el('span', 'back__kind', name), el('span', 'back__tap', action)));
     node.type = 'button';
     node.setAttribute('aria-label', label);
     return node;
