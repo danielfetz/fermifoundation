@@ -59,14 +59,14 @@
   const verb = () => (mouse.matches ? 'Click' : 'Tap');
 
   // A card face up: which card it is, its text, and what the table does now. The one-line version shows when it's
-  // folded.
+  // folded. (No "2 of 4" on it: it read like the number of questions.)
   function card(q, i) {
     const body = i === 3
       ? el('div', 'pc__body', el('p', 'pc__value', q.answer), ...(q.note ? [el('p', 'pc__note', q.note)] : []))
       : el('div', 'pc__body', el('p', 'pc__text', textOf(q, i)));
     const node = el('li', 'pc',
       el('p', 'pc__peek', el('b', '', CARDS[i].name), ' ' + textOf(q, i)),
-      el('div', 'pc__top', el('b', '', CARDS[i].name), el('span', '', `${i + 1} of 4`)),
+      el('div', 'pc__top', el('b', '', CARDS[i].name)),
       body,
       el('p', 'pc__now', el('b', '', 'Now:'), ' ' + CARDS[i].then));
     node.dataset.card = i;
@@ -75,9 +75,9 @@
 
   // A card face down, on top of the deck: up next, which card it is, and the button. When to turn it over is on the
   // card above ("Now: betting round 2.").
-  function back(side, name, action, label) {
+  function back(name, action, label) {
     const node = el('button', 'back back--next',
-      el('span', 'back__top', el('b', '', 'Up next'), el('span', '', side)),
+      el('span', 'back__top', el('b', '', 'Up next')),
       el('span', 'back__row', el('span', 'back__kind', name), el('span', 'back__tap', action)));
     node.type = 'button';
     node.setAttribute('aria-label', label);
@@ -121,13 +121,14 @@
     const left = 4 - n;
     let button;
     if (left > 0) {
-      button = back(`${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
+      button = back(CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
     } else {
-      // All four turned over: the next question's four cards wait on the deck
+      // All four turned over: the next question's four cards wait on the deck (after the last question, the first
+      // again). Not numbered: the number only says where it is in the set.
       const last = state.q === questions.length - 1;
       button = last
-        ? back('1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
-        : back('1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
+        ? back('First question', 'Start again', 'Start again from the first question')
+        : back('New question', `${verb()} to start`, 'Start a new question');
       button.dataset.next = '';
     }
     const cards = left || 4;
@@ -164,8 +165,7 @@
     const q = questions[state.q];
     const n = shownOf(state.q);
     const hadFocus = deck.contains(document.activeElement);
-    document.getElementById('skip-to').textContent = `Question ${state.q < questions.length - 1 ? state.q + 2 : 1} instead`;
-    document.getElementById('back-to').textContent = `Back to question ${state.q}`;
+    document.getElementById('skip-to').textContent = state.q < questions.length - 1 ? 'A new question instead' : 'The first question again';
     backItem.hidden = state.q === 0;
     pile.replaceChildren(...Array.from({ length: n }, (_, i) => card(q, i)));
     pile.classList.toggle('is-folded', n >= 3);
@@ -188,18 +188,21 @@
   // along. What it shows on both sides of the change moves and grows or shrinks to its new place and size: the
   // question, for one, just gets smaller as the next card comes. What it shows only before fades out, and what it
   // shows only after fades in, at once, never leaving the card blank.
-  // Two copies of the pile do this in front of it: the pile as it was, and the pile as it is now, on the same cards
-  // (each card's two copies lie together, under the next card's). Both take the cards' new sizes and places together,
-  // and at the end, when they match the pile exactly, they go. Meanwhile the pile's own cards stay transparent, so
-  // each card shows once, its edges throughout. (A card being dealt flies in on the pile itself.)
+  // Two copies of the pile do this behind it: the pile as it was, and the pile as it is now, on the same cards (each
+  // card's two copies lie together, under the next card's). Both take the cards' new sizes and places together, and
+  // at the end, when they lie exactly as the cards do, they go. Meanwhile the pile's own cards stay transparent, so
+  // each card shows once, its edges throughout. (A card being dealt flies in on the pile itself, over the copies.)
   const MORPH_MS = 300;
   let morphing = null;
   let settleUntil = 0;
+  // Sizes and places are taken to the fraction of a pixel (not rounded, as offsetHeight and the like are), so the
+  // copies end exactly where the cards are and nothing moves when they go
+  const heightOf = (node) => parseFloat(getComputedStyle(node).height);
   function snapshot() {
     morphing?.();
     if (!moving()) return null;
     const cards = [...pile.children];
-    return { copy: pile.cloneNode(true), heights: cards.map((node) => node.offsetHeight), margins: cards.map((node) => getComputedStyle(node).marginTop) };
+    return { copy: pile.cloneNode(true), heights: cards.map(heightOf), margins: cards.map((node) => getComputedStyle(node).marginTop) };
   }
   // A copy of the pile to lie in front of it, out of everyone's way
   function overlay(copy, name) {
@@ -217,19 +220,51 @@
     node.style.transition = '';
     return shadow;
   }
-  // The parts of a card, and where each lies on it when it shows (as laid out, before the card's slight turn), with
-  // its type size
+  // The parts of a card, and where each lies on it when it shows, with its type size, and its name where it has one
+  // (measured with the card's slight turn undone)
   const PARTS = ['.pc__top', '.pc__peek', '.pc__text', '.pc__value', '.pc__note', '.pc__now'];
   function partsOf(card) {
+    const at = card.getBoundingClientRect();
+    const place = (node) => {
+      const box = node.getBoundingClientRect();
+      return { left: box.left - at.left - card.clientLeft, top: box.top - at.top - card.clientTop, width: box.width };
+    };
     return PARTS.map((selector) => {
       const node = card.querySelector(selector);
       if (!node?.getClientRects().length) return null;
       const style = getComputedStyle(node);
-      return { node, left: node.offsetLeft, top: node.offsetTop, width: node.offsetWidth, font: parseFloat(style.fontSize), pad: style.paddingBottom };
+      const name = node.querySelector(':scope > b');
+      return { node, ...place(node), font: parseFloat(style.fontSize), pad: style.paddingBottom,
+        name: name && { node: name, ...place(name), font: getComputedStyle(name).fontSize } };
     });
   }
+  const near = (x, y) => Math.abs(x - y) < 0.01;
   const samePart = (a, b) => (!a && !b)
-    || (!!a && !!b && a.left === b.left && a.top === b.top && a.width === b.width && a.font === b.font && a.pad === b.pad);
+    || (!!a && !!b && near(a.left, b.left) && near(a.top, b.top) && near(a.width, b.width) && a.font === b.font && a.pad === b.pad);
+  // Moves and scales a node over the change of shape, setting its transform frame by frame in step with the change
+  // (an animation that only keeps time) rather than animating it: browsers draw what's animated on a layer of its
+  // own, where text falls on the screen's pixels a little differently than on the card, so it would shift a little
+  // the moment the card takes over. For the same reason it arrives a little before the card has its new shape, and
+  // stands still from then on, without any transform, just as on the card. (It comes to rest while still moving a
+  // hair, so the last rounding to the screen's pixels, which browsers do only for what stands still, is part of the
+  // movement rather than a step after it.)
+  function move(node, from, to) {
+    const clock = node.animate([], { duration: MORPH_MS * 0.8, easing: EASE, fill: 'both' });
+    const place = () => {
+      const e = Math.min(1, (clock.effect.getComputedTiming().progress ?? 1) / 0.97);
+      const at = (key) => from[key] + (to[key] - from[key]) * e;
+      node.style.transform = `translate(${at('x')}px, ${at('y')}px) scale(${at('scale')})`;
+      if (e === 1 && !to.x && !to.y && to.scale === 1) node.style.transform = '';
+    };
+    const frame = () => {
+      place();
+      if (node.isConnected && clock.playState !== 'finished') requestAnimationFrame(frame);
+    };
+    place();
+    requestAnimationFrame(frame);
+    clock.finished.then(place, () => {});
+    return clock;
+  }
   // A text's words, each made a box of its own (so it can fade on its own), and where each lies in the text. Only for
   // plain text.
   const plain = (node) => [...node.childNodes].every((child) => child.nodeType === Node.TEXT_NODE);
@@ -255,31 +290,35 @@
       animations.push(node.animate(keyframes, { duration: MORPH_MS, easing: EASE, fill: 'both', ...timing }));
     };
     pile.after(before, after);
-    // Measured first, all at once: each card's parts as they were, and as they are now
+    // Measured first, all at once, with the cards' slight turns undone for the moment: each card's parts as they were,
+    // and as they are now
+    const copies = [...olds, ...news];
+    for (const card of copies) card.style.transform = 'none';
     const measured = olds.map((old, i) => [partsOf(old), partsOf(news[i])]);
+    for (const card of copies) card.style.transform = '';
     const hidden = cards.slice(0, olds.length);
     for (const node of hidden) node.style.opacity = '0';
-    // Each card's two copies lie together, the card as it is now on the card as it was, both under the next card
+    // Each card's two copies lie together, the card as it is now on the card as it was, both under the next card's;
+    // all of them under the pile, whose cards are transparent meanwhile, except the card being dealt, which flies in
+    // over them
+    const under = -2 * news.length - 2;
     news.forEach((ghost, i) => {
-      ghost.style.zIndex = String(2 * i + 2);
-      // The cards dealt since fly in on the pile itself, above the copies
-      if (i >= olds.length) {
-        ghost.style.visibility = 'hidden';
-        cards[i].style.zIndex = String(2 * cards.length + 1);
-      }
+      ghost.style.zIndex = String(under + 2 * i + 2);
+      if (i >= olds.length) ghost.style.visibility = 'hidden';
     });
     olds.forEach((old, i) => {
       const ghost = news[i];
-      old.style.zIndex = String(2 * i + 1);
+      old.style.zIndex = String(under + 2 * i + 1);
       // In both copies, each card takes its new size and place
+      const height = heightOf(cards[i]);
       const size = [{ height: `${was.heights[i]}px`, minHeight: '0px', marginTop: was.margins[i] },
-        { height: `${cards[i].offsetHeight}px`, minHeight: '0px', marginTop: getComputedStyle(cards[i]).marginTop }];
+        { height: `${height}px`, minHeight: '0px', marginTop: getComputedStyle(cards[i]).marginTop }];
       for (const copy of [old, ghost]) {
         copy.style.overflow = 'hidden';
         run(copy, size);
       }
       const [then, now] = measured[i];
-      if (Math.abs(was.heights[i] - cards[i].offsetHeight) < 1 && then.every((part, k) => samePart(part, now[k]))) {
+      if (near(was.heights[i], height) && then.every((part, k) => samePart(part, now[k]))) {
         ghost.style.visibility = 'hidden';
         return;
       }
@@ -289,18 +328,18 @@
         if (part) Object.assign(part.node.style, { position: 'absolute', left: `${part.left}px`, top: `${part.top}px`, width: `${part.width}px`, margin: '0', transformOrigin: '0 0' });
       }
       // A card folding to its one line, or opening from it: its name goes from one to the other, growing or
-      // shrinking on the way, while the rest of each fades
+      // shrinking on the way, while the rest of each fades. At the end, the name as it is now takes over where the
+      // gliding one has come to.
       const [oldTop, oldLine, newTop, newLine] = [then[0], then[1], now[0], now[1]];
       const ends = oldTop && newLine && !oldLine && !newTop ? [oldTop, newLine] : oldLine && newTop && !oldTop && !newLine ? [oldLine, newTop] : null;
       if (ends) {
-        const [start, end] = ends.map((part) => {
-          const name = part.node.querySelector(':scope > b');
-          name.style.visibility = 'hidden';
-          return { left: part.left + name.offsetLeft, top: part.top + name.offsetTop, font: getComputedStyle(name).fontSize, text: name.textContent };
-        });
-        const name = el('b', 'pc__name', start.text);
+        const [start, end] = ends.map((part) => part.name);
+        start.node.style.visibility = 'hidden';
+        const name = el('b', 'pc__name', start.node.textContent);
         ghost.append(name);
         run(name, [{ left: `${start.left}px`, top: `${start.top}px`, fontSize: start.font }, { left: `${end.left}px`, top: `${end.top}px`, fontSize: end.font }]);
+        run(name, [{ opacity: 1 }, { opacity: 1, offset: 0.8 }, { opacity: 0 }], { easing: 'linear' });
+        run(end.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.7, easing: 'linear', fill: 'backwards' });
       }
       then.forEach((a, k) => {
         const b = now[k];
@@ -312,35 +351,35 @@
             { left: `${b.left}px`, top: `${b.top}px`, width: `${b.width}px`, fontSize: `${b.font}px`, paddingBottom: b.pad }]);
         } else if (a && b && plain(a.node) && plain(b.node) && a.node.textContent === b.node.textContent) {
           // The same text on both sides, which may break into lines differently. As it was and as it is now, it grows
-          // or shrinks to its new size and place, the two together. Both are set in the larger of the two sizes and
-          // scaled down, so they stay sharp and their letters fall in the same places (browsers that round letters
-          // to whole pixels round them differently in each size), each in a width that breaks its lines as it does.
-          // The words that keep their place in their line show once, as they were; the ones that move to another
-          // line, or along theirs, fade from where they were to where they are now.
+          // or shrinks to its new size and place, the two together. As it was, it's set in the larger of the two sizes
+          // and scaled down, so it stays sharp; as it is now, in its own size, so that in the end it's exactly as on
+          // the card. The words that keep their place in their line show throughout: halfway, as each lies on itself,
+          // the word as it is now takes over. The ones that move to another line, or along theirs, fade from where
+          // they were to where they are now.
           const size = Math.max(a.font, b.font);
-          const [oldWords, newWords] = [a, b].map((part) => {
-            Object.assign(part.node.style, { fontSize: `${size}px`, width: `${(part.width * size) / part.font}px` });
-            return wordsOf(part.node);
-          });
+          Object.assign(a.node.style, { fontSize: `${size}px`, width: `${(a.width * size) / a.font}px` });
+          const [oldWords, newWords] = [a, b].map((part) => wordsOf(part.node));
           const dx = b.left - a.left;
           const dy = b.top - a.top;
-          const startSize = `scale(${a.font / size})`;
-          const endSize = `scale(${b.font / size})`;
-          run(a.node, [{ transform: `translate(0px, 0px) ${startSize}` }, { transform: `translate(${dx}px, ${dy}px) ${endSize}` }]);
-          run(b.node, [{ transform: `translate(${-dx}px, ${-dy}px) ${startSize}` }, { transform: `translate(0px, 0px) ${endSize}` }]);
+          animations.push(move(a.node, { x: 0, y: 0, scale: a.font / size }, { x: dx, y: dy, scale: b.font / size }),
+            move(b.node, { x: -dx, y: -dy, scale: a.font / b.font }, { x: 0, y: 0, scale: 1 }));
+          // (What fades in is left as it is once it has: nothing new is drawn on a layer of its own at the end)
           oldWords.forEach((word, w) => {
             const same = newWords[w];
-            if (Math.abs(word.x - same.x) < 0.5 && Math.abs(word.y - same.y) < 0.5) {
-              same.node.style.visibility = 'hidden';
+            // Where each lies in its text, in its type size
+            const kept = Math.abs(word.x / size - same.x / b.font) < 0.2 && Math.abs(word.y / size - same.y / b.font) < 0.3;
+            if (kept) {
+              run(same.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.35, easing: 'linear', fill: 'backwards' });
+              run(word.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.15, delay: MORPH_MS * 0.5, easing: 'linear' });
             } else {
               run(word.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.2, easing: 'ease-out' });
-              run(same.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.35, delay: MORPH_MS * 0.15, easing: 'ease-out' });
+              run(same.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.35, delay: MORPH_MS * 0.15, easing: 'ease-out', fill: 'backwards' });
             }
           });
         } else {
           // Shown only before, or only now: one fades out quickly as the other fades in, so the card is never blank
           if (a) run(a.node, [{ opacity: 1 }, { opacity: 0 }], { duration: MORPH_MS * 0.25, easing: 'ease-out' });
-          if (b) run(b.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.4, delay: MORPH_MS * 0.1, easing: 'ease-out' });
+          if (b) run(b.node, [{ opacity: 0 }, { opacity: 1 }], { duration: MORPH_MS * 0.4, delay: MORPH_MS * 0.1, easing: 'ease-out', fill: 'backwards' });
         }
       });
     });
@@ -352,10 +391,7 @@
       animations.forEach((animation) => animation.finish());
       before.remove();
       after.remove();
-      for (const node of cards) {
-        node.style.opacity = '';
-        node.style.zIndex = '';
-      }
+      for (const node of hidden) node.style.opacity = '';
     };
     morphing = finish;
     Promise.all(animations.map((animation) => animation.finished)).then(finish, () => {});
@@ -421,13 +457,14 @@
         { duration: 240, delay: (cards.length - 1 - i) * 45, easing: 'ease-in', fill: 'forwards' },
       ).finished.catch(() => {})));
     }
-    if (state.q < questions.length - 1) state.q += 1;
+    const again = state.q === questions.length - 1;
+    if (!again) state.q += 1;
     else state = { q: 0, shown: {} };
     open = -1;
     save();
     busy = false;
     render(liftTopCard());
-    live.textContent = `Question ${state.q + 1}: ${questions[state.q].question}`;
+    live.textContent = `${again ? 'The first question again' : 'New question'}: ${questions[state.q].question}`;
   }
   function go(q) {
     if (busy || q < 0 || q >= questions.length) return;
@@ -435,7 +472,7 @@
     open = -1;
     save();
     render();
-    live.textContent = `Question ${q + 1}: ${questions[q].question}`;
+    live.textContent = `Back to the last question: ${questions[q].question}`;
   }
 
   // The deck: a tap or a click turns over the card on top, or, after the answer, starts the next question
@@ -584,6 +621,10 @@
     event.preventDefault();
     closeRules();
   });
+
+  // No zooming in (see play.css and the viewport tag): Safari lets you pinch the page anyway, unless the pinch is
+  // stopped as it starts
+  for (const type of ['gesturestart', 'gesturechange']) document.addEventListener(type, (event) => event.preventDefault());
 
   // Phones dim and lock after a minute or so, often in the middle of a betting round: while the page is on screen,
   // it keeps the screen on. The browser lets go when you switch away, so it asks again when you come back.

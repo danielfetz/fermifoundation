@@ -24,6 +24,9 @@
    run on below that, behind the bar. Nothing on it is pinned (position: fixed), because Safari cuts pinned things off
    where its bar begins and fills the strip behind the bar with their colour. */
 html.play-page { overflow: hidden; }
+/* No zooming in by pinching or tapping twice, which only got in the way at the table. This and the viewport tag stop
+   it in most browsers; play.js also stops Safari's pinch, which can ignore both. */
+html.play-page { touch-action: pan-x pan-y; }
 body.play {
   position: relative;
   display: flex;
@@ -150,12 +153,12 @@ body.play {
 .table__pile { width: min(560px, 100% - 36px); margin: 0 auto; }
 
 .table__noscript { margin-top: 16px; color: var(--ink); font-size: 17px; text-align: center; }
-/* While cards change shape, copies of the pile lie over it for a moment (play.js): the pile as it was, and the pile as
-   it is now, of which only what's new on the cards changing shows. Their cards lie in turn (play.js sets z-index), so
-   neither copy is a layer of its own. */
+/* While cards change shape, copies of the pile lie behind it for a moment (play.js): the pile as it was, and the pile
+   as it is now, of which only what's new on the cards changing shows. Their cards lie in turn (play.js sets their
+   z-index), so neither copy is a layer of its own. */
 .table__pile { position: relative; }
-.pile--was,
-.pile--now { position: absolute; top: 0; left: 0; right: 0; perspective: none; pointer-events: none; }
+.pile.pile--was,
+.pile.pile--now { position: absolute; top: 0; left: 0; right: 0; perspective: none; pointer-events: none; }
 .pile--now > .pc { background: none; box-shadow: none; }
 /* A card's name, going between its top line and its folded line (play.js) */
 .pc__name { position: absolute; margin: 0; font-weight: 700; line-height: normal; white-space: nowrap; }
@@ -187,7 +190,6 @@ body.play {
   line-height: 1.3;
 }
 .pc__top b { font-weight: 700; }
-.pc__top span { color: #4a4a4a; }
 .pc__body { flex: 1; padding-bottom: 16px; }
 .pc__body > :first-child { margin-top: 12px; }
 .pc__text { font-size: 20px; line-height: 1.38; }
@@ -211,9 +213,10 @@ body.play {
    turns into flies to the pile, turning face up on the way */
 .pile { perspective: 1600px; }
 .flip-layer { position: absolute; z-index: 20; pointer-events: none; perspective: 900px; }
-/* The newest card stays on a layer of its own once it has landed, as it was in flight. Otherwise browsers redraw it
-   as it lands, and its tilted dashed line jumps by a pixel. */
-.pile > .pc:last-child { will-change: transform; }
+/* Every card is a layer of its own, all the time. Browsers draw what moves on a layer of its own, as a picture they
+   then tilt, and what stands still straight onto the page, tilted letter by letter, which looks a hair different; so
+   each card would shift a little the moment it stops moving (as it lands, or changes shape). */
+.pc { will-change: transform; }
 /* Cards you can tap to open */
 .pile .pc[role="button"] { cursor: pointer; touch-action: manipulation; }
 
