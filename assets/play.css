@@ -57,6 +57,9 @@ body.play {
   justify-content: space-between;
   gap: 12px;
   padding: calc(13px + env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 13px max(18px, env(safe-area-inset-left));
+  /* On a layer of its own all the time. Otherwise browsers move it onto one while a card is dealt below it, and back
+     after, and each move redraws its buttons a fraction of a pixel to the side. */
+  will-change: transform;
 }
 .ph .logo { font-size: 20px; white-space: nowrap; }
 .ph .logo img { width: 32px; height: 32px; }

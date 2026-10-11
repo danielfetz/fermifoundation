@@ -72,10 +72,11 @@
     return node;
   }
 
-  // A card face down, on top of the deck: when to turn it over, which card it is, and the button
-  function back(top, side, name, action, label) {
+  // A card face down, on top of the deck: up next, which card it is, and the button. When to turn it over is on the
+  // card above ("Now: betting round 2.").
+  function back(side, name, action, label) {
     const node = el('button', 'back back--next',
-      el('span', 'back__top', el('b', '', top), el('span', '', side)),
+      el('span', 'back__top', el('b', '', 'Up next'), el('span', '', side)),
       el('span', 'back__row', el('span', 'back__kind', name), el('span', 'back__tap', action)));
     node.type = 'button';
     node.setAttribute('aria-label', label);
@@ -99,13 +100,13 @@
     const left = 4 - n;
     let button;
     if (left > 0) {
-      button = back(`After betting round ${n}`, `${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
+      button = back(`${n + 1} of 4`, CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
     } else {
       // All four turned over: the next question's four cards wait on the deck
       const last = state.q === questions.length - 1;
       button = last
-        ? back('After the showdown', '1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
-        : back('After the showdown', '1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
+        ? back('1 of 4', 'Question 1', 'Start again', 'Start again from question 1')
+        : back('1 of 4', `Question ${state.q + 2}`, `${verb()} to start`, `Start question ${state.q + 2}`);
       button.dataset.next = '';
     }
     const cards = left || 4;
