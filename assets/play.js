@@ -33,14 +33,19 @@
   const canFlip = window.CSS?.supports?.('rotate', 'y 180deg');
   const moving = () => !calm.matches && typeof pile.animate === 'function';
 
-  // Which question you're on, and how many of each question's cards are turned over (always at least the question)
-  let state = { q: 0, shown: {} };
+  // Which question you're on; the question in play, the newest (you may be looking back at the one before it); and how
+  // many of each question's cards are turned over (always at least the question)
+  let state = { q: 0, newest: 0, shown: {} };
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
     if (saved && Number.isInteger(saved.q) && saved.q >= 0 && saved.q < questions.length) {
-      state = { q: saved.q, shown: saved.shown || {} };
+      const shown = saved.shown || {};
+      // (Saved before there was a question in play: the furthest one with cards turned over)
+      const newest = Number.isInteger(saved.newest) ? saved.newest : Math.max(saved.q, ...Object.keys(shown).map(Number).filter(Number.isInteger));
+      state = { q: saved.q, newest: Math.min(Math.max(newest, saved.q), questions.length - 1), shown };
     }
   } catch {}
+  const lookingBack = () => state.q < state.newest;
   const save = () => {
     try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {}
   };
@@ -118,9 +123,13 @@
     }
   }
   function renderDeck(n, dealt) {
-    const left = 4 - n;
+    const left = lookingBack() ? 0 : 4 - n;
     let button;
-    if (left > 0) {
+    if (lookingBack()) {
+      // Looking back at the question before the one in play, only to look at it: the deck takes you back
+      button = back('Current question', 'Go back', 'Back to the current question');
+      button.dataset.return = '';
+    } else if (left > 0) {
       button = back(CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
     } else {
       // All four turned over: the next question's four cards wait on the deck (after the last question, the first
@@ -165,10 +174,17 @@
     const q = questions[state.q];
     const n = shownOf(state.q);
     const hadFocus = deck.contains(document.activeElement);
-    document.getElementById('skip-to').textContent = state.q < questions.length - 1 ? 'A new question instead' : 'The first question again';
-    backItem.hidden = state.q === 0;
+    // The menu: skip the question in play for one not seen yet, or look back at the one before it, once; while looking
+    // back, only the way back to the question in play
+    const past = lookingBack();
+    document.getElementById('skip-to').textContent = state.newest < questions.length - 1 ? 'A new question instead' : 'The first question again';
+    skipItem.hidden = past;
+    backItem.hidden = !past && state.newest === 0;
+    backItem.classList.toggle('is-return', past);
+    document.getElementById('back-to').textContent = past ? 'Back to the current question' : 'Back to the previous question';
     pile.replaceChildren(...Array.from({ length: n }, (_, i) => card(q, i)));
     pile.classList.toggle('is-folded', n >= 3);
+    pile.classList.toggle('is-past', past);
     applyOpen();
     renderDeck(n, !!from);
     if (hadFocus) deck.querySelector('button')?.focus({ preventScroll: true });
@@ -497,30 +513,34 @@
         { duration: 240, delay: (cards.length - 1 - i) * 45, easing: 'ease-in', fill: 'forwards' },
       ).finished.catch(() => {})));
     }
-    const again = state.q === questions.length - 1;
-    if (!again) state.q += 1;
-    else state = { q: 0, shown: {} };
+    // The one after the question in play: one nobody has seen yet (after the last, the first again)
+    const again = state.newest === questions.length - 1;
+    if (!again) state.q = state.newest = state.newest + 1;
+    else state = { q: 0, newest: 0, shown: {} };
     open = -1;
     save();
     busy = false;
     render(liftTopCard());
     live.textContent = `${again ? 'The first question again' : 'New question'}: ${questions[state.q].question}`;
   }
+  // Looking back at the question before the one in play, or going back to it, its cards as you left them
   function go(q) {
     if (busy || q < 0 || q >= questions.length) return;
     state.q = q;
     open = -1;
     save();
     render();
-    live.textContent = `Back to the last question: ${questions[q].question}`;
+    live.textContent = `${lookingBack() ? 'The previous question' : 'Back to the current question'}: ${questions[q].question}`;
   }
 
-  // The deck: a tap or a click turns over the card on top, or, after the answer, starts the next question
+  // The deck: a tap or a click turns over the card on top, or, after the answer, starts the next question (or, while
+  // looking back, goes back to the question in play)
   const isPress = (event) => event.key === ' ' || event.key === 'Enter';
   deck.addEventListener('click', (event) => {
     const button = event.target.closest('button.back');
     if (!button || Date.now() < quietUntil) return;
-    if ('next' in button.dataset) startNext();
+    if ('return' in button.dataset) go(state.newest);
+    else if ('next' in button.dataset) startNext();
     else turnOver();
   });
   deck.addEventListener('keydown', (event) => {
@@ -595,7 +615,7 @@
   backItem.addEventListener('click', () => {
     showMenu(false);
     moreButton.focus({ preventScroll: true });
-    go(state.q - 1);
+    go(lookingBack() ? state.newest : state.newest - 1);
   });
   // A tap elsewhere only closes the menu: it doesn't also turn over the card it lands on
   let swallow = false;

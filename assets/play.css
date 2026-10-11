@@ -122,9 +122,11 @@ body.play {
   text-align: left;
 }
 .ph-menu button[hidden] { display: none; }
-.ph-menu button + button::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid rgba(21, 29, 35, 0.1); }
+.ph-menu button:not([hidden]) + button::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid rgba(21, 29, 35, 0.1); }
 .ph-menu button:hover { background: rgba(21, 29, 35, 0.06); }
 .ph-menu svg { flex: none; width: 20px; height: 20px; color: var(--ink-soft); }
+/* While looking back, the way back to the question in play: the arrow the other way */
+.ph-menu button.is-return svg { transform: scaleX(-1); }
 .ph-menu small { display: block; margin-top: 2px; color: var(--ink-soft); font-size: 13.5px; font-weight: 400; }
 .ph__home:focus-visible,
 .ph-btn:focus-visible,
@@ -204,6 +206,8 @@ body.play {
 /* The pile: each card lies over the bottom edge of the one before. A covered card's "Now" line is over by then. */
 .pile .pc + .pc { margin-top: -14px; }
 .pile .pc:not(:last-child) .pc__now { display: none; }
+/* Looking back at the question before the one in play: what to do now isn't on its cards */
+.pile.is-past .pc__now { display: none; }
 .pile .pc:nth-child(1) { --r: -0.9deg; --x: -3px; }
 .pile .pc:nth-child(2) { --r: 0.6deg; --x: 4px; }
 .pile .pc:nth-child(3) { --r: -0.5deg; --x: -2px; }

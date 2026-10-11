@@ -32,7 +32,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>
         Rules
       </button>
-      <!-- What a table rarely needs: skipping a question (someone knows it already) and going back to the last one -->
+      <!-- What a table rarely needs: skipping a question (someone knows it already), and looking back at the one before -->
       <div class="ph-more">
         <button type="button" class="ph-btn ph-btn--round" id="more-open" aria-expanded="false" aria-controls="more" aria-label="More">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
@@ -44,7 +44,7 @@
           </button>
           <button type="button" data-back hidden>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>
-            <span>Back to the last question<small>With its cards as you left them</small></span>
+            <span><span id="back-to">Back to the previous question</span><small>With its cards as you left them</small></span>
           </button>
         </div>
       </div>
