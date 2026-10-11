@@ -313,7 +313,7 @@ body.play {
   font: 700 15px/1.2 var(--sans);
   text-align: center;
   white-space: nowrap;
-  box-shadow: 0 0 0 1px rgba(27, 35, 42, 0.22), 0 1px 2px rgba(21, 29, 35, 0.14), 0 8px 18px -10px rgba(21, 29, 35, 0.45);
+  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
 }
 
 /* Tablets and laptops: the same table, wider and in bigger type, to read from around it */
