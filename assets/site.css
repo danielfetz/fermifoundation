@@ -232,7 +232,7 @@ button {
   height: calc(var(--fermi-h) * 1.7);
   user-select: none;
 }
-/* Poker chips at the foot of the strip, in a poker set's colours. On narrower screens, a small pair in the
+/* Poker chips at the foot of the strip, in the etching's own colours. On narrower screens, a small pair in the
    bottom right corner: chips-corner.svg, drawn in px from that corner (the box −140–0 × −60–20). From 900px wide,
    where there's room beside Fermi and under the menu, stacks around 81% across with chips on their own towards the
    middle: chips.svg, drawn in the strip's coordinates at 1440 × 426 (the box 700–1400 × 200–430), growing and
