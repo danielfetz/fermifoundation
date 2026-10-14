@@ -41,7 +41,8 @@ if (hostForm && hostFormDone) {
 
     const data = new URLSearchParams()
     for (const [name, value] of new FormData(hostForm)) {
-      if (!name.startsWith('entry.')) continue
+      // Optional questions left empty aren't sent at all, which is how Google takes "no answer"
+      if (!name.startsWith('entry.') || value === '') continue
       const date = hostForm.elements[name].type === 'date' && value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
       if (date) {
         // Google takes a date as separate year, month and day
