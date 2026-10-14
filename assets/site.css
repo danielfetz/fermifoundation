@@ -726,12 +726,20 @@ button {
 .su-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
-/* Under the introduction on the home page */
-.updates-intro { margin-top: 8px; padding-top: 26px; border-top: 2px solid var(--rule); }
-.updates-intro h2 { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.2; }
-.updates-intro > p { margin-top: 6px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
-.updates-intro .su,
-.updates-intro .su-done { margin-top: 16px; }
+/* Under the introduction on the home page: in a frame like the cards below it, the text beside the form on wider
+   screens, with the email on top and "I'm a…" next to the button */
+.updates-intro { display: grid; gap: 18px 40px; margin-top: 12px; padding: 26px 30px; border: 4px solid var(--rule); }
+.updates-intro h2 { color: #000; font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.2; }
+.updates-intro__text p { margin-top: 6px; font-size: 17px; line-height: 1.5; text-wrap: pretty; }
+.updates-intro .su__row input[type='email'] { flex: 1 1 100%; }
+.updates-intro .su__row select { flex: 1 1 0; }
+@media (min-width: 781px) {
+  .updates-intro { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; }
+}
+@media (max-width: 600px) {
+  .updates-intro { padding: 22px; }
+  .updates-intro .su__row select { flex: 1 1 100%; }
+}
 
 /* At the end of the home page, with the contact line under it */
 .updates-end { max-width: 640px; margin: 76px auto 24px; text-align: center; }

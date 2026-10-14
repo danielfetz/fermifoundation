@@ -118,8 +118,10 @@
 
       <!-- Sign-up for updates, sent to api/subscribe.js (assets/site.js); again at the end of the page, and in a pop-up -->
       <div class="updates-intro">
-        <h2>Get updates</h2>
-        <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+        <div class="updates-intro__text">
+          <h2>Get updates</h2>
+          <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+        </div>
         <form class="su" action="/api/subscribe" method="post">
           <div class="su__row">
             <label class="sr-only" for="intro-email">Email</label>
