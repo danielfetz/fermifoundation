@@ -3,8 +3,9 @@
 The Fermi Foundation website: plain HTML and CSS, no build step.
 
 - `index.html`: the home page, about hosting Fermi Poker tournaments
-- `how-to-play/`, `host/`, `sponsor/`, `about/`: the inner pages
-- `assets/site.css`: all styles; `assets/site.js`: the mobile menu and the Host sign-up form
+- `how-to-play/`, `host/`, `sponsor/`, `about/`, `updates/`: the inner pages (`updates/` is Get updates, below)
+- `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
+- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form and Get updates
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF)
 - The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
   the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
@@ -26,7 +27,23 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all five.
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all six.
+
+Get updates: people leave their email to hear when the questions and materials are ready, and news about tournaments.
+The form is on the home page twice (under the introduction and at the end), on its own page (`updates/`), and in a
+pop-up that "Get updates" in the menu opens (`assets/site.js`). The pop-up also comes up by itself once: on laptops
+when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after 30 seconds on the page.
+Then not again for 30 days, and never after signing up or sending the Host form (the browser remembers this as
+`fermi-updates` in local storage); never on the Play page or Get updates itself.
+
+The forms send to `api/subscribe.js`, which adds the address to the contacts in Resend (resend.com), not yet
+subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`api/confirm.js`, good for a week)
+subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "Students", "Teachers and
+professors" or "Others" (what they said they are), emails contact@fermi.org about the new sign-up, and shows the
+Get updates page saying so. Both need Resend's key as `RESEND_API_KEY` in the project's environment variables on
+Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in Resend to a segment; Resend adds the
+link to unsubscribe. Without JavaScript the forms still work: the Get updates page shows what happened (`#sent`,
+`#confirmed`, `#invalid`, `#failed`).
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
 uses the same picture, `assets/img/link-preview.jpg` (1200 × 630): a screenshot of the top of the home page with

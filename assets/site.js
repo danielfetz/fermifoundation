@@ -57,6 +57,7 @@ if (hostForm && hostFormDone) {
     error.hidden = true
     try {
       if (!isBot) await fetch(hostForm.action, { method: 'POST', mode: 'no-cors', body: data })
+      remember.set({ host: Date.now() })
       hostForm.hidden = true
       hostFormDone.hidden = false
       hostFormDone.focus()
@@ -66,4 +67,182 @@ if (hostForm && hostFormDone) {
       button.disabled = false
     }
   })
+}
+
+// Updates: the sign-up forms in the page (home, /updates/), and the same short form in a pop-up. They send to
+// /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
+// when the mouse leaves the page at the top, heading for the tabs or the close button, after 10 seconds on the page;
+// on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up or sending the
+// Host form. "Get updates" in the menu opens it any time. The Play page doesn't load this script, so never there.
+const remember = {
+  get() {
+    try { return JSON.parse(localStorage.getItem('fermi-updates')) || {} } catch { return {} }
+  },
+  set(values) {
+    try { localStorage.setItem('fermi-updates', JSON.stringify({ ...remember.get(), ...values })) } catch {}
+  },
+}
+
+const updatesForm = id => `
+  <form class="su" action="/api/subscribe" method="post">
+    <label class="sr-only" for="${id}-email">Email</label>
+    <input id="${id}-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+    <fieldset class="su__who">
+      <legend>I’m a <span>(optional)</span></legend>
+      <span class="su__choices">
+        <label class="choice"><input type="radio" name="role" value="student"> Student</label>
+        <label class="choice"><input type="radio" name="role" value="teacher"> Teacher or professor</label>
+        <label class="choice"><input type="radio" name="role" value="other"> Other</label>
+      </span>
+    </fieldset>
+    <div class="form__trap" aria-hidden="true">
+      <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+    </div>
+    <div class="su__send">
+      <button class="btn btn--primary" type="submit">Sign up</button>
+      <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
+    </div>
+    <p class="su__error" role="alert" hidden>That didn’t work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+  </form>
+  <div class="su-done" tabindex="-1" hidden>
+    <h3>Check your inbox</h3>
+    <p>We’ve sent a link to <b class="su-done__email"></b>. Click it to confirm, and you’re on the list.</p>
+  </div>`
+
+function wireUpdates(form) {
+  const done = form.nextElementSibling
+  const button = form.querySelector('button[type="submit"]')
+  const error = form.querySelector('.su__error')
+  form.addEventListener('submit', async event => {
+    event.preventDefault()
+    const data = Object.fromEntries(new FormData(form))
+    button.disabled = true
+    error.hidden = true
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      remember.set({ signedUp: Date.now() })
+      done.querySelector('.su-done__email').textContent = String(data.email).trim()
+      form.hidden = true
+      done.hidden = false
+      done.focus()
+    } catch {
+      error.hidden = false
+    } finally {
+      button.disabled = false
+    }
+  })
+}
+document.querySelectorAll('form.su').forEach(wireUpdates)
+
+let updatesDialog
+function openUpdates(how) {
+  if (!updatesDialog) {
+    updatesDialog = document.createElement('dialog')
+    updatesDialog.className = 'updates'
+    updatesDialog.setAttribute('aria-labelledby', 'updates-title')
+    updatesDialog.innerHTML = `
+      <div class="updates__box">
+        <div class="updates__head">
+          <h2 class="updates__title" id="updates-title" tabindex="-1">Get updates</h2>
+          <button class="updates__close" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <p class="updates__text">We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+        ${updatesForm('updates')}
+      </div>`
+    document.body.append(updatesDialog)
+    const form = updatesDialog.querySelector('form')
+    wireUpdates(form)
+    updatesDialog.querySelector('.updates__close').addEventListener('click', () => updatesDialog.close())
+    // A click on the dimmed page around it closes it too
+    updatesDialog.addEventListener('click', event => {
+      if (event.target === updatesDialog) updatesDialog.close()
+    })
+    updatesDialog.addEventListener('close', () => {
+      if (!remember.get().signedUp) remember.set({ seen: Date.now() })
+      // Opened again later, it shows the form again
+      if (form.hidden) {
+        form.reset()
+        form.hidden = false
+        form.nextElementSibling.hidden = true
+      }
+    })
+  }
+  // Come up by itself, it counts as seen right away, even if they then leave without closing it
+  if (how !== 'menu' && !remember.get().signedUp) remember.set({ seen: Date.now() })
+  updatesDialog.showModal()
+  // From the menu, straight to the email field; by itself, on its title, so no keyboard pops up on phones
+  if (how === 'menu') updatesDialog.querySelector('input[type="email"]').focus()
+  else updatesDialog.querySelector('.updates__title').focus()
+}
+
+if (!location.pathname.startsWith('/updates/')) {
+  document.querySelectorAll('a[href="/updates/"]').forEach(link => link.addEventListener('click', event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    event.preventDefault()
+    openUpdates('menu')
+  }))
+
+  // Whether it may come up by itself now: never once someone has signed up, sent the Host form or seen it lately; not
+  // while they type, or while a sign-up form is on screen anyway
+  const DAY = 24 * 60 * 60 * 1000
+  const mayOpen = () => {
+    const known = remember.get()
+    if (known.signedUp || known.host || (known.seen && Date.now() - known.seen < 30 * DAY)) return 'never'
+    if (document.querySelector('dialog[open]') || document.activeElement?.matches('input, textarea, select')) return 'later'
+    const inView = [...document.querySelectorAll('form.su')].some(form => {
+      const box = form.getBoundingClientRect()
+      return box.bottom > 0 && box.top < innerHeight
+    })
+    return inView ? 'later' : 'now'
+  }
+
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    // Laptops: the mouse leaving at the top of the window
+    setTimeout(() => {
+      const leaving = event => {
+        if (event.relatedTarget || event.clientY > 8) return
+        const may = mayOpen()
+        if (may === 'later') return
+        document.removeEventListener('mouseout', leaving)
+        if (may === 'now') openUpdates('leaving')
+      }
+      document.addEventListener('mouseout', leaving)
+    }, 10 * 1000)
+  } else {
+    // Phones and tablets: 30 seconds on the page, counting only while it's on screen; if someone's busy, 10 more
+    let wait = 30 * 1000
+    let started = 0
+    let timer = 0
+    let over = false
+    const arm = ms => {
+      wait = ms
+      started = Date.now()
+      timer = setTimeout(fire, ms)
+    }
+    const fire = () => {
+      timer = 0
+      const may = mayOpen()
+      if (may === 'later') return arm(10 * 1000)
+      over = true
+      if (may === 'now') openUpdates('timer')
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (over) return
+      if (document.hidden && timer) {
+        clearTimeout(timer)
+        timer = 0
+        wait -= Date.now() - started
+      } else if (!document.hidden && !timer) {
+        arm(Math.max(0, wait))
+      }
+    })
+    if (!document.hidden) arm(wait)
+  }
 }

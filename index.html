@@ -47,6 +47,7 @@
           <li><a href="/host/">Host a tournament</a></li>
           <li><a href="/sponsor/">Donate</a></li>
           <li><a href="/about/">About</a></li>
+          <li><a class="nav__updates" href="/updates/">Get updates</a></li>
         </ul>
         <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
           <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -60,6 +61,7 @@
           <li><a href="/host/">Host a tournament</a></li>
           <li><a href="/sponsor/">Donate</a></li>
           <li><a href="/about/">About</a></li>
+          <li><a href="/updates/">Get updates</a></li>
         </ul>
       </div>
     </nav>
@@ -112,6 +114,37 @@
           <span class="nowrap">dry-erase markers</span> and small prizes. Fill out our <a class="link" href="/host/#sign-up">short form</a> or
           write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
         </p>
+      </div>
+
+      <!-- Sign-up for updates, sent to api/subscribe.js (assets/site.js); again at the end of the page, and in a pop-up -->
+      <div class="updates-intro">
+        <h2>Get updates</h2>
+        <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+        <form class="su" action="/api/subscribe" method="post">
+          <label class="sr-only" for="intro-email">Email</label>
+          <input id="intro-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+          <fieldset class="su__who">
+            <legend>I’m a <span>(optional)</span></legend>
+            <span class="su__choices">
+              <label class="choice"><input type="radio" name="role" value="student"> Student</label>
+              <label class="choice"><input type="radio" name="role" value="teacher"> Teacher or professor</label>
+              <label class="choice"><input type="radio" name="role" value="other"> Other</label>
+            </span>
+          </fieldset>
+          <!-- Spam trap: hidden from people, but bots fill it in -->
+          <div class="form__trap" aria-hidden="true">
+            <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="su__send">
+            <button class="btn btn--primary" type="submit">Sign up</button>
+            <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
+          </div>
+          <p class="su__error" role="alert" hidden>That didn’t work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+        </form>
+        <div class="su-done" tabindex="-1" hidden>
+          <h3>Check your inbox</h3>
+          <p>We’ve sent a link to <b class="su-done__email"></b>. Click it to confirm, and you’re on the list.</p>
+        </div>
       </div>
 
       <section class="home-section">
@@ -262,7 +295,36 @@
         </div>
       </section>
 
-      <h2 class="contact">Anything else you’d like to know? Write to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a></h2>
+      <section class="updates-end">
+        <h2>Stay in the loop</h2>
+        <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+        <form class="su" action="/api/subscribe" method="post">
+          <label class="sr-only" for="end-email">Email</label>
+          <input id="end-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+          <fieldset class="su__who">
+            <legend>I’m a <span>(optional)</span></legend>
+            <span class="su__choices">
+              <label class="choice"><input type="radio" name="role" value="student"> Student</label>
+              <label class="choice"><input type="radio" name="role" value="teacher"> Teacher or professor</label>
+              <label class="choice"><input type="radio" name="role" value="other"> Other</label>
+            </span>
+          </fieldset>
+          <!-- Spam trap: hidden from people, but bots fill it in -->
+          <div class="form__trap" aria-hidden="true">
+            <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <div class="su__send">
+            <button class="btn btn--primary" type="submit">Sign up</button>
+            <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
+          </div>
+          <p class="su__error" role="alert" hidden>That didn’t work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+        </form>
+        <div class="su-done" tabindex="-1" hidden>
+          <h3>Check your inbox</h3>
+          <p>We’ve sent a link to <b class="su-done__email"></b>. Click it to confirm, and you’re on the list.</p>
+        </div>
+        <p class="updates-end__contact">Anything else you’d like to know? Write to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a></p>
+      </section>
     </div>
 
     <img class="paper__edge paper__edge--bottom" src="/assets/img/edge-bottom.svg" alt="" aria-hidden="true">
