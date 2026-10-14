@@ -660,7 +660,7 @@ button {
 .form-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .form-done p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 
-/* Updates: the sign-up forms on the home page and /updates/, and the same one in the pop-up (assets/site.js). Square
+/* Updates: the sign-up forms on the home page and /updates/, and a short one in the pop-up (assets/site.js). Square
    fields like the Host form's, the blue pill to send. */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .su[hidden],
@@ -759,8 +759,14 @@ button {
 .updates__text { margin-top: 8px; font-size: 17px; line-height: 1.5; }
 .updates .su,
 .updates .su-done { margin-top: 18px; }
+/* Its fields one under the other, each with a small heading */
+.updates .su__row { flex-direction: column; align-items: stretch; gap: 0; }
 .updates .su__row input[type='email'],
-.updates .su__row select { flex: 1 1 100%; }
+.updates .su__row select { flex: none; width: 100%; }
+.updates .su__label { margin-bottom: 6px; font-size: 16px; font-weight: 700; line-height: 1.3; }
+.updates .su__label span { color: var(--ink-soft); font-weight: 400; }
+.updates input + .su__label { margin-top: 14px; }
+.updates .su__row .btn { align-self: flex-start; margin-top: 18px; }
 @media (prefers-reduced-motion: reduce) {
   .updates[open] { animation: none; }
 }

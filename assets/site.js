@@ -69,7 +69,8 @@ if (hostForm && hostFormDone) {
   })
 }
 
-// Updates: the sign-up forms in the page (home, /updates/), and the same short form in a pop-up. They send to
+// Updates: the sign-up forms in the page (home, /updates/), and a short one in a pop-up, with a small heading over each
+// field. They send to
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
 // when the mouse leaves the page at the top, heading for the tabs or the close button, after 10 seconds on the page;
 // on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up or sending the
@@ -86,11 +87,11 @@ const remember = {
 const updatesForm = id => `
   <form class="su" action="/api/subscribe" method="post">
     <div class="su__row">
-      <label class="sr-only" for="${id}-email">Email</label>
+      <label class="su__label" for="${id}-email">Email</label>
       <input id="${id}-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
-      <label class="sr-only" for="${id}-role">I’m a (optional)</label>
+      <label class="su__label" for="${id}-role">I’m a <span>(optional)</span></label>
       <select id="${id}-role" name="role">
-        <option value="" selected>I’m a… (optional)</option>
+        <option value="" selected>Choose…</option>
         <option value="student">Student</option>
         <option value="teacher">Teacher or professor</option>
         <option value="other">Other</option>
