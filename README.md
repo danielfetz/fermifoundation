@@ -34,7 +34,7 @@ left column, the even ones in the right (and the last one, the 13th, at the bott
 opening one only moves the questions under it. Each question also has its number as `style="order: …"`, which puts
 them back in turn on phones, where it's one list. So to add or move a question, change the columns and the numbers.
 
-Get updates: people leave their email to hear when the questions and materials are ready, and news about tournaments.
+Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news about tournaments.
 The form is on the home page twice (under the introduction and at the end), on its own page (`updates/`), and in a
 pop-up that "Get updates" in the menu opens (`assets/site.js`). The forms ask only for the email; the pop-up also asks
 what they are ("I'm a…", optional). The pop-up also comes up by itself once: on laptops

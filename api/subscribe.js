@@ -68,7 +68,7 @@ function html(link) {
 <div style="padding:32px 16px;background:#f7f7ea;color:#151d23">
   <div style="max-width:520px;margin:0 auto;padding:28px 28px 24px;border:4px solid #8a8e91;background:#fffef2">
     <h1 style="margin:0 0 12px;color:#000;font-family:Georgia, 'Times New Roman', serif;font-size:24px;line-height:1.25">Please confirm your email</h1>
-    <p style="margin:0 0 22px;font-family:${sans};font-size:16px;line-height:1.5">You asked for updates from Fermi Poker. Click the button to confirm, and you’re on the list. We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
+    <p style="margin:0 0 22px;font-family:${sans};font-size:16px;line-height:1.5">You asked for updates from Fermi Poker. Click the button to confirm, and you’re on the list. We’ll let you know when our questions and materials are ready, and whenever there’s news about Fermi Poker tournaments.</p>
     <p style="margin:0 0 22px"><a href="${escape(link)}" style="display:inline-block;padding:12px 26px;border-radius:999px;background:#009dff;color:#ffffff;font-family:${sans};font-size:16px;font-weight:bold;text-decoration:none">Confirm my email</a></p>
     <p style="margin:0;color:#32424e;font-family:${sans};font-size:14px;line-height:1.5">The link works for ${LINK_DAYS} days. If you didn’t sign up, ignore this email and you won’t hear from us.</p>
   </div>
@@ -84,7 +84,7 @@ You asked for updates from Fermi Poker. Open this link to confirm, and you’re 
 
 ${link}
 
-We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.
+We’ll let you know when our questions and materials are ready, and whenever there’s news about Fermi Poker tournaments.
 
 The link works for ${LINK_DAYS} days. If you didn’t sign up, ignore this email and you won’t hear from us.
 
