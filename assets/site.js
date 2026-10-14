@@ -158,7 +158,7 @@ function openUpdates(how) {
     updatesDialog.innerHTML = `
       <div class="updates__box">
         <div class="updates__head">
-          <h2 class="updates__title" id="updates-title" tabindex="-1">Get updates</h2>
+          <h2 class="updates__title" id="updates-title" tabindex="-1">Join the mailing list</h2>
           <button class="updates__close" type="button" aria-label="Close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
           </button>

@@ -317,11 +317,6 @@ button {
   font-weight: 700;
   line-height: 1.2;
 }
-.home-section__intro {
-  margin-top: 10px;
-  font-size: 18px;
-  line-height: 1.5;
-}
 .home-section__body { margin-top: 28px; }
 
 /* Two-column card grid, wider than the text column */
@@ -387,9 +382,10 @@ button {
 .folds__col { display: grid; align-content: start; gap: 15px; }
 .card--fold { padding: 0; overflow: hidden; }
 .card--fold > summary { padding: 19px 25px; transition: background-color 150ms var(--ease); }
-/* A tint under the pointer, only where there is one: on phones it would stay on after a tap */
+/* A tint under the pointer, only where there is one (on phones it would stay on after a tap), and only while the card is
+   closed: open, the line you clicked would stay a different shade from the text under it */
 @media (hover: hover) {
-  .card--fold > summary:hover { background: rgba(21, 29, 35, 0.035); }
+  .card--fold:not([open]) > summary:hover { background: rgba(21, 29, 35, 0.035); }
 }
 .card--fold > .card__body { margin-top: -8px; padding: 0 25px 21px; }
 @media (min-width: 721px) {
@@ -780,61 +776,50 @@ button {
 .su-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
-/* Under the introduction on the home page: a grey card like those below it, an envelope by its heading. From tablets
-   up, centred like "Stay in the loop" at the end, the form in one row; on phones, the fields one under the other. */
+/* Under the introduction on the home page: a grey card like those below it, set like the box at the end of the page
+   (centred, the same title and sentence). From tablets up the form is in one row; on phones the fields are one under
+   the other. */
 .updates-intro {
   display: grid;
-  gap: 18px 40px;
+  gap: 22px;
+  justify-items: center;
   margin-top: 48px;
-  padding: 26px 30px;
+  padding: 46px 32px 40px;
   border-radius: var(--card-radius);
   background: var(--card-bg);
+  text-align: center;
 }
 .updates-intro h2 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   color: #000;
   font-family: var(--serif);
-  font-size: 26px;
+  font-size: 38px;
   font-weight: 700;
   line-height: 1.2;
+  text-wrap: balance;
 }
-.updates-intro h2::before { content: ""; flex: none; width: 28px; height: 28px; background: var(--envelope) center / contain no-repeat; }
-.updates-intro__text p { margin-top: 6px; font-size: 17px; line-height: 1.5; text-wrap: pretty; }
-.updates-intro .su__row input[type='email'] { flex: 1 1 100%; }
-.updates-intro .su__row select { flex: 1 1 0; }
-@media (min-width: 601px) {
-  .updates-intro { gap: 16px; justify-items: center; padding: 34px 32px 30px; text-align: center; }
-  .updates-intro h2 { justify-content: center; }
-  .updates-intro__text p { text-wrap: balance; }
-  .updates-intro .su { width: min(100%, 660px); }
-  .updates-intro .su__row { justify-content: center; }
-  .updates-intro .su__row input[type='email'] { flex: 1 1 240px; }
-  .updates-intro .su__row select { flex: 0 1 240px; }
-}
+.updates-intro__text { width: min(100%, 640px); }
+.updates-intro__text p { margin-top: 12px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
+.updates-intro .su { width: min(100%, 660px); }
+.updates-intro .su__row { justify-content: center; }
+.updates-intro .su__row input[type='email'] { flex: 1 1 240px; }
+.updates-intro .su__row select { flex: 0 1 240px; }
 @media (max-width: 600px) {
-  .updates-intro { margin-top: 40px; padding: 22px; }
+  .updates-intro { margin-top: 40px; padding: 34px 20px 30px; }
+  .updates-intro .su__row input[type='email'],
   .updates-intro .su__row select { flex: 1 1 100%; }
 }
-/* Signed up: the message takes the whole box, with a bigger check */
-.updates-intro:has(> .su-done:not([hidden])) { grid-template-columns: minmax(0, 1fr); }
+/* Signed up: the message takes the whole box, a bigger check above it */
 .updates-intro:has(> .su-done:not([hidden])) > .updates-intro__text { display: none; }
-.updates-intro .su-done { column-gap: 18px; }
-.updates-intro .su-done::before { width: 46px; height: 46px; }
+.updates-intro .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+.updates-intro .su-done::before { grid-row: auto; width: 46px; height: 46px; margin-bottom: 10px; }
+.updates-intro .su-done > * { grid-column: auto; }
 .updates-intro .su-done h3 { font-size: 26px; line-height: 1.2; }
-/* …centred from tablets up, with the check above it, as at the end */
-@media (min-width: 601px) {
-  .updates-intro .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; }
-  .updates-intro .su-done::before { grid-row: auto; margin-bottom: 10px; }
-  .updates-intro .su-done > * { grid-column: auto; }
-}
 
 /* At the end of the home page, with the contact line under it: a grey card the width of the page, its content centred */
 .updates-end { margin: 76px 0 24px; padding: 46px 32px 40px; border-radius: 18px; background: var(--card-bg); text-align: center; }
 .updates-end > * { max-width: 640px; margin-left: auto; margin-right: auto; }
-.updates-end h2 { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.2; }
-.updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; }
+.updates-end h2 { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.2; text-wrap: balance; }
+.updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
 .updates-end .su { margin-top: 22px; }
 .updates-end .su__row { justify-content: center; }
 .updates-end .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; margin-top: 22px; }
@@ -842,6 +827,7 @@ button {
 .updates-end .su-done > * { grid-column: auto; }
 .updates-end > .updates-end__contact { margin-top: 34px; }
 @media (max-width: 780px) {
+  .updates-intro h2,
   .updates-end h2 { font-size: 28px; }
 }
 @media (max-width: 600px) {
@@ -866,7 +852,7 @@ button {
 :root:has(.updates[open]) { overflow: hidden; }
 .updates__box { padding: 22px 26px 24px; }
 .updates__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-.updates__title { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.2; outline: none; }
+.updates__title { font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.2; text-wrap: balance; outline: none; }
 .updates__close {
   display: grid;
   flex: none;
@@ -922,7 +908,7 @@ button {
 .nav__sheet .nav__updates::before {
   width: 24px;
   height: 24px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23151d23' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3.5 6.5 8.5 6.5 8.5-6.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  background: var(--envelope) center / contain no-repeat;
 }
 .nav__sheet .nav__updates::after {
   width: 18px;
@@ -1018,7 +1004,6 @@ button {
   .download { gap: 8px; margin-top: 10px; font-size: 18px; }
   .download svg { width: 20px; height: 20px; }
   .home-section > h2 { font-size: 28px; }
-  .home-section__intro,
   .closing,
   .section__intro,
   .text,
