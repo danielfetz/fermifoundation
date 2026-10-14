@@ -387,6 +387,7 @@ button {
   margin-top: 38.5px;
   font-size: 24px;
   line-height: 1.406;
+  text-wrap: pretty;
 }
 .page__intro > * + * { margin-top: 1.406em; }
 /* Small download link under a page title, e.g. the rule sheet on How to play */
@@ -818,9 +819,9 @@ button {
 }
 
 /* "Get updates" in the menu: a white button like those on the Play page (.ph-btn in assets/play.css); in the phone
-   menu, a wide one at the end of the list */
-.nav__links .nav__updates,
-.nav__sheet .nav__updates {
+   menu, a row like the others, in bold with an envelope */
+.nav__links .nav__updates {
+  padding: 6px 17px;
   border: 0;
   border-radius: 999px;
   background: #fffef8;
@@ -828,10 +829,15 @@ button {
   box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
   transition: background-color 150ms var(--ease);
 }
-.nav__links .nav__updates { padding: 6px 17px; }
-.nav__sheet .nav__updates { margin-top: 12px; padding: 12px 0; text-align: center; }
-.nav__links .nav__updates:hover,
-.nav__sheet .nav__updates:hover { background: #fff; }
+.nav__links .nav__updates:hover { background: #fff; }
+.nav__sheet .nav__updates { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.nav__sheet .nav__updates::before {
+  content: "";
+  flex: none;
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23151d23' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3.5 6.5 8.5 6.5 8.5-6.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 
 /* The Get updates page: what happened, after following the link in the email or sending the form without JavaScript
    (#sent, #confirmed, #invalid, #failed); once signed up or confirmed, the form gives way to it */
