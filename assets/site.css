@@ -352,6 +352,25 @@ button {
 @media (max-width: 720px) {
   .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
 }
+/* Cards that fold open, like the skills under Educational value: each shows its name and opens to its text. Two lists
+   side by side where there's room, so opening a card only moves the cards under it; on phones, one list. */
+.folds { display: grid; gap: 15px; width: min(909px, 100%); }
+.folds__col { display: grid; align-content: start; gap: 15px; }
+.card--fold { padding: 0; }
+.card--fold > summary { padding: 19px 25px; transition: background-color 150ms var(--ease); }
+/* A tint under the pointer, only where there is one: on phones it would stay on after a tap */
+@media (hover: hover) {
+  .card--fold > summary:hover { background: rgba(21, 29, 35, 0.04); }
+}
+.card--fold > .card__body { margin-top: -8px; padding: 0 25px 21px; }
+@media (min-width: 721px) {
+  .folds {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
 
 /* Inner page content */
 .page {
@@ -489,8 +508,9 @@ button {
   font-weight: 700;
   line-height: 1.35;
 }
-/* A box that folds open, like the worked example on How to play */
-.box--fold > summary {
+/* A box or card that folds open, like the worked example on How to play and the skills on the home page */
+.box--fold > summary,
+.card--fold > summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -498,8 +518,10 @@ button {
   list-style: none;
   cursor: pointer;
 }
-.box--fold > summary::-webkit-details-marker { display: none; }
-.box--fold > summary::after {
+.box--fold > summary::-webkit-details-marker,
+.card--fold > summary::-webkit-details-marker { display: none; }
+.box--fold > summary::after,
+.card--fold > summary::after {
   content: "";
   flex: none;
   width: 11px;
@@ -509,7 +531,8 @@ button {
   border-bottom: 2.5px solid var(--ink);
   transform: rotate(45deg);
 }
-.box--fold[open] > summary::after { margin-bottom: -4px; transform: rotate(-135deg); }
+.box--fold[open] > summary::after,
+.card--fold[open] > summary::after { margin-bottom: -4px; transform: rotate(-135deg); }
 /* A label on a box's top right corner, like "Recommended" */
 .badge {
   position: absolute;

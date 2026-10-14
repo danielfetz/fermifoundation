@@ -154,38 +154,44 @@
         <h2>Educational value</h2>
         <p class="home-section__intro">Fermi Poker trains a cluster of skills that are genuinely useful outside the game.</p>
         <div class="home-section__body">
-          <div class="cards">
-            <div class="card">
-              <h3>Fermi estimation</h3>
-              <div class="card__body"><p>Breaking a seemingly unanswerable question into smaller parts you can actually reason about is a skill that pays off far beyond the game. Physicists use it to quickly check whether an experiment is even feasible before wasting months on it, entrepreneurs use it to size a market, and anyone can use it to tell whether a number on social media makes sense.</p></div>
+          <!-- Each box shows its name and opens to its text. Two lists side by side where there’s room, so opening a
+               box only moves the boxes under it; on phones, one list. -->
+          <div class="folds">
+            <div class="folds__col">
+              <details class="card card--fold">
+                <summary><h3>Fermi estimation</h3></summary>
+                <div class="card__body"><p>Breaking a seemingly unanswerable question into smaller parts you can actually reason about is a skill that pays off far beyond the game. Physicists use it to quickly check whether an experiment is even feasible before wasting months on it, entrepreneurs use it to size a market, and anyone can use it to tell whether a number on social media makes sense.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>Calibration</h3></summary>
+                <div class="card__body"><p>Knowing what you know, and what you don’t, is harder than it sounds. That’s why in Fermi Poker you guess a range rather than a single number, and the narrowest range that contains the answer wins. A range that’s too narrow risks missing entirely; one that’s too wide rarely wins. Over many rounds, players get better at putting numbers on their own uncertainty.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>Bayesian updating</h3></summary>
+                <div class="card__body"><p>Changing your mind when the facts change is at the heart of rational thinking, and in Fermi Poker it comes up with every hint. Players learn to treat their beliefs as “hypotheses to be tested, not treasures to be guarded,” as Philip Tetlock puts it, and to neither overreact nor underreact to new evidence.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>World-modeling</h3></summary>
+                <div class="card__body"><p>Every question is really about how the world is structured: how common different jobs are, how people spend their time, what things cost. The game rewards an accurate model of the world and helps you build one: every answer that surprises you shows where your model can be refined.</p></div>
+              </details>
             </div>
-            <div class="card">
-              <h3>Calibration</h3>
-              <div class="card__body"><p>Knowing what you know, and what you don’t, is harder than it sounds. That’s why in Fermi Poker you guess a range rather than a single number, and the narrowest range that contains the answer wins. A range that’s too narrow risks missing entirely; one that’s too wide rarely wins. Over many rounds, players get better at putting numbers on their own uncertainty.</p></div>
-            </div>
-            <div class="card">
-              <h3>Bayesian updating</h3>
-              <div class="card__body"><p>Changing your mind when the facts change is at the heart of rational thinking, and in Fermi Poker it comes up with every hint. Players learn to treat their beliefs as “hypotheses to be tested, not treasures to be guarded,” as Philip Tetlock puts it, and to neither overreact nor underreact to new evidence.</p></div>
-            </div>
-            <div class="card">
-              <h3>World-modeling</h3>
-              <div class="card__body"><p>Every question is really about how the world is structured: how common different jobs are, how people spend their time, what things cost. The game rewards an accurate model of the world and helps you build one: every answer that surprises you shows where your model can be refined.</p></div>
-            </div>
-            <div class="card">
-              <h3>Cognitive empathy</h3>
-              <div class="card__body"><p>It’s one thing to know what other people feel, and another to understand how they think and why they believe what they believe. Regular poker rewards reading tells, like a trembling hand. Fermi Poker also makes you model what each player knows and how their cultural or educational background influences their answers. Asked how many new cars are sold in the US each year, will someone from rural Texas guess higher than someone from a <span class="nowrap">bike-friendly</span> European city? Like a flight simulator, the game lets you practice this dozens of times in a few hours.</p></div>
-            </div>
-            <div class="card">
-              <h3>Knowing whom to trust</h3>
-              <div class="card__body"><p>Figuring out whom to trust is most of the way to having correct beliefs. At the table, as in life, confidence and charisma say little about who’s right. What counts is a track record of good estimates on similar questions, since expertise depends on the domain: the player who nails car questions may be lost on history questions. That’s worth remembering when influencers and celebrities weigh in on everything.</p></div>
-            </div>
-            <div class="card">
-              <h3>An antidote to number numbness</h3>
-              <div class="card__body"><p>Douglas Hofstadter called it “number numbness”: the inability to grasp the size of large numbers, which he argued may be just as dangerous as illiteracy. In Fermi Poker, you estimate large numbers again and again, until a million and a billion stop sounding alike.</p></div>
-            </div>
-            <div class="card">
-              <h3>Taking emotion seriously</h3>
-              <div class="card__body"><p>Michael Nielsen has argued that we learn best when the emotional stakes are as high as possible without losing the ability to think calmly, like a game show contestant who loses the prize on a wrong answer and remembers the right one for life. Fermi Poker creates such moments all the time. Take the question “How many chickens are slaughtered for meat each year?” You’re sure it’s no more than 10 billion, so you go <span class="nowrap">all-in</span>, and then the answer comes in: over 75 billion. You’ll remember that far longer than if you’d heard it in a lecture.</p></div>
+            <div class="folds__col">
+              <details class="card card--fold">
+                <summary><h3>Cognitive empathy</h3></summary>
+                <div class="card__body"><p>It’s one thing to know what other people feel, and another to understand how they think and why they believe what they believe. Regular poker rewards reading tells, like a trembling hand. Fermi Poker also makes you model what each player knows and how their cultural or educational background influences their answers. Asked how many new cars are sold in the US each year, will someone from rural Texas guess higher than someone from a <span class="nowrap">bike-friendly</span> European city? Like a flight simulator, the game lets you practice this dozens of times in a few hours.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>Knowing whom to trust</h3></summary>
+                <div class="card__body"><p>Figuring out whom to trust is most of the way to having correct beliefs. At the table, as in life, confidence and charisma say little about who’s right. What counts is a track record of good estimates on similar questions, since expertise depends on the domain: the player who nails car questions may be lost on history questions. That’s worth remembering when influencers and celebrities weigh in on everything.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>An antidote to number numbness</h3></summary>
+                <div class="card__body"><p>Douglas Hofstadter called it “number numbness”: the inability to grasp the size of large numbers, which he argued may be just as dangerous as illiteracy. In Fermi Poker, you estimate large numbers again and again, until a million and a billion stop sounding alike.</p></div>
+              </details>
+              <details class="card card--fold">
+                <summary><h3>Taking emotion seriously</h3></summary>
+                <div class="card__body"><p>Michael Nielsen has argued that we learn best when the emotional stakes are as high as possible without losing the ability to think calmly, like a game show contestant who loses the prize on a wrong answer and remembers the right one for life. Fermi Poker creates such moments all the time. Take the question “How many chickens are slaughtered for meat each year?” You’re sure it’s no more than 10 billion, so you go <span class="nowrap">all-in</span>, and then the answer comes in: over 75 billion. You’ll remember that far longer than if you’d heard it in a lecture.</p></div>
+              </details>
             </div>
           </div>
           <p class="closing">
