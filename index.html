@@ -121,24 +121,23 @@
         <h2>Get updates</h2>
         <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
         <form class="su" action="/api/subscribe" method="post">
-          <label class="sr-only" for="intro-email">Email</label>
-          <input id="intro-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
-          <fieldset class="su__who">
-            <legend>I’m a <span>(optional)</span></legend>
-            <span class="su__choices">
-              <label class="choice"><input type="radio" name="role" value="student"> Student</label>
-              <label class="choice"><input type="radio" name="role" value="teacher"> Teacher or professor</label>
-              <label class="choice"><input type="radio" name="role" value="other"> Other</label>
-            </span>
-          </fieldset>
+          <div class="su__row">
+            <label class="sr-only" for="intro-email">Email</label>
+            <input id="intro-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+            <label class="sr-only" for="intro-role">I’m a (optional)</label>
+            <select id="intro-role" name="role">
+              <option value="" selected>I’m a… (optional)</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher or professor</option>
+              <option value="other">Other</option>
+            </select>
+            <button class="btn btn--primary" type="submit">Sign up</button>
+          </div>
           <!-- Spam trap: hidden from people, but bots fill it in -->
           <div class="form__trap" aria-hidden="true">
             <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
-          <div class="su__send">
-            <button class="btn btn--primary" type="submit">Sign up</button>
-            <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
-          </div>
+          <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
           <p class="su__error" role="alert" hidden>That didn’t work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
         </form>
         <div class="su-done" tabindex="-1" hidden>
@@ -299,24 +298,23 @@
         <h2>Stay in the loop</h2>
         <p>We’ll let you know when our questions and materials are ready, and send news about Fermi Poker tournaments.</p>
         <form class="su" action="/api/subscribe" method="post">
-          <label class="sr-only" for="end-email">Email</label>
-          <input id="end-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
-          <fieldset class="su__who">
-            <legend>I’m a <span>(optional)</span></legend>
-            <span class="su__choices">
-              <label class="choice"><input type="radio" name="role" value="student"> Student</label>
-              <label class="choice"><input type="radio" name="role" value="teacher"> Teacher or professor</label>
-              <label class="choice"><input type="radio" name="role" value="other"> Other</label>
-            </span>
-          </fieldset>
+          <div class="su__row">
+            <label class="sr-only" for="end-email">Email</label>
+            <input id="end-email" name="email" type="email" placeholder="Your email" autocomplete="email" required>
+            <label class="sr-only" for="end-role">I’m a (optional)</label>
+            <select id="end-role" name="role">
+              <option value="" selected>I’m a… (optional)</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher or professor</option>
+              <option value="other">Other</option>
+            </select>
+            <button class="btn btn--primary" type="submit">Sign up</button>
+          </div>
           <!-- Spam trap: hidden from people, but bots fill it in -->
           <div class="form__trap" aria-hidden="true">
             <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
           </div>
-          <div class="su__send">
-            <button class="btn btn--primary" type="submit">Sign up</button>
-            <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
-          </div>
+          <p class="su__note">Only news about Fermi Poker. You can unsubscribe at any time.</p>
           <p class="su__error" role="alert" hidden>That didn’t work. Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
         </form>
         <div class="su-done" tabindex="-1" hidden>
