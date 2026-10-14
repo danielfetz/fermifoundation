@@ -817,9 +817,21 @@ button {
   .updates[open] { animation: none; }
 }
 
-/* "Get updates" in the menu, as a button */
-.nav__links .nav__updates { padding: 4px 14px; border: 2px solid var(--ink); border-radius: 999px; font-weight: 700; }
-.nav__links .nav__updates:hover { background: rgba(21, 29, 35, 0.06); }
+/* "Get updates" in the menu: a white button like those on the Play page (.ph-btn in assets/play.css); in the phone
+   menu, a wide one at the end of the list */
+.nav__links .nav__updates,
+.nav__sheet .nav__updates {
+  border: 0;
+  border-radius: 999px;
+  background: #fffef8;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
+  transition: background-color 150ms var(--ease);
+}
+.nav__links .nav__updates { padding: 6px 17px; }
+.nav__sheet .nav__updates { margin-top: 12px; padding: 12px 0; text-align: center; }
+.nav__links .nav__updates:hover,
+.nav__sheet .nav__updates:hover { background: #fff; }
 
 /* The Get updates page: what happened, after following the link in the email or sending the form without JavaScript
    (#sent, #confirmed, #invalid, #failed); once signed up or confirmed, the form gives way to it */
