@@ -719,8 +719,8 @@ button {
 .form-done p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 
 /* Updates: the sign-up forms on the home page and /updates/, and a short one in the pop-up (assets/site.js). Round
-   fields like the Host form's, and the blue button to send with the same corners beside them (in the pop-up, where
-   it's under them, a pill like the site's other buttons). */
+   fields like the Host form's, and the blue button to send: a pill like the site's other buttons, or, when it sits on
+   one line with the fields, with their corners (site.js marks it). */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .su[hidden],
 .su-done[hidden] { display: none; }
@@ -755,7 +755,8 @@ button {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 157, 255, 0.35);
 }
-.su__row .btn { flex: none; height: 50px; padding: 0 26px; border-radius: 10px; font-size: 17px; }
+.su__row .btn { flex: none; height: 50px; padding: 0 26px; font-size: 17px; }
+.su__row .btn--beside { border-radius: 10px; }
 .su__note { margin-top: 10px; color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
 /* Phones, and the pop-up: one field under the other */
 @media (max-width: 600px) {
@@ -876,7 +877,7 @@ button {
 .updates .su__label { margin-bottom: 6px; font-size: 16px; font-weight: 700; line-height: 1.3; }
 .updates .su__label span { color: var(--ink-soft); font-weight: 400; }
 .updates input + .su__label { margin-top: 14px; }
-.updates .su__row .btn { align-self: flex-start; margin-top: 18px; border-radius: 999px; }
+.updates .su__row .btn { align-self: flex-start; margin-top: 18px; }
 @media (prefers-reduced-motion: reduce) {
   .updates[open] { animation: none; }
 }

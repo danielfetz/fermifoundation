@@ -139,6 +139,15 @@ function wireUpdates(form) {
 }
 document.querySelectorAll('form.su').forEach(wireUpdates)
 
+// The Sign up button takes the fields' rounded corners when it sits on one line with them, and stays a pill when it
+// wraps under them (on phones, and in the pop-up). Checked again whenever a form changes width (.btn--beside, site.css).
+const besideFields = new ResizeObserver(rows => rows.forEach(({ target: row }) => {
+  const button = row.querySelector('.btn')
+  const field = button.previousElementSibling
+  button.classList.toggle('btn--beside', Math.abs(button.getBoundingClientRect().top - field.getBoundingClientRect().top) < 1)
+}))
+document.querySelectorAll('form.su .su__row').forEach(row => besideFields.observe(row))
+
 let updatesDialog
 function openUpdates(how) {
   if (!updatesDialog) {
