@@ -204,17 +204,32 @@ if (!location.pathname.startsWith('/updates/')) {
   }
 
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    // Laptops: the mouse leaving at the top of the window
-    setTimeout(() => {
-      const leaving = event => {
-        if (event.relatedTarget || event.clientY > 8) return
-        const may = mayOpen()
-        if (may === 'later') return
-        document.removeEventListener('mouseout', leaving)
-        if (may === 'now') openUpdates('leaving')
-      }
-      document.addEventListener('mouseout', leaving)
-    }, 10 * 1000)
+    // Laptops: the mouse leaving the window at the top, on its way to the tabs, the address bar or the close button,
+    // once someone has been on the page for 10 seconds. Browsers report where the mouse last was, which after a quick
+    // flick can be well below the top edge, so it also counts when the mouse was heading up (more up than sideways)
+    // and left from the top 80 pixels. Leaving at the sides or the bottom doesn't count.
+    const armed = Date.now() + 10 * 1000
+    let x = 0
+    let y = 0
+    let dx = 0
+    let dy = 0
+    const track = event => {
+      dx = event.clientX - x
+      dy = event.clientY - y
+      x = event.clientX
+      y = event.clientY
+    }
+    const leaving = event => {
+      if (event.relatedTarget || Date.now() < armed) return
+      if (event.clientY > 8 && !(event.clientY < 80 && dy < 0 && -dy >= Math.abs(dx))) return
+      const may = mayOpen()
+      if (may === 'later') return
+      document.removeEventListener('mousemove', track)
+      document.removeEventListener('mouseout', leaving)
+      if (may === 'now') openUpdates('leaving')
+    }
+    document.addEventListener('mousemove', track, { passive: true })
+    document.addEventListener('mouseout', leaving)
   } else {
     // Phones and tablets: 30 seconds on the page, counting only while it's on screen; if someone's busy, 10 more
     let wait = 30 * 1000
