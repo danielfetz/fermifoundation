@@ -92,7 +92,8 @@ const updatesForm = id => `
       <label class="su__label" for="${id}-role">I’m a <span>(optional)</span></label>
       <select id="${id}-role" name="role">
         <option value="" selected>Choose…</option>
-        <option value="student">Student</option>
+        <option value="school">High school student</option>
+        <option value="university">University student</option>
         <option value="teacher">Teacher or professor</option>
         <option value="other">Other</option>
       </select>

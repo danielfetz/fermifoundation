@@ -43,8 +43,9 @@ Then not again for 30 days, and never after signing up or sending the Host form 
 
 The forms send to `api/subscribe.js`, which adds the address to the contacts in Resend (resend.com), not yet
 subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`api/confirm.js`, good for a week)
-subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "Students", "Teachers and
-professors" or "Others" (what they said they are), emails contact@fermi.org about the new sign-up, and shows the
+subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "High school students", "University
+students", "Teachers and professors" or "Others" (what they said they are; "Students" from before high school and
+university were asked apart), emails contact@fermi.org about the new sign-up, and shows the
 Get updates page saying so. Both need Resend's key as `RESEND_API_KEY` in the project's environment variables on
 Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in Resend to a segment; Resend adds the
 link to unsubscribe. Without JavaScript the forms still work: the Get updates page shows what happened (`#sent`,

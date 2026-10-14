@@ -7,10 +7,23 @@ const crypto = require('node:crypto')
 const FROM = 'Fermi Poker <contact@fermi.org>'
 const NOTIFY = 'contact@fermi.org'
 
-// What people can say they are, and the segment in Resend each goes into, besides the one with everyone
-const ROLES = { student: 'Students', teacher: 'Teachers and professors', other: 'Others' }
+// What people can say they are, and the segment in Resend each goes into, besides the one with everyone. "student" is
+// from before the forms asked high school and university students apart: links to confirm already sent with it still work.
+const ROLES = {
+  school: 'High school students',
+  university: 'University students',
+  teacher: 'Teachers and professors',
+  other: 'Others',
+  student: 'Students',
+}
 const EVERYONE = 'Fermi Poker updates'
-const ROLE_NAMES = { student: 'Student', teacher: 'Teacher or professor', other: 'Other' }
+const ROLE_NAMES = {
+  school: 'High school student',
+  university: 'University student',
+  teacher: 'Teacher or professor',
+  other: 'Other',
+  student: 'Student',
+}
 
 // A link to confirm is good for a week
 const LINK_DAYS = 7
