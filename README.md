@@ -29,6 +29,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all six.
 
+The home page's FAQ folds open in two columns that read row by row, as a grid would: the odd questions are in the
+left column, the even ones in the right (and the last one, the 13th, at the bottom of the right column), so that
+opening one only moves the questions under it. Each question also has its number as `style="order: …"`, which puts
+them back in turn on phones, where it's one list. So to add or move a question, change the columns and the numbers.
+
 Get updates: people leave their email to hear when the questions and materials are ready, and news about tournaments.
 The form is on the home page twice (under the introduction and at the end), on its own page (`updates/`), and in a
 pop-up that "Get updates" in the menu opens (`assets/site.js`). The pop-up also comes up by itself once: on laptops

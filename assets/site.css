@@ -80,6 +80,14 @@
   --cream: #fffef2;
   --blue: #009dff;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Cards and boxes: soft grey with round corners and no frame, like the Get updates card in the phone menu */
+  --card-bg: rgba(21, 29, 35, 0.065);
+  --card-bg-hover: rgba(21, 29, 35, 0.1);
+  --card-radius: 14px;
+  /* The thin arrows on cards that lead somewhere (right) or fold open (down) */
+  --arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2332424e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E");
+  --arrow-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2332424e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  --envelope: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23151d23' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m3.5 6.5 8.5 6.5 8.5-6.5'/%3E%3C/svg%3E");
   /* Design units: 1u is 1px on a 1728px-wide canvas and shrinks on narrower screens (--w keeps scaling up) */
   --u: min(1px, calc(100vw / 1728));
   --w: calc(100vw / 1728);
@@ -325,7 +333,8 @@ button {
 }
 .card {
   padding: 21px 25px;
-  border: 4px solid var(--rule);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
 }
 .card h3,
 .box h3 {
@@ -341,24 +350,45 @@ button {
   line-height: 1.5;
 }
 .card__body > * + * { margin-top: 0.7em; }
-.card__links { display: flex; flex-wrap: wrap; column-gap: 16px; }
+.card__body,
+.box__body { text-wrap: pretty; }
+/* A card that leads to a page, like those under Start here: an icon, the text, and an arrow. Its heading's link
+   covers the whole card, so the card is what you click, while the link's name stays the heading. */
+.card--link {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 20px 22px 22px;
+  transition: background-color 150ms var(--ease);
+}
+.card--link:hover { background: var(--card-bg-hover); }
+.card--link h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card--link h3 a:focus-visible { outline: none; }
+.card--link:has(h3 a:focus-visible) { outline: 3px solid var(--blue); outline-offset: 3px; }
+.card__icon { flex: none; width: 26px; height: 26px; }
+.card__main { flex: 1 1 auto; min-width: 0; }
+.card__arrow { flex: none; align-self: center; width: 20px; height: 20px; background: var(--arrow-right) center / contain no-repeat; }
+@media (max-width: 600px) {
+  .card--link { gap: 14px; padding: 20px 16px 20px 18px; }
+}
 @media (min-width: 721px) {
   .cards { margin-left: 50%; transform: translateX(-50%); }
   /* An odd card out at the end spans both columns */
-  .card:last-child:nth-child(odd) { grid-column: span 2 / span 2; }
+  .cards > .card:last-child:nth-child(odd) { grid-column: span 2 / span 2; }
 }
 @media (max-width: 720px) {
   .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
 }
-/* Cards that fold open, like the skills under Educational value: each shows its name and opens to its text. Two lists
-   side by side where there's room, so opening a card only moves the cards under it; on phones, one list. */
+/* Cards that fold open, like the skills under Educational value and the FAQ: each shows its name and opens to its text.
+   Two lists side by side where there's room, so opening a card only moves the cards under it; on phones, one list. */
 .folds { display: grid; gap: 15px; width: min(909px, 100%); }
 .folds__col { display: grid; align-content: start; gap: 15px; }
-.card--fold { padding: 0; }
+.card--fold { padding: 0; overflow: hidden; }
 .card--fold > summary { padding: 19px 25px; transition: background-color 150ms var(--ease); }
 /* A tint under the pointer, only where there is one: on phones it would stay on after a tap */
 @media (hover: hover) {
-  .card--fold > summary:hover { background: rgba(21, 29, 35, 0.04); }
+  .card--fold > summary:hover { background: rgba(21, 29, 35, 0.035); }
 }
 .card--fold > .card__body { margin-top: -8px; padding: 0 25px 21px; }
 @media (min-width: 721px) {
@@ -368,6 +398,11 @@ button {
     margin-left: 50%;
     transform: translateX(-50%);
   }
+}
+/* Folding cards in two columns that read row by row, like the FAQ: the odd ones on the left, the even ones on the right.
+   On phones it's one list, and each card's order (set on it) puts it back in turn. */
+@media (max-width: 720px) {
+  .folds--rows > .folds__col { display: contents; }
 }
 
 /* Inner page content */
@@ -432,14 +467,15 @@ button {
 .nowrap { white-space: nowrap; }
 .box__body > .list { margin-top: 0.7em; }
 
-/* Bordered boxes */
+/* Boxes: grey cards like those on the home page */
 .boxes { margin-top: 16px; }
 .boxes > * + * { margin-top: 15px; }
 .box {
   position: relative;
   display: block;
   padding: 22px 26px;
-  border: 4px solid var(--rule);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
 }
 .box__body {
   margin-top: 8px;
@@ -447,10 +483,10 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
-/* Optional extras, like the game variants on How to play: the same box, dashed */
-.box--optional { border-style: dashed; }
-/* The example question that runs through the steps on How to play, folded under each step's rule: a shaded panel, with
-   the question, hints and answer as small cards like the printed ones players turn over */
+/* Optional extras, like the game variants on How to play: the same box's outline, dashed, without the grey */
+.box--optional { padding: 20px 24px; border: 2px dashed rgba(21, 29, 35, 0.32); background: none; }
+/* The example question that runs through the steps on How to play, folded under each step's rule: a panel, with the
+   question, hints and answer as small cards like the printed ones players turn over */
 .box__example > summary {
   width: fit-content;
   /* A taller tap target that takes up no extra space */
@@ -468,32 +504,34 @@ button {
 .box__example > summary::after {
   content: "";
   display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin: 0 0 3px 9px;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  background: var(--arrow-down) center / contain no-repeat;
+  vertical-align: -3px;
+  transition: transform 200ms var(--ease);
 }
 .box__example[open] > summary { margin-bottom: calc(0.6em - 6px); }
-.box__example[open] > summary::after { margin-bottom: -1px; transform: rotate(-135deg); }
+.box__example[open] > summary::after { transform: rotate(180deg); }
+/* On the grey box, a panel the colour of the page */
 .example {
   padding: 16px 20px 18px;
-  background: rgba(21, 29, 35, 0.055);
+  border-radius: 10px;
+  background: var(--paper);
 }
 .example > * + * { margin-top: 0.75em; }
+/* The cards in the examples: white, across the panel, the card's name over a dashed line as on the Play page's cards */
 .game-card {
-  width: fit-content;
-  max-width: 100%;
-  padding: 11px 16px 13px;
-  border: 2px solid var(--rule);
-  border-radius: 8px;
-  background: var(--cream);
-  box-shadow: 0 2px 0 rgba(21, 29, 35, 0.12);
+  padding: 14px 18px 16px;
+  border-radius: 12px;
+  background: #fffef8;
+  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.1), 0 6px 16px -10px rgba(21, 29, 35, 0.35);
 }
 .game-card__label {
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px dashed rgba(21, 29, 35, 0.35);
   color: var(--ink-soft);
   font-size: 12.5px;
   font-weight: 700;
@@ -504,6 +542,7 @@ button {
 .game-card__text {
   display: block;
   font-family: var(--serif);
+  font-size: 19px;
   font-weight: 700;
   line-height: 1.35;
 }
@@ -523,15 +562,13 @@ button {
 .card--fold > summary::after {
   content: "";
   flex: none;
-  width: 11px;
-  height: 11px;
-  margin: 0 4px 6px;
-  border-right: 2.5px solid var(--ink);
-  border-bottom: 2.5px solid var(--ink);
-  transform: rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background: var(--arrow-down) center / contain no-repeat;
+  transition: transform 200ms var(--ease);
 }
 .box--fold[open] > summary::after,
-.card--fold[open] > summary::after { margin-bottom: -4px; transform: rotate(-135deg); }
+.card--fold[open] > summary::after { transform: rotate(180deg); }
 /* A label on a box's top right corner, like "Recommended" */
 .badge {
   position: absolute;
@@ -546,14 +583,14 @@ button {
   font-weight: 700;
   line-height: 1.5;
 }
-/* A tab in a box's top right corner, in the frame's grey (the frame's colour over the paper), like "Currently paused"
+/* A tab in a box's top right corner, in a darker grey (the old frames' colour over the paper), like "Currently paused"
    on About. On narrow phones the heading would run under it, so the box makes room above the heading. */
 .box__tab {
   position: absolute;
-  top: -4px;
-  right: -4px;
-  padding: 3px 12px 4px 14px;
-  border-radius: 0 0 0 12px;
+  top: 0;
+  right: 0;
+  padding: 3px 13px 4px 14px;
+  border-radius: 0 var(--card-radius) 0 12px;
   background: linear-gradient(var(--rule), var(--rule)) var(--paper);
   color: var(--cream);
   font-family: var(--sans);
@@ -569,7 +606,8 @@ button {
 .table-box {
   margin-top: 16px;
   padding: 18px 26px;
-  border: 4px solid var(--rule);
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
 }
 .table-box table {
   width: 100%;
@@ -628,7 +666,7 @@ button {
 }
 .link:hover { color: var(--blue); }
 
-/* Sign-up form on the Host page: square fields like the boxes, the blue pill to send */
+/* Sign-up form on the Host page: round fields like the cards, the blue pill to send */
 .form { display: grid; gap: 22px; margin-top: 24px; }
 .form[hidden] { display: none; }
 .field {
@@ -647,7 +685,7 @@ button {
   width: 100%;
   padding: 10px 13px;
   border: 2px solid var(--rule);
-  border-radius: 0;
+  border-radius: 10px;
   background: var(--cream);
   color: var(--ink);
   font: inherit;
@@ -675,11 +713,11 @@ button {
 .form__error { color: #a4231c; }
 /* Off-screen rather than display: none, which some bots skip */
 .form__trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-.form-done { margin-top: 24px; padding: 22px 26px; border: 4px solid var(--rule); outline: none; }
+.form-done { margin-top: 24px; padding: 22px 26px; border-radius: var(--card-radius); background: var(--card-bg); outline: none; }
 .form-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .form-done p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 
-/* Updates: the sign-up forms on the home page and /updates/, and a short one in the pop-up (assets/site.js). Square
+/* Updates: the sign-up forms on the home page and /updates/, and a short one in the pop-up (assets/site.js). Round
    fields like the Host form's, the blue pill to send. */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .su[hidden],
@@ -689,7 +727,7 @@ button {
 .su select {
   height: 50px;
   border: 2px solid var(--rule);
-  border-radius: 0;
+  border-radius: 10px;
   background-color: var(--cream);
   color: var(--ink);
   font: inherit;
@@ -739,10 +777,27 @@ button {
 .su-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
-/* Under the introduction on the home page: in a frame like the cards below it, the text beside the form on wider
-   screens, with the email on top and "I'm a…" next to the button */
-.updates-intro { display: grid; gap: 18px 40px; margin-top: 12px; padding: 26px 30px; border: 4px solid var(--rule); }
-.updates-intro h2 { color: #000; font-family: var(--serif); font-size: 26px; font-weight: 700; line-height: 1.2; }
+/* Under the introduction on the home page: a grey card like those below it, an envelope by its heading, the text beside
+   the form on wider screens, with the email on top and "I'm a…" next to the button */
+.updates-intro {
+  display: grid;
+  gap: 18px 40px;
+  margin-top: 12px;
+  padding: 26px 30px;
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
+}
+.updates-intro h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #000;
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.updates-intro h2::before { content: ""; flex: none; width: 28px; height: 28px; background: var(--envelope) center / contain no-repeat; }
 .updates-intro__text p { margin-top: 6px; font-size: 17px; line-height: 1.5; text-wrap: pretty; }
 .updates-intro .su__row input[type='email'] { flex: 1 1 100%; }
 .updates-intro .su__row select { flex: 1 1 0; }
@@ -760,8 +815,9 @@ button {
 .updates-intro .su-done::before { width: 46px; height: 46px; }
 .updates-intro .su-done h3 { font-size: 26px; line-height: 1.2; }
 
-/* At the end of the home page, with the contact line under it */
-.updates-end { max-width: 640px; margin: 76px auto 24px; text-align: center; }
+/* At the end of the home page, with the contact line under it: a grey card the width of the page, its content centred */
+.updates-end { margin: 76px 0 24px; padding: 46px 32px 40px; border-radius: 18px; background: var(--card-bg); text-align: center; }
+.updates-end > * { max-width: 640px; margin-left: auto; margin-right: auto; }
 .updates-end h2 { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.2; }
 .updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; }
 .updates-end .su { margin-top: 22px; }
@@ -773,6 +829,9 @@ button {
 @media (max-width: 780px) {
   .updates-end h2 { font-size: 28px; }
 }
+@media (max-width: 600px) {
+  .updates-end { padding: 34px 20px 30px; }
+}
 
 /* The pop-up */
 .updates {
@@ -780,9 +839,11 @@ button {
   max-height: calc(100% - 32px);
   padding: 0;
   overflow: auto;
-  border: 4px solid var(--rule);
+  border: 0;
+  border-radius: var(--card-radius);
   background: var(--paper);
   color: var(--ink);
+  box-shadow: 0 2px 6px rgba(21, 29, 35, 0.15), 0 30px 70px -20px rgba(21, 29, 35, 0.6);
 }
 .updates::backdrop { background: rgba(21, 29, 35, 0.45); }
 .updates[open] { animation: updates-in 220ms var(--ease); }
@@ -857,7 +918,15 @@ button {
 
 /* The Get updates page: what happened, after following the link in the email or sending the form without JavaScript
    (#sent, #confirmed, #invalid, #failed); once signed up or confirmed, the form gives way to it */
-.status { display: none; margin-top: 28px; padding: 22px 26px; border: 4px solid var(--rule); outline: none; scroll-margin-top: 24px; }
+.status {
+  display: none;
+  margin-top: 28px;
+  padding: 22px 26px;
+  border-radius: var(--card-radius);
+  background: var(--card-bg);
+  outline: none;
+  scroll-margin-top: 24px;
+}
 .status:target { display: block; }
 .status--done:target { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start; }
 .status h2 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
