@@ -780,8 +780,8 @@ button {
 .su-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
-/* Under the introduction on the home page: a grey card like those below it, an envelope by its heading, the text beside
-   the form on wider screens, with the email on top and "I'm a…" next to the button */
+/* Under the introduction on the home page: a grey card like those below it, an envelope by its heading. From tablets
+   up, centred like "Stay in the loop" at the end, the form in one row; on phones, the fields one under the other. */
 .updates-intro {
   display: grid;
   gap: 18px 40px;
@@ -804,8 +804,14 @@ button {
 .updates-intro__text p { margin-top: 6px; font-size: 17px; line-height: 1.5; text-wrap: pretty; }
 .updates-intro .su__row input[type='email'] { flex: 1 1 100%; }
 .updates-intro .su__row select { flex: 1 1 0; }
-@media (min-width: 781px) {
-  .updates-intro { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); align-items: center; }
+@media (min-width: 601px) {
+  .updates-intro { gap: 16px; justify-items: center; padding: 34px 32px 30px; text-align: center; }
+  .updates-intro h2 { justify-content: center; }
+  .updates-intro__text p { text-wrap: balance; }
+  .updates-intro .su { width: min(100%, 660px); }
+  .updates-intro .su__row { justify-content: center; }
+  .updates-intro .su__row input[type='email'] { flex: 1 1 240px; }
+  .updates-intro .su__row select { flex: 0 1 240px; }
 }
 @media (max-width: 600px) {
   .updates-intro { margin-top: 40px; padding: 22px; }
@@ -817,6 +823,12 @@ button {
 .updates-intro .su-done { column-gap: 18px; }
 .updates-intro .su-done::before { width: 46px; height: 46px; }
 .updates-intro .su-done h3 { font-size: 26px; line-height: 1.2; }
+/* …centred from tablets up, with the check above it, as at the end */
+@media (min-width: 601px) {
+  .updates-intro .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .updates-intro .su-done::before { grid-row: auto; margin-bottom: 10px; }
+  .updates-intro .su-done > * { grid-column: auto; }
+}
 
 /* At the end of the home page, with the contact line under it: a grey card the width of the page, its content centred */
 .updates-end { margin: 76px 0 24px; padding: 46px 32px 40px; border-radius: 18px; background: var(--card-bg); text-align: center; }
