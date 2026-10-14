@@ -722,7 +722,19 @@ button {
   .su__row select { flex: 1 1 100%; }
 }
 .su__error { margin-top: 12px; color: #a4231c; font-size: 16px; line-height: 1.5; }
-.su-done { outline: none; }
+/* After signing up: the message with a blue check beside it (above it, where the form is centred). The Get updates
+   page's own good news (.status--done, below) has the check too. */
+.su-done { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start; outline: none; }
+.su-done::before,
+.status--done::before {
+  content: "";
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23009dff'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.su-done > *,
+.status--done > * { grid-column: 2; }
 .su-done h3 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
@@ -740,6 +752,12 @@ button {
   .updates-intro { padding: 22px; }
   .updates-intro .su__row select { flex: 1 1 100%; }
 }
+/* Signed up: the message takes the whole box, with a bigger check */
+.updates-intro:has(> .su-done:not([hidden])) { grid-template-columns: minmax(0, 1fr); }
+.updates-intro:has(> .su-done:not([hidden])) > .updates-intro__text { display: none; }
+.updates-intro .su-done { column-gap: 18px; }
+.updates-intro .su-done::before { width: 46px; height: 46px; }
+.updates-intro .su-done h3 { font-size: 26px; line-height: 1.2; }
 
 /* At the end of the home page, with the contact line under it */
 .updates-end { max-width: 640px; margin: 76px auto 24px; text-align: center; }
@@ -747,7 +765,9 @@ button {
 .updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; }
 .updates-end .su { margin-top: 22px; }
 .updates-end .su__row { justify-content: center; }
-.updates-end .su-done { margin-top: 22px; }
+.updates-end .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; margin-top: 22px; }
+.updates-end .su-done::before { grid-row: auto; margin-bottom: 10px; }
+.updates-end .su-done > * { grid-column: auto; }
 .updates-end > .updates-end__contact { margin-top: 34px; }
 @media (max-width: 780px) {
   .updates-end h2 { font-size: 28px; }
@@ -805,6 +825,7 @@ button {
    (#sent, #confirmed, #invalid, #failed); once signed up or confirmed, the form gives way to it */
 .status { display: none; margin-top: 28px; padding: 22px 26px; border: 4px solid var(--rule); outline: none; scroll-margin-top: 24px; }
 .status:target { display: block; }
+.status--done:target { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: start; }
 .status h2 { color: #000; font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.3; }
 .status p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 .status--done:target ~ .updates-page { display: none; }
