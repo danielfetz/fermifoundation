@@ -36,7 +36,8 @@ them back in turn on phones, where it's one list. So to add or move a question, 
 
 Get updates: people leave their email to hear when the questions and materials are ready, and news about tournaments.
 The form is on the home page twice (under the introduction and at the end), on its own page (`updates/`), and in a
-pop-up that "Get updates" in the menu opens (`assets/site.js`). The pop-up also comes up by itself once: on laptops
+pop-up that "Get updates" in the menu opens (`assets/site.js`). The forms ask only for the email; the pop-up also asks
+what they are ("I'm a…", optional). The pop-up also comes up by itself once: on laptops
 when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after 30 seconds on the page.
 Then not again for 30 days, and never after signing up or sending the Host form (the browser remembers this as
 `fermi-updates` in local storage); never on the Play page or Get updates itself.

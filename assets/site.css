@@ -777,8 +777,7 @@ button {
 .su-done p { margin-top: 6px; font-size: 18px; line-height: 1.5; }
 
 /* Under the introduction on the home page: a grey card like those below it, set like the box at the end of the page
-   (centred, the same title and sentence). From tablets up the form is in one row; on phones the fields are one under
-   the other. */
+   (centred, the same title and sentence). The email and the button in one row; on phones, the button under it. */
 .updates-intro {
   display: grid;
   gap: 22px;
@@ -799,14 +798,10 @@ button {
 }
 .updates-intro__text { width: min(100%, 640px); }
 .updates-intro__text p { margin-top: 12px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
-.updates-intro .su { width: min(100%, 660px); }
+.updates-intro .su { width: min(100%, 480px); }
 .updates-intro .su__row { justify-content: center; }
-.updates-intro .su__row input[type='email'] { flex: 1 1 240px; }
-.updates-intro .su__row select { flex: 0 1 240px; }
 @media (max-width: 600px) {
   .updates-intro { margin-top: 40px; padding: 34px 20px 30px; }
-  .updates-intro .su__row input[type='email'],
-  .updates-intro .su__row select { flex: 1 1 100%; }
 }
 /* Signed up: the message takes the whole box, a bigger check above it */
 .updates-intro:has(> .su-done:not([hidden])) > .updates-intro__text { display: none; }
@@ -820,7 +815,7 @@ button {
 .updates-end > * { max-width: 640px; margin-left: auto; margin-right: auto; }
 .updates-end h2 { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.2; text-wrap: balance; }
 .updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
-.updates-end .su { margin-top: 22px; }
+.updates-end .su { max-width: 480px; margin-top: 22px; }
 .updates-end .su__row { justify-content: center; }
 .updates-end .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; margin-top: 22px; }
 .updates-end .su-done::before { grid-row: auto; margin-bottom: 10px; }
@@ -934,6 +929,7 @@ button {
 .status p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 .status--done:target ~ .updates-page { display: none; }
 .updates-page { margin-top: 28px; }
+.updates-page .su { max-width: 480px; }
 
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
 .footer {
