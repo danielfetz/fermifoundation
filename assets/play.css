@@ -27,6 +27,9 @@ html.play-page { overflow: hidden; }
 /* No zooming in by pinching or tapping twice, which only got in the way at the table. This and the viewport tag stop
    it in most browsers; play.js also stops Safari's pinch, which can ignore both. */
 html.play-page { touch-action: pan-x pan-y; }
+/* Safari paints the page's own background in the strip above it (under the notch on iPhones, behind the tab bar on
+   iPads and Macs): here, the tone of the table at its very top, where the etching fades in from it (.rome) */
+html.play-page { --page-bg: #eae9dc; }
 body.play {
   position: relative;
   display: flex;
@@ -36,12 +39,15 @@ body.play {
   background: transparent;
 }
 /* The etching is the table: it fills the screen, softened so the cards stand out, a little darker at the edges.
-   The deck's cards show it through them, so play.js knows its size and place (ETCHING): change them together. */
+   The deck's cards show it through them, so play.js knows its size and place (ETCHING): change them together. At
+   the very top it fades in from the page's own colour, so Safari's strip above the page and the table meet without
+   a seam. */
 .rome {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
+    linear-gradient(to bottom, var(--page-bg), transparent 28px),
     radial-gradient(ellipse 75% 70% at 50% 45%, transparent 55%, rgba(70, 55, 30, 0.13)),
     linear-gradient(to bottom, rgba(247, 247, 234, 0.85), rgba(247, 247, 234, 0.22) 150px, rgba(247, 247, 234, 0.3)),
     #ebe6da url(/assets/img/forum-piranesi.webp) 33% 35% / cover;
