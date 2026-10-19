@@ -1,9 +1,9 @@
 // Play page: the question, hint and answer cards on screen, for tables without printed cards.
 // Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
 // and turn over and fly onto the pile when tapped. On screens up to 1000px tall, from hint 2 on, earlier cards fold
-// to one line (see play.css); tapping one opens it in its place and folds the others. Where you are is remembered
-// on this device, until the questions change. The header has the rules, and a menu for skipping a question or going
-// back to the last one.
+// to one line (see play.css); tapping one opens it in its place and folds the others. Each device has the questions
+// in an order of its own, shuffled the first time, and remembers where you are, until the questions change. The
+// header has the rules, and a menu for skipping a question or going back to the last one.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
@@ -34,22 +34,39 @@
   const canFlip = window.CSS?.supports?.('rotate', 'y 180deg');
   const moving = () => !calm.matches && typeof pile.animate === 'function';
 
-  // Which question you're on; the question in play, the newest (you may be looking back at the one before it); and how
-  // many of each question's cards are turned over (always at least the question). Saved with a short fingerprint of
-  // the questions' wording and order, so that with other questions it starts again from the first.
+  // The order the questions come in on this device, shuffled the first time; which question you're on; the question in
+  // play, the newest (you may be looking back at the one before it); and how many of each question's cards are turned
+  // over (always at least the question). All but the order count places in that order. Saved with a short fingerprint
+  // of the questions' wording and order in questions.js, so that with other questions it starts again, in a new order.
   const DECK = [...questions.map((q) => q.question).join('\n')].reduce((h, c) => (Math.imul(h, 31) + c.codePointAt(0)) | 0, 0);
-  let state = { q: 0, newest: 0, shown: {} };
+  const shuffled = () => {
+    const order = questions.map((_, i) => i);
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+  };
+  const isOrder = (order) => Array.isArray(order) && order.length === questions.length && [...order].sort((a, b) => a - b).every((v, i) => v === i);
+  let state = null;
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
-    if (saved && saved.deck === DECK && Number.isInteger(saved.q) && saved.q >= 0 && saved.q < questions.length) {
+    if (saved && saved.deck === DECK && isOrder(saved.order) && Number.isInteger(saved.q) && saved.q >= 0 && saved.q < questions.length) {
       const newest = Number.isInteger(saved.newest) ? saved.newest : saved.q;
-      state = { q: saved.q, newest: Math.min(Math.max(newest, saved.q), questions.length - 1), shown: saved.shown || {} };
+      state = { order: saved.order, q: saved.q, newest: Math.min(Math.max(newest, saved.q), questions.length - 1), shown: saved.shown || {} };
     }
   } catch {}
   const lookingBack = () => state.q < state.newest;
   const save = () => {
     try { localStorage.setItem(STORE, JSON.stringify({ ...state, deck: DECK })); } catch {}
   };
+  // A new order is saved at once: the first question is on the table before anything is tapped, and stays after a reload
+  if (!state) {
+    state = { order: shuffled(), q: 0, newest: 0, shown: {} };
+    save();
+  }
+  // The question at place n in this device's order
+  const questionAt = (n) => questions[state.order[n]];
   const shownOf = (q) => Math.min(4, Math.max(1, state.shown[q] | 0));
   // In a folded pile: the earlier card opened (-1: the newest one is open)
   let open = -1;
@@ -172,7 +189,7 @@
 
   // from: where the card leaves the deck (its box), when a card was just dealt; was: the pile before that (snapshot)
   function render(from = null, was = null) {
-    const q = questions[state.q];
+    const q = questionAt(state.q);
     const n = shownOf(state.q);
     const hadFocus = deck.contains(document.activeElement);
     // The menu: skip the question in play for one not seen yet, or look back at the one before it, once; while looking
@@ -498,7 +515,7 @@
     open = -1;
     save();
     render(liftTopCard(), was);
-    const q = questions[state.q];
+    const q = questionAt(state.q);
     live.textContent = n === 3 ? `Answer: ${q.answer}. ${q.note || ''}` : `${CARDS[n].name}: ${textOf(q, n)}`;
   }
   // The next question (from the deck, or skipped from the menu): the cards on the table are collected, then its
@@ -514,15 +531,15 @@
         { duration: 240, delay: (cards.length - 1 - i) * 45, easing: 'ease-in', fill: 'forwards' },
       ).finished.catch(() => {})));
     }
-    // The one after the question in play: one nobody has seen yet (after the last, the first again)
+    // The one after the question in play: one nobody has seen yet (after the last, the first again, in the same order)
     const again = state.newest === questions.length - 1;
     if (!again) state.q = state.newest = state.newest + 1;
-    else state = { q: 0, newest: 0, shown: {} };
+    else state = { order: state.order, q: 0, newest: 0, shown: {} };
     open = -1;
     save();
     busy = false;
     render(liftTopCard());
-    live.textContent = `${again ? 'The first question again' : 'New question'}: ${questions[state.q].question}`;
+    live.textContent = `${again ? 'The first question again' : 'New question'}: ${questionAt(state.q).question}`;
   }
   // Looking back at the question before the one in play, or going back to it, its cards as you left them
   function go(q) {
@@ -531,7 +548,7 @@
     open = -1;
     save();
     render();
-    live.textContent = `${lookingBack() ? 'The previous question' : 'Back to the current question'}: ${questions[q].question}`;
+    live.textContent = `${lookingBack() ? 'The previous question' : 'Back to the current question'}: ${questionAt(q).question}`;
   }
 
   // The deck: a tap or a click turns over the card on top, or, after the answer, starts the next question (or, while

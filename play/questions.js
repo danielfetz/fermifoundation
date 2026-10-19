@@ -1,8 +1,8 @@
-// The questions on the Play page: the Fermi Poker 30-question pack, in the order of the printed cards.
-// Each has the short title printed on its cards (the Play page doesn’t show it), the question, its two hints
-// and the answer. A question can also have a note, a few words on where the answer comes from, shown under it.
-// Rewording, adding, removing or reordering questions starts every device again from the first one (assets/play.js);
-// a hint or an answer can change without that.
+// The questions on the Play page: the Fermi Poker 30-question pack, in the order of the printed cards (each device
+// plays them in an order of its own, shuffled the first time). Each has the short title printed on its cards (the
+// Play page doesn’t show it), the question, its two hints and the answer. A question can also have a note, a few
+// words on where the answer comes from, shown under it. Rewording, adding, removing or reordering questions here
+// starts every device again, in a new order (assets/play.js); a hint or an answer can change without that.
 window.FERMI_QUESTIONS = [
   {
     title: 'Chickens slaughtered',

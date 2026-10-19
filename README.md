@@ -15,8 +15,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `enrico-fermi-paper.svg` the paper cutout behind it
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 30-question pack, in the order of the printed cards.
-  Rewording, adding, removing or reordering questions starts every device again from the first question (a hint or
-  an answer can change without that). Its styles and script are
+  Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
+  or reordering questions in the file starts every device again, in a new order (a hint or an answer can change
+  without that). Its styles and script are
   `assets/play.css` and `assets/play.js`. Its cards use the printed cards' fonts, IBM Plex Sans and IBM Plex Mono
   (`assets/fonts/ibm-plex-*.woff2`, Open Font License, self-hosted as Google Fonts serves them). It isn't in the menu
   yet and is kept out of search engines (`noindex`) while it's being tried out. Its Rules button opens a copy of the
