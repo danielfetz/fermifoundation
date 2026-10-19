@@ -2,7 +2,8 @@
 // Every question starts with its question card turned over; the hints and the answer wait face down in the deck,
 // and turn over and fly onto the pile when tapped. On screens up to 1000px tall, from hint 2 on, earlier cards fold
 // to one line (see play.css); tapping one opens it in its place and folds the others. Where you are is remembered
-// on this device. The header has the rules, and a menu for skipping a question or going back to the last one.
+// on this device, until the questions change. The header has the rules, and a menu for skipping a question or going
+// back to the last one.
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
@@ -34,20 +35,20 @@
   const moving = () => !calm.matches && typeof pile.animate === 'function';
 
   // Which question you're on; the question in play, the newest (you may be looking back at the one before it); and how
-  // many of each question's cards are turned over (always at least the question)
+  // many of each question's cards are turned over (always at least the question). Saved with a short fingerprint of
+  // the questions' wording and order, so that with other questions it starts again from the first.
+  const DECK = [...questions.map((q) => q.question).join('\n')].reduce((h, c) => (Math.imul(h, 31) + c.codePointAt(0)) | 0, 0);
   let state = { q: 0, newest: 0, shown: {} };
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
-    if (saved && Number.isInteger(saved.q) && saved.q >= 0 && saved.q < questions.length) {
-      const shown = saved.shown || {};
-      // (Saved before there was a question in play: the furthest one with cards turned over)
-      const newest = Number.isInteger(saved.newest) ? saved.newest : Math.max(saved.q, ...Object.keys(shown).map(Number).filter(Number.isInteger));
-      state = { q: saved.q, newest: Math.min(Math.max(newest, saved.q), questions.length - 1), shown };
+    if (saved && saved.deck === DECK && Number.isInteger(saved.q) && saved.q >= 0 && saved.q < questions.length) {
+      const newest = Number.isInteger(saved.newest) ? saved.newest : saved.q;
+      state = { q: saved.q, newest: Math.min(Math.max(newest, saved.q), questions.length - 1), shown: saved.shown || {} };
     }
   } catch {}
   const lookingBack = () => state.q < state.newest;
   const save = () => {
-    try { localStorage.setItem(STORE, JSON.stringify(state)); } catch {}
+    try { localStorage.setItem(STORE, JSON.stringify({ ...state, deck: DECK })); } catch {}
   };
   const shownOf = (q) => Math.min(4, Math.max(1, state.shown[q] | 0));
   // In a folded pile: the earlier card opened (-1: the newest one is open)
