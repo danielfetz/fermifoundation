@@ -402,7 +402,8 @@ body.play {
   justify-content: space-between;
   gap: 12px;
   padding: 12px 12px 10px 22px;
-  border-bottom: 1.5px solid var(--pc-ink);
+  /* A soft line, just enough to show where the text scrolls under the header */
+  border-bottom: 1px solid rgba(21, 21, 21, 0.14);
 }
 .rules__head h2 { font-size: 22px; font-weight: 700; line-height: 1.2; }
 .rules__close {
