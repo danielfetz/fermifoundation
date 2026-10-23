@@ -62,8 +62,9 @@
 
   <p class="sr-only" id="play-live" aria-live="polite"></p>
 
-  <!-- The rule sheet, with the same text as the printed one (files/fermi-poker-rules.pdf) but without its introduction
-       and example. When the rules change, change both. -->
+  <!-- The rules needed at the table, in the words of the printed rule sheet (files/fermi-poker-rules.pdf), without its
+       introduction and example, what the organizer sets up, the game variants and the end of the game. When the
+       rules change, change both. -->
   <dialog class="rules" id="rules" aria-labelledby="rules-title">
     <div class="rules__head">
       <h2 id="rules-title">Rules</h2>
@@ -76,10 +77,8 @@
         <section>
           <h3>Before you start</h3>
           <ul>
-            <li>Everyone starts with the same amount of chips.</li>
             <li>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</li>
-            <li>Don’t use phones, calculators or the internet.</li>
-            <li>The organizer announces the ante and how often it goes up, for example every 20 minutes.</li>
+            <li>Don’t use calculators or the internet.</li>
           </ul>
         </section>
         <section>
@@ -99,14 +98,6 @@
             <li>Write it secretly and place it face down. Once betting round 1 starts, you can’t change it.</li>
             <li>A range includes both of its endpoints.</li>
             <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they’re clearly written and not ambiguous.</li>
-          </ul>
-        </section>
-        <section class="rules__optional">
-          <h3>Optional game variants</h3>
-          <ul>
-            <li><b>Single numbers</b> instead of ranges, or <b>powers of ten only</b> (10<sup>1</sup>, 10<sup>2</sup>, 10<sup>3</sup>…).</li>
-            <li><b>60-second clock:</b> once half the players have written their guesses, the rest have 60 seconds.</li>
-            <li><b>Mirror card</b> (usable once per player): write another player’s name to copy their guess.</li>
           </ul>
         </section>
         <section class="rules__betting">
@@ -131,10 +122,6 @@
             <li>Everyone else folded? The last remaining player wins and doesn’t have to reveal their guess.</li>
             <li>Everyone, or all but one, is <span class="nowrap">all-in</span>? Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</li>
           </ul>
-        </section>
-        <section>
-          <h3>End of the game</h3>
-          <p>A player with no chips left is out. The game usually ends when one player has all the chips.</p>
         </section>
       </div>
       <p class="rules__more">
