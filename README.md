@@ -6,7 +6,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `sponsor/`, `about/`, `updates/`: the inner pages (`updates/` is Get updates, below)
 - `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form and Get updates
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF)
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF, and the
+  63-question pack, which is there to share as a link: nothing on the site links to it, and `vercel.json` gives it
+  an `X-Robots-Tag: noindex` header, which keeps it out of search engines)
 - The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
   the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
   space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
