@@ -16,7 +16,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `enrico-fermi.webp` is the photo,
   `enrico-fermi-paper.svg` the paper cutout behind it
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
-  printed cards. Its questions are in `play/questions.js`: the 30-question pack, in the order of the printed cards.
+  printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
   or reordering questions in the file starts every device again, in a new order (a hint or an answer can change
   without that). Its styles and script are
