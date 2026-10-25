@@ -8,7 +8,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates and How to
   play's footnotes
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF, and the
-  63-question pack to print)
+  63-question pack to print, with blank cards for your own questions on its last page)
 - The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
   the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
   space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
