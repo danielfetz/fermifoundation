@@ -272,3 +272,118 @@ if (!location.pathname.startsWith('/updates/')) {
     if (!document.hidden) arm(wait)
   }
 }
+
+// Footnotes, on How to play: each number in the text leads to its note at the bottom of the page. On wide screens the
+// notes also stand in the margin, each beside its line (a little lower where two would overlap); elsewhere, hovering
+// over a number, or tapping it, shows its note in place, under it. From the keyboard, a number still leads to its note
+// at the bottom, as it does without JavaScript.
+const footnoteRefs = [...document.querySelectorAll('.fn-ref a')]
+
+if (footnoteRefs.length) {
+  const page = document.querySelector('.page')
+  const wide = matchMedia('(min-width: 1230px)')
+  const hover = matchMedia('(hover: hover) and (pointer: fine)')
+  // A note's text, without its link back up
+  const textOf = ref => {
+    const copy = document.getElementById(ref.hash.slice(1)).cloneNode(true)
+    copy.querySelectorAll('.fn-back').forEach(a => a.remove())
+    return copy.innerHTML.trim()
+  }
+
+  // In the margin: a copy of each note right after its number, which site.css moves beside the text
+  const sides = footnoteRefs.map(ref => {
+    const side = document.createElement('span')
+    side.className = 'sidenote'
+    side.setAttribute('aria-hidden', 'true')
+    side.innerHTML = `<span class="sidenote__n">${ref.textContent.replace(/\D/g, '')}</span>${textOf(ref)}`
+    side.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'))
+    ref.parentElement.after(side)
+    return side
+  })
+  const place = () => {
+    page.classList.toggle('page--sidenotes', wide.matches)
+    if (!wide.matches) return
+    let bottom = -Infinity
+    for (const side of sides) {
+      side.style.marginTop = ''
+      const top = side.getBoundingClientRect().top + scrollY
+      const shift = Math.max(0, bottom + 14 - top)
+      if (shift) side.style.marginTop = `${shift}px`
+      bottom = top + shift + side.offsetHeight
+    }
+  }
+  place()
+  document.fonts.ready.then(place)
+  new ResizeObserver(place).observe(page)
+  wide.addEventListener('change', place)
+
+  // In place: under its number (or above it, near the bottom of the screen)
+  const pop = document.createElement('div')
+  pop.className = 'fn-pop'
+  pop.setAttribute('role', 'note')
+  pop.hidden = true
+  document.body.append(pop)
+  let open = null
+  let leaving = 0
+  const hide = () => {
+    clearTimeout(leaving)
+    if (!open) return
+    open.setAttribute('aria-expanded', 'false')
+    open = null
+    pop.hidden = true
+  }
+  const hideSoon = () => {
+    clearTimeout(leaving)
+    leaving = setTimeout(hide, 300)
+  }
+  const show = ref => {
+    clearTimeout(leaving)
+    if (open === ref) return
+    hide()
+    open = ref
+    ref.setAttribute('aria-expanded', 'true')
+    pop.innerHTML = textOf(ref)
+    pop.hidden = false
+    const box = ref.getBoundingClientRect()
+    const width = Math.min(380, innerWidth - 32)
+    pop.style.width = `${width}px`
+    pop.style.left = `${scrollX + Math.max(16, Math.min(box.left - 20, innerWidth - width - 16))}px`
+    const below = box.bottom + 8
+    const above = box.top - 8 - pop.offsetHeight
+    pop.style.top = `${scrollY + (below + pop.offsetHeight > innerHeight && above > 0 ? above : below)}px`
+  }
+  const flash = side => {
+    side.classList.add('is-lit')
+    setTimeout(() => side.classList.remove('is-lit'), 900)
+  }
+  footnoteRefs.forEach((ref, i) => {
+    ref.setAttribute('aria-expanded', 'false')
+    ref.addEventListener('click', event => {
+      // From the keyboard (no pointer, so no click count), the link does what it does without JavaScript
+      if (event.detail === 0) return
+      event.preventDefault()
+      if (wide.matches) flash(sides[i])
+      else if (open === ref) hide()
+      else show(ref)
+    })
+    ref.addEventListener('mouseenter', () => {
+      if (wide.matches) sides[i].classList.add('is-lit')
+      else if (hover.matches) show(ref)
+    })
+    ref.addEventListener('mouseleave', () => {
+      sides[i].classList.remove('is-lit')
+      if (hover.matches) hideSoon()
+    })
+  })
+  pop.addEventListener('mouseenter', () => clearTimeout(leaving))
+  pop.addEventListener('mouseleave', () => {
+    if (hover.matches) hideSoon()
+  })
+  document.addEventListener('click', event => {
+    if (open && !pop.contains(event.target) && !event.target.closest('.fn-ref')) hide()
+  })
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') hide()
+  })
+  addEventListener('resize', hide)
+}

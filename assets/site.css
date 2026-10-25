@@ -119,8 +119,8 @@ body {
   font-family: var(--sans);
   line-height: 1.406;
 }
-h1, h2, h3, p, ul, ol { margin: 0; }
-h1, h2, h3 { font-size: inherit; font-weight: inherit; }
+h1, h2, h3, h4, p, ul, ol { margin: 0; }
+h1, h2, h3, h4 { font-size: inherit; font-weight: inherit; }
 ul, ol { list-style: none; padding: 0; }
 a { color: inherit; text-decoration: inherit; }
 img, svg { display: block; vertical-align: middle; }
@@ -339,6 +339,14 @@ button {
   font-weight: 700;
   line-height: 1.2;
 }
+/* A box under a step's heading, like the chip sets on How to play: an h4, a little smaller */
+.box h4 {
+  color: #000;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+}
 .card__body {
   margin-top: 10px;
   font-size: 18px;
@@ -451,6 +459,22 @@ button {
 .section > .text { margin-top: 16px; }
 .texts { margin-top: 24px; }
 .texts > * + * { margin-top: 16px; }
+/* Under the intro, like the sticky note on How to play */
+.page__intro + .texts { margin-top: 34px; }
+/* Steps within a section, like those under Description on How to play */
+.section__step {
+  margin-top: 44px;
+  font-family: var(--serif);
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.section > h2 + .section__step { margin-top: 22px; }
+.section__step + .text,
+.section__step + .boxes { margin-top: 14px; }
+/* The aside in a step's heading, like "(about 1–3 hours)": in the plain font, smaller and lighter (the serif has no
+   regular weight) */
+.section__aside { color: var(--ink-soft); font-family: var(--sans); font-size: 0.78em; font-weight: 400; }
 .list {
   margin-top: 16px;
   padding-left: 1.2em;
@@ -480,8 +504,46 @@ button {
   line-height: 1.5;
 }
 .box__body > * + * { margin-top: 0.7em; }
+/* A box without a heading: its text starts at the top */
+.box > .box__body:first-child { margin-top: 0; }
 /* Optional extras, like the game variants on How to play: the same box's outline, dashed, without the grey */
 .box--optional { padding: 20px 24px; border: 2px dashed rgba(21, 29, 35, 0.32); background: none; }
+/* Words to use as they are, like the announcement and the rules to read aloud on How to play: no box, but set in from
+   a large opening quotation mark (which screen readers leave out, where they can), and a little further from the
+   heading than text */
+.box--quote { padding: 10px 0 0 50px; border-radius: 0; background: none; }
+.box--quote::before {
+  content: "\201C";
+  content: "\201C" / "";
+  position: absolute;
+  top: 2px;
+  left: -4px;
+  color: rgba(21, 29, 35, 0.24);
+  font-family: var(--serif);
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 1;
+}
+@media (max-width: 720px) {
+  .box--quote { padding-left: 34px; }
+  .box--quote::before { top: 5px; left: -3px; font-size: 58px; }
+}
+/* The Notes on How to play, as sticky notes: pale yellow paper, slightly askew, across the column */
+.sticky-note {
+  padding: 26px 30px 28px;
+  border-radius: 2px 2px 6px 3px;
+  background: linear-gradient(to bottom, #f6e99a, #fbf0ad 18%, #fcf2b4);
+  box-shadow: 0 1px 1px rgba(80, 64, 10, 0.12), 0 14px 22px -16px rgba(80, 64, 10, 0.55);
+  transform: rotate(-0.6deg);
+}
+.sticky-note > * + * { margin-top: 12px; }
+.section > .sticky-note { margin-top: 26px; }
+/* Tilted the other way, so that two on a page don't look like copies */
+.sticky-note--right { transform: rotate(0.4deg); }
+@media (max-width: 720px) {
+  .sticky-note { padding: 22px 22px 24px; transform: rotate(-0.8deg); }
+  .sticky-note--right { transform: rotate(0.25deg); }
+}
 /* The example question that runs through the steps on How to play, folded under each step's rule: a panel, with the
    question, hints and answer as small cards like the printed ones players turn over */
 .box__example > summary {
@@ -625,6 +687,64 @@ button {
   color: var(--ink-soft);
   font-size: 16px;
 }
+
+/* Footnotes, on How to play: a number in the text leads to its note at the bottom of the page. On wide screens each note
+   also stands in the margin beside its line, and elsewhere hovering over the number or tapping it shows the note in
+   place (assets/site.js). */
+.fn-ref { font-size: 0.68em; line-height: 0; vertical-align: 0.62em; }
+.fn-ref a { padding: 0 1px; color: var(--blue); font-weight: 700; }
+.fn-ref a:hover,
+.fn-ref a[aria-expanded="true"] { text-decoration: underline; text-underline-offset: 2px; }
+.footnotes {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(21, 29, 35, 0.18);
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.footnotes ol { padding-left: 1.5em; list-style: decimal; }
+.footnotes li + li { margin-top: 10px; }
+.footnotes li::marker { color: var(--ink-soft); font-weight: 700; }
+.fn-back { margin-left: 3px; color: var(--blue); }
+/* Links in the notes are in the notes' grey, like the words around them; the blue underline shows they're links */
+.footnotes .link,
+.sidenote .link { color: inherit; }
+.footnotes .link:hover,
+.sidenote .link:hover { color: var(--blue); }
+.sidenote { display: none; }
+@media (min-width: 1230px) {
+  .page--sidenotes { position: relative; }
+  /* Placed where its number is, then moved into the margin: inline, so it stays on the number's line */
+  .page--sidenotes .sidenote {
+    display: inline;
+    position: absolute;
+    left: calc(100% + 34px);
+    width: min(250px, (100vw - 758px) / 2 - 64px);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    transition: color 150ms var(--ease);
+  }
+  .page--sidenotes .sidenote.is-lit { color: var(--ink); }
+}
+.sidenote__n { margin-right: 5px; color: var(--blue); font-weight: 700; }
+/* A note shown in place, under its number */
+.fn-pop {
+  position: absolute;
+  z-index: 60;
+  padding: 14px 17px 15px;
+  border-radius: 12px;
+  background: #fffef8;
+  box-shadow: 0 2px 6px rgba(21, 29, 35, 0.14), 0 18px 40px -16px rgba(21, 29, 35, 0.5);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.fn-pop[hidden] { display: none; }
 
 /* Buttons and links */
 .buttons {

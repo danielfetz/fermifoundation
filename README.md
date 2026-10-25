@@ -5,7 +5,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `index.html`: the home page, about hosting Fermi Poker tournaments
 - `how-to-play/`, `host/`, `sponsor/`, `about/`, `updates/`: the inner pages (`updates/` is Get updates, below)
 - `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
-- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form and Get updates
+- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates and How to
+  play's footnotes
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF, and the
   63-question pack to print)
 - The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
@@ -32,6 +33,13 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `play.css`.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all six.
+
+How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
+need, an announcement, the rules to read aloud, an ante schedule and variations. Its footnotes are numbers in the text
+that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin beside
+its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and without
+JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to
+use later.
 
 The home page's FAQ folds open in two columns that read row by row, as a grid would: the odd questions are in the
 left column, the even ones in the right (and the last one, the 13th, at the bottom of the right column), so that

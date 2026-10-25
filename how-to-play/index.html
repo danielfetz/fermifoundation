@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>How to play Fermi Poker</title>
-  <meta name="description" content="The Fermi Poker rules: ante, a secret guess, hints, four betting rounds, and the showdown.">
+  <meta name="description" content="How to play Fermi Poker and run a game: materials, an announcement, the rules to read aloud, an ante schedule and variations.">
   <!-- Link previews (WhatsApp, iMessage, LinkedIn, ...): one picture for every page, made from the top of the home page -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Fermi Poker">
   <meta property="og:title" content="How to play Fermi Poker">
-  <meta property="og:description" content="The rules step by step: ante, a secret guess, hints, four betting rounds and the showdown. With an example and a one-page rule sheet to print.">
+  <meta property="og:description" content="Everything to run a game of Fermi Poker: materials, an announcement, the rules to read aloud in five minutes, an ante schedule and variations.">
   <meta property="og:url" content="https://fermi.org/how-to-play/">
   <meta property="og:image" content="https://fermi.org/assets/img/link-preview.jpg">
   <meta property="og:image:width" content="1200">
@@ -68,202 +68,331 @@
       <h1 class="page__title">How to play Fermi Poker</h1>
       <a class="download" href="/files/fermi-poker-rules.pdf" download>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M4 16v4h16v-4"/></svg>
-        Download the rules
+        Download the rule sheet
       </a>
       <div class="page__intro">
         <p>
-          Fermi Poker resembles poker, but instead of being dealt random cards, you make guesses about questions that
-          seem unknowable at first, like “How many Dell laptops were sold last year?” or “How many dentists work in
-          the US?” You write down a secret guess, bet on it, get helpful hints, bet again, and win by either having
-          the best guess or by bluffing everyone else out.
+          Fermi Poker is a game that combines the betting mechanics of poker with making estimates about questions like
+          “How many new smartphones were sold worldwide last year?” Below you’ll find everything you need to play it with
+          friends or host your own tournament.
         </p>
+      </div>
+      <div class="texts">
+        <div class="sticky-note">
+          <p class="text">
+            <b>Note:</b> Fermi Poker works with as few as three players (or even two), and scales to dozens or even
+            hundreds in a tournament format. If possible, seat no more than six players per table, preferably at round
+            tables, with enough space between them that everyone can write down their guess secretly.
+          </p>
+        </div>
       </div>
 
       <section class="section">
-        <h2>Before you start</h2>
+        <h2>Materials</h2>
+        <p class="text">
+          Each player needs an equal stack of chips and writing supplies. A standard <span class="nowrap">500-chip</span> poker set (around
+          $60) usually covers up to 20 players. For writing down guesses, pen and paper work great, as do
+          <span class="nowrap">mini-whiteboards</span> with <span class="nowrap">dry-erase</span> markers. You’ll also want the
+          <a class="link" href="/files/fermi-poker-rules.pdf">one-page rule sheet</a> to hand out, ideally one per table.
+        </p>
+        <p class="text">You also need enough questions, each with two hints and an answer.</p>
         <ul class="list">
-          <li>Make sure everyone starts with the same amount of chips.</li>
-          <li>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</li>
-          <li>Don’t use phones, calculators or the internet.</li>
-          <li>The organizer announces the ante and how often it goes up, for example every 20 minutes.</li>
+          <li>
+            The easiest, least effort way to get those is <a class="link" href="/play/">fermi.org/play</a>. One person per
+            table opens the site on their phone, and everyone reads that. If a question repeats or someone at the table has
+            seen it before, just skip to the next question. (You’re on the honor system!) This is ideal if the organizer
+            also wants to play.
+          </li>
+          <li>
+            If you prefer physical cards, you can download a 63-question set
+            <a class="link" href="/files/fermi-poker-63-question-pack.pdf">here</a>. Print the question, hint and answer
+            cards on 160&nbsp;gsm paper or thicker so nothing shows through, then cut them out. You can also put the cards
+            into envelopes for a more premium feel.<sup class="fn-ref"><a href="#fn-1" id="fnref-1">[1]</a></sup> As the
+            organizer, you can also write your own questions, for example about your university, city or country.
+          </li>
+          <li>
+            You can also let players write questions, either at home before the meetup or in a
+            <span class="nowrap">20-minute</span> question-writing session at the start. Players sit out any question they
+            wrote.
+          </li>
         </ul>
+        <p class="text">
+          (If you or your players think you’ve come up with good questions and want to share them with others, send the
+          questions, hints, and answers to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>!)
+        </p>
+        <p class="text">
+          You’ll need a clock if you want to raise the ante<sup class="fn-ref"><a href="#fn-2" id="fnref-2">[2]</a></sup>
+          on a fixed schedule (a phone timer works fine). An example schedule is shown later in the description.
+          Alternatively, raise the ante whenever it looks like the game will run too long.
+        </p>
       </section>
 
       <section class="section">
-        <h2>How a question is played</h2>
-        <p class="section__intro">The example follows three players, Alice, Bob and Carol, through one question.</p>
-        <ol class="boxes">
-          <li class="box"><h3>1. Ante</h3><div class="box__body"><p>Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p>The ante is 100, so Alice, Bob and Carol each put in 100. That’s already 300 in the pot before anyone has seen
-                the question. Because the ante is paid on every question and goes up over time, nobody can afford to wait an hour
-                for a question they’re completely sure about.</p>
-                <p class="game-card"><span class="game-card__label">Question</span> <span class="game-card__text">How many new cars were sold in the US last year?</span></p>
-              </div>
-            </details></div></li>
-          <li class="box"><h3>2. Guess</h3><div class="box__body"><p>Everyone secretly writes down a range they think contains the answer. Then betting <span class="nowrap">round 1</span>.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p>Bob breaks the question down. About 340 million people live in the US, but children can’t drive, many older people no
-                longer do, and plenty of city dwellers, in New York City for example, don’t own a car. Then again, many households have two or
-                even three cars, more than in Europe. So maybe 250 million cars are on the road. If a car stays on US roads for about 15 years,
-                around 17 million of them have to be replaced with new ones each year. Bob writes <span class="nowrap">“10–20 million”</span>.</p>
-                <p>Alice writes <span class="nowrap">“5–30 million”</span> and Carol <span class="nowrap">“1–4 million”</span>. Alice acts first and checks, which means passing the action to the next player without betting. That’s possible as long
-                as nobody has bet yet in this round. Bob, confident after breaking the question down, bets 200. The others now have three
-                options: call (put in 200 as well to stay in), raise (increase the bet) or fold (drop out). Carol isn’t confident and folds.
-                Folding means giving up whatever you’ve put in, which for Carol is just the ante so far. Alice calls.</p>
-              </div>
-            </details></div></li>
-          <li class="box"><h3>3. Hint 1</h3><div class="box__body"><p>The first hint is revealed. Then betting round 2.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p class="game-card"><span class="game-card__label">Hint 1</span> <span class="game-card__text">About 240 million people in the US have a driver’s license.</span></p>
-                <p>At first, Alice isn’t sure what to make of it. Then Alice realizes that if each driver buys a new car every 10 to 20 years, that’s 12 to 24 million a year. That fits inside <span class="nowrap">“5–30 million”</span>, so Alice bets 300. Bob
-                calls.</p>
-              </div>
-            </details></div></li>
-          <li class="box"><h3>4. Hint 2</h3><div class="box__body"><p>The second hint is revealed. Then betting round 3.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p class="game-card"><span class="game-card__label">Hint 2</span> <span class="game-card__text">About 1.9 million new cars were sold in Canada last year.</span></p>
-                <p>Bob knows Canada has roughly a tenth of the
-                US population, so this points to about 19 million, still inside <span class="nowrap">“10–20 million”</span>. Alice has no idea how many people live in Canada,
-                so the hint is of little use. Still trusting the first hint, Alice bets 400. Bob, now even more confident, raises to 800. Alice
-                calls by putting in another 400.</p>
-              </div>
-            </details></div></li>
-          <li class="box"><h3>5. Answer reveal</h3><div class="box__body"><p>The answer is revealed. Then betting round 4.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p class="game-card"><span class="game-card__label">Answer</span> <span class="game-card__text">16.2 million</span></p>
-                <p>Both Alice’s and Bob’s ranges contain it, but neither knows what the other wrote. Alice
-                checks. Bob thinks <span class="nowrap">“10–20 million”</span> was a pretty good guess and bets 1,000. Alice hesitates, visibly uncomfortable, but with so many chips already in the pot, doesn’t want to give up now and calls.</p>
-              </div>
-            </details></div></li>
-          <li class="box"><h3>6. Showdown</h3><div class="box__body"><p>The remaining players reveal their ranges, and the best one wins the pot. Revealing is voluntary for everyone who folded.</p>
-            <details class="box__example"><summary>Example</summary>
-              <div class="example">
-                <p>Alice shows <span class="nowrap">“5–30 million”</span>, Bob <span class="nowrap">“10–20 million”</span>. Both contain
-                the answer, but Bob’s range is narrower: 10 million wide, against 25 million for Alice. So Bob wins the pot of 4,900.
-                Carol is relieved: “1–4 million” would have lost anyway, players who folded don’t have to show their range, and folding early cost only the ante.</p>
-              </div>
-            </details></div></li>
-        </ol>
-      </section>
-
-      <section class="section">
-        <h2>Your guess</h2>
-        <ul class="list">
-          <li>Write it secretly and place it face down. Once betting round 1 starts, you can’t change it.</li>
-          <li>A range includes both of its endpoints.</li>
-          <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they’re clearly written and not ambiguous.</li>
-        </ul>
-        <!-- Hidden for now, to use later: remove the hidden attribute to show the worked example again -->
-        <div class="boxes" hidden>
-          <details class="box box--fold">
-            <summary><h3>Example: How many dentists work in the US?</h3></summary>
+        <h2>Announcement text</h2>
+        <div class="boxes">
+          <div class="box box--quote">
             <div class="box__body">
               <p>
-                I had no idea. If I knew how many dentists work in my town, I could scale that up, but I don’t. So I
-                broke the question into smaller ones I could guess, the way Enrico Fermi trained his students:
+                We’re planning to host a Fermi Poker tournament. The game is like poker, but instead of random playing
+                cards, you get to answer Fermi estimation questions like “How many smartphones were sold worldwide last
+                year?” You secretly write down a range, bet on it, get two hints, bet again, and the narrowest range that
+                contains the answer wins, unless someone bluffs everyone else out first. No poker experience or math
+                background needed; we’ll explain everything at the start. Chips have no cash value, and there is no
+                gambling involved – just skill and wits!
               </p>
-              <ol class="list list--steps">
-                <li><strong>How often do people go to the dentist?</strong> I go about once a year for a checkup. Some people go twice, some hardly ever, so once a year seems like a fair average.</li>
-                <li><strong>How long is a visit?</strong> Mine take about 45 minutes.</li>
-                <li><strong>How many patients does a dentist see?</strong> In an <span class="nowrap">8-hour</span> day, about 10. Over 250 working days, that’s 2,500 a year.</li>
-                <li><strong>How many people live in the US?</strong> About 340 million.</li>
-                <li><strong>Put it together:</strong> 340 million people going once a year make 340 million visits, and 340,000,000 ÷ 2,500 ≈ 136,000 dentists.</li>
-              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Description</h2>
+
+        <h3 class="section__step">1. Form groups and hand out supplies</h3>
+        <p class="text">
+          Form groups with around four to six players, each at their own table. Each table should have at least one copy
+          of the <a class="link" href="/files/fermi-poker-rules.pdf">rules handout</a>, one stack of question, hint and
+          answer cards (or a phone with <a class="link" href="/play/">fermi.org/play</a> loaded), and enough chips for each
+          player. (Poker chip sets come with different values. A good default is to give each player chips worth 1,000,
+          with the ante starting at 25.)
+        </p>
+        <div class="boxes">
+          <details class="box box--fold">
+            <summary><h4>More about poker chip sets without printed values</h4></summary>
+            <div class="box__body">
               <p>
-                Sanity check: that’s one dentist for every 2,500 people, so a town of 10,000 would have four. Sounds
-                about right. So my best guess was about 140,000. I wasn’t sure of any single step, so my range was
-                <span class="nowrap">“100,000–200,000”</span>.
-              </p>
-              <p><em>Last chance to make your own guess…</em></p>
-              <p>
-                <strong>Then I checked.</strong> The
-                <a class="link" href="https://www.ada.org/resources/research/health-policy-institute/dentist-workforce">American Dental Association</a>
-                counted 205,088 professionally active dentists in 2025, just outside my range. Oops.
-              </p>
-              <p>
-                Now comes the most useful part. Because I broke the question down, I can check each assumption and see
-                where my picture of the world was wrong:
-              </p>
-              <ul class="list">
-                <li><strong>How often:</strong> this is where I went wrong. <a class="link" href="https://www.cdc.gov/nchs/products/databriefs/db531.htm">About two in three adults</a>, and most children, see a dentist each year, and many go twice for checkups, plus extra visits for fillings, crowns or braces. That’s about 1.5 visits per person, or roughly 500 million a year. I had pictured one checkup each.</li>
-                <li><strong>Patients per day:</strong> 500 million visits shared by 205,000 dentists is about 2,400 each, or 10 a day. That one held up.</li>
-              </ul>
-              <p>
-                With 1.5 visits per person, my steps give 340 million × 1.5 ÷ 2,500 ≈ 204,000, almost exactly the real
-                number.
+                If your chips only have colors and no printed values, assign the values yourself. Most
+                <span class="nowrap">500-chip</span> sets come as 150 / 150 / 100 / 50 / 50 chips per color, which can
+                give up to 20 players a stack worth 1,000 each if done correctly.
               </p>
               <p>
-                That’s the point of breaking a question down. A single gut guess of 140,000 would just have been wrong.
-                Written out step by step, my reasoning showed me exactly which part of my picture of the world to fix.
+                Make the two colors with 150 chips worth 25 and 50, and the color with 100 chips worth 100. Each player
+                gets 6&nbsp;&times;&nbsp;25, 7&nbsp;&times;&nbsp;50 and 5&nbsp;&times;&nbsp;100, which is 18 chips worth
+                1,000.
+              </p>
+              <p>
+                The leftover chips stay with the organizer for making change. The two colors with 50 chips become 500s and
+                1,000s. Later in the game, players can trade stacks of small chips for these, which poker players call
+                “coloring up.” Otherwise, in a bigger tournament, the chip leader at the final table could end up with a
+                pile of 200 or more small chips.
               </p>
             </div>
           </details>
         </div>
-      </section>
 
-      <section class="section">
-        <h2>Betting</h2>
-        <p class="section__intro">Play moves clockwise. On your turn you can:</p>
+        <h3 class="section__step">2. Once people are settled, explain the rules <span class="section__aside">(about 5 minutes; you can read this aloud!)</span></h3>
         <div class="boxes">
-          <div class="box"><h3>Check</h3><div class="box__body"><p>Pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</p></div></div>
-          <div class="box"><h3>Bet or raise</h3><div class="box__body"><p>Increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</p></div></div>
-          <div class="box"><h3>Call</h3><div class="box__body"><p>Match the highest bet so far.</p></div></div>
-          <div class="box"><h3>Fold</h3><div class="box__body"><p>Drop out of this question. You give up the chips you’ve put in, but risk nothing more.</p></div></div>
-          <div class="box"><h3>All-in</h3><div class="box__body"><p>Bet all your chips. This is possible even if what you have left is less than the highest bet.</p></div></div>
-        </div>
-        <div class="texts">
-          <p class="text">
-            A betting round ends once everyone has acted and matched the highest bet or folded. Within a betting round,
-            you can only raise again if someone else raised after you.
-          </p>
-          <p class="text">
-            If you’re <span class="nowrap">all-in</span>, you can win from each player only as much as you put in yourself. Extra bets go into a
-            side pot that only the players who paid into it can win. Can’t pay the ante? You’re automatically
-            <span class="nowrap">all-in</span>.
-          </p>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Who wins the pot</h2>
-        <div class="boxes">
-          <div class="box">
-            <h3>At the showdown</h3>
-            <div class="box__body"><p>The <strong>narrowest range that contains the answer</strong> wins. Width is the high endpoint minus the low one: if the answer is 500, a range of <span class="nowrap">“200–600”</span> (400) beats a range of <span class="nowrap">“400–1100”</span> (700).</p></div>
-          </div>
-          <div class="box"><h3>Equally narrow?</h3><div class="box__body"><p>Split the pot.</p></div></div>
-          <div class="box"><h3>No range contains the answer?</h3><div class="box__body"><p>The range whose midpoint (halfway between low and high) is closest to the answer wins.</p></div></div>
-          <div class="box"><h3>Everyone else folded?</h3><div class="box__body"><p>The last remaining player wins and doesn’t have to reveal their guess.</p></div></div>
-          <div class="box"><h3>Everyone, or all but one, is <span class="nowrap">all-in</span>?</h3><div class="box__body"><p>Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</p></div></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>End of the game</h2>
-        <p class="text">A player with no chips left is out. The game usually ends when one player has all the chips.</p>
-      </section>
-
-      <section class="section">
-        <h2>Optional game variants</h2>
-        <div class="boxes">
-          <div class="box box--optional">
-            <h3>Single numbers or powers of ten</h3>
-            <div class="box__body"><p>Guess a single number instead of a range, or allow powers of ten only (10<sup>1</sup>, 10<sup>2</sup>, 10<sup>3</sup>…).</p></div>
-          </div>
-          <div class="box box--optional"><h3>60-second clock</h3><div class="box__body"><p>Once half the players have written their guesses, the rest have 60 seconds.</p></div></div>
-          <div class="box box--optional">
-            <h3>Mirror card</h3>
+          <div class="box box--quote">
             <div class="box__body">
               <p>
-                Each player can use one Mirror card per game. Instead of a range, you write down the name of another player
-                and put your Mirror card in the middle of the table, so everyone can see you’ve used it. You now have the same guess as that
-                player: their range is also yours, even though you don’t know what it is.
+                Fermi Poker is like poker, but instead of being dealt random cards, you make estimates about Fermi
+                questions, like “How many new smartphones were sold worldwide last year?”
+              </p>
+              <p>
+                After a question like this is revealed, everyone secretly writes down a range they believe contains the
+                correct answer. Since you probably don’t know the answer, you can break the question down the way Enrico
+                Fermi would. So, about 8 billion people live on Earth. If everyone bought a new smartphone every four
+                years, that would be about 2 billion phones sold per year. But small children and very old people often
+                don’t have one, so we have to subtract them. Maybe those are 2 billion people, and then another billion
+                might not be able to afford a smartphone. That leaves us with about 5 billion people, which would mean that
+                roughly 1.25 billion phones are sold per year. So your estimate might be “1 billion to 1.5 billion”. Once
+                betting starts, you can’t change your range.
+              </p>
+              <p>
+                Speaking of betting, there are four betting rounds: one after everyone has written down their guess, one
+                after the first hint, one after the second hint, and one after the answer is revealed.
+              </p>
+              <p>
+                Betting works like in poker and moves clockwise around the table. When it’s your turn, you can bet as many
+                chips as you want, which the others then have to match to stay in. Matching a bet is known as calling. If
+                someone is very confident, they can raise, which means putting in an even larger bet than yours. Or they can
+                fold, meaning they give up on this question. That’s best if they’re completely unsure, or think the other
+                players have better estimates.
+              </p>
+              <p>
+                If nobody has bet before you in a betting round, you can also just pass the action to the next player;
+                that’s called checking. If everyone checks, the betting round ends without any bets. Otherwise, it ends
+                once everyone has either matched the highest bet or folded.
+              </p>
+              <p>
+                So, what about the hints we mentioned earlier? A hint could be, for example, the number of new smartphones
+                sold in Africa last year. You can’t change your range, but the hint can help you decide how much to bet, or
+                whether to fold if it suggests you’re way off.
+              </p>
+              <p>
+                At the showdown, which comes after the last betting round, everyone remaining reveals their range, and the
+                narrowest range that contains the answer wins the pot. Say two players remain, one with a range of
+                “1 billion to 2 billion” and you with “1 billion to 1.5 billion”. If both ranges contain the answer, you
+                win, because yours is 500 million narrower.<sup class="fn-ref"><a href="#fn-3" id="fnref-3">[3]</a></sup>
+                If nobody’s range contains the answer, the range whose midpoint is closest wins. And if everyone else folds
+                before the showdown, you win without having to show your range at all, so a terrible guess can still win if
+                you bluff well enough.
+              </p>
+              <p>
+                A few more things: before each question is revealed, everyone has to pay the ante, a small mandatory bet.
+                It goes up over time, so you can’t wait forever for a question you’re sure about. For the first question,
+                the youngest player at each table acts first during the betting rounds. For the next question, the player
+                on their left acts first, and so on. And please don’t use calculators or the internet. Any questions? If
+                not, we can play a quick practice round!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="sticky-note sticky-note--right">
+          <p class="text">
+            <b>Note:</b> The description above leaves out a few rules concerning minimum bet size,
+            <span class="nowrap">all-in</span> mechanics, side pots, and ties. They’re all on the
+            <a class="link" href="/files/fermi-poker-rules.pdf">rule sheet</a>, or you can see them here:
+          </p>
+          <ul class="list">
+            <li>Ranges include both endpoints. Any clear and unambiguous notation works: be it 3,000,000, 3M, 3 million or 3&nbsp;&times;&nbsp;10<sup>6</sup>.</li>
+            <li>The minimum bet size is the current ante, and a <span class="nowrap">(re-)raise</span> must be at least as big as the last bet or raise in that betting round.</li>
+            <li>You can go <span class="nowrap">all-in</span> by betting all your chips at any time, even if what you have left is less than the highest bet. You can only win as much from each player as you put in yourself. Extra bets go into a side pot that only the players who paid into it can win. If you can’t pay the ante, you’re automatically <span class="nowrap">all-in</span>.</li>
+            <li>When everyone, or all but one, is <span class="nowrap">all-in</span>, no more betting is possible. Read the remaining hints and the answer, then go straight to the showdown.</li>
+            <li>If two ranges are equally narrow and both contain the correct answer, split the pot.</li>
+          </ul>
+        </div>
+        <!-- Hidden for now, to use later: remove the hidden attribute to show the sample question again -->
+        <div class="boxes" hidden>
+          <details class="box box--fold">
+            <summary><h4>A sample question, step by step</h4></summary>
+            <div class="box__body">
+              <p>Alice, Bob and Carol each start with chips worth 1,000 and play one question.</p>
+              <div class="example">
+                <p><b>1. Ante</b></p>
+                <p>
+                  The ante is 25, so Alice, Bob and Carol each put in 25. That’s already 75 in the pot before anyone has
+                  seen the question. Because the ante is paid on every question and goes up over time, nobody can afford to
+                  wait an hour for a question they’re completely sure about.
+                </p>
+                <p class="game-card"><span class="game-card__label">Question</span> <span class="game-card__text">How many new cars were sold in the US in 2025?</span></p>
+              </div>
+              <div class="example">
+                <p><b>2. Guess</b></p>
+                <p>
+                  Bob breaks the question down. About 340 million people live in the US, but children can’t drive, many
+                  older people no longer do, and plenty of city dwellers, in New York City for example, don’t own a car.
+                  Then again, many households have two or even three cars, more than in Europe. So maybe 250 million cars
+                  are on the road. If a car stays on US roads for about 15 years, around 17 million of them have to be
+                  replaced with new ones each year. Bob writes <span class="nowrap">“10–20 million”</span>.
+                </p>
+                <p>
+                  Alice writes <span class="nowrap">“5–30 million”</span> and Carol <span class="nowrap">“1–4 million”</span>.
+                  Alice acts first and checks, which means passing the action to the next player without betting. That’s
+                  possible as long as nobody has bet yet in this round. Bob, confident after breaking the question down,
+                  bets 50. The others now have three options: call (put in 50 as well to stay in), raise (increase the bet)
+                  or fold (drop out). Carol isn’t confident and folds. Folding means giving up whatever you’ve put in, which
+                  for Carol is just the ante so far. Alice calls.
+                </p>
+              </div>
+              <div class="example">
+                <p><b>3. Hint 1</b></p>
+                <p class="game-card"><span class="game-card__label">Hint 1</span> <span class="game-card__text">Around 240 million people hold a valid driver’s license in the US.</span></p>
+                <p>
+                  At first, Alice isn’t sure what to make of it. Then Alice realizes that if each driver buys a new car
+                  every 10 to 20 years, that’s 12 to 24 million a year. That fits inside
+                  <span class="nowrap">“5–30 million”</span>, so Alice bets 75. Bob calls.
+                </p>
+              </div>
+              <div class="example">
+                <p><b>4. Hint 2</b></p>
+                <p class="game-card"><span class="game-card__label">Hint 2</span> <span class="game-card__text">Around 1.9 million new cars were sold in Canada in 2025.</span></p>
+                <p>
+                  Bob knows Canada has roughly a tenth of the US population, so this points to about 19 million, still
+                  inside <span class="nowrap">“10–20 million”</span>. Alice has no idea how many people live in Canada, so
+                  the hint is of little use. Still trusting the first hint, Alice bets 100. Bob, now even more confident,
+                  raises to 200. Alice calls by putting in another 100.
+                </p>
+              </div>
+              <div class="example">
+                <p><b>5. Answer</b></p>
+                <p class="game-card"><span class="game-card__label">Answer</span> <span class="game-card__text">16.2 million</span></p>
+                <p>
+                  Both Alice’s and Bob’s ranges contain it, but neither knows what the other wrote. Alice checks. Bob thinks
+                  <span class="nowrap">“10–20 million”</span> was a pretty good guess and bets 250. Alice hesitates,
+                  visibly uncomfortable, but with so many chips already in the pot, doesn’t want to give up now and calls.
+                </p>
+              </div>
+              <div class="example">
+                <p><b>6. Showdown</b></p>
+                <p>
+                  Alice shows <span class="nowrap">“5–30 million”</span>, Bob <span class="nowrap">“10–20 million”</span>.
+                  Both contain the answer, but Bob’s range is narrower: 10 million wide, against 25 million for Alice. So
+                  Bob wins the pot of 1,225. Carol is relieved: <span class="nowrap">“1–4 million”</span> would have lost
+                  anyway, players who folded don’t have to show their range, and folding early cost only the ante.
+                </p>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <h3 class="section__step">3. Play <span class="section__aside">(about 1–3 hours)</span></h3>
+        <p class="text">Start with a practice round that doesn’t count. Then hand the chips back and start for real.</p>
+        <p class="text">
+          A player with no chips left is out, but can stay seated for a while and keep guessing for fun, just without
+          betting. If you have several tables, merge them as players drop out, until one final table
+          remains.<sup class="fn-ref"><a href="#fn-4" id="fnref-4">[4]</a></sup> Players who are out can also play casual
+          games together or just socialize.
+        </p>
+        <p class="text">If you want to use a fixed ante schedule, here’s a good default for players starting with chips worth 1,000:</p>
+        <div class="table-box">
+          <table>
+            <thead><tr><th>Minutes</th><th>Ante</th></tr></thead>
+            <tbody>
+              <tr><td>0–20</td><td>25</td></tr>
+              <tr><td>20–40</td><td>50</td></tr>
+              <tr><td>40–60</td><td>75</td></tr>
+              <tr><td>60–80</td><td>100</td></tr>
+              <tr><td>80–100</td><td>150</td></tr>
+              <tr><td>100–120</td><td>200</td></tr>
+              <tr><td>120 and later</td><td>300</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text">
+          The game ends when one player has all the chips. If your meetup has a fixed end time, you can instead stop on
+          time, and whoever has the most chips wins.
+        </p>
+      </section>
+
+      <section class="section" id="variations">
+        <h2>Variations</h2>
+        <div class="boxes">
+          <details class="box box--optional box--fold">
+            <summary><h3>60-second clock</h3></summary>
+            <div class="box__body">
+              <p>
+                Once half the players have written down their guesses, the rest have 60 seconds. Use a phone timer or a
+                <span class="nowrap">one-minute</span> sand timer. A time limit like this is less awkward than having to
+                constantly urge a player who keeps everyone else waiting. Alternatively, all players have 60 seconds, or
+                another fixed time, from when the question is revealed.
+              </p>
+            </div>
+          </details>
+          <details class="box box--optional box--fold">
+            <summary><h3>Single numbers or powers of ten instead of ranges</h3></summary>
+            <div class="box__body"><p>Guess a single number instead of a range, or allow only powers of ten (10<sup>1</sup>, 10<sup>2</sup>, 10<sup>3</sup>…).</p></div>
+          </details>
+          <details class="box box--optional box--fold">
+            <summary><h3>Determine the winning range using a log scale</h3></summary>
+            <div class="box__body">
+              <p>
+                Judge ranges by how many times bigger the high endpoint is than the low endpoint, instead of by the
+                difference between them. If the correct answer is 600, <span class="nowrap">“500–1,000”</span> (ratio 2)
+                would then beat <span class="nowrap">“200–600”</span> (ratio 3). This fits order-of-magnitude thinking
+                better, but it’s harder to calculate quickly, and for most questions it makes little difference, so we
+                slightly prefer the standard rule.
+              </p>
+            </div>
+          </details>
+          <details class="box box--optional box--fold">
+            <summary><h3>Mirror card: copy another player’s guess without seeing it</h3></summary>
+            <div class="box__body">
+              <p>
+                Each player can use one Mirror card (or coin, or whatever else you use for it) per game. Instead of a range,
+                you write down the name of another player and put your Mirror card in the middle of the table, so everyone
+                can see you’ve used it. You now have the same guess as that player: their range is also yours, even though
+                you don’t know what it is.
               </p>
               <ul class="list">
                 <li>When you reveal at the showdown, the player you named must show their range too, even if they folded. It’s the only time a player who folded has to show their guess.</li>
@@ -272,11 +401,71 @@
                 <li>While a Mirror card is on the table, nobody may erase their guess before the question is over, even after folding, because anyone could turn out to be the player who was named.</li>
               </ul>
             </div>
-          </div>
+          </details>
+          <details class="box box--optional box--fold">
+            <summary><h3>Vary the topic of questions</h3></summary>
+            <div class="box__body">
+              <p>
+                You can make the questions be about a particular field, like literature, charity, or astronomy. You can also
+                aim for easier or harder questions depending on your audience, though judging difficulty can be tricky!
+              </p>
+            </div>
+          </details>
+          <details class="box box--optional box--fold">
+            <summary><h3>Blinds instead of antes</h3></summary>
+            <div class="box__body">
+              <p>
+                Instead of everyone paying an ante, only two players pay forced bets before each question: the two seated to
+                the right of whoever acts first for that question. One pays a small blind (half the minimum bet), the other
+                a big blind (the minimum bet), and everyone else must at least match the big blind to stay in. Players who
+                haven’t paid anything can fold questions they don’t like for free.
+              </p>
+            </div>
+          </details>
         </div>
-        <div class="buttons">
-          <a class="btn btn--ghost" href="/host/">Host a tournament</a>
-        </div>
+      </section>
+
+      <section class="section">
+        <h2>Notes</h2>
+        <ul class="list">
+          <li>The betting typically confuses non-poker players more than the estimating. If you can, seat one person who knows poker at each table.</li>
+          <li>You may want to open the evening with a short introduction to Enrico Fermi and his famous question about how many piano tuners work in Chicago, or the time he estimated the yield of the first atomic bomb test by dropping scraps of paper.</li>
+          <li>Chips should have no cash value. A small prize can add some excitement, though. But don’t fund it through entry fees, since that starts to look like gambling. Instead you might want to ask a local business to provide a gift card or some of its products for the prize pool.</li>
+          <li>If you’re excited about Fermi Poker, or want to receive support in running a tournament, please reach out via our <a class="link" href="/host/#sign-up">contact form</a> or get in touch at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</li>
+        </ul>
+      </section>
+
+      <!-- The footnotes. assets/site.js also sets each one beside its line on wide screens, and shows it in place when
+           its number is hovered over or tapped. -->
+      <section class="footnotes" aria-labelledby="footnotes-title">
+        <h2 class="sr-only" id="footnotes-title">Footnotes</h2>
+        <ol>
+          <li id="fn-1">
+            The cards are 9.44&nbsp;&times;&nbsp;6.39&nbsp;cm (3.72&nbsp;&times;&nbsp;2.52 inches), so they fit standard
+            4&nbsp;&times;&nbsp;2.75-inch mini envelopes (<a class="link" href="https://a.co/d/01lUMRai">like these</a>) or
+            European C7 envelopes. Put each question’s cards into their own envelope, in order, so the question comes out
+            first, then hint 1, hint 2 and finally the answer.
+            <a class="fn-back" href="#fnref-1" aria-label="Back to the text">↩</a>
+          </li>
+          <li id="fn-2">
+            The ante is a small mandatory bet everyone pays before each question. It goes up over time, so nobody can just
+            wait for a question they’re sure about.
+            <a class="fn-back" href="#fnref-2" aria-label="Back to the text">↩</a>
+          </li>
+          <li id="fn-3">
+            Some groups prefer to judge ranges on a log scale; see the section on
+            <a class="link" href="#variations">game variations</a> for more information on that.
+            <a class="fn-back" href="#fnref-3" aria-label="Back to the text">↩</a>
+          </li>
+          <li id="fn-4">
+            This format is called a freezeout, and it’s what we recommend, because rebalancing tables as players drop out
+            keeps the game running smoothly. The alternative is a shootout: each table plays on its own until only one or
+            two players are left, who then move on to a final table (or to semifinals first). Its big advantage is that
+            players who are out can stay at their table and keep guessing along until it finishes. In a freezeout, they can
+            do the same for a while, but eventually have to make room when tables are merged.
+            <a class="fn-back" href="#fnref-4" aria-label="Back to the text">↩</a>
+          </li>
+        </ol>
       </section>
     </div>
 
