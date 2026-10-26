@@ -3,19 +3,27 @@
 The Fermi Foundation website: plain HTML and CSS, no build step.
 
 - `index.html`: the home page, about hosting Fermi Poker tournaments
+- `faq/`: the questions and the educational value, in tabs (below)
 - `how-to-play/`, `host/`, `sponsor/`, `about/`, `updates/`: the inner pages (`updates/` is Get updates, below)
 - `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
-- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates and How to
-  play's footnotes
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, self-hosted), `files/` (the rule sheet PDF, and the
-  63-question pack to print, with blank cards for your own questions on its last page)
+- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates, How to
+  play's footnotes and the FAQ page's tabs
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the home and FAQ pages Mona Sans, all self-hosted),
+  `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
+  page)
 - The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
   the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
   space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
   original names for unmodified fonts. The `latin-ext` files are unchanged.
-- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `players-engraving.webp` (and a smaller
-  copy for phones, `-small`) the players behind the home page's menu; `enrico-fermi.webp` is the photo of Fermi that
-  stood there before, with `enrico-fermi-paper.svg` the paper cutout behind him (not used for now)
+- `mona-sans-latin.woff2` is Mona Sans (Open Font License, unmodified), the variable file with every weight and width
+  (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Roboto Slab (Apache License 2.0) at the regular weight
+  with only the letters of "Fermi Poker", for the logo (1 KB); add any letter the logo gains.
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `chips-hero.webp` the poker chips in the
+  home page's header, in black and white on a larger canvas whose light backdrop carries on around the photo, so the
+  header can show the chips on the right (the numbers in `site.css` follow its size and the photo's place in it);
+  `faq-hero.webp` the same photo for the FAQ page's header, darkened there in CSS; `enrico-fermi.webp` is a photo of
+  Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (not used for
+  now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -33,7 +41,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all six.
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all seven. On
+wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home and
+FAQ pages have the white menu bar (`nav--light`), with the name alone as the logo.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. Its footnotes are numbers in the text
@@ -42,18 +52,22 @@ its line, and elsewhere shows it in place when its number is hovered over or tap
 JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to
 use later.
 
-The home page's FAQ folds open in two columns that read row by row, as a grid would: the odd questions are in the
-left column, the even ones in the right (and the last one, the 13th, at the bottom of the right column), so that
-opening one only moves the questions under it. Each question also has its number as `style="order: …"`, which puts
-them back in turn on phones, where it's one list. So to add or move a question, change the columns and the numbers.
+The FAQ page has three parts, General, Hosting and Educational value, each a list of questions that open in place.
+`site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
+part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
+opens its tab and the question.
+
+The home page's Upcoming tournaments has one card for now, saying there are no public tournaments and leading to the
+Host page. Cards for real tournaments go in the same grid, three to a row, with the date as `event__when`.
 
 Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news
 about tournaments. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on
-its own page (`updates/`), and in a pop-up that "Get updates" in the menu opens (`assets/site.js`). The forms ask only
-for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by itself once: on
-laptops when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after 30 seconds on the
-page. Then not again for 30 days, and never after signing up or sending the Host form (the browser remembers this as
-`fermi-updates` in local storage); never on the Play page or Get updates itself.
+its own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens
+(`assets/site.js`). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The
+pop-up also comes up by itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on
+phones and tablets after 30 seconds on the page. Then not again for 30 days, and never after signing up or sending the
+Host form (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
+itself.
 
 The forms send to `api/subscribe.js`, which adds the address to the contacts in Resend (resend.com), not yet
 subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`api/confirm.js`, good for a week)
@@ -75,8 +89,7 @@ Page views are counted with Vercel Web Analytics, through the two script tags at
 Vercel serves its script only on the deployment, so a local preview shows a harmless 404 for
 `/_vercel/insights/script.js`.
 
-The players behind the home page's menu are the Fermi Poker box's illustration without its title, engraved: their
-outlines, and fine diagonal lines shading the darker parts, in warm graphite. The Enrico Fermi photo is a U.S.
-Department of Energy photo (c. 1943–49) in the public domain. The Rome behind the inner pages' menu is Giovanni Battista
+The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.S. Department of Energy photo
+(c. 1943–49) in the public domain. The Rome behind the inner pages' menu is Giovanni Battista
 Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite.

@@ -387,3 +387,62 @@ if (footnoteRefs.length) {
   })
   addEventListener('resize', hide)
 }
+
+// Old links to the home page's FAQ and Educational value, which now have their own page
+if (location.pathname === '/' && (location.hash === '#faq' || location.hash === '#learn')) {
+  location.replace(location.hash === '#faq' ? '/faq/' : '/faq/#educational-value')
+}
+
+// FAQ page: each part becomes a tab, named by its heading. A link to a part (/faq/#hosting) opens its tab, and a link
+// to a question (/faq/#is-it-gambling) opens its tab and the question. Without JavaScript the parts follow one another.
+const faqTabs = document.querySelector('.faq__tabs')
+
+if (faqTabs) {
+  const panels = [...document.querySelectorAll('.faq__panel')]
+  const tabs = panels.map(panel => {
+    const heading = panel.querySelector('.faq__heading')
+    const tab = document.createElement('button')
+    tab.type = 'button'
+    tab.className = 'faq__tab'
+    tab.id = `${panel.id}-tab`
+    tab.textContent = heading.textContent
+    tab.setAttribute('role', 'tab')
+    tab.setAttribute('aria-controls', panel.id)
+    panel.setAttribute('role', 'tabpanel')
+    panel.setAttribute('aria-labelledby', tab.id)
+    heading.hidden = true
+    faqTabs.append(tab)
+    return tab
+  })
+  const select = (index, focus) => {
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index))
+      tab.tabIndex = i === index ? 0 : -1
+      panels[i].hidden = i !== index
+    })
+    if (focus) tabs[index].focus()
+  }
+  // The part a link points to (opening the question it names), shown and scrolled to
+  const followHash = () => {
+    const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+    const panel = target && target.closest('.faq__panel')
+    select(panel ? panels.indexOf(panel) : 0)
+    if (!panel) return
+    if (target.matches('details')) target.open = true
+    ;(target === panel ? faqTabs : target).scrollIntoView()
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      select(i)
+      history.replaceState(null, '', `#${panels[i].id}`)
+    })
+    // Arrow keys move between the tabs, as in other tab lists
+    tab.addEventListener('keydown', event => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key]
+      if (step) select((i + step + tabs.length) % tabs.length, true)
+    })
+  })
+  followHash()
+  faqTabs.hidden = false
+  addEventListener('hashchange', followHash)
+}

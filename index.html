@@ -20,8 +20,9 @@
   <link rel="preload" href="/assets/fonts/fermi-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/players-engraving.webp" as="image" media="(min-width: 601px)">
-  <link rel="preload" href="/assets/img/players-engraving-small.webp" as="image" media="(max-width: 600px)">
+  <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/img/chips-hero.webp" as="image">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -31,47 +32,62 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<div class="home">
-  <!-- The players at the table from the Fermi Poker box, engraved (assets/site.css) -->
-  <header class="hero"></header>
+  <nav class="nav nav--light">
+    <div class="nav__bar">
+      <a class="nav__logo" href="/"><span class="logo">Fermi Poker</span></a>
+      <ul class="nav__links">
+        <li><a href="/how-to-play/">How to play</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/sponsor/">Donate</a></li>
+      </ul>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+        <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav__sheet" id="nav-sheet" hidden>
+      <ul>
+        <li><a href="/" aria-current="page">Home</a></li>
+        <li><a href="/how-to-play/">How to play</a></li>
+        <li><a href="/host/">Host a tournament</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/sponsor/">Donate</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a class="nav__updates" href="/updates/">Get updates</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <div class="home__nav">
-    <nav class="nav nav--home">
-      <div class="nav__bar">
-        <a class="nav__logo" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
-        <ul class="nav__links">
-          <li><a href="/" aria-current="page">Home</a></li>
-          <li><a href="/how-to-play/">How to play</a></li>
-          <li><a href="/host/">Host a tournament</a></li>
-          <li><a href="/sponsor/">Donate</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a class="nav__updates" href="/updates/">Get updates</a></li>
-        </ul>
-        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
-          <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
+  <!-- The chips in black and white, with the headline and the guide on the light backdrop beside them (assets/site.css) -->
+  <header class="hero">
+    <div class="hero__inner">
+      <h1 class="hero__title">A game of estimation, bluffing and friendly competition</h1>
+      <div class="hero__cta">
+        <p>Get the guide to playing Fermi Poker and hosting a tournament</p>
+        <a class="hero__btn" href="/how-to-play/">Get started <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <div class="nav__sheet" id="nav-sheet" hidden>
-        <ul>
-          <li><a href="/" aria-current="page">Home</a></li>
-          <li><a href="/how-to-play/">How to play</a></li>
-          <li><a href="/host/">Host a tournament</a></li>
-          <li><a href="/sponsor/">Donate</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a class="nav__updates" href="/updates/">Get updates</a></li>
-        </ul>
+    </div>
+  </header>
+
+  <!-- Upcoming tournaments, as cards. None are public for now, so one card says so and leads to hosting one. -->
+  <section class="events" aria-labelledby="events-title">
+    <div class="events__inner">
+      <h2 id="events-title">Upcoming tournaments</h2>
+      <div class="events__list">
+        <article class="event event--wide">
+          <div class="event__head">
+            <h3 class="event__title">No public tournaments right now</h3>
+            <p class="event__note">Most are private.</p>
+          </div>
+          <div class="event__art"></div>
+          <a class="event__btn" href="/host/">Host your own <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </article>
       </div>
-    </nav>
-  </div>
+    </div>
+  </section>
 
   <main class="paper paper--home">
-    <img class="paper__edge paper__edge--top" src="/assets/img/edge-top.svg" alt="" aria-hidden="true">
-
     <div class="home__content">
-      <p class="kicker">For classrooms, university clubs and friend groups</p>
-      <h1 class="home__title">A game of estimation, bluffing and friendly competition</h1>
-
       <div class="lead">
         <p>
           <span id="fermi-birthday">September 29, 2026 marked the 125th birthday of Enrico Fermi.</span> To celebrate his
@@ -183,124 +199,6 @@
         </div>
       </section>
 
-      <section class="home-section" id="learn">
-        <h2>Educational value</h2>
-        <div class="home-section__body">
-          <!-- Each box shows its name and opens to its text. Two lists side by side where there’s room, so opening a
-               box only moves the boxes under it; on phones, one list. -->
-          <div class="folds">
-            <div class="folds__col">
-              <details class="card card--fold">
-                <summary><h3>Fermi estimation</h3></summary>
-                <div class="card__body"><p>Breaking a seemingly unanswerable question into smaller parts you can actually reason about is a skill that pays off far beyond the game. Physicists use it to quickly check whether an experiment is even feasible before wasting months on it, entrepreneurs use it to size a market, and anyone can use it to tell whether a number on social media makes sense.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>Calibration</h3></summary>
-                <div class="card__body"><p>Knowing what you know, and what you don’t, is harder than it sounds. That’s why in Fermi Poker you guess a range rather than a single number, and the narrowest range that contains the answer wins. A range that’s too narrow risks missing entirely; one that’s too wide rarely wins. Over many rounds, players get better at putting numbers on their own uncertainty.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>Bayesian updating</h3></summary>
-                <div class="card__body"><p>Changing your mind when the facts change is at the heart of rational thinking, and in Fermi Poker it comes up with every hint. Players learn to treat their beliefs as “hypotheses to be tested, not treasures to be guarded,” as Philip Tetlock puts it, and to neither overreact nor underreact to new evidence.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>World-modeling</h3></summary>
-                <div class="card__body"><p>Every question is really about how the world is structured: how common different jobs are, how people spend their time, what things cost. The game rewards an accurate model of the world and helps you build one: every answer that surprises you shows where your model can be refined.</p></div>
-              </details>
-            </div>
-            <div class="folds__col">
-              <details class="card card--fold">
-                <summary><h3>Cognitive empathy</h3></summary>
-                <div class="card__body"><p>It’s one thing to know what other people feel, and another to understand how they think and why they believe what they believe. Regular poker rewards reading tells, like a trembling hand. Fermi Poker also makes you model what each player knows and how their cultural or educational background influences their answers. Asked how many new cars are sold in the US each year, will someone from rural Texas guess higher than someone from a <span class="nowrap">bike-friendly</span> European city? Like a flight simulator, the game lets you practice this dozens of times in a few hours.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>Knowing whom to trust</h3></summary>
-                <div class="card__body"><p>Figuring out whom to trust is most of the way to having correct beliefs. At the table, as in life, confidence and charisma say little about who’s right. What counts is a track record of good estimates on similar questions, since expertise depends on the domain: the player who nails car questions may be lost on history questions. That’s worth remembering when influencers and celebrities weigh in on everything.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>An antidote to number numbness</h3></summary>
-                <div class="card__body"><p>Douglas Hofstadter called it “number numbness”: the inability to grasp the size of large numbers, which he argued may be just as dangerous as illiteracy. In Fermi Poker, you estimate large numbers again and again, until a million and a billion stop sounding alike.</p></div>
-              </details>
-              <details class="card card--fold">
-                <summary><h3>Taking emotion seriously</h3></summary>
-                <div class="card__body"><p>Michael Nielsen has argued that we learn best when the emotional stakes are as high as possible without losing the ability to think calmly, like a game show contestant who loses the prize on a wrong answer and remembers the right one for life. Fermi Poker creates such moments all the time. Take the question “How many chickens are slaughtered for meat each year?” You’re sure it’s no more than 10 billion, so you go <span class="nowrap">all-in</span>, and then the answer comes in: over 75 billion. You’ll remember that far longer than if you’d heard it in a lecture.</p></div>
-              </details>
-            </div>
-          </div>
-          <p class="closing">
-            Most of all, Fermi Poker is social. You meet new people, get to know others better, and find out how they
-            think about all kinds of topics. Every question, hint and answer is a prompt for conversation, during the
-            game and after it.
-          </p>
-        </div>
-      </section>
-
-      <section class="home-section" id="faq">
-        <h2>Frequently asked questions</h2>
-        <div class="home-section__body">
-          <!-- Two columns that fold open on their own. The questions read row by row as before: the odd ones on the
-               left, the even ones on the right, and the last one on the right too. On phones it's one list, and each
-               question's order puts it back in turn. -->
-          <div class="folds folds--rows">
-            <div class="folds__col">
-              <details class="card card--fold" style="order: 1">
-                <summary><h3>Is it gambling?</h3></summary>
-                <div class="card__body"><p>No. By the usual definitions, gambling means staking something of real value on an outcome decided largely by chance. In Fermi Poker, you bet with poker chips that have no cash value, and the random playing cards are replaced by estimation questions, so it comes down to skill, not luck. That’s why the Fermi Poker app is rated 3+ on Google Play and 13+ on the App Store, while most poker apps are rated 18+.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 3">
-                <summary><h3>Do you need to be good at math?</h3></summary>
-                <div class="card__body"><p>No. Fermi estimation has surprisingly little to do with what’s taught in math class. What counts is knowing a bit about how the world works and breaking a question into parts you can reason about. The calculations stay simple, because there’s little time and everyone rounds heavily. So being bad at math doesn’t mean you’ll be bad at this.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 5">
-                <summary><h3>Does it have to be in person?</h3></summary>
-                <div class="card__body"><p>Yes. The tournaments we sponsor should take place in person.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 7">
-                <summary><h3>How long does a tournament take?</h3></summary>
-                <div class="card__body"><p>Plan on 2 to 3 hours of play, plus time to set up. It depends on the number of players and on the ante, the mandatory bet everyone makes before each question. If a tournament runs long, raise the ante faster to speed it up.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 9">
-                <summary><h3>Is there support for hosts?</h3></summary>
-                <div class="card__body"><p>Yes, and it’s free. We’ll help you plan your tournament. If we sponsor it, we also cover the cost of things like poker chips, <span class="nowrap">dry-erase markers</span> and <span class="nowrap">mini-whiteboards</span>, and sometimes small prizes. The sponsorship amount depends on how many players you expect. Fill out our <a class="link" href="/host/#sign-up">short form</a> or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 11">
-                <summary><h3>Where do the questions come from?</h3></summary>
-                <div class="card__body"><p>Once you contact us, we’ll email you PDFs with about 100 questions, each with two hints and the answer. Just print them, cut out the cards, and you’re ready to play. You can also write your own, for example about your country or city, and mix them in or use only yours.</p></div>
-              </details>
-            </div>
-            <div class="folds__col">
-              <details class="card card--fold" style="order: 2">
-                <summary><h3>What age is it for?</h3></summary>
-                <div class="card__body"><p>We recommend it from age 13, all the way through university.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 4">
-                <summary><h3>Do you need to know poker?</h3></summary>
-                <div class="card__body"><p>No. Fermi Poker is even easier to learn than regular poker, since there are no hand rankings to memorize, and if you already know poker, it will feel intuitive right away. The rules fit on one page. <a class="link" href="/how-to-play/">Read the rules</a>.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 6">
-                <summary><h3>How many players do you need?</h3></summary>
-                <div class="card__body"><p>In theory, a single table of four to six players is enough. For sponsorship, though, we mostly consider tournaments with 18 or more players. Smaller tournaments can still get everything else they need from us, like the rule sheets and questions.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 8">
-                <summary><h3>What does a host do?</h3></summary>
-                <div class="card__body"><p>Find a room and spread the word about the tournament. Print our rule sheets, one per table, and the question, hint and answer cards. Get poker chips, <span class="nowrap">dry-erase markers</span> and <span class="nowrap">mini-whiteboards</span> or cards for writing guesses, and maybe some water and snacks. On the day, open with a 2–3 minute introduction to Enrico Fermi and his life, then explain the game.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 10">
-                <summary><h3>Can you charge an entry fee?</h3></summary>
-                <div class="card__body"><p>No. The tournaments we support must be free to enter. The only exception we might consider is a charity tournament where all proceeds go to a charitable cause.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 12">
-                <summary><h3>When should it take place?</h3></summary>
-                <div class="card__body"><p>Any time from November 2026, when our materials are ready. Ideally by early 2027, while Fermi’s 125th birthday is still recent.</p></div>
-              </details>
-              <details class="card card--fold" style="order: 13">
-                <summary><h3>Why is it named after Enrico Fermi?</h3></summary>
-                <div class="card__body"><p>Fermi was famous for quick, accurate estimates from very little information, and he posed questions like these to his students, which is why they’re called Fermi questions. The most famous one asked how many piano tuners work in Chicago.</p></div>
-              </details>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="updates-end">
         <h2>Join the mailing list</h2>
         <p>We’ll let you know when our questions and materials are ready, and whenever there’s news about <span class="nowrap">Fermi Poker</span> tournaments.</p>
@@ -340,9 +238,10 @@
           <li><a href="/">Home</a></li>
           <li><a href="/how-to-play/">How to play</a></li>
           <li><a href="/host/">Host a tournament</a></li>
-          <li><a href="/#faq">FAQ</a></li>
+          <li><a href="/faq/">FAQ</a></li>
           <li><a href="/sponsor/">Donate</a></li>
           <li><a href="/about/">About</a></li>
+          <li><a href="/updates/">Get updates</a></li>
         </ul>
       </div>
       <div>
@@ -357,6 +256,5 @@
     <p class="footer__legal">© 2026 Fermi Foundation.</p>
     <p class="footer__credit">The Forum in Rome: etching by Giovanni Battista Piranesi, c. 1775, <a href="https://www.metmuseum.org/art/collection/search/363433">The Metropolitan Museum of Art</a>, public domain.</p>
   </footer>
-</div>
 </body>
 </html>

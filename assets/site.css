@@ -51,6 +51,25 @@
   src: url(/assets/fonts/pt-serif-700-latin-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+/* Mona Sans (Open Font License), for the home and FAQ pages: one variable file with every weight and width, from
+   condensed to expanded */
+@font-face {
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
+  font-display: swap;
+  src: url(/assets/fonts/mona-sans-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* The name in the logo, in Roboto Slab (Apache License 2.0): only its letters, at the regular weight */
+@font-face {
+  font-family: 'Fermi Logo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/fermi-logo.woff2) format('woff2');
+}
 /* Local fallbacks sized like the web fonts, so text doesn't jump when they load */
 @font-face {
   font-family: 'Fermi Sans Fallback';
@@ -72,6 +91,7 @@
 :root {
   --sans: 'Fermi Sans', 'Fermi Sans Fallback', system-ui, sans-serif;
   --serif: 'Fermi Serif', 'Fermi Serif Fallback', Georgia, serif;
+  --mona: 'Mona Sans', var(--sans);
   --ink: #151d23;
   --ink-soft: #32424e;
   --rule: rgba(21, 29, 35, 0.5);
@@ -108,8 +128,9 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
-/* On the home page, the top of the players' engraving, a little darker than Rome */
-html.home-page { --page-bg: #e6e3d6; }
+/* On the home and FAQ pages, the white of their menu bar */
+html.home-page,
+html.faq-page { --page-bg: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -161,8 +182,6 @@ button {
   padding: 14px 24px;
 }
 .nav__logo { display: block; }
-/* The home page has Fermi on the left of the sky strip, so the logo only shows with the menu open */
-.nav--home:not(.is-open) .nav__logo { visibility: hidden; }
 .nav__links {
   display: none;
   align-items: center;
@@ -174,8 +193,8 @@ button {
   border-bottom: 2px solid transparent;
   transition: border-color 150ms var(--ease);
 }
-.nav__links a:hover,
-.nav__links a[aria-current='page'] { border-color: var(--ink); }
+/* Underlined on hover (the current page isn't marked) */
+.nav__links a:hover { border-color: var(--ink); }
 .nav__toggle {
   display: inline-flex;
   padding: 6px;
@@ -205,63 +224,195 @@ button {
   .nav__toggle,
   .nav__sheet { display: none; }
 }
+/* The home and FAQ pages' menu: a white bar, the name alone on the left, the links in Mona Sans */
+.nav--light { background: #fff; }
+.nav--light .nav__bar { min-height: 72px; }
+.nav--light .logo { font-size: 24px; }
+.nav--light .logo img { display: none; }
+.nav--light .nav__links { gap: clamp(20px, 2.4vw, 34px); font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
+@media (max-width: 899px) {
+  .nav--light .logo { font-size: 21px; }
+}
+/* Its phone menu opens in white too, in the same type */
+.nav--light.is-open,
+.nav--light .nav__sheet { background: #fff; }
+.nav--light .nav__sheet { font-family: var(--mona); }
+html.home-page.menu-open,
+html.faq-page.menu-open { --page-bg: #fff; }
 
-/* Logo: a small photo of Fermi next to the name, set like the headings */
+/* Logo: a small photo of Fermi next to the name, in Roboto Slab */
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--serif);
+  font-family: 'Fermi Logo', var(--serif);
   font-size: 21px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
 }
 .logo img { width: 34px; height: 34px; }
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page strip, behind the menu: 253px tall on phones, where it shows the whole picture's width; on wider screens
-   it grows with the width, so the players' faces and the chips stay in view */
-.home { position: relative; }
-.hero {
+/* Inner pages: a band with the menu, behind it Rome, Fermi's birthplace, in Piranesi's etching of the Forum (c. 1775),
+   re-inked in soft graphite, with a light fade under the menu that keeps the links readable */
+.sky {
   position: relative;
-  height: max(253px, calc(662 * var(--u)));
-  overflow: hidden;
+  background:
+    linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
+    #ebe6da url(/assets/img/forum-piranesi.webp) center 45% / cover;
 }
-/* Menu floats over the sky; outside the hero so the mobile sheet isn't clipped */
-.home__nav { position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
-
-/* Inner pages: a band with the menu */
-.sky { position: relative; }
 .sky__space { height: 190px; }
 
-/* Behind both menus, a picture in soft graphite, with a light fade under the menu that keeps the links readable */
-.hero,
-.sky {
-  background-color: #ebe6da;
-  background-position: center 45%;
-  background-size: cover;
-}
-/* On the inner pages: Rome, Fermi's birthplace, in Piranesi's etching of the Forum (c. 1775), re-inked */
-.sky {
-  background-image:
-    linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
-    url(/assets/img/forum-piranesi.webp);
-}
-/* On the home page: the players at the table from the Fermi Poker box, engraved. Phones get a smaller copy, since
-   they show it at most 600px wide. */
+/* The home page's header: chips on the right, in black and white, and on the light backdrop to their left the headline
+   and the guide. assets/img/chips-hero.webp is the photo with its backdrop carried on to the left, above and to the
+   right: the photo itself is 2000 × 742 at 868, 200 in the 3068 × 942 image. It fills the header's height, which grows
+   with the width, so the photo starts about two fifths of the way across. Under it, a gradient in the backdrop's tones
+   shows while it loads, and on very wide screens beyond its left edge. */
 .hero {
-  background-image:
-    linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
-    url(/assets/img/players-engraving.webp);
-  background-position: center 46%;
+  --title: clamp(48px, 4.08vw, 65.28px);
+  display: flex;
+  align-items: center;
+  min-height: clamp(440px, 37.8vw, 605px);
+  background:
+    url(/assets/img/chips-hero.webp) 0 100% / auto calc(100% * 942 / 742) no-repeat,
+    linear-gradient(#fbfbfb, #f6f6f6 20%, #f2f2f2 30%, #f0f0f0 50%, #eee 80%, #ececec);
 }
-@media (max-width: 600px) {
+/* Wider than 1470px, the headline (in its centred column) moves right faster than the photo would, so the photo is
+   placed from the column instead, keeping the same room between them; past 1600px the header stops growing */
+@media (min-width: 1471px) and (max-width: 1600px) {
+  .hero { background-position: calc(37.24vw - 548px) 100%, 0 0; }
+}
+@media (min-width: 1601px) {
+  .hero { background-position: calc(50% + 498px) 100%, 0 0; }
+}
+.hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
+.hero__title {
+  max-width: 11.9em;
+  margin-bottom: 20px;
+  color: #000;
+  font-family: var(--mona);
+  font-size: var(--title);
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+  word-break: break-word;
+}
+/* The guide, as wide as the headline's first line */
+.hero__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: calc(var(--title) * 11.9);
+  max-width: 100%;
+  margin-top: clamp(40px, 4.76vw, 70px);
+  padding: 16px 20px;
+  background: #2a2a2a;
+  color: #fff;
+}
+.hero__cta p {
+  max-width: 23em;
+  font-family: var(--mona);
+  font-size: clamp(16px, 1.36vw, 22px);
+  font-stretch: 125%;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.hero__btn {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  background: #fff;
+  color: #2a2a2a;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background-color 150ms var(--ease);
+}
+.hero__btn:hover { background: #e9e9e9; }
+.hero__btn svg { width: 16px; height: 16px; }
+/* Narrower screens: the guide's button under its text */
+@media (max-width: 899px) {
+  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero__cta p { max-width: none; font-size: 18px; }
+}
+/* Phones: the headline over the whole width, the guide under it with its button across the box, and the chips coming
+   in from the right at about the size they have on a laptop, the first of them just under the end of "competition"
+   and a few more behind the guide */
+@media (max-width: 700px) {
   .hero {
-    background-image:
-      linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
-      url(/assets/img/players-engraving-small.webp);
+    --title: min(48px, (100vw - 40px) / 6.65);
+    align-items: flex-start;
+    min-height: 0;
+    background-position: -679px -47px, 0 0;
+    background-size: 2424px auto, auto;
   }
+  .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
+  .hero__cta { align-items: stretch; width: auto; margin-top: 70px; padding: 8px 12px; }
+  .hero__cta p { font-size: 20px; }
+  .hero__btn { justify-content: center; }
+}
+
+/* Upcoming tournaments, under the header: cards with a blue head (the name and, in narrow capitals, the date) over a
+   picture with the button on it. For now one card across the row, saying there are no public tournaments and leading
+   to hosting one, over a pattern of card suits. */
+.events { padding: 100px 0 96px; background: #fff; }
+.events__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
+.events h2 {
+  margin-bottom: 48px;
+  color: #000;
+  font-family: var(--mona);
+  font-size: 40px;
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+.events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.event { position: relative; display: flex; flex-direction: column; background: #1b21b1; }
+.event--wide { grid-column: 1 / -1; }
+.event__head { padding: 16px 16px 12px; color: #fff; }
+.event__title { font-family: var(--mona); font-size: 21px; font-stretch: 125%; font-weight: 600; line-height: 1; text-transform: uppercase; }
+.event__when { font-family: var(--mona); font-size: 30px; font-stretch: 75%; font-weight: 400; line-height: 1; text-transform: uppercase; }
+.event__note { margin-top: 8px; color: rgba(255, 255, 255, 0.86); font-family: var(--mona); font-size: 18px; line-height: 1.4; }
+.event__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.event__art {
+  height: 220px;
+  background: #eef0f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%23d8dcf1'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 120px 104px;
+}
+.event__btn {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 24px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 6px 16px -6px rgba(0, 0, 0, 0.3);
+  color: #1b21b1;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background-color 150ms var(--ease);
+}
+.event__btn:hover { background: #eef0ff; }
+.event__btn svg { width: 16px; height: 16px; }
+@media (max-width: 700px) {
+  .events { padding: 64px 0; }
+  .events__inner { width: calc(100% - 40px); }
+  .events h2 { margin-bottom: 32px; font-size: 34px; }
+  .events__list { grid-template-columns: minmax(0, 1fr); }
+  .event__art { height: 180px; }
 }
 
 /* Sheet of paper, torn at both ends */
@@ -270,7 +421,8 @@ button {
   z-index: 1;
   background: var(--paper);
 }
-.paper--home { margin-top: calc(120 * var(--w)); }
+/* On the home page it starts straight under the tournaments, without the torn edge */
+.paper--home { margin-top: 0; }
 .paper--page { margin-top: calc(60 * var(--w)); min-height: 60vh; }
 .paper__edge {
   position: absolute;
@@ -289,32 +441,14 @@ button {
 .home__content {
   width: min(850px, 100% - 40px);
   margin: 0 auto;
-  padding-bottom: 114px;
-}
-.kicker {
-  margin-bottom: 8px;
-  color: var(--ink-soft);
-  font-family: var(--serif);
-  font-size: 20px;
-  line-height: 1.406;
-}
-.home__title {
-  font-family: var(--serif);
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.1;
+  padding: 64px 0 114px;
 }
 .lead {
-  margin: 40px 0 28px;
+  margin-bottom: 28px;
   font-size: 24px;
   line-height: 1.406;
 }
 .lead > * + * { margin-top: 1.406em; }
-.closing {
-  margin-top: 28px;
-  font-size: 18px;
-  line-height: 1.5;
-}
 .home-section { margin-top: 68px; scroll-margin-top: 32px; }
 .home-section > h2 {
   font-family: var(--serif);
@@ -388,31 +522,6 @@ button {
 }
 @media (max-width: 720px) {
   .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-}
-/* Cards that fold open, like the skills under Educational value and the FAQ: each shows its name and opens to its text.
-   Two lists side by side where there's room, so opening a card only moves the cards under it; on phones, one list. */
-.folds { display: grid; gap: 15px; width: min(909px, 100%); }
-.folds__col { display: grid; align-content: start; gap: 15px; }
-.card--fold { padding: 0; overflow: hidden; }
-.card--fold > summary { padding: 19px 25px; transition: background-color 150ms var(--ease); }
-/* A tint under the pointer, only where there is one (on phones it would stay on after a tap), and only while the card is
-   closed: open, the line you clicked would stay a different shade from the text under it */
-@media (hover: hover) {
-  .card--fold:not([open]) > summary:hover { background: rgba(21, 29, 35, 0.035); }
-}
-.card--fold > .card__body { margin-top: -8px; padding: 0 25px 21px; }
-@media (min-width: 721px) {
-  .folds {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-}
-/* Folding cards in two columns that read row by row, like the FAQ: the odd ones on the left, the even ones on the right.
-   On phones it's one list, and each card's order (set on it) puts it back in turn. */
-@media (max-width: 720px) {
-  .folds--rows > .folds__col { display: contents; }
 }
 
 /* Inner page content */
@@ -610,9 +719,8 @@ button {
   font-weight: 700;
   line-height: 1.35;
 }
-/* A box or card that folds open, like the worked example on How to play and the skills on the home page */
-.box--fold > summary,
-.card--fold > summary {
+/* A box that folds open, like the worked example on How to play */
+.box--fold > summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -620,10 +728,8 @@ button {
   list-style: none;
   cursor: pointer;
 }
-.box--fold > summary::-webkit-details-marker,
-.card--fold > summary::-webkit-details-marker { display: none; }
-.box--fold > summary::after,
-.card--fold > summary::after {
+.box--fold > summary::-webkit-details-marker { display: none; }
+.box--fold > summary::after {
   content: "";
   flex: none;
   width: 20px;
@@ -631,8 +737,7 @@ button {
   background: var(--arrow-down) center / contain no-repeat;
   transition: transform 200ms var(--ease);
 }
-.box--fold[open] > summary::after,
-.card--fold[open] > summary::after { transform: rotate(180deg); }
+.box--fold[open] > summary::after { transform: rotate(180deg); }
 /* A label on a box's top right corner, like "Recommended" */
 .badge {
   position: absolute;
@@ -1000,18 +1105,7 @@ button {
   .updates[open] { animation: none; }
 }
 
-/* "Get updates" in the menu: a white button like those on the Play page (.ph-btn in assets/play.css); in the phone
-   menu, a small grey card at the end of the list, with an envelope and an arrow */
-.nav__links .nav__updates {
-  padding: 6px 17px;
-  border: 0;
-  border-radius: 999px;
-  background: #fffef8;
-  font-weight: 700;
-  box-shadow: 0 1px 2px rgba(21, 29, 35, 0.12), 0 8px 20px -10px rgba(21, 29, 35, 0.4);
-  transition: background-color 150ms var(--ease);
-}
-.nav__links .nav__updates:hover { background: #fff; }
+/* "Get updates" in the phone menu: a small grey card at the end of the list, with an envelope and an arrow */
 .nav__sheet .nav__updates {
   display: flex;
   align-items: center;
@@ -1055,6 +1149,103 @@ button {
 .status--done:target ~ .updates-page { display: none; }
 .updates-page { margin-top: 28px; }
 .updates-page .su { max-width: 480px; }
+
+/* The FAQ page: under the menu, the chips darkened, darkest behind the white title */
+.faq-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(260px, 25vw, 400px);
+  background: #333 url(/assets/img/faq-hero.webp) 50% 55% / cover no-repeat;
+}
+.faq-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.66) 50%, rgba(0, 0, 0, 0.55));
+}
+.faq-hero__inner { position: relative; width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
+.faq-hero h1 {
+  max-width: 9.5em;
+  color: #fff;
+  font-family: var(--mona);
+  font-size: clamp(44px, 4.08vw, 65.28px);
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+}
+/* Then tabs in blue capitals, the open one underlined (assets/site.js), over a column of questions that open in place.
+   Without JavaScript the parts follow one another, each under its heading. */
+.faq { padding: 100px 0 120px; background: #fff; }
+.faq__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
+.faq__tabs { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-bottom: 40px; }
+.faq__tab {
+  padding-bottom: 3px;
+  border-bottom: 3px solid transparent;
+  color: #6364a6;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 650;
+  line-height: 1.25;
+  text-transform: uppercase;
+  transition: color 150ms var(--ease), border-color 150ms var(--ease);
+}
+.faq__tab:hover { color: #23238a; }
+.faq__tab[aria-selected='true'] { border-color: currentColor; color: #23238a; }
+.faq__panel { max-width: 656px; }
+.faq__panel + .faq__panel { margin-top: 72px; }
+.faq__heading {
+  margin-bottom: 8px;
+  color: #23238a;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.qa + .qa { border-top: 1px solid #e7e7e7; }
+.qa summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary h3 { color: #000; font-family: var(--mona); font-size: 18px; font-weight: 500; line-height: 1.5; }
+/* A chevron at the end of each question, pointing down when it's open */
+.qa summary::after {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+  transition: transform 150ms var(--ease);
+}
+.qa[open] summary::after { transform: rotate(45deg); }
+.qa__a { padding: 0 40px 24px 0; color: #333; font-family: var(--mona); font-size: 17px; line-height: 1.6; }
+.qa__a p + p { margin-top: 12px; }
+.faq__closing { margin-top: 32px; color: #333; font-family: var(--mona); font-size: 17px; line-height: 1.6; }
+/* No paper above the footer here, so no room for its torn edge */
+.faq + .footer { padding-top: 64px; }
+@media (max-width: 700px) {
+  .faq-hero { min-height: 220px; }
+  .faq-hero__inner { width: calc(100% - 40px); padding: 40px 0; }
+  .faq-hero h1 { font-size: 44px; }
+  .faq { padding: 56px 0 80px; }
+  .faq__inner { width: calc(100% - 40px); }
+  /* The three tabs on one line */
+  .faq__tabs { gap: 10px 18px; margin-bottom: 24px; }
+  .faq__tab { font-size: 14px; }
+  .qa summary h3 { font-size: 17px; }
+  .qa__a { padding-right: 0; font-size: 16px; }
+}
 
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
 .footer {
@@ -1112,20 +1303,17 @@ button {
 }
 
 @media (min-width: 781px) {
-  .kicker { margin-bottom: 12px; font-size: 26px; }
-  .home__title { font-size: 54px; }
   .sky__space { height: 270px; }
 }
 @media (max-width: 780px) {
   :root { --page-bg: #e7e5d8; }
   .lead,
   .page__intro { font-size: 19px; }
-  .lead { margin-top: 30px; }
+  .home__content { padding-top: 40px; }
   .page__intro { margin-top: 27px; }
   .download { gap: 8px; margin-top: 10px; font-size: 18px; }
   .download svg { width: 20px; height: 20px; }
   .home-section > h2 { font-size: 28px; }
-  .closing,
   .section__intro,
   .text,
   .list,
