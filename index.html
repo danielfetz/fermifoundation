@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="home-page">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,8 @@
   <link rel="preload" href="/assets/fonts/fermi-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
+  <link rel="preload" href="/assets/img/players-engraving.webp" as="image" media="(min-width: 601px)">
+  <link rel="preload" href="/assets/img/players-engraving-small.webp" as="image" media="(max-width: 600px)">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -31,11 +32,8 @@
 </head>
 <body>
 <div class="home">
-  <!-- Enrico Fermi cutout (U.S. Department of Energy photo, c. 1943-49, public domain) on a paper cutout, in front of Piranesi’s etching of the Roman Forum -->
-  <header class="hero">
-    <img class="hero__fermi" src="/assets/img/enrico-fermi-paper.svg" alt="" aria-hidden="true" width="1936" height="1600">
-    <img class="hero__fermi" src="/assets/img/enrico-fermi.webp" alt="Enrico Fermi" width="1936" height="1600">
-  </header>
+  <!-- The players at the table from the Fermi Poker box, engraved (assets/site.css) -->
+  <header class="hero"></header>
 
   <div class="home__nav">
     <nav class="nav nav--home">
@@ -71,8 +69,8 @@
     <img class="paper__edge paper__edge--top" src="/assets/img/edge-top.svg" alt="" aria-hidden="true">
 
     <div class="home__content">
-      <p class="kicker">Celebrating Enrico Fermi’s 125th birthday</p>
-      <h1 class="home__title">Bring Fermi Poker to your school or university</h1>
+      <p class="kicker">For classrooms, university clubs and friend groups</p>
+      <h1 class="home__title">A game of estimation, bluffing and friendly competition</h1>
 
       <div class="lead">
         <p>

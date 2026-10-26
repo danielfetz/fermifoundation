@@ -108,6 +108,8 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
+/* On the home page, the top of the players' engraving, a little darker than Rome */
+html.home-page { --page-bg: #e6e3d6; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -218,27 +220,13 @@ button {
 .logo--footer { gap: 12px; font-size: 30px; }
 .logo--footer img { width: 46px; height: 46px; }
 
-/* Home page strip with the Enrico Fermi cutout. He is sized by --fermi-h; the strip is 11px taller,
-   so the 10px gap above him doesn't cost any of his jacket at the bottom. */
-.home {
-  position: relative;
-  --fermi-h: max(242px, calc(498 * var(--u)));
-  --hero-h: calc(var(--fermi-h) + 11px);
-}
+/* Home page strip, behind the menu: 253px tall on phones, where it shows the whole picture's width; on wider screens
+   it grows with the width, so the players' faces and the chips stay in view */
+.home { position: relative; }
 .hero {
   position: relative;
-  height: var(--hero-h);
+  height: max(253px, calc(662 * var(--u)));
   overflow: hidden;
-}
-.hero__fermi {
-  position: absolute;
-  /* The paper behind him starts 0.1237 of --fermi-h into the image; keep its top edge 10px below the strip */
-  top: calc(10px - var(--fermi-h) * 0.1237);
-  left: calc(var(--fermi-h) * -0.45);
-  width: auto;
-  max-width: none;
-  height: calc(var(--fermi-h) * 1.7);
-  user-select: none;
 }
 /* Menu floats over the sky; outside the hero so the mobile sheet isn't clipped */
 .home__nav { position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
@@ -247,16 +235,33 @@ button {
 .sky { position: relative; }
 .sky__space { height: 190px; }
 
-/* Behind both: Rome, Fermi's birthplace, in Piranesi's etching of the Forum (c. 1775), re-inked in soft
-   graphite. A light fade under the menu keeps the links readable. */
+/* Behind both menus, a picture in soft graphite, with a light fade under the menu that keeps the links readable */
 .hero,
 .sky {
   background-color: #ebe6da;
+  background-position: center 45%;
+  background-size: cover;
+}
+/* On the inner pages: Rome, Fermi's birthplace, in Piranesi's etching of the Forum (c. 1775), re-inked */
+.sky {
   background-image:
     linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
     url(/assets/img/forum-piranesi.webp);
-  background-position: center 45%;
-  background-size: cover;
+}
+/* On the home page: the players at the table from the Fermi Poker box, engraved. Phones get a smaller copy, since
+   they show it at most 600px wide. */
+.hero {
+  background-image:
+    linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
+    url(/assets/img/players-engraving.webp);
+  background-position: center 46%;
+}
+@media (max-width: 600px) {
+  .hero {
+    background-image:
+      linear-gradient(to bottom, rgba(247, 247, 234, 0.55), rgba(247, 247, 234, 0) 30%),
+      url(/assets/img/players-engraving-small.webp);
+  }
 }
 
 /* Sheet of paper, torn at both ends */

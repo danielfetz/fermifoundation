@@ -13,8 +13,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
   space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
   original names for unmodified fonts. The `latin-ext` files are unchanged.
-- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `enrico-fermi.webp` is the photo,
-  `enrico-fermi-paper.svg` the paper cutout behind it
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `players-engraving.webp` (and a smaller
+  copy for phones, `-small`) the players behind the home page's menu; `enrico-fermi.webp` is the photo of Fermi that
+  stood there before, with `enrico-fermi-paper.svg` the paper cutout behind him (not used for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -46,12 +47,12 @@ left column, the even ones in the right (and the last one, the 13th, at the bott
 opening one only moves the questions under it. Each question also has its number as `style="order: …"`, which puts
 them back in turn on phones, where it's one list. So to add or move a question, change the columns and the numbers.
 
-Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news about tournaments.
-The form is at the end of the home page (a second one, under the introduction, is hidden for now), on its own page
-(`updates/`), and in a pop-up that "Get updates" in the menu opens (`assets/site.js`). The forms ask only for the email; the pop-up also asks
-what they are ("I'm a…", optional). The pop-up also comes up by itself once: on laptops
-when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after 30 seconds on the page.
-Then not again for 30 days, and never after signing up or sending the Host form (the browser remembers this as
+Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news
+about tournaments. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on
+its own page (`updates/`), and in a pop-up that "Get updates" in the menu opens (`assets/site.js`). The forms ask only
+for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by itself once: on
+laptops when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after 30 seconds on the
+page. Then not again for 30 days, and never after signing up or sending the Host form (the browser remembers this as
 `fermi-updates` in local storage); never on the Play page or Get updates itself.
 
 The forms send to `api/subscribe.js`, which adds the address to the contacts in Resend (resend.com), not yet
@@ -74,6 +75,8 @@ Page views are counted with Vercel Web Analytics, through the two script tags at
 Vercel serves its script only on the deployment, so a local preview shows a harmless 404 for
 `/_vercel/insights/script.js`.
 
-The Enrico Fermi photo is a U.S. Department of Energy photo (c. 1943–49) in the public domain.
-The Rome behind him is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
+The players behind the home page's menu are the Fermi Poker box's illustration without its title, engraved: their
+outlines, and fine diagonal lines shading the darker parts, in warm graphite. The Enrico Fermi photo is a U.S.
+Department of Energy photo (c. 1943–49) in the public domain. The Rome behind the inner pages' menu is Giovanni Battista
+Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite.
