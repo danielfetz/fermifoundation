@@ -307,13 +307,15 @@ html.guide-page.menu-open { --page-bg: #fff; }
   line-height: 1.58;
   text-wrap: pretty;
 }
-/* The guide, as wide as the headline's first line */
+/* The guide, as wide as the headline's first line, or a little wider where that keeps "Fermi Poker" together on the
+   first line of its text (which is about 23.7em long, beside the button) */
 .hero__cta {
+  --cta-size: clamp(16px, 1.36vw, 22px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: calc(var(--title) * 11.9);
+  width: max(var(--title) * 11.9, var(--cta-size) * 24.8 + 240px);
   max-width: 100%;
   margin-top: 48px;
   padding: 16px 20px;
@@ -321,9 +323,9 @@ html.guide-page.menu-open { --page-bg: #fff; }
   color: #111;
 }
 .hero__cta p {
-  max-width: 23em;
+  max-width: 25em;
   font-family: var(--mona);
-  font-size: clamp(16px, 1.36vw, 22px);
+  font-size: var(--cta-size);
   font-stretch: 125%;
   font-weight: 600;
   letter-spacing: 0.025em;
@@ -349,7 +351,7 @@ html.guide-page.menu-open { --page-bg: #fff; }
 .hero__btn svg { width: 16px; height: 16px; }
 /* Narrower screens: the guide's button under its text */
 @media (max-width: 899px) {
-  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; width: calc(var(--title) * 11.9); }
   .hero__cta p { max-width: none; font-size: 18px; }
 }
 /* Phones: the headline over the whole width and the guide under it, with its button across the box, on a strip of the
