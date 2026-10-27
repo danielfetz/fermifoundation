@@ -6,6 +6,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `faq/`: the questions and the educational value, in tabs (below)
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
+- `credits/`: the credit for the home page's header photo, which only the home page's footer links to (below)
 - `api/`: the Vercel Functions behind Get updates, the tournaments' "I'm interested" and the For companies form
   (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the forms on For schools and For companies, Get
@@ -46,7 +47,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all eight. On
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all nine. On
 wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
 page. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
 (`nav--light`), with the name alone as the logo, links in the text as blue words a little bolder than the text, with
@@ -75,7 +76,7 @@ rows (`boxes--rows`). For companies (`companies/`) is for teams, for team buildi
 companies pay for: a short form that `api/team.js` emails to contact@fermi.org through Resend (below), so that
 replying answers whoever sent it. Without JavaScript that form posts there directly and comes back to the page saying
 how it went (`#sent`, `#failed`). Both pages are built like How to play: the blue header, then the page on white.
-So are About (its programs in rows too), Donate (`sponsor/`) and Get updates (below).
+So are About (its programs in rows too), Donate (`sponsor/`), Get updates (below) and Credits.
 
 The FAQ page, under the blue Rome header like Get updates, has three parts, General, Hosting and Educational value,
 each a list of questions that open in place.
@@ -155,8 +156,8 @@ in Buffalo, cropped above its lettering; the photo on the Sponsor or donate card
 the home page's header is
 [GPD Championship 2013](https://commons.wikimedia.org/wiki/File:GPD_Championsship_2013.jpg) by German Events GbR,
 under CC BY-SA 3.0, which asks for a credit: the title with a link to it, the author, the license with a link, and
-that it's blurred. It's at the end of the About page (`#credits`), and the home page's footer links to it (Photo
-credit), which the license needs as the photo is on the home page. The blurred picture is under the same license. The
+that it's blurred. It's on the Credits page (`credits/`), and the home page's footer links to it (Photo credit),
+which the license needs as the photo is on the home page. The blurred picture is under the same license. The
 Rome in the other pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), in blue, as a blueprint; on the
 Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`). The photos of the cities are from

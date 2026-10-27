@@ -262,8 +262,8 @@ html.new-design.menu-open { --page-bg: #fff; }
 .sky__space { height: 190px; }
 
 /* The home page's header: the hall of a poker tournament, blurred so only the room and its tables show, across the
-   whole width (assets/img/poker-hall.webp, credited on the About page). A black shade over it is darkest on the left,
-   behind the headline, which is in white with a line under it, and the guide in a white box. */
+   whole width (assets/img/poker-hall.webp, credited on the Credits page). A black shade over it is darkest on the
+   left, behind the headline, which is in white with a line under it, and the guide in a white box. */
 .hero {
   --title: clamp(48px, 4.08vw, 65.28px);
   position: relative;
