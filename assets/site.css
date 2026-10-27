@@ -437,7 +437,7 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .home-main .link { color: inherit; text-decoration-color: #1b21b1; }
 .home-main .link:hover { color: #1b21b1; }
 /* The introduction: its first paragraph large, like a heading, then the rest */
-.intro p { max-width: 760px; color: #111; font-size: 20px; line-height: 1.6; }
+.intro p { max-width: 760px; color: #111; font-size: 20px; line-height: 1.6; text-wrap: pretty; }
 .intro p + p { margin-top: 20px; }
 .intro .intro__lead {
   max-width: 900px;
