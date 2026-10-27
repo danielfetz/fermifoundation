@@ -25,7 +25,7 @@ if (toggle && sheet) {
   })
 }
 
-// Host sign-up: the answers go to a Google Form, which doesn't let the page read its reply. So the browser checks the
+// For schools sign-up: the answers go to a Google Form, which doesn't let the page read its reply. So the browser checks the
 // required fields, and once the request is sent we show the thanks. Without JavaScript the form posts to Google directly.
 const hostForm = document.querySelector('#host-form')
 const hostFormDone = document.querySelector('#host-form-done')
@@ -106,7 +106,7 @@ if (teamForm && teamFormDone) {
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
 // when the mouse leaves the page at the top, heading for the tabs or the close button, after 10 seconds on the page;
 // on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up or sending the
-// Host form. "Get updates" in the menu opens it any time. The Play page doesn't load this script, so never there.
+// For schools form. "Get updates" in the menu opens it any time. The Play page doesn't load this script, so never there.
 const remember = {
   get() {
     try { return JSON.parse(localStorage.getItem('fermi-updates')) || {} } catch { return {} }
@@ -235,7 +235,7 @@ if (UPDATES_POPUP && !location.pathname.startsWith('/updates/')) {
     openUpdates('menu')
   }))
 
-  // Whether it may come up by itself now: never once someone has signed up, sent the Host form or seen it lately; not
+  // Whether it may come up by itself now: never once someone has signed up, sent the For schools form or seen it lately; not
   // while they type, or while a sign-up form is on screen anyway
   const DAY = 24 * 60 * 60 * 1000
   const mayOpen = () => {

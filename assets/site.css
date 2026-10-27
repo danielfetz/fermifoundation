@@ -947,7 +947,7 @@ html.new-design .link {
 }
 html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 
-/* Sign-up form on the Host page: round fields like the cards, the blue pill to send */
+/* The sign-up forms on For schools and For companies (set for the new design in .doc, below) */
 .form { display: grid; gap: 22px; margin-top: 24px; }
 .form[hidden] { display: none; }
 .field {
@@ -999,7 +999,7 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 .form-done p { margin-top: 8px; font-size: 18px; line-height: 1.5; }
 
 /* Updates: the sign-up forms on the home page and /updates/, and a short one in the pop-up (assets/site.js). Round
-   fields like the Host form's, and the blue button to send: a pill like the site's other buttons, or, when it sits on
+   fields like the For schools form's, and the blue button to send: a pill like the site's other buttons, or, when it sits on
    one line with the fields, with their corners (site.js marks it). */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .su[hidden],

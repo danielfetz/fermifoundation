@@ -2,7 +2,7 @@
 
 The Fermi Foundation website: plain HTML and CSS, no build step.
 
-- `index.html`: the home page, about hosting Fermi Poker tournaments
+- `index.html`: the home page
 - `faq/`: the questions and the educational value, in tabs (below)
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
@@ -87,7 +87,7 @@ on its own page (`updates/`), and in a pop-up that "Get updates" in the phone me
 (`assets/site.js`). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The
 pop-up also comes up by itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on
 phones and tablets after 30 seconds on the page. Then not again for 30 days, and never after signing up or sending the
-Host form (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
+For schools form (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
 itself. The pop-up is off for now, to come back in the new design (`UPDATES_POPUP` in `site.js`): while it's off, it
 never comes up by itself, and "Get updates" leads to the Get updates page.
 
