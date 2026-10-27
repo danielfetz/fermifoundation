@@ -22,8 +22,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `rome-blueprint.webp` the home page's
   header, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
-  header, darkened there in CSS; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before, with
-  `enrico-fermi-paper.svg` the paper cutout behind him (not used for now)
+  header, darkened there in CSS; `start-*.webp` the pictures on the home page's Start here cards (the chips, the
+  players from the Fermi Poker box, the blueprint Rome and Enrico Fermi), in the header's blue; `enrico-fermi.webp`
+  is a photo of Fermi that stood on the home page before (the About card's picture is made from it), with
+  `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -43,7 +45,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seven. On
 wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home and
-FAQ pages have the white menu bar (`nav--light`), with the name alone as the logo.
+FAQ pages have the white menu bar (`nav--light`), with the name alone as the logo, and the navy footer
+(`footer--navy`); the other pages keep the paper look for now.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. Its footnotes are numbers in the text
@@ -57,8 +60,11 @@ The FAQ page has three parts, General, Hosting and Educational value, each a lis
 part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
 opens its tab and the question.
 
-The home page's Upcoming tournaments has one card for now, saying there are no public tournaments and leading to the
-Host page. Cards for real tournaments go in the same grid, three to a row, with the date as `event__when`.
+The home page runs in bands: the header, Upcoming tournaments, the introduction (pale blue), Start here, and the
+mailing list (pale blue). Upcoming tournaments has one card for now, saying there are no public tournaments and
+leading to the Host page; cards for real tournaments go in the same grid, three to a row, with the date as
+`event__when`. Each Start here card is a link with a picture, and the mailing list has a question card on two card
+backs beside the form (drawn in CSS, hidden on narrower screens).
 
 Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news
 about tournaments. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on

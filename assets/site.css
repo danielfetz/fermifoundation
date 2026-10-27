@@ -373,16 +373,7 @@ html.faq-page.menu-open { --page-bg: #fff; }
    to hosting one, over a pattern of card suits. */
 .events { padding: 100px 0 96px; background: #fff; }
 .events__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
-.events h2 {
-  margin-bottom: 48px;
-  color: #000;
-  font-family: var(--mona);
-  font-size: 40px;
-  font-stretch: 125%;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-}
+.events h2 { margin-bottom: 48px; text-align: center; }
 .events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .event { position: relative; display: flex; flex-direction: column; background: #1b21b1; }
 .event--wide { grid-column: 1 / -1; }
@@ -423,14 +414,168 @@ html.faq-page.menu-open { --page-bg: #fff; }
   .event__art { height: 180px; }
 }
 
+/* The rest of the home page, in the header's style: white and pale blue bands, headings like the tournaments' */
+.intro,
+.start,
+.signup { padding: 96px 0; }
+.intro,
+.signup { background: #e6eefe; }
+.intro__inner,
+.start__inner,
+.signup__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
+.events h2,
+.start h2,
+.signup h2 {
+  color: #000;
+  font-family: var(--mona);
+  font-size: 40px;
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.home-main { font-family: var(--mona); }
+.home-main .link { color: inherit; text-decoration-color: #1b21b1; }
+.home-main .link:hover { color: #1b21b1; }
+/* The introduction: its first paragraph large, like a heading, then the rest */
+.intro p { max-width: 760px; color: #111; font-size: 20px; line-height: 1.6; }
+.intro p + p { margin-top: 20px; }
+.intro .intro__lead {
+  max-width: 900px;
+  margin-bottom: 36px;
+  color: #000;
+  font-size: 32px;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.25;
+}
+/* Start here: a tall card for each page, its picture in the header's blue under a shade that's darkest behind the
+   title; the whole card is the link, and its picture comes a little closer on hover */
+.start h2 { margin-bottom: 48px; text-align: center; }
+.start__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.start-card {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  aspect-ratio: 5 / 7;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #1b21b1;
+  color: #fff;
+}
+.start-card img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--ease);
+}
+.start-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(rgba(9, 12, 64, 0.82), rgba(9, 12, 64, 0.38) 45%, rgba(9, 12, 64, 0.18));
+}
+.start-card span { display: block; padding: 28px 26px; font-size: 24px; font-stretch: 125%; font-weight: 600; line-height: 1.15; }
+.start-card:hover img { transform: scale(1.05); }
+.start-card:focus-visible { outline: 3px solid #1b21b1; outline-offset: 3px; }
+/* The mailing list: the heading, the form in a white frame with a black button, and beside it a question card lying
+   on two card backs */
+.signup__inner { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.signup__text { flex: 0 1 560px; }
+.signup__text > p { margin-top: 16px; color: #111; font-size: 20px; line-height: 1.5; }
+.signup .su { margin-top: 32px; }
+.signup .su__row { gap: 5px; padding: 5px; background: #fff; }
+.signup .su input[type='email'] {
+  height: 50px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+  font-size: 18px;
+}
+.signup .su input[type='email']:focus-visible { box-shadow: none; }
+.signup .su__row:focus-within { box-shadow: 0 0 0 3px rgba(27, 33, 177, 0.35); }
+.signup .su__row .btn {
+  height: 50px;
+  padding: 0 30px;
+  border-radius: 0;
+  background: #000;
+  box-shadow: none;
+  font-size: 18px;
+  font-weight: 600;
+}
+.signup .su__row .btn:hover { background: #1b21b1; }
+.signup .su__note { margin-top: 12px; color: #333; }
+.signup .su-done { margin-top: 28px; }
+.signup .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.signup .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
+.signup__contact { margin-top: 28px; color: #111; font-size: 17px; line-height: 1.5; }
+.signup__cards { position: relative; flex: 0 0 400px; height: 380px; }
+.qcard {
+  position: absolute;
+  top: 34px;
+  left: 92px;
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  height: 320px;
+  padding: 24px 22px 20px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(9, 12, 64, 0.08), 0 22px 40px -18px rgba(9, 12, 64, 0.45);
+  transform: rotate(-3deg);
+}
+/* The backs: card suits, blue on blue, in a white border */
+.qcard--back { border: 10px solid #fff; background: #1b21b1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%233a42d6'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 60px 52px; }
+.qcard--back:nth-child(1) { top: 44px; left: 18px; transform: rotate(-14deg); }
+.qcard--back:nth-child(2) { top: 12px; left: 160px; transform: rotate(10deg); }
+.qcard__label {
+  padding-bottom: 10px;
+  border-bottom: 1.5px dashed rgba(9, 12, 64, 0.25);
+  color: #1b21b1;
+  font-size: 12px;
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.qcard p { margin-top: 16px; color: #000; font-size: 22px; font-weight: 600; line-height: 1.3; }
+.qcard__logo { margin-top: auto; color: rgba(9, 12, 64, 0.45); font-family: 'Fermi Logo', var(--mona); font-size: 13px; font-stretch: 125%; font-weight: 600; }
+@media (max-width: 1100px) {
+  .start__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .start-card { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 900px) {
+  .signup__cards { display: none; }
+}
+@media (max-width: 700px) {
+  .intro,
+  .start,
+  .signup { padding: 64px 0; }
+  .intro__inner,
+  .start__inner,
+  .signup__inner { width: calc(100% - 40px); }
+  .start h2,
+  .signup h2 { font-size: 34px; }
+  .start h2 { margin-bottom: 32px; }
+  .intro p { font-size: 18px; }
+  .intro .intro__lead { margin-bottom: 28px; font-size: 25px; }
+  .start__list { grid-template-columns: minmax(0, 1fr); }
+  .start-card { aspect-ratio: 16 / 9; }
+  .start-card span { padding: 22px 22px; font-size: 22px; }
+  .signup__text > p { font-size: 18px; }
+  .signup .su__row .btn { flex: 1 1 100%; }
+}
+
 /* Sheet of paper, torn at both ends */
 .paper {
   position: relative;
   z-index: 1;
   background: var(--paper);
 }
-/* On the home page it starts straight under the tournaments, without the torn edge */
-.paper--home { margin-top: 0; }
 .paper--page { margin-top: calc(60 * var(--w)); min-height: 60vh; }
 .paper__edge {
   position: absolute;
@@ -445,40 +590,7 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .paper__edge--top { bottom: calc(100% - 1px); height: calc(190.6 * var(--w)); }
 .paper__edge--bottom { top: calc(100% - 1px); height: calc(212.16 * var(--w)); }
 
-/* Home page content */
-.home__content {
-  width: min(850px, 100% - 40px);
-  margin: 0 auto;
-  padding: 64px 0 114px;
-}
-.lead {
-  margin-bottom: 28px;
-  font-size: 24px;
-  line-height: 1.406;
-}
-.lead > * + * { margin-top: 1.406em; }
-.home-section { margin-top: 68px; scroll-margin-top: 32px; }
-.home-section > h2 {
-  font-family: var(--serif);
-  font-size: 38px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-.home-section__body { margin-top: 28px; }
-
-/* Two-column card grid, wider than the text column */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 15px;
-  width: min(909px, 100%);
-}
-.card {
-  padding: 21px 25px;
-  border-radius: var(--card-radius);
-  background: var(--card-bg);
-}
-.card h3,
+/* Box headings */
 .box h3 {
   color: #000;
   font-family: var(--serif);
@@ -494,43 +606,7 @@ html.faq-page.menu-open { --page-bg: #fff; }
   font-weight: 700;
   line-height: 1.25;
 }
-.card__body {
-  margin-top: 10px;
-  font-size: 18px;
-  line-height: 1.5;
-}
-.card__body > * + * { margin-top: 0.7em; }
-.card__body,
 .box__body { text-wrap: pretty; }
-/* A card that leads to a page, like those under Start here: an icon, the text, and an arrow. Its heading's link
-   covers the whole card, so the card is what you click, while the link's name stays the heading. */
-.card--link {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 22px 20px 22px 22px;
-  transition: background-color 150ms var(--ease);
-}
-.card--link:hover { background: var(--card-bg-hover); }
-.card--link h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
-.card--link h3 a:focus-visible { outline: none; }
-.card--link:has(h3 a:focus-visible) { outline: 3px solid var(--blue); outline-offset: 3px; }
-.card__icon { flex: none; width: 26px; height: 26px; }
-.card__main { flex: 1 1 auto; min-width: 0; }
-.card__arrow { flex: none; align-self: center; width: 20px; height: 20px; margin-left: 12px; background: var(--arrow-right) center / contain no-repeat; }
-@media (max-width: 600px) {
-  .card--link { gap: 14px; padding: 20px 16px 20px 18px; }
-  .card__arrow { margin-left: 8px; }
-}
-@media (min-width: 721px) {
-  .cards { margin-left: 50%; transform: translateX(-50%); }
-  /* An odd card out at the end spans both columns */
-  .cards > .card:last-child:nth-child(odd) { grid-column: span 2 / span 2; }
-}
-@media (max-width: 720px) {
-  .cards { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-}
 
 /* Inner page content */
 .page {
@@ -1048,23 +1124,8 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .updates-intro .su-done > * { grid-column: auto; }
 .updates-intro .su-done h3 { font-size: 26px; line-height: 1.2; }
 
-/* At the end of the home page, with the contact line under it: a grey card the width of the page, its content centred */
-.updates-end { margin: 76px 0 24px; padding: 46px 32px 40px; border-radius: 18px; background: var(--card-bg); text-align: center; }
-.updates-end > * { max-width: 640px; margin-left: auto; margin-right: auto; }
-.updates-end h2 { font-family: var(--serif); font-size: 38px; font-weight: 700; line-height: 1.2; text-wrap: balance; }
-.updates-end > p { margin-top: 12px; font-size: 18px; line-height: 1.5; text-wrap: pretty; }
-.updates-end .su { max-width: 480px; margin-top: 22px; }
-.updates-end .su__row { justify-content: center; }
-.updates-end .su-done { grid-template-columns: minmax(0, 1fr); justify-items: center; margin-top: 22px; }
-.updates-end .su-done::before { grid-row: auto; margin-bottom: 10px; }
-.updates-end .su-done > * { grid-column: auto; }
-.updates-end > .updates-end__contact { margin-top: 34px; }
 @media (max-width: 780px) {
-  .updates-intro h2,
-  .updates-end h2 { font-size: 28px; }
-}
-@media (max-width: 600px) {
-  .updates-end { padding: 34px 20px 30px; }
+  .updates-intro h2 { font-size: 28px; }
 }
 
 /* The pop-up */
@@ -1240,8 +1301,6 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .qa__a { padding: 0 40px 24px 0; color: #333; font-family: var(--mona); font-size: 17px; line-height: 1.6; }
 .qa__a p + p { margin-top: 12px; }
 .faq__closing { margin-top: 32px; color: #333; font-family: var(--mona); font-size: 17px; line-height: 1.6; }
-/* No paper above the footer here, so no room for its torn edge */
-.faq + .footer { padding-top: 64px; }
 @media (max-width: 700px) {
   .faq-hero { min-height: 220px; }
   .faq-hero__inner { width: calc(100% - 40px); padding: 40px 0; }
@@ -1309,26 +1368,32 @@ html.faq-page.menu-open { --page-bg: #fff; }
 @media (min-width: 721px) {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
+/* On the home and FAQ pages: navy, in Mona Sans, with no paper's edge above it */
+.footer--navy { padding: 80px 24px 48px; background: #131574; color: #fff; font-family: var(--mona); }
+.footer--navy .footer__blurb { margin-top: 16px; color: rgba(255, 255, 255, 0.8); font-size: 17px; line-height: 1.5; }
+.footer--navy h2 { font-family: var(--mona); font-size: 18px; font-weight: 600; }
+.footer--navy ul { gap: 10px; margin-top: 16px; }
+.footer--navy ul a { color: rgba(255, 255, 255, 0.85); font-size: 17px; }
+.footer--navy ul a:hover { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.6); }
+.footer--navy .footer__legal { margin-top: 56px; border-color: rgba(255, 255, 255, 0.2); }
+.footer--navy .footer__legal,
+.footer--navy .footer__credit { color: rgba(255, 255, 255, 0.65); }
+.footer--navy .footer__credit a:hover { color: #fff; }
 
 @media (min-width: 781px) {
   .sky__space { height: 270px; }
 }
 @media (max-width: 780px) {
   :root { --page-bg: #e7e5d8; }
-  .lead,
   .page__intro { font-size: 19px; }
-  .home__content { padding-top: 40px; }
   .page__intro { margin-top: 27px; }
   .download { gap: 8px; margin-top: 10px; font-size: 18px; }
   .download svg { width: 20px; height: 20px; }
-  .home-section > h2 { font-size: 28px; }
   .section__intro,
   .text,
   .list,
-  .card__body,
   .box__body,
   .table-box table { font-size: 17px; }
-  .card h3,
   .box h3 { font-size: 20px; }
   .example { margin: 0 -8px; padding: 14px 16px 16px; }
 }
