@@ -18,12 +18,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `mona-sans-latin.woff2` is Mona Sans (Open Font License, unmodified), the variable file with every weight and width
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Roboto Slab (Apache License 2.0) at the regular weight
   with only the letters of "Fermi Poker", for the logo (1 KB); add any letter the logo gains.
-- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `chips-hero.webp` the poker chips in the
-  home page's header, in black and white on a larger canvas whose light backdrop carries on around the photo, so the
-  header can show the chips on the right (the numbers in `site.css` follow its size and the photo's place in it);
-  `faq-hero.webp` the same photo for the FAQ page's header, darkened there in CSS; `enrico-fermi.webp` is a photo of
-  Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (not used for
-  now)
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `rome-blueprint.webp` the home page's
+  header, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
+  `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
+  header, darkened there in CSS; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before, with
+  `enrico-fermi-paper.svg` the paper cutout behind him (not used for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -92,4 +91,5 @@ Vercel serves its script only on the deployment, so a local preview shows a harm
 The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.S. Department of Energy photo
 (c. 1943–49) in the public domain. The Rome behind the inner pages' menu is Giovanni Battista
 Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
-[public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite.
+[public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite;
+behind the home page's header it's in blue, as a blueprint.

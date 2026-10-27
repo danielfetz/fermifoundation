@@ -22,7 +22,8 @@
   <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/chips-hero.webp" as="image">
+  <link rel="preload" href="/assets/img/rome-blueprint.webp" as="image" media="(min-width: 701px)">
+  <link rel="preload" href="/assets/img/rome-blueprint-phone.webp" as="image" media="(max-width: 700px)">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -58,10 +59,11 @@
     </div>
   </nav>
 
-  <!-- The chips in black and white, with the headline and the guide on the light backdrop beside them (assets/site.css) -->
+  <!-- Rome as a blueprint behind the headline and the guide (assets/site.css) -->
   <header class="hero">
     <div class="hero__inner">
       <h1 class="hero__title">A game of estimation, bluffing and friendly competition</h1>
+      <p class="hero__sub">For classrooms, university clubs and friend groups</p>
       <div class="hero__cta">
         <p>Get the guide to playing Fermi Poker and hosting a tournament</p>
         <a class="hero__btn" href="/how-to-play/">Get started <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
