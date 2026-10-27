@@ -1383,8 +1383,8 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); }
 /* The column: as wide as before, its left edge under the header's title */
 .doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
-/* What the page is about, first on it, a little larger than the rest */
-.doc .page-lead { margin-bottom: 48px; color: #111; font-size: 21px; line-height: 1.6; text-wrap: pretty; }
+/* What the page is about, first on it, set like the rest */
+.doc .page-lead { margin-bottom: 48px; }
 .doc .texts { margin-top: 0; }
 .doc .section { margin-top: 72px; }
 .doc .section > h2 { color: #000; font-family: var(--mona); font-size: 34px; font-stretch: 125%; font-weight: 700; line-height: 1.15; }
@@ -1399,6 +1399,7 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 }
 .doc .section > h2 + .section__step { margin-top: 28px; }
 .doc .section__aside { color: #555; font-family: var(--mona); font-size: 0.82em; font-stretch: 100%; font-weight: 400; }
+.doc .page-lead,
 .doc .text,
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
@@ -1457,11 +1458,12 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .page-hero__inner { width: calc(100% - 40px); padding: 48px 0; }
   .page-hero h1 { font-size: 44px; }
   .doc { padding: 56px 0 80px; }
-  .doc .page-lead { margin-bottom: 36px; font-size: 19px; }
+  .doc .page-lead { margin-bottom: 36px; }
   .doc .page { width: calc(100% - 40px); margin-left: 20px; }
   .doc .section { margin-top: 56px; }
   .doc .section > h2 { font-size: 28px; }
   .doc .section__step { font-size: 20px; }
+  .doc .page-lead,
   .doc .text,
   .doc .list,
   .doc .box__body { font-size: 17px; }
