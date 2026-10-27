@@ -332,7 +332,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   align-items: center;
   gap: 10px;
   padding: 8px 24px;
-  background: #133c7a;
+  background: #222222;
   color: #fff;
   font-family: var(--mona);
   font-size: 16px;
@@ -342,7 +342,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   transition: background-color 150ms var(--ease);
 }
 .hero__btn:hover,
-.home-faq__more:hover { background: #0e2d5c; }
+.home-faq__more:hover { background: #111111; }
 .hero__btn svg,
 .home-faq__more svg { width: 16px; height: 16px; }
 /* Narrower screens: the guide's button under its text */
@@ -368,14 +368,14 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero__btn { justify-content: center; }
 }
 
-/* Upcoming tournaments, under the header: cards with a blue head (the city and, in narrow capitals, the date) over a
+/* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
    pattern of card suits (or a photo of the city) with the button on it, and a last card for everywhere else. The
    pictures sit at the foot of the cards, so they line up across a row whatever the heads hold. */
 .events { padding: 100px 0 96px; background: #fff; }
 .events__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 .events h2 { margin-bottom: 48px; text-align: center; }
 .events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.event { position: relative; display: flex; flex-direction: column; background: #133c7a; }
+.event { position: relative; display: flex; flex-direction: column; background: #222222; }
 /* Each head as tall as one with the name and the date, so a card without a date (Somewhere else?) matches, its foot
    empty */
 .event__head { min-height: 89px; padding: 16px 16px 12px; color: #fff; }
@@ -385,7 +385,7 @@ html.new-design.menu-open { --page-bg: #fff; }
 .event__art { width: 100%; height: 220px; margin-top: auto; }
 .event__photo { object-fit: cover; }
 .event__art {
-  background: #eef3f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%23d4dfee'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 120px 104px;
+  background: #f2eee8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%23ddd5c9'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 120px 104px;
 }
 .event__btn {
   position: absolute;
@@ -397,7 +397,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   padding: 8px 24px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 6px 16px -6px rgba(0, 0, 0, 0.3);
-  color: #133c7a;
+  color: #222222;
   font-family: var(--mona);
   font-size: 16px;
   font-stretch: 125%;
@@ -405,7 +405,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.5;
   transition: background-color 150ms var(--ease);
 }
-.event__btn:hover { background: #e9f0fa; }
+.event__btn:hover { background: #ece6dd; }
 .event__btn svg { width: 16px; height: 16px; }
 /* "I’m interested" (the summary of a details element, its words and arrow in a span, as Safari doesn't lay out a
    summary as flex) gives way to a white panel with the field for the email, over the picture; once sent, to the
@@ -434,20 +434,20 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   min-width: 0;
   height: 40px;
   padding: 0 12px;
-  border: 1px solid #c3cdda;
+  border: 1px solid #d3ccc2;
   border-radius: 0;
   background: #fff;
   color: #111;
   font: inherit;
   font-size: 15px;
 }
-.event__row input:focus-visible { border-color: #133c7a; outline: none; box-shadow: 0 0 0 3px rgba(19, 60, 122, 0.18); }
+.event__row input:focus-visible { border-color: #222222; outline: none; box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.18); }
 .event__row button {
   flex: none;
   height: 40px;
   padding: 0 14px;
   border: 0;
-  background: #133c7a;
+  background: #222222;
   color: #fff;
   font: inherit;
   font-size: 15px;
@@ -456,7 +456,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   cursor: pointer;
   transition: background-color 150ms var(--ease);
 }
-.event__row button:hover { background: #0e2d5c; }
+.event__row button:hover { background: #111111; }
 .event__row button:disabled { opacity: 0.7; cursor: default; }
 .event__small,
 .event__error { margin-top: 8px; font-size: 13px; line-height: 1.4; }
@@ -472,7 +472,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 }
 /* What happened, after sending without JavaScript or following the link in the email: as on For companies and Get
    updates, between the heading and the cards, the heading still in sight */
-.events .status { margin: -8px 0 32px; border-radius: 0; background: #e7eef8; font-family: var(--mona); scroll-margin-top: 116px; }
+.events .status { margin: -8px 0 32px; border-radius: 0; background: #f2eee8; font-family: var(--mona); scroll-margin-top: 116px; }
 @media (max-width: 700px) {
   .events { padding: 64px 0; }
   .events__inner { width: calc(100% - 40px); }
@@ -483,13 +483,13 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   .events .status { margin: 0 0 24px; padding: 18px 20px; scroll-margin-top: 128px; }
 }
 
-/* The rest of the home page, in the header's style: white and pale blue bands, headings like the tournaments' */
+/* The rest of the home page, in the header's style: white and pale beige bands, headings like the tournaments' */
 .intro,
 .start,
 .home-faq,
 .signup { padding: 96px 0; }
 .intro,
-.signup { background: #e7eef8; }
+.signup { background: #f2eee8; }
 .intro__inner,
 .start__inner,
 .home-faq__inner,
@@ -518,7 +518,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   font-weight: 600;
   line-height: 1.25;
 }
-/* Learn more and get involved: a tall card for each page, its picture in the header's blue under a shade that's
+/* Learn more and get involved: a tall card for each page, its picture in warm greys under a shade that's
    darkest behind the title; the whole card is the link, and its picture comes a little closer on hover */
 .start h2 { margin-bottom: 48px; text-align: center; }
 .start__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
@@ -528,7 +528,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   display: block;
   aspect-ratio: 5 / 7;
   overflow: hidden;
-  background: #133c7a;
+  background: #222222;
   color: #fff;
 }
 .start-card img {
@@ -545,13 +545,13 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(rgba(4, 15, 35, 0.82), rgba(4, 15, 35, 0.38) 45%, rgba(4, 15, 35, 0.18));
+  background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.38) 45%, rgba(0, 0, 0, 0.18));
 }
 .start-card span { display: block; padding: 28px 26px; font-size: 24px; font-stretch: 125%; font-weight: 600; line-height: 1.15; }
 .start-card:hover img { transform: scale(1.05); }
-.start-card:focus-visible { outline: 3px solid #133c7a; outline-offset: 3px; }
+.start-card:focus-visible { outline: 3px solid #222222; outline-offset: 3px; }
 /* Frequently asked questions: on white after the mailing list, the questions opening in place as on the FAQ page, a
-   line under each, then the way to the rest in the guide's blue button */
+   line under each, then the way to the rest in the guide's dark button */
 .home-faq h2 { margin-bottom: 40px; }
 .home-faq__list { max-width: 760px; }
 .home-faq .qa { border-bottom: 1px solid #e7e7e7; }
@@ -574,7 +574,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   font-size: 18px;
 }
 :is(.signup, .updates-page) .su input[type='email']:focus-visible { box-shadow: none; }
-:is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(19, 60, 122, 0.35); }
+:is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.35); }
 :is(.signup, .updates-page) .su__row .btn {
   height: 50px;
   padding: 0 30px;
@@ -584,10 +584,10 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   font-size: 18px;
   font-weight: 600;
 }
-:is(.signup, .updates-page) .su__row .btn:hover { background: #133c7a; }
+:is(.signup, .updates-page) .su__row .btn:hover { background: #222222; }
 :is(.signup, .updates-page) .su__note { margin-top: 12px; color: #333; }
 .signup .su-done { margin-top: 28px; }
-:is(.signup, .updates-page) .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23133c7a'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.signup, .updates-page) .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23222222'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 :is(.signup, .updates-page) .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
 @media (max-width: 1100px) {
   .start__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -952,7 +952,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 .fn-back { margin-left: 3px; color: var(--blue); }
 /* Its arrow is drawn: the character ↩ shows as an emoji on Apple's devices */
 .fn-back svg { display: inline-block; width: 0.95em; height: 0.95em; vertical-align: -0.12em; }
-/* Links in the notes are in the notes' grey, like the words around them; the blue underline shows they're links */
+/* Links in the notes are in the notes' grey, like the words around them; the rust underline shows they're links */
 .footnotes .link,
 .sidenote .link { color: inherit; }
 .footnotes .link:hover,
@@ -1027,15 +1027,15 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   transition: color 150ms var(--ease);
 }
 .link:hover { color: var(--blue); }
-/* In the new design: blue words, a little bolder, with a light underline that turns solid under the mouse */
+/* In the new design: rust words, a little bolder, with a light underline that turns solid under the mouse */
 html.new-design .link {
-  color: #1d5fc2;
+  color: #9c4a17;
   font-weight: 500;
-  text-decoration: underline 1px rgba(29, 95, 194, 0.4);
+  text-decoration: underline 1px rgba(156, 74, 23, 0.4);
   text-underline-offset: 4px;
   transition: text-decoration-color 150ms var(--ease);
 }
-html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
+html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 
 /* The sign-up forms on For schools and For companies (set for the new design in .doc, below) */
 .form { display: grid; gap: 22px; margin-top: 24px; }
@@ -1279,7 +1279,7 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
 .updates-page { margin-top: 28px; }
 .updates-page .su { max-width: 480px; }
 
-/* The FAQ page: under the Rome header (.page-hero, like Get updates), tabs in blue capitals, the open one underlined
+/* The FAQ page: under the photo header (.page-hero, like Get updates), tabs in dark capitals, the open one underlined
    (assets/site.js), over a column of questions that open in place. Without JavaScript the parts follow one another,
    each under its heading. */
 .faq { padding: 100px 0 120px; background: #fff; }
@@ -1288,7 +1288,7 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
 .faq__tab {
   padding-bottom: 3px;
   border-bottom: 3px solid transparent;
-  color: #5f7799;
+  color: #77716a;
   font-family: var(--mona);
   font-size: 16px;
   font-stretch: 125%;
@@ -1297,13 +1297,13 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
   text-transform: uppercase;
   transition: color 150ms var(--ease), border-color 150ms var(--ease);
 }
-.faq__tab:hover { color: #0e2d5c; }
-.faq__tab[aria-selected='true'] { border-color: currentColor; color: #0e2d5c; }
+.faq__tab:hover { color: #111111; }
+.faq__tab[aria-selected='true'] { border-color: currentColor; color: #111111; }
 .faq__panel { max-width: 656px; }
 .faq__panel + .faq__panel { margin-top: 72px; }
 .faq__heading {
   margin-bottom: 8px;
-  color: #0e2d5c;
+  color: #111111;
   font-family: var(--mona);
   font-size: 16px;
   font-stretch: 125%;
@@ -1348,17 +1348,18 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
   .qa__a { padding-right: 0; font-size: 16px; }
 }
 
-/* The inner pages: under the white menu bar, a blue header with the title alone, Rome as a blueprint behind it
-   (assets/img/rome-blueprint.webp), as tall on every page; then the page on white in Mona Sans (.doc), opening with
-   what it's about (.page-lead), its column lined up with the title. How to play has its footnotes beside it on wide
-   screens; its parts keep their classes from the paper look and take the new one inside .doc. */
+/* The inner pages: under the white menu bar, a header with the title alone over the home page's hall photo
+   (assets/img/poker-hall.webp), a little higher in it so the strip shows the room and its tables, under the same
+   shade, as tall on every page; then the page on white in Mona Sans (.doc), opening with what it's about (.page-lead),
+   its column lined up with the title. How to play has its footnotes beside it on wide screens; its parts keep their
+   classes from the paper look and take the new one inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
   min-height: clamp(260px, 25vw, 400px);
-  background: #0f3166 url(/assets/img/rome-blueprint.webp) center 40% / cover no-repeat;
+  background: #98693b url(/assets/img/poker-hall.webp) center 62% / cover no-repeat;
   font-family: var(--mona);
 }
 .page-hero::before {
@@ -1366,7 +1367,7 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(5, 20, 45, 0.76), rgba(5, 20, 45, 0.46) 60%, rgba(5, 20, 45, 0.16));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 1, 2, 0.7) 60%, rgba(5, 20, 45, 0));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .page-hero h1 {
@@ -1401,13 +1402,13 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
 .doc .section > .text { margin-top: 18px; }
-.doc .list li::marker { color: #133c7a; }
-/* The notes: pale blue panels, square like the header's button */
-.doc .sticky-note { padding: 24px 28px 26px; border-radius: 0; background: #e7eef8; box-shadow: none; transform: none; }
+.doc .list li::marker { color: #222222; }
+/* The notes: pale beige panels, square like the header's button */
+.doc .sticky-note { padding: 24px 28px 26px; border-radius: 0; background: #f2eee8; box-shadow: none; transform: none; }
 .doc .section > .sticky-note { margin-top: 28px; }
-/* Words to send or read out, the announcement and the rules: a paler panel, set in from a large blue quotation mark */
-.doc .box--quote { padding: 28px 32px 30px 76px; background: #f3f7fc; }
-.doc .box--quote::before { top: 16px; left: 22px; color: #133c7a; font-family: var(--mona); font-size: 72px; font-stretch: 125%; }
+/* Words to send or read out, the announcement and the rules: a paler panel, set in from a large dark quotation mark */
+.doc .box--quote { padding: 28px 32px 30px 76px; background: #f8f6f2; }
+.doc .box--quote::before { top: 16px; left: 22px; color: #222222; font-family: var(--mona); font-size: 72px; font-stretch: 125%; }
 /* Boxes that fold open, like the variations: rows like the FAQ page's questions, with thin lines between them */
 .doc .box--fold { padding: 0; border: 0; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
 .doc .boxes > .box--fold + .box--fold { margin-top: 0; }
@@ -1435,14 +1436,14 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
 .doc .table-box th { font-family: var(--mona); font-weight: 600; }
 .doc .table-box tbody tr { border-bottom-color: #e3e3e3; }
 /* The sample question, hidden for now */
-.doc .example { border-radius: 0; background: #f3f7fc; }
+.doc .example { border-radius: 0; background: #f8f6f2; }
 .doc .game-card { border-radius: 8px; background: #fff; }
 .doc .game-card__text { font-family: var(--mona); font-weight: 600; }
-/* The footnotes, in the blue of the links; on wide screens also beside their lines */
+/* The footnotes, in the rust of the links; on wide screens also beside their lines */
 .doc .footnotes { margin-top: 80px; border-color: #e3e3e3; color: #555; font-size: 15px; line-height: 1.55; }
 .doc .fn-ref a,
 .doc .fn-back,
-.doc .sidenote__n { color: #1d5fc2; }
+.doc .sidenote__n { color: #9c4a17; }
 @media (min-width: 1230px) {
   .doc .page--sidenotes .sidenote { width: 250px; color: #666; font-family: var(--mona); font-size: 14px; }
   .doc .page--sidenotes .sidenote.is-lit { color: #000; }
@@ -1451,8 +1452,8 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
 html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; font-family: var(--mona); }
 @media (max-width: 700px) {
   /* On phones as tall as the title needs, with room around it */
-  .page-hero { min-height: 0; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
-  .page-hero::before { background: rgba(5, 20, 45, 0.58); }
+  .page-hero { min-height: 0; }
+  .page-hero::before { background: rgba(0, 0, 0, 0.72); }
   .page-hero__inner { width: calc(100% - 40px); padding: 80px 0; }
   .page-hero h1 { font-size: 44px; }
   .doc { padding: 56px 0 80px; }
@@ -1491,48 +1492,48 @@ html.new-design h3 .link { font-weight: inherit; }
   margin-top: 8px;
   padding: 2px 10px;
   border-radius: 999px;
-  background: #e7eef8;
-  color: #133c7a;
+  background: #f2eee8;
+  color: #222222;
   font-family: var(--mona);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.5;
 }
 .doc .boxes--rows > .box:has(> .box__tab) { padding-top: 22px; }
-/* The sign-up form: square white fields on a pale blue panel, and a square blue button like the header's */
-.doc .form { margin-top: 28px; padding: 32px; background: #f3f7fc; }
+/* The sign-up form: square white fields on a pale beige panel, and a square dark button like the header's */
+.doc .form { margin-top: 28px; padding: 32px; background: #f8f6f2; }
 .doc .field__label { font-size: 16px; font-weight: 600; }
 .doc .field__optional,
 .doc .field__hint,
 .doc .form__alt { color: #555; }
 .doc .field__hint { text-wrap: pretty; }
 .doc .field input:not([type='radio']),
-.doc .field textarea { border: 1px solid #c3cdda; border-radius: 0; background: #fff; color: #111; font-size: 17px; }
+.doc .field textarea { border: 1px solid #d3ccc2; border-radius: 0; background: #fff; color: #111; font-size: 17px; }
 .doc .field input:focus-visible,
-.doc .field textarea:focus-visible { border-color: #133c7a; box-shadow: 0 0 0 3px rgba(19, 60, 122, 0.18); }
-.doc .choice input { accent-color: #133c7a; }
+.doc .field textarea:focus-visible { border-color: #222222; box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.18); }
+.doc .choice input { accent-color: #222222; }
 .doc .btn--primary {
   padding: 12px 28px;
   border-radius: 0;
-  background: #133c7a;
+  background: #222222;
   box-shadow: none;
   font-stretch: 125%;
   font-weight: 600;
 }
-.doc .btn--primary:hover { background: #0e2d5c; }
+.doc .btn--primary:hover { background: #111111; }
 /* The thanks, and what happened after sending a form without JavaScript or following the link in the email (on For
-   companies and Get updates): pale blue, with the check in the header's blue for good news; once sent, the form
+   companies and Get updates): pale beige, with the check in the buttons' charcoal for good news; once sent, the form
    gives way to it */
 .doc .form-done,
-.doc .status { margin-top: 28px; border-radius: 0; background: #e7eef8; }
+.doc .status { margin-top: 28px; border-radius: 0; background: #f2eee8; }
 .doc .form-done h3,
 .doc .status h2,
 :is(.doc, .events) .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
 :is(.doc, .events) .status p { font-size: 17px; line-height: 1.6; }
-:is(.doc, .events) .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23133c7a'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.doc, .events) .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23222222'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .doc .status--done:target ~ .form { display: none; }
-/* Get updates: the form in the white frame of the home page's mailing list, on a pale blue panel */
-.doc .updates-page { max-width: 640px; padding: 32px; background: #e7eef8; }
+/* Get updates: the form in the white frame of the home page's mailing list, on a pale beige panel */
+.doc .updates-page { max-width: 640px; padding: 32px; background: #f2eee8; }
 .doc .updates-page .su { max-width: none; }
 @media (max-width: 700px) {
   .doc .form { padding: 22px 20px 24px; }
@@ -1604,37 +1605,37 @@ html.new-design h3 .link { font-weight: inherit; }
 @media (min-width: 721px) {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
-/* On the home and FAQ pages: navy, in Mona Sans, with no paper's edge above it. On the left, where to write, set like
-   the introduction's first paragraph; the links in two columns on the right, their headings set like the menu's links;
-   and the small print at the bottom, without the rule above it */
-.footer--navy { padding: 88px 0 64px; background: #0b2549; color: #fff; font-family: var(--mona); }
-.footer--navy .footer__grid,
-.footer--navy .footer__legal,
-.footer--navy .footer__credit { width: min(1096px, 100% - 48px); max-width: none; }
-.footer--navy .footer__grid { grid-template-columns: minmax(0, 1fr) 215px 208px; gap: 48px; }
+/* On the pages in the new design: charcoal, in Mona Sans, with no paper's edge above it. On the left, where to write,
+   set like the introduction's first paragraph; the links in two columns on the right, their headings set like the
+   menu's links; and the small print at the bottom, without the rule above it */
+.footer--dark { padding: 88px 0 64px; background: #161412; color: #fff; font-family: var(--mona); }
+.footer--dark .footer__grid,
+.footer--dark .footer__legal,
+.footer--dark .footer__credit { width: min(1096px, 100% - 48px); max-width: none; }
+.footer--dark .footer__grid { grid-template-columns: minmax(0, 1fr) 215px 208px; gap: 48px; }
 .footer__statement { max-width: 520px; font-size: 26px; font-stretch: 125%; font-weight: 600; line-height: 1.3; }
 .footer__statement a { text-decoration: underline 2px rgba(255, 255, 255, 0.5); text-underline-offset: 5px; transition: text-decoration-color 150ms var(--ease); }
 .footer__statement a:hover { text-decoration-color: #fff; }
-.footer--navy h2 { font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
-.footer--navy ul { gap: 12px; margin-top: 20px; }
-.footer--navy ul a { color: rgba(255, 255, 255, 0.85); font-size: 17px; }
-.footer--navy ul a:hover { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.6); }
-.footer--navy .footer__legal { margin-top: 88px; padding-top: 0; border: 0; }
-.footer--navy .footer__legal,
-.footer--navy .footer__credit { color: rgba(255, 255, 255, 0.65); }
-.footer--navy .footer__credit a:hover { color: #fff; }
+.footer--dark h2 { font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
+.footer--dark ul { gap: 12px; margin-top: 20px; }
+.footer--dark ul a { color: rgba(255, 255, 255, 0.85); font-size: 17px; }
+.footer--dark ul a:hover { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.6); }
+.footer--dark .footer__legal { margin-top: 88px; padding-top: 0; border: 0; }
+.footer--dark .footer__legal,
+.footer--dark .footer__credit { color: rgba(255, 255, 255, 0.65); }
+.footer--dark .footer__credit a:hover { color: #fff; }
 /* Narrower screens: where to write across the top, the two lists side by side under it */
 @media (max-width: 900px) {
-  .footer--navy .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer--dark .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer__statement { grid-column: 1 / -1; }
 }
 @media (max-width: 700px) {
-  .footer--navy { padding: 64px 0 48px; }
-  .footer--navy .footer__grid,
-  .footer--navy .footer__legal,
-  .footer--navy .footer__credit { width: calc(100% - 40px); }
+  .footer--dark { padding: 64px 0 48px; }
+  .footer--dark .footer__grid,
+  .footer--dark .footer__legal,
+  .footer--dark .footer__credit { width: calc(100% - 40px); }
   .footer__statement { font-size: 22px; }
-  .footer--navy .footer__legal { margin-top: 56px; }
+  .footer--dark .footer__legal { margin-top: 56px; }
 }
 
 @media (min-width: 781px) {
