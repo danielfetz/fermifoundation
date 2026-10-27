@@ -261,10 +261,9 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .sky__space { height: 190px; }
 
-/* The home page's header: Rome as a blueprint, Piranesi's etching of the Forum (the inner pages' picture) with its lines
-   light on blue, across the whole width (assets/img/rome-blueprint.webp). A shade over it is darkest on the left, behind
-   the headline, which is in white with a line under it, and the guide in a white box. Phones get a narrower crop, as
-   they only show a strip of it. */
+/* The home page's header: the hall of a poker tournament, blurred so only the room and its tables show, across the
+   whole width (assets/img/poker-hall.webp, credited in the footer). A black shade over it is darkest on the left,
+   behind the headline, which is in white with a line under it, and the guide in a white box. */
 .hero {
   --title: clamp(48px, 4.08vw, 65.28px);
   position: relative;
@@ -272,14 +271,14 @@ html.new-design.menu-open { --page-bg: #fff; }
   display: flex;
   align-items: center;
   min-height: clamp(480px, 42.5vw, 680px);
-  background: #0f3166 url(/assets/img/rome-blueprint.webp) center 40% / cover no-repeat;
+  background: #98693b url(/assets/img/poker-hall.webp) center bottom / cover no-repeat;
 }
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(5, 20, 45, 0.6), rgba(5, 20, 45, 0.2) 60%, rgba(5, 20, 45, 0));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.88), rgba(0, 1, 2, 0.7) 60%, rgba(5, 20, 45, 0));
 }
 .hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .hero__title {
@@ -352,16 +351,14 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero__cta p { font-size: 18px; }
 }
 /* Phones: the headline over the whole width and the guide under it, with its button across the box, on a strip of the
-   blueprint, evenly shaded */
+   hall, evenly shaded */
 @media (max-width: 700px) {
   .hero {
     --title: min(48px, (100vw - 40px) / 6.65);
     align-items: flex-start;
     min-height: 0;
-    background-image: url(/assets/img/rome-blueprint-phone.webp);
-    background-position: center;
   }
-  .hero::before { background: rgba(5, 20, 45, 0.45); }
+  .hero::before { background: rgba(0, 0, 0, 0.72); }
   .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
   .hero__sub { font-size: 19px; line-height: 1.55; }
   .hero__cta { align-items: stretch; width: auto; margin-top: 36px; padding: 8px 12px; }
@@ -1351,10 +1348,10 @@ html.new-design .link:hover { color: #1d5fc2; text-decoration-color: #1d5fc2; }
   .qa__a { padding-right: 0; font-size: 16px; }
 }
 
-/* The inner pages: under the white menu bar, a blue header with the title alone, the home page's Rome behind it (a
-   little more shaded), as tall on every page; then the page on white in Mona Sans (.doc), opening with what it's about
-   (.page-lead), its column lined up with the title. How to play has its footnotes beside it on wide screens; its parts
-   keep their classes from the paper look and take the new one inside .doc. */
+/* The inner pages: under the white menu bar, a blue header with the title alone, Rome as a blueprint behind it
+   (assets/img/rome-blueprint.webp), as tall on every page; then the page on white in Mona Sans (.doc), opening with
+   what it's about (.page-lead), its column lined up with the title. How to play has its footnotes beside it on wide
+   screens; its parts keep their classes from the paper look and take the new one inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;

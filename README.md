@@ -21,8 +21,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
-- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `rome-blueprint.webp` the
-  headers of every page, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `poker-hall.webp` the home
+  page's header, the hall of a poker tournament, blurred so only the room and its tables show; `rome-blueprint.webp`
+  the headers of the other pages, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `start-*.webp` the pictures on the cards under the
   home page's Learn more and get involved (the chips, a drawing of University Hall, an office building painted in
   1927, and students in the University Hall in Leuven), toned in the header's blue; `event-*.webp` the photos of the
@@ -60,7 +61,7 @@ animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
-other inner pages: a blue header (`page-hero`, with the home page's Rome) with the title alone, as tall on every page,
+other inner pages: a blue header (`page-hero`, with Rome as a blueprint) with the title alone, as tall on every page,
 then the guide on white (`.doc`), opening with the introduction (`page-lead`), its column lined up with the title. The
 guide's parts keep their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in
 the text that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin
@@ -133,8 +134,8 @@ itself while the other request does it all, so before saying something went wron
 wrong, contact@fermi.org gets an email with what Resend said.
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
-uses the same picture, `assets/img/link-preview-navy.jpg` (1200 × 630): the home page's header, its headline and
-the line under it over the blue Rome, with the name above. The tags need absolute URLs, so they name
+uses the same picture, `assets/img/link-preview-navy.jpg` (1200 × 630): the home page's headline and the line
+under it over the blue Rome of the other pages' headers, with the name above. The tags need absolute URLs, so they name
 https://fermi.org. Apps keep a preview for a while; a new picture under a new file name makes them fetch it again
 (LinkedIn's Post Inspector refreshes it at once).
 
@@ -150,8 +151,12 @@ Commons: a drawing of
 [University Hall](https://commons.wikimedia.org/wiki/File:University_Hall_from_the_Middle_Campus.jpg) and the 1927
 [rendering of the Victor & Co. building](https://commons.wikimedia.org/wiki/File:Victor_%26_Co._building,_Buffalo,_New_York_-_architectural_rendering,_1927.jpg)
 in Buffalo, cropped above its lettering; the photo on the Sponsor or donate card, students in the
-[University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The Rome in
-the pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
+[University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The photo in
+the home page's header is
+[GPD Championship 2013](https://commons.wikimedia.org/wiki/File:GPD_Championsship_2013.jpg) by German Events GbR,
+under CC BY-SA 3.0, which asks for the credit in the home page's footer (the title with a link to it, the author, the
+license with a link, and that it's blurred); the blurred picture is under the same license. The Rome in the other
+pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), in blue, as a blueprint; on the
 Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`). The photos of the cities are from
 Pixabay, under the Pixabay Content License, which needs no credit: New York City
