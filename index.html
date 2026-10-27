@@ -76,8 +76,7 @@
   <!-- Upcoming tournaments, as cards: each city where we'll hold one once enough people are interested, its date to be
        set, and one for everywhere else. "I’m interested" opens a field for the email in the card (a details element,
        so it works without JavaScript too), sent to api/interest.js: the city goes onto their contact in Resend. A
-       city's key (boston) is the one in api/_resend.js. For a photo of the city in place of the pattern, an
-       <img class="event__photo" src="/assets/img/event-boston.webp" alt=""> instead of its event__art. -->
+       city's key (boston) is the one in api/_resend.js, and in its photo's name (assets/img/event-boston.webp). -->
   <section class="events" id="tournaments" aria-labelledby="events-title">
     <div class="events__inner">
       <h2 id="events-title">Upcoming tournaments</h2>
@@ -121,7 +120,7 @@
             <h3 class="event__title">Boston</h3>
             <p class="event__when">Date to be set</p>
           </div>
-          <div class="event__art"></div>
+          <img class="event__photo" src="/assets/img/event-boston.webp" alt="" width="1000" height="571" loading="lazy" decoding="async">
           <details class="event__interest">
             <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -147,7 +146,7 @@
             <h3 class="event__title">Berkeley</h3>
             <p class="event__when">Date to be set</p>
           </div>
-          <div class="event__art"></div>
+          <img class="event__photo" src="/assets/img/event-berkeley.webp" alt="" width="1000" height="571" loading="lazy" decoding="async">
           <details class="event__interest">
             <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -173,7 +172,7 @@
             <h3 class="event__title">New York City</h3>
             <p class="event__when">Date to be set</p>
           </div>
-          <div class="event__art"></div>
+          <img class="event__photo" src="/assets/img/event-nyc.webp" alt="" width="1000" height="571" loading="lazy" decoding="async">
           <details class="event__interest">
             <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -199,7 +198,7 @@
             <h3 class="event__title">London</h3>
             <p class="event__when">Date to be set</p>
           </div>
-          <div class="event__art"></div>
+          <img class="event__photo" src="/assets/img/event-london.webp" alt="" width="1000" height="571" loading="lazy" decoding="async">
           <details class="event__interest">
             <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -225,7 +224,7 @@
             <h3 class="event__title">Oxford</h3>
             <p class="event__when">Date to be set</p>
           </div>
-          <div class="event__art"></div>
+          <img class="event__photo" src="/assets/img/event-oxford.webp" alt="" width="1000" height="571" loading="lazy" decoding="async">
           <details class="event__interest">
             <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">

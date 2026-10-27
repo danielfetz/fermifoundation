@@ -25,9 +25,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   headers of every page, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `start-*.webp` the pictures on the cards under the
   home page's Learn more and get involved (the chips, a drawing of University Hall, an office building painted in
-  1927, and students in the University Hall in Leuven), toned in the header's blue; `enrico-fermi.webp` is a photo of
-  Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on
-  a page for now)
+  1927, and students in the University Hall in Leuven), toned in the header's blue; `event-*.webp` the photos of the
+  cities under Upcoming tournaments; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before, with
+  `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -88,20 +88,20 @@ is a link with a picture. Frequently asked questions has five of the FAQ page's 
 button to the rest; their answers are copies of the FAQ page's, so change them in both.
 
 Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
-Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over the pattern of card
-suits, and a last card, Somewhere else?, its button (Partner with us) an email to contact@fermi.org. A city's card can
-have a photo in place of the pattern (an `img` with the class `event__photo`, say `assets/img/event-boston.webp`). On
-a city's card, "I'm interested" opens a field for the email (a `details` element, so it works without JavaScript too).
-It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and
-emails a link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in
-Resend (say "Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every
-city they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no
-segments of their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page
-says how it went, above the cards (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`,
-`#interest-failed`). Once there's a date, find who signed up for the city (the "tournaments" property on the contacts
-in Resend, or the emails to contact@fermi.org) and email them, and put the date on its card. To add a city: a card
-like Boston's (its key in the hidden `city` field and in the email field's id), its status above the cards
-(`#interest-` and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`.
+Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over a photo of the city
+(`event__photo`, `assets/img/event-boston.webp` and so on, cropped to about 1.75 to 1), and a last card, Somewhere
+else?, over a pattern of card suits, its button (Partner with us) an email to contact@fermi.org. On a city's card,
+"I'm interested" opens a field for the email (a `details` element, so it works without JavaScript too). It goes to
+`api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and emails a
+link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in Resend (say
+"Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every city
+they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no segments of
+their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page says how it
+went, above the cards (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`, `#interest-failed`). Once
+there's a date, find who signed up for the city (the "tournaments" property on the contacts in Resend, or the emails
+to contact@fermi.org) and email them, and put the date on its card. To add a city: a card like Boston's (its key in
+the hidden `city` field, in the email field's id and in its photo's name), its status above the cards (`#interest-`
+and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
 about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
@@ -153,4 +153,8 @@ in Buffalo, cropped above its lettering; the photo on the Sponsor or donate card
 [University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The Rome in
 the pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), in blue, as a blueprint; on the
-Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`).
+Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`). The photos of the cities are from
+Pixabay, under the Pixabay Content License, which needs no credit: New York City
+([3875817](https://pixabay.com/photos/sunset-manhattan-city-skyline-3875817/)), London
+([2393098](https://pixabay.com/photos/big-ben-bridge-city-sunrise-river-2393098/)), Boston
+([7352352](https://pixabay.com/photos/city-sea-buildings-landscape-urban-7352352/)), and Oxford and Berkeley.
