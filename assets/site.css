@@ -303,15 +303,14 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.58;
   text-wrap: pretty;
 }
-/* The guide, as wide as the headline's first line, or a little wider where that keeps "Fermi Poker" together on the
-   first line of its text (which is about 23.7em long, beside the button) */
+/* The guide, as wide as the headline's first line. Its text is narrow enough to break after "Fermi Poker" ("Get the
+   guide to playing Fermi Poker" is about 18.7em long, "… and" 21em). */
 .hero__cta {
-  --cta-size: clamp(16px, 1.36vw, 22px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: max(var(--title) * 11.9, var(--cta-size) * 24.8 + 240px);
+  width: calc(var(--title) * 11.9);
   max-width: 100%;
   margin-top: 48px;
   padding: 16px 20px;
@@ -319,14 +318,12 @@ html.new-design.menu-open { --page-bg: #fff; }
   color: #111;
 }
 .hero__cta p {
-  max-width: 25em;
+  max-width: 20em;
   font-family: var(--mona);
-  font-size: var(--cta-size);
+  font-size: clamp(16px, 1.36vw, 22px);
   font-stretch: 125%;
   font-weight: 600;
-  letter-spacing: 0.025em;
   line-height: 1.2;
-  text-transform: uppercase;
 }
 .hero__btn {
   display: inline-flex;
@@ -347,8 +344,8 @@ html.new-design.menu-open { --page-bg: #fff; }
 .hero__btn svg { width: 16px; height: 16px; }
 /* Narrower screens: the guide's button under its text */
 @media (max-width: 899px) {
-  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; width: calc(var(--title) * 11.9); }
-  .hero__cta p { max-width: none; font-size: 18px; }
+  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .hero__cta p { font-size: 18px; }
 }
 /* Phones: the headline over the whole width and the guide under it, with its button across the box, on a strip of the
    blueprint, evenly shaded */
@@ -364,7 +361,9 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
   .hero__sub { font-size: 17px; line-height: 1.55; }
   .hero__cta { align-items: stretch; width: auto; margin-top: 36px; padding: 8px 12px; }
-  .hero__cta p { font-size: 20px; }
+  /* In three lines: "Get the guide to playing / Fermi Poker and hosting / a tournament" (12.3em, 12.7em; with "a",
+     13.6em) */
+  .hero__cta p { max-width: 13.1em; font-size: 20px; }
   .hero__btn { justify-content: center; }
 }
 
