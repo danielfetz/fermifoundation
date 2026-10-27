@@ -62,11 +62,13 @@
   src: url(/assets/fonts/mona-sans-latin.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* The name in the logo, in Roboto Slab (Apache License 2.0): only its letters, at the regular weight */
+/* The name in the logo: Mona Sans at weight 600 and its widest, with only its letters (1 KB), so pages that don't use
+   Mona Sans otherwise needn't load it all. As a modified version it goes by its own name, as the license asks. */
 @font-face {
   font-family: 'Fermi Logo';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
+  font-stretch: 125%;
   font-display: swap;
   src: url(/assets/fonts/fermi-logo.woff2) format('woff2');
 }
@@ -227,12 +229,8 @@ button {
 /* The home and FAQ pages' menu: a white bar, the name alone on the left, the links in Mona Sans */
 .nav--light { background: #fff; }
 .nav--light .nav__bar { min-height: 72px; }
-.nav--light .logo { font-size: 24px; }
 .nav--light .logo img { display: none; }
 .nav--light .nav__links { gap: clamp(20px, 2.4vw, 34px); font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
-@media (max-width: 899px) {
-  .nav--light .logo { font-size: 21px; }
-}
 /* Its phone menu opens in white too, in the same type */
 .nav--light.is-open,
 .nav--light .nav__sheet { background: #fff; }
@@ -240,15 +238,16 @@ button {
 html.home-page.menu-open,
 html.faq-page.menu-open { --page-bg: #fff; }
 
-/* Logo: a small photo of Fermi next to the name, in Roboto Slab */
+/* Logo: a small photo of Fermi next to the name, in Mona Sans, wide and semi-bold */
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Fermi Logo', var(--serif);
+  font-family: 'Fermi Logo', var(--mona);
   font-size: 21px;
-  font-weight: 400;
-  line-height: 1;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.1;
 }
 .logo img { width: 34px; height: 34px; }
 .logo--footer { gap: 12px; font-size: 30px; }

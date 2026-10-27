@@ -11,13 +11,14 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the home and FAQ pages Mona Sans, all self-hosted),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
-- The fonts' Latin files (`fermi-*.woff2`) are PT Sans and PT Serif without their kerning around spaces, which made
-  the gap after a period narrower than a word space. They were made with fontTools by taking the space and no-break
-  space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font License reserves the
-  original names for unmodified fonts. The `latin-ext` files are unchanged.
+- The fonts' Latin files (`fermi-sans-*.woff2`, `fermi-serif-*.woff2`) are PT Sans and PT Serif without their
+  kerning around spaces, which made the gap after a period narrower than a word space. They were made with fontTools by
+  taking the space and no-break space out of the kerning, and renamed (Fermi Sans, Fermi Serif) because the Open Font
+  License reserves the original names for unmodified fonts. The `latin-ext` files are unchanged.
 - `mona-sans-latin.woff2` is Mona Sans (Open Font License, unmodified), the variable file with every weight and width
-  (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Roboto Slab (Apache License 2.0) at the regular weight
-  with only the letters of "Fermi Poker", for the logo (1 KB); add any letter the logo gains.
+  (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
+  the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
+  fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `rome-blueprint.webp` the home page's
   header, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
