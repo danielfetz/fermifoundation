@@ -1453,9 +1453,10 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 /* A note shown in place: white like the page (it's at the end of the page, outside .doc) */
 html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; font-family: var(--mona); }
 @media (max-width: 700px) {
-  .page-hero { min-height: 240px; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
+  /* On phones as tall as the title needs, with room around it */
+  .page-hero { min-height: 0; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
   .page-hero::before { background: rgba(10, 14, 96, 0.58); }
-  .page-hero__inner { width: calc(100% - 40px); padding: 48px 0; }
+  .page-hero__inner { width: calc(100% - 40px); padding: 80px 0; }
   .page-hero h1 { font-size: 44px; }
   .doc { padding: 56px 0 80px; }
   .doc .page-lead { margin-bottom: 36px; }
