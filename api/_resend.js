@@ -25,9 +25,9 @@ const ROLE_NAMES = {
   student: 'Student',
 }
 
-// The tournaments people can ask to hear about (Upcoming tournaments, on the home page), by the key in its card's form,
-// each with a segment of its own, "Boston tournament" and so on, apart from the one for updates. Once there's a date,
-// a Broadcast to it tells them.
+// The tournaments people can ask to hear about (Upcoming tournaments, on the home page), by the key in its card's form.
+// The cities someone has signed up for are kept on their contact in Resend, as the property "tournaments" ("Boston, New
+// York City"), not in segments of their own: Resend's free plan has only three.
 const TOURNAMENTS = {
   boston: 'Boston',
   berkeley: 'Berkeley',
@@ -35,7 +35,7 @@ const TOURNAMENTS = {
   london: 'London',
   oxford: 'Oxford',
 }
-const tournamentSegment = city => `${TOURNAMENTS[city]} tournament`
+const CITIES = 'tournaments'
 
 // A link to confirm is good for a week
 const LINK_DAYS = 7
@@ -73,19 +73,19 @@ function signedOk(id, what, time, signature) {
   return given.length === expected.length && crypto.timingSafeEqual(given, expected)
 }
 
-// The contact for an address: the one there, or a new one, not subscribed until they confirm. Answers its id, and
-// whether it's subscribed (to something: what to, its segments say), or null if Resend didn't answer. A contact is
-// made only once Resend says there's none, so making one never touches one that's there.
+// The contact for an address: the one there, or a new one, not subscribed until they confirm. Answers its id, whether
+// it's subscribed (to something: what to, its segments say) and the cities it has signed up for, or null if Resend
+// didn't answer. A contact is made only once Resend says there's none, so making one never touches one that's there.
 async function contactFor(email) {
   // The address as it is in the path, as Resend's own library sends it, but for what would end the path
   const found = await resend(`/contacts/${email.replace(/[/?#%\\]/g, encodeURIComponent)}`)
-  if (found.ok && found.data.id) return { id: found.data.id, subscribed: found.data.unsubscribed === false }
+  if (found.ok && found.data.id) return { id: found.data.id, subscribed: found.data.unsubscribed === false, cities: citiesOf(found.data) }
   if (found.status !== 404) {
     console.error('Resend contact:', found.status, JSON.stringify(found.data))
     return null
   }
   const made = await resend('/contacts', { method: 'POST', body: { email, unsubscribed: true } })
-  if (made.ok && made.data.id) return { id: made.data.id, subscribed: false }
+  if (made.ok && made.data.id) return { id: made.data.id, subscribed: false, cities: [] }
   console.error('Resend new contact:', made.status, JSON.stringify(made.data))
   return null
 }
@@ -152,10 +152,22 @@ async function onListAfterAll(id, name) {
   return false
 }
 
-// The ids of those in a segment who are subscribed (those who unsubscribed stay in it, but get nothing)
-async function subscribedIn(segment) {
-  const contacts = await listAll(`/segments/${encodeURIComponent(segment)}/contacts`)
-  return new Set(contacts.filter(contact => contact.unsubscribed === false).map(contact => contact.id))
+// The names of the cities a contact (as Resend gives it) has signed up for
+function citiesOf(contact) {
+  const property = (contact.properties || {})[CITIES]
+  const value = property && typeof property === 'object' ? property.value : property
+  return value ? String(value).split(',').map(name => name.trim()).filter(Boolean) : []
+}
+
+// Keeps the cities on the contact. The property has to exist before a contact can have it, so it's made the first time.
+async function saveCities(id, cities) {
+  if (!(await listAll('/contact-properties')).some(property => property.key === CITIES)) {
+    const made = await resend('/contact-properties', { method: 'POST', body: { key: CITIES, type: 'string' } })
+    // (perhaps made a moment ago by another request: then saving works all the same)
+    if (!made.ok) console.error('Resend property:', made.status, JSON.stringify(made.data))
+  }
+  const saved = await resend(`/contacts/${encodeURIComponent(id)}`, { method: 'PATCH', body: { properties: { [CITIES]: cities.join(', ') } } })
+  if (!saved.ok) throw new Error(`saving the cities: ${saved.status} ${JSON.stringify(saved.data)}`)
 }
 
 // The email with the link to confirm: one button, set like the site (cream paper, a grey frame, the blue button), with
@@ -196,6 +208,6 @@ function origin(req) {
 const escape = text => String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 
 module.exports = {
-  FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, tournamentSegment, LINK_DAYS, resend, sign, signedOk, contactFor,
-  segmentsOf, removeFromSegments, segmentIds, addToSegments, onListAfterAll, subscribedIn, confirmEmail, origin, escape,
+  FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, LINK_DAYS, resend, sign, signedOk, contactFor, segmentsOf,
+  removeFromSegments, addToSegments, onListAfterAll, citiesOf, saveCities, confirmEmail, origin, escape,
 }

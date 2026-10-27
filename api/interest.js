@@ -1,10 +1,9 @@
 // Interest in a tournament, from the cards under Upcoming tournaments on the home page: sent by assets/site.js or,
-// without JavaScript, posted straight here. Like api/subscribe.js, adds the address to Resend's contacts, not yet
-// subscribed, and emails a link to confirm it (api/confirm.js), which puts them into that tournament's segment only, not
-// on the list for updates. Someone already on the tournament's list gets no email, but the same answer.
-const {
-  FROM, TOURNAMENTS, tournamentSegment, resend, sign, contactFor, segmentsOf, segmentIds, confirmEmail, origin,
-} = require('./_resend.js')
+// without JavaScript, posted straight here. Like api/subscribe.js, adds the address to Resend's contacts if it isn't
+// there (not subscribed), and emails a link to confirm it (api/confirm.js), which adds the city to the contact's
+// "tournaments" and tells contact@fermi.org, leaving the list for updates as it was. Someone already signed up for that
+// city gets no email, but the same answer.
+const { FROM, TOURNAMENTS, resend, sign, contactFor, confirmEmail, origin } = require('./_resend.js')
 
 module.exports = async function interest(req, res) {
   if (req.method !== 'POST') {
@@ -30,14 +29,8 @@ module.exports = async function interest(req, res) {
 
   const contact = await contactFor(email)
   if (!contact) return answer(false, 502)
-  // Already on this tournament's list: no email (if Resend can't say, they get one)
-  if (contact.subscribed && (await segmentsOf(contact.id).catch(() => new Map())).has(tournamentSegment(city))) {
-    return answer(true)
-  }
-
-  // The tournament's segment, made now if it's the first sign-up, so the link never has to make it (a link opened twice
-  // at once could make it twice)
-  await segmentIds([tournamentSegment(city)]).catch(error => console.error('Resend segment:', error.message))
+  // Already signed up for this city: no email
+  if (contact.cities.includes(TOURNAMENTS[city])) return answer(true)
 
   const { id } = contact
   const time = String(Math.floor(Date.now() / 1000))

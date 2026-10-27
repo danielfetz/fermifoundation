@@ -92,14 +92,16 @@ Berkeley, New York City, London and Oxford for now), its date "to be set" (`even
 suits, and a last card, Somewhere else?, its button (Partner with us) an email to contact@fermi.org. A city's card can
 have a photo in place of the pattern (an `img` with the class `event__photo`, say `assets/img/event-boston.webp`). On
 a city's card, "I'm interested" opens a field for the email (a `details` element, so it works without JavaScript too).
-It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts and emails a link to
-confirm it; the link (`api/confirm.js`) puts them into that tournament's segment in Resend ("Boston tournament" and so
-on), and not into the one for updates, and emails contact@fermi.org about it, with how many are on that list now.
-Without JavaScript, and after the link, the home page says how it went, above the cards (`#interest-sent`,
-`#interest-confirmed`, `#interest-invalid`, `#interest-failed`). Once there's a date, write a Broadcast in Resend to
-the tournament's segment, and put the date on its card. To add a city: a card like Boston's (its key in the hidden
-`city` field and in the email field's id), and the key and name in `TOURNAMENTS` in `api/_resend.js`; its segment is
-made with the first sign-up.
+It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and
+emails a link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in
+Resend (say "Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every
+city they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no
+segments of their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page
+says how it went, above the cards (`#interest-sent`, `#interest-confirmed`, `#interest-invalid`, `#interest-failed`).
+Once there's a date, find who signed up for the city (the "tournaments" property on the contacts in Resend, or the
+emails to contact@fermi.org) and email them, and put the date on its card. To add a city: a card like Boston's (its
+key in the hidden `city` field and in the email field's id), and the key and name in `TOURNAMENTS` in
+`api/_resend.js`.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
 about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
@@ -121,14 +123,14 @@ the project's environment variables on Vercel, and fermi.org verified in Resend.
 Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work: the Get updates
 page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
 
-In Resend, a contact is subscribed or not as a whole, and what it hears about is the segments it's in: someone on a
-tournament's list only is subscribed, but not in "Fermi Poker updates", so a Broadcast to that segment doesn't reach
-them. So whether someone is on a list is whether they're in its segment: signing up for updates while on a
-tournament's list sends a link to confirm all the same. Unsubscribing from any Broadcast unsubscribes the contact from
-all of them; if they later confirm a sign-up again, they're first taken out of the segments they were in, so they hear
-only about what they've just asked for. A link opened twice at once (clicked again while it loads, or opened by the
-mail app as well) can trip over itself while the other request does it all, so before saying something went wrong, the
-link looks again; and a tournament's segment is made at the first sign-up for it, not by the link.
+In Resend, a contact is subscribed or not as a whole, and what it hears about is the segments it's in: whether someone
+gets updates is whether they're subscribed and in "Fermi Poker updates". The free plan has three segments, so the link
+puts people in "Fermi Poker updates", and in the segment for what they said they are only if it exists or there's room
+for it. Unsubscribing from any Broadcast unsubscribes the contact from all of them; if they later confirm a sign-up
+for updates again, they're first taken out of the segments they were in, so they hear only about what they've just
+asked for. A link opened twice at once (clicked again while it loads, or opened by the mail app as well) can trip over
+itself while the other request does it all, so before saying something went wrong, the link looks again; if it's still
+wrong, contact@fermi.org gets an email with what Resend said.
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
 uses the same picture, `assets/img/link-preview-blueprint.jpg` (1200 × 630): the home page's header, its headline and
