@@ -154,9 +154,10 @@ in Buffalo, cropped above its lettering; the photo on the Sponsor or donate card
 [University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The photo in
 the home page's header is
 [GPD Championship 2013](https://commons.wikimedia.org/wiki/File:GPD_Championsship_2013.jpg) by German Events GbR,
-under CC BY-SA 3.0, which asks for the credit in the home page's footer (the title with a link to it, the author, the
-license with a link, and that it's blurred); the blurred picture is under the same license. The Rome in the other
-pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
+under CC BY-SA 3.0, which asks for a credit: the title with a link to it, the author, the license with a link, and
+that it's blurred. It's at the end of the About page (`#credits`), and the home page's footer links to it (Photo
+credit), which the license needs as the photo is on the home page. The blurred picture is under the same license. The
+Rome in the other pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), in blue, as a blueprint; on the
 Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`). The photos of the cities are from
 Pixabay, under the Pixabay Content License, which needs no credit: New York City
