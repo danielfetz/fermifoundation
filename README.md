@@ -125,8 +125,10 @@ In Resend, a contact is subscribed or not as a whole, and what it hears about is
 tournament's list only is subscribed, but not in "Fermi Poker updates", so a Broadcast to that segment doesn't reach
 them. So whether someone is on a list is whether they're in its segment: signing up for updates while on a
 tournament's list sends a link to confirm all the same. Unsubscribing from any Broadcast unsubscribes the contact from
-all of them; if they later confirm a sign-up again, they're first taken out of the segments they were in, so they
-hear only about what they've just asked for.
+all of them; if they later confirm a sign-up again, they're first taken out of the segments they were in, so they hear
+only about what they've just asked for. A link opened twice at once (clicked again while it loads, or opened by the
+mail app as well) can trip over itself while the other request does it all, so before saying something went wrong, the
+link looks again; and a tournament's segment is made at the first sign-up for it, not by the link.
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
 uses the same picture, `assets/img/link-preview-blueprint.jpg` (1200 × 630): the home page's header, its headline and

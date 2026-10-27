@@ -2,7 +2,9 @@
 // without JavaScript, posted straight here. Like api/subscribe.js, adds the address to Resend's contacts, not yet
 // subscribed, and emails a link to confirm it (api/confirm.js), which puts them into that tournament's segment only, not
 // on the list for updates. Someone already on the tournament's list gets no email, but the same answer.
-const { FROM, TOURNAMENTS, tournamentSegment, resend, sign, contactFor, segmentsOf, confirmEmail, origin } = require('./_resend.js')
+const {
+  FROM, TOURNAMENTS, tournamentSegment, resend, sign, contactFor, segmentsOf, segmentIds, confirmEmail, origin,
+} = require('./_resend.js')
 
 module.exports = async function interest(req, res) {
   if (req.method !== 'POST') {
@@ -32,6 +34,10 @@ module.exports = async function interest(req, res) {
   if (contact.subscribed && (await segmentsOf(contact.id).catch(() => new Map())).has(tournamentSegment(city))) {
     return answer(true)
   }
+
+  // The tournament's segment, made now if it's the first sign-up, so the link never has to make it (a link opened twice
+  // at once could make it twice)
+  await segmentIds([tournamentSegment(city)]).catch(error => console.error('Resend segment:', error.message))
 
   const { id } = contact
   const time = String(Math.floor(Date.now() / 1000))

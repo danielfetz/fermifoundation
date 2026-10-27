@@ -116,21 +116,40 @@ async function removeFromSegments(id, segments) {
   }
 }
 
+// The ids of segments, by name, making any that don't exist yet. One that can't be made may just have been made by
+// another request at the same moment (a link opened twice), so then it's looked for again.
+async function segmentIds(names) {
+  const segmentsByName = async () => new Map((await listAll('/segments')).map(segment => [segment.name, segment.id]))
+  const have = await segmentsByName()
+  for (const name of names) {
+    if (have.has(name)) continue
+    const made = await resend('/segments', { method: 'POST', body: { name } })
+    const segment = made.ok && made.data.id ? made.data.id : (await segmentsByName()).get(name)
+    if (!segment) throw new Error(`making segment ${name}: ${made.status} ${JSON.stringify(made.data)}`)
+    have.set(name, segment)
+  }
+  return have
+}
+
 // Puts a contact into segments by name, making any that don't exist yet. Answers their ids, by name.
 async function addToSegments(id, names) {
-  const have = new Map((await listAll('/segments')).map(segment => [segment.name, segment.id]))
+  const have = await segmentIds(names)
   for (const name of names) {
-    let segment = have.get(name)
-    if (!segment) {
-      const made = await resend('/segments', { method: 'POST', body: { name } })
-      if (!made.ok) throw new Error(`making segment ${name}: ${made.status} ${JSON.stringify(made.data)}`)
-      segment = made.data.id
-      have.set(name, segment)
-    }
-    const added = await resend(`/contacts/${encodeURIComponent(id)}/segments/${encodeURIComponent(segment)}`, { method: 'POST' })
+    const added = await resend(`/contacts/${encodeURIComponent(id)}/segments/${encodeURIComponent(have.get(name))}`, { method: 'POST' })
     if (!added.ok) throw new Error(`adding to ${name}: ${added.status} ${JSON.stringify(added.data)}`)
   }
   return have
+}
+
+// Whether a contact is subscribed and in a segment (by name), looked at again after a moment, twice if need be: when a
+// link opened twice at once trips over itself, the other request may well have done it all
+async function onListAfterAll(id, name) {
+  for (const wait of [1500, 3000]) {
+    await new Promise(resolve => setTimeout(resolve, wait))
+    const found = await resend(`/contacts/${encodeURIComponent(id)}`)
+    if (found.ok && found.data.unsubscribed === false && (await segmentsOf(id).catch(() => new Map())).has(name)) return true
+  }
+  return false
 }
 
 // The ids of those in a segment who are subscribed (those who unsubscribed stay in it, but get nothing)
@@ -178,5 +197,5 @@ const escape = text => String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<
 
 module.exports = {
   FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, tournamentSegment, LINK_DAYS, resend, sign, signedOk, contactFor,
-  segmentsOf, removeFromSegments, addToSegments, subscribedIn, confirmEmail, origin, escape,
+  segmentsOf, removeFromSegments, segmentIds, addToSegments, onListAfterAll, subscribedIn, confirmEmail, origin, escape,
 }

@@ -5,7 +5,7 @@
 // page (#interest-confirmed, #interest-invalid or #interest-failed).
 const {
   FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, tournamentSegment, LINK_DAYS, resend, signedOk, segmentsOf,
-  removeFromSegments, addToSegments, subscribedIn, escape,
+  removeFromSegments, addToSegments, onListAfterAll, subscribedIn, escape,
 } = require('./_resend.js')
 
 module.exports = async function confirm(req, res) {
@@ -44,6 +44,9 @@ module.exports = async function confirm(req, res) {
     }
   } catch (error) {
     console.error('Resend:', error.message)
+    // The link opened twice at once (clicked again while it loaded, or by the mail app too) can trip over itself, while
+    // the other request does it all: so before saying something went wrong, look again
+    if (await onListAfterAll(id, segments[0])) return res.redirect(303, page.done)
     return res.redirect(303, page.failed)
   }
 
