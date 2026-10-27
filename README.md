@@ -21,8 +21,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
-- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `rome-blueprint.webp` the header of the
-  home page and How to play, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
+- `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `rome-blueprint.webp` the
+  headers of every page but FAQ, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
   header, darkened there in CSS; `start-*.webp` the pictures on the cards under the home page's Learn more and get
   involved (the chips, a drawing of University Hall, the dining hall at Fuller Lodge and Enrico Fermi), toned in the
@@ -47,10 +47,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all eight. On
 wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
-page. The pages in the new design (home, FAQ, How to play, For schools and For companies; their `html` has the class
-`new-design`) have the white menu bar (`nav--light`), with the name alone as the logo, links in the text as blue
-words a little bolder than the text, with a light underline, and the navy footer (`footer--navy`), which has where
-to write in place of the logo; the other pages keep the paper look for now.
+page. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
+(`nav--light`), with the name alone as the logo, links in the text as blue words a little bolder than the text, with
+a light underline, and the navy footer (`footer--navy`), which has where to write in place of the logo. The paper
+look the pages had before (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark
+footer) is still in `site.css`, unused for now.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design: a blue
@@ -64,10 +65,11 @@ use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
 for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as
-rows (`boxes--steps`). For companies (`companies/`) is for teams, for team building and leadership workshops, which
+rows (`boxes--rows`). For companies (`companies/`) is for teams, for team building and leadership workshops, which
 companies pay for: a short form that `api/team.js` emails to contact@fermi.org through Resend (below), so that
 replying answers whoever sent it. Without JavaScript that form posts there directly and comes back to the page saying
 how it went (`#sent`, `#failed`). Both pages are built like How to play: the blue header, then the page on white.
+So are About (its programs in rows too), Donate (`sponsor/`) and Get updates (below).
 
 The FAQ page has three parts, General, Hosting and Educational value, each a list of questions that open in place.
 `site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
@@ -114,7 +116,6 @@ The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.
 Commons: a drawing of
 [University Hall](https://commons.wikimedia.org/wiki/File:University_Hall_from_the_Middle_Campus.jpg) and the
 [dining hall at Fuller Lodge](https://commons.wikimedia.org/wiki/File:HD.4G.060_%2810540752984%29.jpg), Los Alamos
-(U.S. Department of Energy). The Rome behind the menu of the pages in the paper look is Giovanni Battista
-Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
-[public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite;
-behind the headers of the home page and How to play it's in blue, as a blueprint.
+(U.S. Department of Energy). The Rome in the pages' headers is Giovanni Battista Piranesi's etching of the Forum
+(Veduta di Campo Vaccino, c. 1775), [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433),
+in blue, as a blueprint; on the Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`).

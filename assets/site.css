@@ -483,8 +483,9 @@ html.new-design.menu-open { --page-bg: #fff; }
 .signup__text { max-width: 560px; }
 .signup__text > p { margin-top: 16px; color: #111; font-size: 20px; line-height: 1.5; }
 .signup .su { margin-top: 32px; }
-.signup .su__row { gap: 5px; padding: 5px; background: #fff; }
-.signup .su input[type='email'] {
+/* (The Get updates page's form is set the same way) */
+:is(.signup, .updates-page) .su__row { gap: 5px; padding: 5px; background: #fff; }
+:is(.signup, .updates-page) .su input[type='email'] {
   height: 50px;
   padding: 0 18px;
   border: 0;
@@ -492,9 +493,9 @@ html.new-design.menu-open { --page-bg: #fff; }
   background: #fff;
   font-size: 18px;
 }
-.signup .su input[type='email']:focus-visible { box-shadow: none; }
-.signup .su__row:focus-within { box-shadow: 0 0 0 3px rgba(27, 33, 177, 0.35); }
-.signup .su__row .btn {
+:is(.signup, .updates-page) .su input[type='email']:focus-visible { box-shadow: none; }
+:is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(27, 33, 177, 0.35); }
+:is(.signup, .updates-page) .su__row .btn {
   height: 50px;
   padding: 0 30px;
   border-radius: 0;
@@ -503,11 +504,11 @@ html.new-design.menu-open { --page-bg: #fff; }
   font-size: 18px;
   font-weight: 600;
 }
-.signup .su__row .btn:hover { background: #1b21b1; }
-.signup .su__note { margin-top: 12px; color: #333; }
+:is(.signup, .updates-page) .su__row .btn:hover { background: #1b21b1; }
+:is(.signup, .updates-page) .su__note { margin-top: 12px; color: #333; }
 .signup .su-done { margin-top: 28px; }
-.signup .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-.signup .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
+:is(.signup, .updates-page) .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.signup, .updates-page) .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
 @media (max-width: 1100px) {
   .start__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .start-card { aspect-ratio: 4 / 3; }
@@ -528,7 +529,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   .start-card { aspect-ratio: 16 / 9; }
   .start-card span { padding: 22px 22px; font-size: 22px; }
   .signup__text > p { font-size: 18px; }
-  .signup .su__row .btn { flex: 1 1 100%; }
+  :is(.signup, .updates-page) .su__row .btn { flex: 1 1 100%; }
 }
 
 /* Sheet of paper, torn at both ends */
@@ -1428,15 +1429,33 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .doc .box--fold > .box__body { padding-right: 0; }
 }
 
-/* For schools and For companies, built like How to play. A page that starts with a section starts right under the
-   header. */
+/* The other inner pages (For schools, For companies, About, Donate, Get updates), built like How to play. A page that
+   starts with a section starts right under the header. */
 .doc .page > .section:first-child { margin-top: 0; }
-/* Steps: rows with thin lines between them, like the FAQ page's questions, always open */
-.doc .boxes--steps { margin-top: 24px; }
-.doc .boxes--steps > .box { padding: 22px 0 24px; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
-.doc .boxes--steps > .box + .box { margin-top: 0; }
-.doc .boxes--steps > .box:last-child { border-bottom: 1px solid #e3e3e3; }
-.doc .boxes--steps h3 { font-size: 19px; font-stretch: 112.5%; }
+/* Rows with thin lines between them, like the FAQ page's questions, always open: the steps on For schools, the
+   programs on About */
+.doc .boxes--rows { margin-top: 24px; }
+.doc .boxes--rows > .box { padding: 22px 0 24px; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
+.doc .boxes--rows > .box + .box { margin-top: 0; }
+.doc .boxes--rows > .box:last-child { border-bottom: 1px solid #e3e3e3; }
+.doc .boxes--rows h3 { font-size: 19px; font-stretch: 112.5%; }
+/* A link in a heading stays as bold as the heading */
+html.new-design h3 .link { font-weight: inherit; }
+/* A label under a row's heading, like "Currently paused" on About */
+.doc .box__tab {
+  position: static;
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #e6eefe;
+  color: #1b21b1;
+  font-family: var(--mona);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.doc .boxes--rows > .box:has(> .box__tab) { padding-top: 22px; }
 /* The sign-up form: square white fields on a pale blue panel, and a square blue button like the header's */
 .doc .form { margin-top: 28px; padding: 32px; background: #f3f6fe; }
 .doc .field__label { font-size: 16px; font-weight: 600; }
@@ -1458,16 +1477,23 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   font-weight: 600;
 }
 .doc .btn--primary:hover { background: #151a8f; }
-/* The thanks, and on For companies what happened after sending without JavaScript (#sent, #failed): pale blue, and
-   once sent the form gives way to it */
+/* The thanks, and what happened after sending a form without JavaScript or following the link in the email (on For
+   companies and Get updates): pale blue, with the check in the header's blue for good news; once sent, the form
+   gives way to it */
 .doc .form-done,
 .doc .status { margin-top: 28px; border-radius: 0; background: #e6eefe; }
 .doc .form-done h3,
+.doc .status h2,
 .doc .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
 .doc .status p { font-size: 17px; line-height: 1.6; }
+.doc .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .doc .status--done:target ~ .form { display: none; }
+/* Get updates: the form in the white frame of the home page's mailing list, on a pale blue panel */
+.doc .updates-page { max-width: 640px; padding: 32px; background: #e6eefe; }
+.doc .updates-page .su { max-width: none; }
 @media (max-width: 700px) {
   .doc .form { padding: 22px 20px 24px; }
+  .doc .updates-page { padding: 22px 20px 24px; }
 }
 
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
