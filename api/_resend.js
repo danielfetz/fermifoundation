@@ -31,7 +31,7 @@ const ROLE_NAMES = {
 const TOURNAMENTS = {
   boston: 'Boston',
   berkeley: 'Berkeley',
-  nyc: 'New York',
+  nyc: 'New York City',
   london: 'London',
   oxford: 'Oxford',
 }

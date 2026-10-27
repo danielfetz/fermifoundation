@@ -88,9 +88,9 @@ is a link with a picture. Frequently asked questions has five of the FAQ page's 
 button to the rest; their answers are copies of the FAQ page's, so change them in both.
 
 Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
-Berkeley, New York, London and Oxford for now), its date "to be set" (`event__when`), over the pattern of card suits,
-and a last card, Somewhere else?, leading to For schools. A city's card can have a photo in place of the pattern (an
-`img` with the class `event__photo`, say `assets/img/event-boston.webp`). On a city's card, "I'm interested" opens a
+Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over the pattern of card
+suits, and a last card, Somewhere else?, leading to For schools. A city's card can have a photo in place of the pattern
+(an `img` with the class `event__photo`, say `assets/img/event-boston.webp`). On a city's card, "I'm interested" opens a
 field for the email (a `details` element, so it works without JavaScript too). It goes to `api/interest.js`, which,
 like Get updates, adds the address to Resend's contacts and emails a link to confirm it; the link (`api/confirm.js`)
 puts them into that tournament's segment in Resend ("Boston tournament" and so on), and not into the one for updates,
