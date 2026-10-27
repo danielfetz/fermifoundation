@@ -436,8 +436,6 @@ html.guide-page.menu-open { --page-bg: #fff; }
   line-height: 1.1;
 }
 .home-main { font-family: var(--mona); }
-.home-main .link { color: inherit; text-decoration-color: #1b21b1; }
-.home-main .link:hover { color: #1b21b1; }
 /* The introduction: its first paragraph large, like a heading, then the rest */
 .intro p { max-width: 760px; color: #111; font-size: 20px; line-height: 1.6; text-wrap: pretty; }
 .intro p + p { margin-top: 20px; }
@@ -941,6 +939,13 @@ html.guide-page.menu-open { --page-bg: #fff; }
   transition: color 150ms var(--ease);
 }
 .link:hover { color: var(--blue); }
+/* In the new design (home, FAQ, How to play): blue words, underlined only under the mouse */
+html.home-page .link,
+html.faq-page .link,
+html.guide-page .link { color: #2f62e6; text-decoration: none; }
+html.home-page .link:hover,
+html.faq-page .link:hover,
+html.guide-page .link:hover { color: #2f62e6; text-decoration: underline 1px; }
 
 /* Sign-up form on the Host page: round fields like the cards, the blue pill to send */
 .form { display: grid; gap: 22px; margin-top: 24px; }
@@ -1280,9 +1285,9 @@ html.guide-page.menu-open { --page-bg: #fff; }
 }
 
 /* How to play, the first inner page in the new design (the others will follow). Under the white menu bar, a blue
-   header with the title, the introduction and the rule sheet, the home page's Rome behind it under the same shade;
-   then the guide on white in Mona Sans, its column lined up with the title, with the footnotes beside it on wide
-   screens. The guide's parts keep their classes and take the new look inside .doc. */
+   header with the title, the introduction and the rule sheet, the home page's Rome behind it (a little more shaded,
+   so the introduction reads easily); then the guide on white in Mona Sans, its column lined up with the title, with
+   the footnotes beside it on wide screens. The guide's parts keep their classes and take the new look inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;
@@ -1297,7 +1302,7 @@ html.guide-page.menu-open { --page-bg: #fff; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(10, 14, 96, 0.6), rgba(10, 14, 96, 0.2) 60%, rgba(10, 14, 96, 0));
+  background: linear-gradient(90deg, rgba(10, 14, 96, 0.76), rgba(10, 14, 96, 0.46) 60%, rgba(10, 14, 96, 0.16));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
 .page-hero h1 {
@@ -1355,8 +1360,6 @@ html.guide-page.menu-open { --page-bg: #fff; }
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
 .doc .section > .text { margin-top: 18px; }
 .doc .list li::marker { color: #1b21b1; }
-.doc .link { color: inherit; text-decoration-color: #1b21b1; }
-.doc .link:hover { color: #1b21b1; }
 /* The notes: pale blue panels, square like the header's button */
 .doc .sticky-note { padding: 24px 28px 26px; border-radius: 0; background: #e6eefe; box-shadow: none; transform: none; }
 .doc .section > .sticky-note { margin-top: 28px; }
@@ -1397,20 +1400,16 @@ html.guide-page.menu-open { --page-bg: #fff; }
 .doc .footnotes { margin-top: 80px; border-color: #e3e3e3; color: #555; font-size: 15px; line-height: 1.55; }
 .doc .fn-ref a,
 .doc .fn-back,
-.doc .sidenote__n { color: #1b21b1; }
-.doc .footnotes .link:hover,
-.doc .sidenote .link:hover { color: #1b21b1; }
+.doc .sidenote__n { color: #2f62e6; }
 @media (min-width: 1230px) {
   .doc .page--sidenotes .sidenote { width: 250px; color: #666; font-family: var(--mona); font-size: 14px; }
   .doc .page--sidenotes .sidenote.is-lit { color: #000; }
 }
-/* A note shown in place: white like the page, its links like the guide's (it's at the end of the page, outside .doc) */
+/* A note shown in place: white like the page (it's at the end of the page, outside .doc) */
 html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; font-family: var(--mona); }
-html.guide-page .fn-pop .link { color: inherit; text-decoration-color: #1b21b1; }
-html.guide-page .fn-pop .link:hover { color: #1b21b1; }
 @media (max-width: 700px) {
   .page-hero { min-height: 0; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
-  .page-hero::before { background: rgba(10, 14, 96, 0.45); }
+  .page-hero::before { background: rgba(10, 14, 96, 0.58); }
   .page-hero__inner { width: calc(100% - 40px); padding: 56px 0; }
   .page-hero h1 { font-size: 44px; }
   .page-hero__sub { font-size: 17px; line-height: 1.55; }
