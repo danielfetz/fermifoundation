@@ -70,6 +70,37 @@ if (hostForm && hostFormDone) {
   })
 }
 
+// For companies: the request goes to /api/team (api/team.js), which emails it to us. Without JavaScript the form posts
+// there directly, and comes back to the page saying how it went (#sent, #failed).
+const teamForm = document.querySelector('#team-form')
+const teamFormDone = document.querySelector('#team-form-done')
+
+if (teamForm && teamFormDone) {
+  const button = teamForm.querySelector('button[type="submit"]')
+  const error = teamForm.querySelector('.form__error')
+
+  teamForm.addEventListener('submit', async event => {
+    event.preventDefault()
+    button.disabled = true
+    error.hidden = true
+    try {
+      const response = await fetch(teamForm.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(teamForm))),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      teamForm.hidden = true
+      teamFormDone.hidden = false
+      teamFormDone.focus()
+    } catch {
+      error.hidden = false
+    } finally {
+      button.disabled = false
+    }
+  })
+}
+
 // Updates: the sign-up forms in the page (home, /updates/), and a short one in a pop-up, with a small heading over each
 // field. They send to
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops

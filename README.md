@@ -4,10 +4,12 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 
 - `index.html`: the home page, about hosting Fermi Poker tournaments
 - `faq/`: the questions and the educational value, in tabs (below)
-- `how-to-play/`, `host/`, `sponsor/`, `about/`, `updates/`: the inner pages (`updates/` is Get updates, below)
-- `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
-- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates, How to
-  play's footnotes and the FAQ page's tabs
+- `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
+  `companies/` For companies, `updates/` Get updates, all below)
+- `api/`: the Vercel Functions behind Get updates and the For companies form (below), the site's only code that runs
+  on a server
+- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the forms on For schools and For companies, Get
+  updates, How to play's footnotes and the FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, all self-hosted),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
@@ -43,11 +45,12 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all seven. On
-wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home, FAQ
-and How to play pages have the white menu bar (`nav--light`), with the name alone as the logo, links in the text as
-blue words a little bolder than the text, with a light underline, and the navy footer (`footer--navy`), which has
-where to write in place of the logo; the other pages keep the paper look for now.
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all eight. On
+wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
+page. The pages in the new design (home, FAQ, How to play, For schools and For companies; their `html` has the class
+`new-design`) have the white menu bar (`nav--light`), with the name alone as the logo, links in the text as blue
+words a little bolder than the text, with a light underline, and the navy footer (`footer--navy`), which has where
+to write in place of the logo; the other pages keep the paper look for now.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design: a blue
@@ -59,6 +62,13 @@ line, and elsewhere shows it in place when its number is hovered over or tapped;
 JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to
 use later.
 
+For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
+for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as
+rows (`boxes--steps`). For companies (`companies/`) is for teams, for team building and leadership workshops, which
+companies pay for: a short form that `api/team.js` emails to contact@fermi.org through Resend (below), so that
+replying answers whoever sent it. Without JavaScript that form posts there directly and comes back to the page saying
+how it went (`#sent`, `#failed`). Both pages are built like How to play: the blue header, then the page on white.
+
 The FAQ page has three parts, General, Hosting and Educational value, each a list of questions that open in place.
 `site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
 part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
@@ -66,7 +76,7 @@ opens its tab and the question.
 
 The home page runs in bands: the header, Upcoming tournaments, the introduction (pale blue), Learn more and get
 involved, and the mailing list (pale blue). Upcoming tournaments has one card for now, saying there are no public
-tournaments and leading to the Host page; cards for real tournaments go in the same grid, three to a row, with the
+tournaments and leading to For schools; cards for real tournaments go in the same grid, three to a row, with the
 date as `event__when`. Each card under Learn more and get involved is a link with a picture.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
@@ -84,10 +94,10 @@ subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`
 subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "High school students", "University
 students", "Teachers and professors" or "Others" (what they said they are; "Students" from before high school and
 university were asked apart), emails contact@fermi.org about the new sign-up, and shows the
-Get updates page saying so. Both need Resend's key as `RESEND_API_KEY` in the project's environment variables on
-Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in Resend to a segment; Resend adds the
-link to unsubscribe. Without JavaScript the forms still work: the Get updates page shows what happened (`#sent`,
-`#confirmed`, `#invalid`, `#failed`).
+Get updates page saying so. Both, and `api/team.js` for For companies, need Resend's key as `RESEND_API_KEY` in the
+project's environment variables on Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in
+Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work: the Get updates
+page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
 uses the same picture, `assets/img/link-preview.jpg` (1200 × 630): a screenshot of the top of the home page with

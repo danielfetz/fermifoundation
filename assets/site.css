@@ -130,10 +130,8 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
-/* On the pages in the new design (home, FAQ, How to play), the white of their menu bar */
-html.home-page,
-html.faq-page,
-html.guide-page { --page-bg: #fff; }
+/* On the pages in the new design (their html has the class new-design), the white of their menu bar */
+html.new-design { --page-bg: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -236,9 +234,7 @@ button {
 .nav--light.is-open,
 .nav--light .nav__sheet { background: #fff; }
 .nav--light .nav__sheet { font-family: var(--mona); }
-html.home-page.menu-open,
-html.faq-page.menu-open,
-html.guide-page.menu-open { --page-bg: #fff; }
+html.new-design.menu-open { --page-bg: #fff; }
 
 /* Logo: a small photo of Fermi next to the name, in Mona Sans, wide and semi-bold */
 .logo {
@@ -941,20 +937,15 @@ html.guide-page.menu-open { --page-bg: #fff; }
   transition: color 150ms var(--ease);
 }
 .link:hover { color: var(--blue); }
-/* In the new design (home, FAQ, How to play): blue words, a little bolder, with a light underline that turns solid
-   under the mouse */
-html.home-page .link,
-html.faq-page .link,
-html.guide-page .link {
+/* In the new design: blue words, a little bolder, with a light underline that turns solid under the mouse */
+html.new-design .link {
   color: #2f62e6;
   font-weight: 500;
   text-decoration: underline 1px rgba(47, 98, 230, 0.4);
   text-underline-offset: 4px;
   transition: text-decoration-color 150ms var(--ease);
 }
-html.home-page .link:hover,
-html.faq-page .link:hover,
-html.guide-page .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
+html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 
 /* Sign-up form on the Host page: round fields like the cards, the blue pill to send */
 .form { display: grid; gap: 22px; margin-top: 24px; }
@@ -1435,6 +1426,48 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .doc .box--quote { padding: 46px 20px 24px; }
   .doc .box--quote::before { top: 10px; left: 18px; font-size: 52px; }
   .doc .box--fold > .box__body { padding-right: 0; }
+}
+
+/* For schools and For companies, built like How to play. A page that starts with a section starts right under the
+   header. */
+.doc .page > .section:first-child { margin-top: 0; }
+/* Steps: rows with thin lines between them, like the FAQ page's questions, always open */
+.doc .boxes--steps { margin-top: 24px; }
+.doc .boxes--steps > .box { padding: 22px 0 24px; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
+.doc .boxes--steps > .box + .box { margin-top: 0; }
+.doc .boxes--steps > .box:last-child { border-bottom: 1px solid #e3e3e3; }
+.doc .boxes--steps h3 { font-size: 19px; font-stretch: 112.5%; }
+/* The sign-up form: square white fields on a pale blue panel, and a square blue button like the header's */
+.doc .form { margin-top: 28px; padding: 32px; background: #f3f6fe; }
+.doc .field__label { font-size: 16px; font-weight: 600; }
+.doc .field__optional,
+.doc .field__hint,
+.doc .form__alt { color: #555; }
+.doc .field__hint { text-wrap: pretty; }
+.doc .field input:not([type='radio']),
+.doc .field textarea { border: 1px solid #c3c9d8; border-radius: 0; background: #fff; color: #111; font-size: 17px; }
+.doc .field input:focus-visible,
+.doc .field textarea:focus-visible { border-color: #1b21b1; box-shadow: 0 0 0 3px rgba(27, 33, 177, 0.18); }
+.doc .choice input { accent-color: #1b21b1; }
+.doc .btn--primary {
+  padding: 12px 28px;
+  border-radius: 0;
+  background: #1b21b1;
+  box-shadow: none;
+  font-stretch: 125%;
+  font-weight: 600;
+}
+.doc .btn--primary:hover { background: #151a8f; }
+/* The thanks, and on For companies what happened after sending without JavaScript (#sent, #failed): pale blue, and
+   once sent the form gives way to it */
+.doc .form-done,
+.doc .status { margin-top: 28px; border-radius: 0; background: #e6eefe; }
+.doc .form-done h3,
+.doc .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
+.doc .status p { font-size: 17px; line-height: 1.6; }
+.doc .status--done:target ~ .form { display: none; }
+@media (max-width: 700px) {
+  .doc .form { padding: 22px 20px 24px; }
 }
 
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */

@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="schools-page new-design">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Host a Fermi Poker tournament</title>
-  <meta name="description" content="We’ll help you host a Fermi Poker tournament for free: questions, tips on writing your own, and maybe even funding for poker chips, dry-erase markers and small prizes.">
+  <title>Host a Fermi Poker tournament at your school or university</title>
+  <meta name="description" content="We’ll help you host a Fermi Poker tournament at your school or university for free: questions, tips on writing your own, and maybe even funding for poker chips, dry-erase markers and small prizes.">
   <!-- Link previews (WhatsApp, iMessage, LinkedIn, ...): one picture for every page, made from the top of the home page -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Fermi Poker">
-  <meta property="og:title" content="Host a Fermi Poker tournament">
-  <meta property="og:description" content="We’ll help you host a Fermi Poker tournament for free: questions, tips on writing your own, and maybe even funding for poker chips, dry-erase markers and small prizes.">
+  <meta property="og:title" content="Host a Fermi Poker tournament at your school or university">
+  <meta property="og:description" content="We’ll help you host a Fermi Poker tournament at your school or university for free: questions, tips on writing your own, and maybe even funding for poker chips, dry-erase markers and small prizes.">
   <meta property="og:url" content="https://fermi.org/host/">
   <meta property="og:image" content="https://fermi.org/assets/img/link-preview.jpg">
   <meta property="og:image:width" content="1200">
@@ -17,10 +17,10 @@
   <meta property="og:image:alt" content="Enrico Fermi in front of an etching of the Roman Forum, above the words “Bring Fermi Poker to your school or university”">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preload" href="/assets/fonts/fermi-sans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-sans-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/forum-piranesi.webp" as="image">
+  <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/img/rome-blueprint.webp" as="image" media="(min-width: 701px)">
+  <link rel="preload" href="/assets/img/rome-blueprint-phone.webp" as="image" media="(max-width: 700px)">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -30,46 +30,52 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <div class="sky">
-    <nav class="nav">
-      <div class="nav__bar">
-        <a class="nav__logo" href="/"><span class="logo"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span></a>
-        <ul class="nav__links">
-          <li><a href="/how-to-play/">How to play</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/sponsor/">Donate</a></li>
-        </ul>
-        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
-          <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <div class="nav__sheet" id="nav-sheet" hidden>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/how-to-play/">How to play</a></li>
-          <li><a href="/host/" aria-current="page">Host a tournament</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/sponsor/">Donate</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a class="nav__updates" href="/updates/">Get updates</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="sky__space"></div>
-  </div>
+  <nav class="nav nav--light">
+    <div class="nav__bar">
+      <a class="nav__logo" href="/"><span class="logo">Fermi Poker</span></a>
+      <ul class="nav__links">
+        <li><a href="/host/" aria-current="page">For schools</a></li>
+        <li><a href="/companies/">For companies</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/sponsor/">Donate</a></li>
+      </ul>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu">
+        <svg class="nav__icon-open" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="nav__icon-close" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="nav__sheet" id="nav-sheet" hidden>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/how-to-play/">How to play</a></li>
+        <li><a href="/host/" aria-current="page">For schools</a></li>
+        <li><a href="/companies/">For companies</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/sponsor/">Donate</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a class="nav__updates" href="/updates/">Get updates</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <main class="paper paper--page">
-    <img class="paper__edge paper__edge--top" src="/assets/img/edge-top.svg" alt="" aria-hidden="true">
+  <!-- The home page's Rome, as a blueprint, behind the title (assets/site.css) -->
+  <header class="page-hero">
+    <div class="page-hero__inner">
+      <h1>Host a tournament at your school or university</h1>
+      <p class="page-hero__sub">We’re here to help you do it, for free. Fill out the form below and we’ll send you all the information you need to run a Fermi Poker tournament, including questions and tips on writing your own. We may even be able to cover the cost of things like poker chips, dry-erase markers and small prizes.</p>
+      <a class="page-hero__btn" href="#sign-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Fill out the form</a>
+    </div>
+  </header>
 
+  <main class="doc">
     <div class="page">
-      <h1 class="page__title">Host a tournament</h1>
-      <div class="page__intro">
-        <p>
-          We’re here to help you do it, for free. Fill out the form below and we’ll send you all the information you need to
-          run a Fermi Poker tournament, including questions and tips on writing your own. We may even be able to cover the
-          cost of things like poker chips, <span class="nowrap">dry-erase markers</span> and small prizes.
-        </p>
+      <div class="texts">
+        <div class="sticky-note">
+          <p class="text">
+            Playing with friends? Our <a class="link" href="/how-to-play/">guide</a> covers everything you need. Planning a
+            tournament at your company? See <a class="link" href="/companies/">Fermi Poker for teams</a>.
+          </p>
+        </div>
       </div>
 
       <!-- Sign-up: our own form, but the answers go to a Google Form (and from there to a Google Sheet). The names are
@@ -87,7 +93,7 @@
             <input name="entry.823906579" type="email" autocomplete="email" required>
           </label>
           <label class="field">
-            <span class="field__label">School, university or organization</span>
+            <span class="field__label">School or university</span>
             <input name="entry.1487216815" type="text" autocomplete="organization" required>
           </label>
           <label class="field">
@@ -139,7 +145,7 @@
 
       <section class="section">
         <h2>Step by step</h2>
-        <ol class="boxes">
+        <ol class="boxes boxes--steps">
           <li class="box"><h3>1. Fill out the form</h3><div class="box__body"><p>Tell us about your tournament using the <a class="link" href="#sign-up">form above</a>. We’ll email you Fermi questions and tips for running it, and we’re here to help along the way. We’ll also let you know whether we can sponsor it, and for how much.</p></div></li>
           <li class="box"><h3>2. Organize a room</h3><div class="box__body"><p>Ideally, find a room with round tables that seat six players each, with enough space between them so everyone can write down their guesses in secret. Other tables work too, and so do four or five players per table.</p></div></li>
           <li class="box"><h3>3. Spread the word</h3><div class="box__body"><p>What works depends on where you host it. At a math summer camp, an announcement may be all you need. At a school or university, you could put up posters, announce it in class, or use your club’s channels. Consider a <span class="nowrap">sign-up</span> list, so you know how many players to expect.</p></div></li>
@@ -230,22 +236,18 @@
       </section>
       </div>
     </div>
-
-    <img class="paper__edge paper__edge--bottom" src="/assets/img/edge-bottom.svg" alt="" aria-hidden="true">
   </main>
 
-  <footer class="footer">
+  <footer class="footer footer--navy">
     <div class="footer__grid">
-      <div>
-        <span class="logo logo--footer"><img src="/assets/img/fermi-logo.webp" alt="" width="160" height="160">Fermi Poker</span>
-        <p class="footer__blurb">We bring Fermi Poker to schools and universities to celebrate Enrico Fermi’s 125th birthday.</p>
-      </div>
+      <p class="footer__statement">Anything else you’d like to know? Write to <a href="mailto:contact@fermi.org">contact@fermi.org</a></p>
       <div>
         <h2>Fermi Poker</h2>
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/how-to-play/">How to play</a></li>
-          <li><a href="/host/">Host a tournament</a></li>
+          <li><a href="/host/">For schools</a></li>
+          <li><a href="/companies/">For companies</a></li>
           <li><a href="/faq/">FAQ</a></li>
           <li><a href="/sponsor/">Donate</a></li>
           <li><a href="/about/">About</a></li>
