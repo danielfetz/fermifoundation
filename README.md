@@ -59,14 +59,14 @@ Nothing on screen is ever hidden, things that come into view together come in on
 animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
-need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design: a blue
-header (`page-hero`, with the home page's Rome, for the other inner pages to share) with the title, the introduction
-and the rule sheet, then the guide on white (`.doc`), its column lined up with the title. The guide's parts keep
-their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in the text that
-lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin beside its
-line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and without
-JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to
-use later.
+need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
+other inner pages: a blue header (`page-hero`, with the home page's Rome) with the title alone, as tall on every page,
+then the guide on white (`.doc`), opening with the introduction (`page-lead`), its column lined up with the title. The
+guide's parts keep their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in
+the text that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin
+beside its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and
+without JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden,
+to use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
 for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as

@@ -1351,16 +1351,16 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
   .qa__a { padding-right: 0; font-size: 16px; }
 }
 
-/* How to play, the first inner page in the new design (the others will follow). Under the white menu bar, a blue
-   header with the title, the introduction and the rule sheet, the home page's Rome behind it (a little more shaded,
-   so the introduction reads easily); then the guide on white in Mona Sans, its column lined up with the title, with
-   the footnotes beside it on wide screens. The guide's parts keep their classes and take the new look inside .doc. */
+/* The inner pages: under the white menu bar, a blue header with the title alone, the home page's Rome behind it (a
+   little more shaded), as tall on every page; then the page on white in Mona Sans (.doc), opening with what it's about
+   (.page-lead), its column lined up with the title. How to play has its footnotes beside it on wide screens; its parts
+   keep their classes from the paper look and take the new one inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: clamp(400px, 34vw, 560px);
+  min-height: clamp(260px, 25vw, 400px);
   background: #18208f url(/assets/img/rome-blueprint.webp) center 40% / cover no-repeat;
   font-family: var(--mona);
 }
@@ -1371,10 +1371,7 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(10, 14, 96, 0.76), rgba(10, 14, 96, 0.46) 60%, rgba(10, 14, 96, 0.16));
 }
-.page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
-/* A header with little under its title, like Get updates and FAQ */
-.page-hero--short { min-height: clamp(260px, 25vw, 400px); }
-.page-hero--short .page-hero__inner { padding: 48px 0; }
+.page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .page-hero h1 {
   max-width: 14em;
   color: #fff;
@@ -1383,34 +1380,11 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
   font-weight: 700;
   line-height: 1.1;
 }
-.page-hero__sub {
-  max-width: 640px;
-  margin-top: 20px;
-  color: #fff;
-  font-size: 19px;
-  font-stretch: 112.5%;
-  line-height: 1.58;
-  text-wrap: pretty;
-}
-.page-hero__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 32px;
-  padding: 10px 24px;
-  background: #fff;
-  color: #1b21b1;
-  font-size: 16px;
-  font-stretch: 125%;
-  font-weight: 600;
-  line-height: 1.5;
-  transition: background-color 150ms var(--ease);
-}
-.page-hero__btn:hover { background: #eef0ff; }
-.page-hero__btn svg { width: 18px; height: 18px; flex: none; }
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); }
 /* The column: as wide as before, its left edge under the header's title */
 .doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
+/* What the page is about, first on it, a little larger than the rest */
+.doc .page-lead { margin-bottom: 48px; color: #111; font-size: 21px; line-height: 1.6; text-wrap: pretty; }
 .doc .texts { margin-top: 0; }
 .doc .section { margin-top: 72px; }
 .doc .section > h2 { color: #000; font-family: var(--mona); font-size: 34px; font-stretch: 125%; font-weight: 700; line-height: 1.15; }
@@ -1480,10 +1454,10 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
 @media (max-width: 700px) {
   .page-hero { min-height: 0; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
   .page-hero::before { background: rgba(10, 14, 96, 0.58); }
-  .page-hero__inner { width: calc(100% - 40px); padding: 56px 0; }
+  .page-hero__inner { width: calc(100% - 40px); padding: 48px 0; }
   .page-hero h1 { font-size: 44px; }
-  .page-hero__sub { font-size: 17px; line-height: 1.55; }
   .doc { padding: 56px 0 80px; }
+  .doc .page-lead { margin-bottom: 36px; font-size: 19px; }
   .doc .page { width: calc(100% - 40px); margin-left: 20px; }
   .doc .section { margin-top: 56px; }
   .doc .section > h2 { font-size: 28px; }
