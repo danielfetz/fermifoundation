@@ -164,7 +164,7 @@ function openUpdates(how) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
           </button>
         </div>
-        <p class="updates__text">We’ll let you know when our questions and materials are ready, and whenever there’s news about <span class="nowrap">Fermi Poker</span> tournaments.</p>
+        <p class="updates__text">We’ll let you know when we release new question sets, and whenever there’s other news about Fermi Poker.</p>
         ${updatesForm('updates')}
       </div>`
     document.body.append(updatesDialog)

@@ -65,9 +65,9 @@ involved, and the mailing list (pale blue). Upcoming tournaments has one card fo
 tournaments and leading to the Host page; cards for real tournaments go in the same grid, three to a row, with the
 date as `event__when`. Each card under Learn more and get involved is a link with a picture.
 
-Get updates: people leave their email to hear when the questions and materials are ready, and whenever there's news
-about tournaments. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on
-its own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens
+Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
+about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
+on its own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens
 (`assets/site.js`). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The
 pop-up also comes up by itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on
 phones and tablets after 30 seconds on the page. Then not again for 30 days, and never after signing up or sending the
