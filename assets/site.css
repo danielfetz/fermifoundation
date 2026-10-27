@@ -225,9 +225,9 @@ button {
   .nav__toggle,
   .nav__sheet { display: none; }
 }
-/* The home and FAQ pages' menu: a white bar, the name alone on the left, the links in Mona Sans */
+/* The new design's menu: a white bar, the name alone on the left, the links in Mona Sans */
 .nav--light { background: #fff; }
-.nav--light .nav__bar { min-height: 72px; }
+.nav--light .nav__bar { min-height: 76px; }
 .nav--light .logo img { display: none; }
 .nav--light .nav__links { gap: clamp(20px, 2.4vw, 34px); font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
 /* Its phone menu opens in white too, in the same type */
