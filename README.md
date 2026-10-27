@@ -25,9 +25,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   headers of every page but FAQ, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
   header, darkened there in CSS; `start-*.webp` the pictures on the cards under the home page's Learn more and get
-  involved (the chips, a drawing of University Hall, the dining hall at Fuller Lodge and Enrico Fermi), toned in the
-  header's blue; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before (the About card's picture
-  is made from it), with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
+  involved (the chips, a drawing of University Hall, the dining hall at Fuller Lodge, and students in the University
+  Hall in Leuven), toned in the header's blue; `enrico-fermi.webp` is a photo of Fermi that stood on the home page
+  before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -116,6 +116,8 @@ The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.
 Commons: a drawing of
 [University Hall](https://commons.wikimedia.org/wiki/File:University_Hall_from_the_Middle_Campus.jpg) and the
 [dining hall at Fuller Lodge](https://commons.wikimedia.org/wiki/File:HD.4G.060_%2810540752984%29.jpg), Los Alamos
-(U.S. Department of Energy). The Rome in the pages' headers is Giovanni Battista Piranesi's etching of the Forum
-(Veduta di Campo Vaccino, c. 1775), [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433),
-in blue, as a blueprint; on the Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`).
+(U.S. Department of Energy); the photo on the Sponsor or donate card, students in the
+[University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The Rome in
+the pages' headers is Giovanni Battista Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
+[public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), in blue, as a blueprint; on the
+Play page's table it's cropped and re-inked in warm graphite (`forum-piranesi.webp`).
