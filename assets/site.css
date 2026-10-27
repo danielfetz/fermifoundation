@@ -481,10 +481,8 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .start-card span { display: block; padding: 28px 26px; font-size: 24px; font-stretch: 125%; font-weight: 600; line-height: 1.15; }
 .start-card:hover img { transform: scale(1.05); }
 .start-card:focus-visible { outline: 3px solid #1b21b1; outline-offset: 3px; }
-/* The mailing list: the heading, the form in a white frame with a black button, and beside it a question card lying
-   on two card backs */
-.signup__inner { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
-.signup__text { flex: 0 1 560px; }
+/* The mailing list: the heading and the form in a white frame with a black button, on the left of the band */
+.signup__text { max-width: 560px; }
 .signup__text > p { margin-top: 16px; color: #111; font-size: 20px; line-height: 1.5; }
 .signup .su { margin-top: 32px; }
 .signup .su__row { gap: 5px; padding: 5px; background: #fff; }
@@ -513,43 +511,9 @@ html.faq-page.menu-open { --page-bg: #fff; }
 .signup .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .signup .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
 .signup__contact { margin-top: 28px; color: #111; font-size: 17px; line-height: 1.5; }
-.signup__cards { position: relative; flex: 0 0 400px; height: 380px; }
-.qcard {
-  position: absolute;
-  top: 34px;
-  left: 92px;
-  display: flex;
-  flex-direction: column;
-  width: 230px;
-  height: 320px;
-  padding: 24px 22px 20px;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(9, 12, 64, 0.08), 0 22px 40px -18px rgba(9, 12, 64, 0.45);
-  transform: rotate(-3deg);
-}
-/* The backs: card suits, blue on blue, in a white border */
-.qcard--back { border: 10px solid #fff; background: #1b21b1 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%233a42d6'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 60px 52px; }
-.qcard--back:nth-child(1) { top: 44px; left: 18px; transform: rotate(-14deg); }
-.qcard--back:nth-child(2) { top: 12px; left: 160px; transform: rotate(10deg); }
-.qcard__label {
-  padding-bottom: 10px;
-  border-bottom: 1.5px dashed rgba(9, 12, 64, 0.25);
-  color: #1b21b1;
-  font-size: 12px;
-  font-stretch: 125%;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.qcard p { margin-top: 16px; color: #000; font-size: 22px; font-weight: 600; line-height: 1.3; }
-.qcard__logo { margin-top: auto; color: rgba(9, 12, 64, 0.45); font-family: 'Fermi Logo', var(--mona); font-size: 13px; font-stretch: 125%; font-weight: 600; }
 @media (max-width: 1100px) {
   .start__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .start-card { aspect-ratio: 4 / 3; }
-}
-@media (max-width: 900px) {
-  .signup__cards { display: none; }
 }
 @media (max-width: 700px) {
   .intro,
@@ -1368,17 +1332,36 @@ html.faq-page.menu-open { --page-bg: #fff; }
 @media (min-width: 721px) {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
-/* On the home and FAQ pages: navy, in Mona Sans, with no paper's edge above it */
-.footer--navy { padding: 80px 24px 48px; background: #131574; color: #fff; font-family: var(--mona); }
-.footer--navy .footer__blurb { margin-top: 16px; color: rgba(255, 255, 255, 0.8); font-size: 17px; line-height: 1.5; }
-.footer--navy h2 { font-family: var(--mona); font-size: 18px; font-weight: 600; }
-.footer--navy ul { gap: 10px; margin-top: 16px; }
+/* On the home and FAQ pages: navy, in Mona Sans, with no paper's edge above it. A statement on the left, set like the
+   introduction's first paragraph, the links in two columns on the right with headings set like the menu's links, and
+   the small print at the bottom, without the rule above it */
+.footer--navy { padding: 88px 0 64px; background: #131574; color: #fff; font-family: var(--mona); }
+.footer--navy .footer__grid,
+.footer--navy .footer__legal,
+.footer--navy .footer__credit { width: min(1096px, 100% - 48px); max-width: none; }
+.footer--navy .footer__grid { grid-template-columns: minmax(0, 1fr) 215px 208px; gap: 48px; }
+.footer__statement { max-width: 520px; font-size: 26px; font-stretch: 125%; font-weight: 600; line-height: 1.3; }
+.footer--navy h2 { font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
+.footer--navy ul { gap: 12px; margin-top: 20px; }
 .footer--navy ul a { color: rgba(255, 255, 255, 0.85); font-size: 17px; }
 .footer--navy ul a:hover { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.6); }
-.footer--navy .footer__legal { margin-top: 56px; border-color: rgba(255, 255, 255, 0.2); }
+.footer--navy .footer__legal { margin-top: 88px; padding-top: 0; border: 0; }
 .footer--navy .footer__legal,
 .footer--navy .footer__credit { color: rgba(255, 255, 255, 0.65); }
 .footer--navy .footer__credit a:hover { color: #fff; }
+/* Narrower screens: the statement across the top, the two lists side by side under it */
+@media (max-width: 900px) {
+  .footer--navy .footer__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer__statement { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .footer--navy { padding: 64px 0 48px; }
+  .footer--navy .footer__grid,
+  .footer--navy .footer__legal,
+  .footer--navy .footer__credit { width: calc(100% - 40px); }
+  .footer__statement { font-size: 22px; }
+  .footer--navy .footer__legal { margin-top: 56px; }
+}
 
 @media (min-width: 781px) {
   .sky__space { height: 270px; }
