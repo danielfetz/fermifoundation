@@ -1,9 +1,9 @@
-// The link in the emails that api/subscribe.js and api/interest.js send. It checks the link's signature and age, then:
-// for updates, it subscribes the contact in Resend, puts it into the segments (everyone, and what they said they are)
-// and shows the Get updates page saying how it went (updates/index.html: #confirmed, #invalid or #failed); for a
-// tournament, it adds the city to the contact's "tournaments" (no segment, and the rest of the contact as it was) and
-// shows the home page (#interest-confirmed, #interest-invalid or #interest-failed). Either way, contact@fermi.org hears
-// about it.
+// The link in the emails that api/subscribe.js and api/interest.js send. It checks the link's signature and age,
+// then: for updates, it subscribes the contact in Resend, puts it into the segments (everyone, and what they said
+// they are) and shows the Get updates page saying how it went (updates/index.html: #confirmed, #invalid or #failed);
+// for a tournament, it adds the city to the contact's "tournaments" (no segment, and the rest of the contact as it
+// was) and shows the home page (#interest-boston and so on, #interest-invalid or #interest-failed). Either way,
+// contact@fermi.org hears about it.
 const {
   FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, LINK_DAYS, resend, signedOk, segmentsOf, removeFromSegments,
   addToSegments, onListAfterAll, citiesOf, saveCities, escape,
@@ -15,7 +15,7 @@ module.exports = async function confirm(req, res) {
   const city = Object.hasOwn(TOURNAMENTS, t) ? t : ''
   const role = Object.hasOwn(ROLES, r) ? r : ''
   const page = t
-    ? { done: '/#interest-confirmed', invalid: '/#interest-invalid', failed: '/#interest-failed' }
+    ? { done: `/#interest-${city}`, invalid: '/#interest-invalid', failed: '/#interest-failed' }
     : { done: '/updates/#confirmed', invalid: '/updates/#invalid', failed: '/updates/#failed' }
   const age = Date.now() / 1000 - Number(ts)
   const what = city ? `tournament:${city}` : role

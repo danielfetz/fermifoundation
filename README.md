@@ -97,11 +97,11 @@ emails a link to confirm it. The link (`api/confirm.js`) adds the city to the co
 Resend (say "Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every
 city they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no
 segments of their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page
-says how it went, above the cards (`#interest-sent`, `#interest-confirmed`, `#interest-invalid`, `#interest-failed`).
-Once there's a date, find who signed up for the city (the "tournaments" property on the contacts in Resend, or the
-emails to contact@fermi.org) and email them, and put the date on its card. To add a city: a card like Boston's (its
-key in the hidden `city` field and in the email field's id), and the key and name in `TOURNAMENTS` in
-`api/_resend.js`.
+says how it went, above the cards (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`,
+`#interest-failed`). Once there's a date, find who signed up for the city (the "tournaments" property on the contacts
+in Resend, or the emails to contact@fermi.org) and email them, and put the date on its card. To add a city: a card
+like Boston's (its key in the hidden `city` field and in the email field's id), its status above the cards
+(`#interest-` and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
 about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
