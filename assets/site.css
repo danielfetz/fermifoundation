@@ -130,9 +130,10 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
-/* On the home and FAQ pages, the white of their menu bar */
+/* On the pages in the new design (home, FAQ, How to play), the white of their menu bar */
 html.home-page,
-html.faq-page { --page-bg: #fff; }
+html.faq-page,
+html.guide-page { --page-bg: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -236,7 +237,8 @@ button {
 .nav--light .nav__sheet { background: #fff; }
 .nav--light .nav__sheet { font-family: var(--mona); }
 html.home-page.menu-open,
-html.faq-page.menu-open { --page-bg: #fff; }
+html.faq-page.menu-open,
+html.guide-page.menu-open { --page-bg: #fff; }
 
 /* Logo: a small photo of Fermi next to the name, in Mona Sans, wide and semi-bold */
 .logo {
@@ -1275,6 +1277,158 @@ html.faq-page.menu-open { --page-bg: #fff; }
   .faq__tab { font-size: 14px; }
   .qa summary h3 { font-size: 17px; }
   .qa__a { padding-right: 0; font-size: 16px; }
+}
+
+/* How to play, the first inner page in the new design (the others will follow). Under the white menu bar, a blue
+   header with the title, the introduction and the rule sheet, the players from the Fermi Poker box behind it as a
+   blueprint; then the guide on white in Mona Sans, its column lined up with the title, with the footnotes beside it on
+   wide screens. The guide's parts keep their classes and take the new look inside .doc. */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(400px, 34vw, 560px);
+  background: #18208f center 30% / cover no-repeat;
+  font-family: var(--mona);
+}
+.page-hero--guide { background-image: url(/assets/img/guide-hero.webp); }
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(10, 14, 96, 0.84), rgba(10, 14, 96, 0.58) 55%, rgba(10, 14, 96, 0.3));
+}
+.page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
+.page-hero h1 {
+  max-width: 14em;
+  color: #fff;
+  font-size: clamp(44px, 4.08vw, 65.28px);
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.page-hero__sub {
+  max-width: 640px;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 19px;
+  font-stretch: 112.5%;
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+.page-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 10px 24px;
+  background: #fff;
+  color: #1b21b1;
+  font-size: 16px;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background-color 150ms var(--ease);
+}
+.page-hero__btn:hover { background: #eef0ff; }
+.page-hero__btn svg { width: 18px; height: 18px; flex: none; }
+.doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); }
+/* The column: as wide as before, its left edge under the header's title */
+.doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
+.doc .texts { margin-top: 0; }
+.doc .section { margin-top: 72px; }
+.doc .section > h2 { color: #000; font-family: var(--mona); font-size: 34px; font-stretch: 125%; font-weight: 700; line-height: 1.15; }
+.doc .section__step {
+  margin-top: 48px;
+  color: #000;
+  font-family: var(--mona);
+  font-size: 22px;
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.doc .section > h2 + .section__step { margin-top: 28px; }
+.doc .section__aside { color: #555; font-family: var(--mona); font-size: 0.82em; font-stretch: 100%; font-weight: 400; }
+.doc .text,
+.doc .list,
+.doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
+.doc .section > .text { margin-top: 18px; }
+.doc .list li::marker { color: #1b21b1; }
+.doc .link { color: inherit; text-decoration-color: #1b21b1; }
+.doc .link:hover { color: #1b21b1; }
+/* The notes: pale blue panels, square like the header's button */
+.doc .sticky-note { padding: 24px 28px 26px; border-radius: 0; background: #e6eefe; box-shadow: none; transform: none; }
+.doc .section > .sticky-note { margin-top: 28px; }
+/* Words to send or read out, the announcement and the rules: a paler panel, set in from a large blue quotation mark */
+.doc .box--quote { padding: 28px 32px 30px 76px; background: #f3f6fe; }
+.doc .box--quote::before { top: 16px; left: 22px; color: #1b21b1; font-family: var(--mona); font-size: 72px; font-stretch: 125%; }
+/* Boxes that fold open, like the variations: rows like the FAQ page's questions, with thin lines between them */
+.doc .box--fold { padding: 0; border: 0; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
+.doc .boxes > .box--fold + .box--fold { margin-top: 0; }
+.doc .boxes > .box--fold:last-child { border-bottom: 1px solid #e3e3e3; }
+.doc .box--fold > summary { padding: 20px 0; }
+.doc .box h3,
+.doc .box h4 { color: #000; font-family: var(--mona); font-size: 18px; font-weight: 600; line-height: 1.5; }
+.doc .box--fold > summary::after {
+  width: 9px;
+  height: 9px;
+  margin-right: 4px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  background: none;
+  transform: rotate(-45deg);
+  transition: transform 150ms var(--ease);
+}
+.doc .box--fold[open] > summary::after { transform: rotate(45deg); }
+.doc .box--fold > .box__body { margin-top: -4px; padding: 0 40px 24px 0; }
+/* The ante schedule: a plain table, its rows ruled like the folding rows, in Mona Sans' usual figures (its tabular
+   ones look typewritten) */
+.doc .table-box { max-width: 420px; padding: 0; border-radius: 0; background: none; }
+.doc .table-box table { font-variant-numeric: normal; }
+.doc .table-box thead tr { border-bottom-color: #000; }
+.doc .table-box th { font-family: var(--mona); font-weight: 600; }
+.doc .table-box tbody tr { border-bottom-color: #e3e3e3; }
+/* The sample question, hidden for now */
+.doc .example { border-radius: 0; background: #f3f6fe; }
+.doc .game-card { border-radius: 8px; background: #fff; }
+.doc .game-card__text { font-family: var(--mona); font-weight: 600; }
+/* The footnotes, in the blue of the links; on wide screens also beside their lines */
+.doc .footnotes { margin-top: 80px; border-color: #e3e3e3; color: #555; font-size: 15px; line-height: 1.55; }
+.doc .fn-ref a,
+.doc .fn-back,
+.doc .sidenote__n { color: #1b21b1; }
+.doc .footnotes .link:hover,
+.doc .sidenote .link:hover { color: #1b21b1; }
+@media (min-width: 1230px) {
+  .doc .page--sidenotes .sidenote { width: 250px; color: #666; font-family: var(--mona); font-size: 14px; }
+  .doc .page--sidenotes .sidenote.is-lit { color: #000; }
+}
+/* A note shown in place: white like the page, its links like the guide's (it's at the end of the page, outside .doc) */
+html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; font-family: var(--mona); }
+html.guide-page .fn-pop .link { color: inherit; text-decoration-color: #1b21b1; }
+html.guide-page .fn-pop .link:hover { color: #1b21b1; }
+@media (max-width: 700px) {
+  .page-hero { min-height: 0; background-position: center; }
+  .page-hero--guide { background-image: url(/assets/img/guide-hero-phone.webp); }
+  .page-hero::before { background: rgba(10, 14, 96, 0.62); }
+  .page-hero__inner { width: calc(100% - 40px); padding: 56px 0; }
+  .page-hero h1 { font-size: 44px; }
+  .page-hero__sub { font-size: 17px; line-height: 1.55; }
+  .doc { padding: 56px 0 80px; }
+  .doc .page { width: calc(100% - 40px); margin-left: 20px; }
+  .doc .section { margin-top: 56px; }
+  .doc .section > h2 { font-size: 28px; }
+  .doc .section__step { font-size: 20px; }
+  .doc .text,
+  .doc .list,
+  .doc .box__body { font-size: 17px; }
+  .doc .sticky-note { padding: 20px 20px 22px; }
+  /* The quotation mark above the words, so they have the panel's whole width */
+  .doc .box--quote { padding: 46px 20px 24px; }
+  .doc .box--quote::before { top: 10px; left: 18px; font-size: 52px; }
+  .doc .box--fold > .box__body { padding-right: 0; }
 }
 
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */

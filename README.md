@@ -8,7 +8,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `api/`: the two Vercel Functions behind Get updates (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the Host sign-up form, Get updates, How to
   play's footnotes and the FAQ page's tabs
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the home and FAQ pages Mona Sans, all self-hosted),
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, all self-hosted),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
 - The fonts' Latin files (`fermi-sans-*.woff2`, `fermi-serif-*.woff2`) are PT Sans and PT Serif without their
@@ -22,10 +22,12 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the paper; `rome-blueprint.webp` the home page's
   header, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
-  header, darkened there in CSS; `start-*.webp` the pictures on the cards under the home page's Learn more and get
-  involved (the chips, the players from the Fermi Poker box, the blueprint Rome and Enrico Fermi), in the header's
-  blue; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before (the About card's picture is made
-  from it), with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
+  header, darkened there in CSS; `guide-hero.webp` How to play's header, the players from the Fermi Poker box (its
+  illustration, engraved) as a blueprint in the same blue, and `guide-hero-phone.webp` the part of it that phones
+  show; `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, the
+  players from the Fermi Poker box, the blueprint Rome and Enrico Fermi), in the header's blue; `enrico-fermi.webp`
+  is a photo of Fermi that stood on the home page before (the About card's picture is made from it), with
+  `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -44,16 +46,19 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `play.css`.
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seven. On
-wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home and
-FAQ pages have the white menu bar (`nav--light`), with the name alone as the logo, and the navy footer
+wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home, FAQ
+and How to play pages have the white menu bar (`nav--light`), with the name alone as the logo, and the navy footer
 (`footer--navy`), which has where to write in place of the logo; the other pages keep the paper look for now.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
-need, an announcement, the rules to read aloud, an ante schedule and variations. Its footnotes are numbers in the text
-that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin beside
-its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and without
-JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to
-use later.
+need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design: a blue
+header (`page-hero`, its picture from `page-hero--guide`, so the other inner pages can share it) with the title, the
+introduction and the rule sheet, then the guide on white (`.doc`), its column lined up with the title. The guide's
+parts keep their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in the
+text that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin
+beside its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and
+without JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page,
+hidden, to use later.
 
 The FAQ page has three parts, General, Hosting and Educational value, each a list of questions that open in place.
 `site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
@@ -96,7 +101,7 @@ Vercel serves its script only on the deployment, so a local preview shows a harm
 `/_vercel/insights/script.js`.
 
 The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.S. Department of Energy photo
-(c. 1943–49) in the public domain. The Rome behind the inner pages' menu is Giovanni Battista
+(c. 1943–49) in the public domain. The Rome behind the menu of the pages in the paper look is Giovanni Battista
 Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite;
 behind the home page's header it's in blue, as a blueprint.
