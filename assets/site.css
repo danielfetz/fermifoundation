@@ -448,8 +448,8 @@ html.faq-page.menu-open { --page-bg: #fff; }
   font-weight: 600;
   line-height: 1.25;
 }
-/* Start here: a tall card for each page, its picture in the header's blue under a shade that's darkest behind the
-   title; the whole card is the link, and its picture comes a little closer on hover */
+/* Ways to get involved: a tall card for each page, its picture in the header's blue under a shade that's darkest
+   behind the title; the whole card is the link, and its picture comes a little closer on hover */
 .start h2 { margin-bottom: 48px; text-align: center; }
 .start__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .start-card {
