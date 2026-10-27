@@ -482,10 +482,10 @@ if (faqTabs) {
   addEventListener('hashchange', followHash)
 }
 
-// Sections fade in as they come into view. What's still below the screen when the page loads (or only just peeking
-// in at its foot) starts out faded and a little lower (.reveal), and comes in (.is-in) once it's partly on screen;
-// what comes into view together comes in one after the other. Nothing on screen ever disappears. Not for people who
-// ask for less motion, and without JavaScript everything simply shows.
+// Sections fade in as they come into view. What's wholly below the screen when the page loads starts out faded and a
+// little lower (.reveal), and comes in (.is-in) once it's partly on screen; what comes into view together comes in one
+// after the other. Anything that shows at all when the page opens, even only its top, stays as it is. Not for people
+// who ask for less motion, and without JavaScript everything simply shows.
 const revealable = document.querySelectorAll('.events h2, .event, .intro__inner > p, .start h2, .start-card, .signup__text, .doc .page > .texts, .doc .page > .section, .faq__inner')
 
 if (revealable.length && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -499,7 +499,7 @@ if (revealable.length && 'IntersectionObserver' in window && !matchMedia('(prefe
     }
   }, { rootMargin: '0px 0px -10% 0px' })
   for (const el of revealable) {
-    if (el.getClientRects().length && el.getBoundingClientRect().top > innerHeight * 0.9) {
+    if (el.getClientRects().length && el.getBoundingClientRect().top >= innerHeight) {
       el.classList.add('reveal')
       appear.observe(el)
     }
