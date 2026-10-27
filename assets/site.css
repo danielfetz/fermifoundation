@@ -531,7 +531,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   display: block;
   aspect-ratio: 5 / 7;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   background: #1b21b1;
   color: #fff;
 }

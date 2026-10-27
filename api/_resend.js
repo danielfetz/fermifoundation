@@ -77,7 +77,8 @@ function signedOk(id, what, time, signature) {
 // whether it's subscribed (to something: what to, its segments say), or null if Resend didn't answer. A contact is
 // made only once Resend says there's none, so making one never touches one that's there.
 async function contactFor(email) {
-  const found = await resend(`/contacts/${encodeURIComponent(email)}`)
+  // The address as it is in the path, as Resend's own library sends it, but for what would end the path
+  const found = await resend(`/contacts/${email.replace(/[/?#%\\]/g, encodeURIComponent)}`)
   if (found.ok && found.data.id) return { id: found.data.id, subscribed: found.data.unsubscribed === false }
   if (found.status !== 404) {
     console.error('Resend contact:', found.status, JSON.stringify(found.data))
