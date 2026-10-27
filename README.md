@@ -25,9 +25,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   home page and How to play, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
   `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
   header, darkened there in CSS; `start-*.webp` the pictures on the cards under the home page's Learn more and get
-  involved (the chips, the players from the Fermi Poker box, the blueprint Rome and Enrico Fermi), in the header's
-  blue; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before (the About card's picture is made
-  from it), with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
+  involved (the chips, a drawing of University Hall, the dining hall at Fuller Lodge and Enrico Fermi), toned in the
+  header's blue; `enrico-fermi.webp` is a photo of Fermi that stood on the home page before (the About card's picture
+  is made from it), with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -110,7 +110,11 @@ Vercel serves its script only on the deployment, so a local preview shows a harm
 `/_vercel/insights/script.js`.
 
 The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.S. Department of Energy photo
-(c. 1943–49) in the public domain. The Rome behind the menu of the pages in the paper look is Giovanni Battista
+(c. 1943–49) in the public domain. So are the pictures on the For schools and For companies cards, from Wikimedia
+Commons: a drawing of
+[University Hall](https://commons.wikimedia.org/wiki/File:University_Hall_from_the_Middle_Campus.jpg) and the
+[dining hall at Fuller Lodge](https://commons.wikimedia.org/wiki/File:HD.4G.060_%2810540752984%29.jpg), Los Alamos
+(U.S. Department of Energy). The Rome behind the menu of the pages in the paper look is Giovanni Battista
 Piranesi's etching of the Forum (Veduta di Campo Vaccino, c. 1775),
 [public domain at the Met](https://www.metmuseum.org/art/collection/search/363433), cropped and re-inked in warm graphite;
 behind the headers of the home page and How to play it's in blue, as a blueprint.
