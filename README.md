@@ -102,8 +102,10 @@ Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the
 page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
-uses the same picture, `assets/img/link-preview.jpg` (1200 × 630): a screenshot of the top of the home page with
-the menu hidden and the headline set larger. The tags need absolute URLs, so they name https://fermi.org.
+uses the same picture, `assets/img/link-preview-blueprint.jpg` (1200 × 630): the home page's header, its headline and
+the line under it over the blue Rome, with the name above. The tags need absolute URLs, so they name
+https://fermi.org. Apps keep a preview for a while; a new picture under a new file name makes them fetch it again
+(LinkedIn's Post Inspector refreshes it at once).
 
 To preview, run `python3 -m http.server` here and open http://localhost:8000.
 

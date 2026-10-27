@@ -862,6 +862,8 @@ html.new-design.menu-open { --page-bg: #fff; }
 .footnotes li + li { margin-top: 10px; }
 .footnotes li::marker { color: var(--ink-soft); font-weight: 700; }
 .fn-back { margin-left: 3px; color: var(--blue); }
+/* Its arrow is drawn: the character ↩ shows as an emoji on Apple's devices */
+.fn-back svg { display: inline-block; width: 0.95em; height: 0.95em; vertical-align: -0.12em; }
 /* Links in the notes are in the notes' grey, like the words around them; the blue underline shows they're links */
 .footnotes .link,
 .sidenote .link { color: inherit; }
