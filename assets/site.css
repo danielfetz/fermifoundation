@@ -1306,6 +1306,9 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
   background: linear-gradient(90deg, rgba(10, 14, 96, 0.76), rgba(10, 14, 96, 0.46) 60%, rgba(10, 14, 96, 0.16));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
+/* A header with little under its title, like Get updates: as tall as the FAQ page's */
+.page-hero--short { min-height: clamp(260px, 25vw, 400px); }
+.page-hero--short .page-hero__inner { padding: 48px 0; }
 .page-hero h1 {
   max-width: 14em;
   color: #fff;
