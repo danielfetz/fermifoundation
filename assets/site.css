@@ -939,13 +939,20 @@ html.guide-page.menu-open { --page-bg: #fff; }
   transition: color 150ms var(--ease);
 }
 .link:hover { color: var(--blue); }
-/* In the new design (home, FAQ, How to play): blue words, a little bolder, underlined only under the mouse */
+/* In the new design (home, FAQ, How to play): blue words, a little bolder, with a light underline that turns solid
+   under the mouse */
 html.home-page .link,
 html.faq-page .link,
-html.guide-page .link { color: #2f62e6; font-weight: 500; text-decoration: none; }
+html.guide-page .link {
+  color: #2f62e6;
+  font-weight: 500;
+  text-decoration: underline 1px rgba(47, 98, 230, 0.4);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 150ms var(--ease);
+}
 html.home-page .link:hover,
 html.faq-page .link:hover,
-html.guide-page .link:hover { color: #2f62e6; text-decoration: underline 1px; }
+html.guide-page .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 
 /* Sign-up form on the Host page: round fields like the cards, the blue pill to send */
 .form { display: grid; gap: 22px; margin-top: 24px; }
