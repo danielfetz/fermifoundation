@@ -53,6 +53,11 @@ a light underline, and the navy footer (`footer--navy`), which has where to writ
 look the pages had before (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark
 footer) is still in `site.css`, unused for now.
 
+Sections fade in, gliding up a little, as they come into view: `site.js` marks whatever is still below the screen
+when a page loads (`.reveal`, and `.is-in` once it shows; the list of what's marked is at the end of `site.js`).
+Nothing on screen is ever hidden, things that come into view together come in one after the other, and there's no
+animation for people whose device asks for less motion, or without JavaScript.
+
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design: a blue
 header (`page-hero`, with the home page's Rome, for the other inner pages to share) with the title, the introduction

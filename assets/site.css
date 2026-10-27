@@ -1500,6 +1500,17 @@ html.new-design h3 .link { font-weight: inherit; }
   .doc .updates-page { padding: 22px 20px 24px; }
 }
 
+/* Sections fade in as they come into view, gliding up a little (assets/site.js marks them) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+@media print {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* Dark footer; the paper above it ends in a torn edge that hangs over the top padding */
 .footer {
   position: relative;
