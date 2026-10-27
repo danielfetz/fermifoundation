@@ -46,7 +46,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seven. On
 wide screens the menu shows How to play, FAQ and Donate; the phone menu and the footer list every page. The home and
 FAQ pages have the white menu bar (`nav--light`), with the name alone as the logo, and the navy footer
-(`footer--navy`), which has a statement in place of the logo; the other pages keep the paper look for now.
+(`footer--navy`), which has where to write in place of the logo; the other pages keep the paper look for now.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. Its footnotes are numbers in the text
