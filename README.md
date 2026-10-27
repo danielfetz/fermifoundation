@@ -89,16 +89,17 @@ button to the rest; their answers are copies of the FAQ page's, so change them i
 
 Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
 Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over the pattern of card
-suits, and a last card, Somewhere else?, leading to For schools. A city's card can have a photo in place of the pattern
-(an `img` with the class `event__photo`, say `assets/img/event-boston.webp`). On a city's card, "I'm interested" opens a
-field for the email (a `details` element, so it works without JavaScript too). It goes to `api/interest.js`, which,
-like Get updates, adds the address to Resend's contacts and emails a link to confirm it; the link (`api/confirm.js`)
-puts them into that tournament's segment in Resend ("Boston tournament" and so on), and not into the one for updates,
-and emails contact@fermi.org about it, with how many are on that list now. Without JavaScript, and after the link,
-the home page says how it went, above the cards (`#interest-sent`, `#interest-confirmed`, `#interest-invalid`,
-`#interest-failed`). Once there's a date, write a Broadcast in Resend to the tournament's segment, and put the date on
-its card. To add a city: a card like Boston's (its key in the hidden `city` field and in the email field's id), and
-the key and name in `TOURNAMENTS` in `api/_resend.js`; its segment is made with the first sign-up.
+suits, and a last card, Somewhere else?, its button (Partner with us) an email to contact@fermi.org. A city's card can
+have a photo in place of the pattern (an `img` with the class `event__photo`, say `assets/img/event-boston.webp`). On
+a city's card, "I'm interested" opens a field for the email (a `details` element, so it works without JavaScript too).
+It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts and emails a link to
+confirm it; the link (`api/confirm.js`) puts them into that tournament's segment in Resend ("Boston tournament" and so
+on), and not into the one for updates, and emails contact@fermi.org about it, with how many are on that list now.
+Without JavaScript, and after the link, the home page says how it went, above the cards (`#interest-sent`,
+`#interest-confirmed`, `#interest-invalid`, `#interest-failed`). Once there's a date, write a Broadcast in Resend to
+the tournament's segment, and put the date on its card. To add a city: a card like Boston's (its key in the hidden
+`city` field and in the email field's id), and the key and name in `TOURNAMENTS` in `api/_resend.js`; its segment is
+made with the first sign-up.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
 about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
