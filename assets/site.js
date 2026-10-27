@@ -101,6 +101,50 @@ if (teamForm && teamFormDone) {
   })
 }
 
+// Upcoming tournaments: "I’m interested" opens a field for the email in the card, which goes to /api/interest
+// (api/interest.js); then the card says to confirm with the link it emails. Escape closes the field again. Without
+// JavaScript the form posts there directly, and comes back to the home page saying how it went (#interest-sent...).
+for (const interest of document.querySelectorAll('.event__interest')) {
+  const summary = interest.querySelector('summary')
+  const form = interest.querySelector('form')
+  const done = interest.nextElementSibling
+  const button = form.querySelector('button[type="submit"]')
+  const error = form.querySelector('.event__error')
+
+  // Opened here rather than by the browser, so the field can take the focus during the tap (which is when phones
+  // bring up the keyboard)
+  summary.addEventListener('click', event => {
+    event.preventDefault()
+    interest.open = true
+    form.elements.email.focus()
+  })
+  interest.addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !interest.open) return
+    interest.open = false
+    summary.focus()
+  })
+  form.addEventListener('submit', async event => {
+    event.preventDefault()
+    button.disabled = true
+    error.hidden = true
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      interest.hidden = true
+      done.hidden = false
+      done.focus()
+    } catch {
+      error.hidden = false
+    } finally {
+      button.disabled = false
+    }
+  })
+}
+
 // Updates: the sign-up forms in the page (home, /updates/), and a short one in a pop-up, with a small heading over each
 // field. They send to
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
@@ -486,7 +530,7 @@ if (faqTabs) {
 // little lower (.reveal), and comes in (.is-in) once it's partly on screen; what comes into view together comes in one
 // after the other. Anything that shows at all when the page opens, even only its top, stays as it is. Not for people
 // who ask for less motion, and without JavaScript everything simply shows.
-const revealable = document.querySelectorAll('.events h2, .event, .intro__inner > p, .start h2, .start-card, .signup__text, .doc .page > .texts, .doc .page > .section, .faq__inner')
+const revealable = document.querySelectorAll('.events h2, .event, .intro__inner > p, .start h2, .start-card, .home-faq h2, .home-faq .qa, .home-faq__more, .signup__text, .doc .page > .texts, .doc .page > .section, .faq__inner')
 
 if (revealable.length && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const appear = new IntersectionObserver(entries => {

@@ -298,8 +298,9 @@ html.new-design.menu-open { --page-bg: #fff; }
   max-width: 640px;
   color: #fff;
   font-family: var(--mona);
-  font-size: 19px;
+  font-size: 20px;
   font-stretch: 112.5%;
+  font-weight: 500;
   line-height: 1.58;
   text-wrap: pretty;
 }
@@ -325,7 +326,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   font-weight: 600;
   line-height: 1.2;
 }
-.hero__btn {
+.hero__btn,
+.home-faq__more {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -340,8 +342,10 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.5;
   transition: background-color 150ms var(--ease);
 }
-.hero__btn:hover { background: #141a92; }
-.hero__btn svg { width: 16px; height: 16px; }
+.hero__btn:hover,
+.home-faq__more:hover { background: #141a92; }
+.hero__btn svg,
+.home-faq__more svg { width: 16px; height: 16px; }
 /* Narrower screens: the guide's button under its text */
 @media (max-width: 899px) {
   .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -359,7 +363,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   }
   .hero::before { background: rgba(10, 14, 96, 0.45); }
   .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
-  .hero__sub { font-size: 17px; line-height: 1.55; }
+  .hero__sub { font-size: 19px; line-height: 1.55; }
   .hero__cta { align-items: stretch; width: auto; margin-top: 36px; padding: 8px 12px; }
   /* In three lines: "Get the guide to playing / Fermi Poker and hosting / a tournament" (12.3em, 12.7em; with "a",
      13.6em) */
@@ -367,22 +371,23 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero__btn { justify-content: center; }
 }
 
-/* Upcoming tournaments, under the header: cards with a blue head (the name and, in narrow capitals, the date) over a
-   picture with the button on it. For now one card across the row, saying there are no public tournaments and leading
-   to hosting one, over a pattern of card suits. */
+/* Upcoming tournaments, under the header: cards with a blue head (the city and, in narrow capitals, the date) over a
+   pattern of card suits (or a photo of the city) with the button on it, and a last card for everywhere else. The
+   pictures sit at the foot of the cards, so they line up across a row whatever the heads hold. */
 .events { padding: 100px 0 96px; background: #fff; }
 .events__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 .events h2 { margin-bottom: 48px; text-align: center; }
 .events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .event { position: relative; display: flex; flex-direction: column; background: #1b21b1; }
-.event--wide { grid-column: 1 / -1; }
-.event__head { padding: 16px 16px 12px; color: #fff; }
+/* Each head as tall as one with the name and the date, so a card without a date (Somewhere else?) matches, its foot
+   empty */
+.event__head { min-height: 89px; padding: 16px 16px 12px; color: #fff; }
 .event__title { font-family: var(--mona); font-size: 21px; font-stretch: 125%; font-weight: 600; line-height: 1; text-transform: uppercase; }
-.event__when { font-family: var(--mona); font-size: 30px; font-stretch: 75%; font-weight: 400; line-height: 1; text-transform: uppercase; }
-.event__note { margin-top: 8px; color: rgba(255, 255, 255, 0.86); font-family: var(--mona); font-size: 18px; line-height: 1.4; }
-.event__photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.event__when { margin-top: 10px; font-family: var(--mona); font-size: 30px; font-stretch: 75%; font-weight: 400; line-height: 1; text-transform: uppercase; }
+.event__photo,
+.event__art { width: 100%; height: 220px; margin-top: auto; }
+.event__photo { object-fit: cover; }
 .event__art {
-  height: 220px;
   background: #eef0f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='%23d8dcf1'%3E%3Cpath transform='translate(30 26)' d='M0-11C-7-4-11-1-11 3.2c0 3.1 2.4 5.2 5.1 5.2 2.4 0 4.2-1.3 5.2-3.2L-2.6 12h5.2L.7 5.2c1 1.9 2.8 3.2 5.2 3.2 2.7 0 5.1-2.1 5.1-5.2C11-1 7-4 0-11Z'/%3E%3Cpath transform='translate(90 26)' d='M0 10.5C-7 4.2-11 .8-11-3.6c0-3.3 2.5-5.6 5.4-5.6 2.4 0 4.3 1.4 5.6 3.6C1.3-7.8 3.2-9.2 5.6-9.2c2.9 0 5.4 2.3 5.4 5.6 0 4.4-4 7.8-11 14.1Z'/%3E%3Cpath transform='translate(0 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(120 78)' d='M0-11.5 8.2 0 0 11.5-8.2 0Z'/%3E%3Cpath transform='translate(60 78)' d='M0-11a4.9 4.9 0 0 0-4.6 6.6A4.9 4.9 0 1 0-1.4 4.4L-2.8 11h5.6L1.4 4.4a4.9 4.9 0 1 0 3.2-8.8A4.9 4.9 0 0 0 0-11Z'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 120px 104px;
 }
 .event__btn {
@@ -405,25 +410,96 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .event__btn:hover { background: #eef0ff; }
 .event__btn svg { width: 16px; height: 16px; }
+/* "I’m interested" (the summary of a details element, its words and arrow in a span, as Safari doesn't lay out a
+   summary as flex) gives way to a white panel with the field for the email, over the picture; once sent, to the
+   thanks */
+summary.event__btn { display: block; list-style: none; cursor: pointer; }
+summary.event__btn::-webkit-details-marker { display: none; }
+summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
+.event__interest[open] > summary { display: none; }
+.event__form,
+.event__done {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  padding: 14px 14px 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 6px 16px -6px rgba(0, 0, 0, 0.3);
+  color: #111;
+  font-family: var(--mona);
+  outline: none;
+}
+.event__label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 600; line-height: 1.3; }
+.event__row { display: flex; flex-wrap: wrap; gap: 6px; }
+.event__row input {
+  flex: 1 1 120px;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #c3c9d8;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-size: 15px;
+}
+.event__row input:focus-visible { border-color: #1b21b1; outline: none; box-shadow: 0 0 0 3px rgba(27, 33, 177, 0.18); }
+.event__row button {
+  flex: none;
+  height: 40px;
+  padding: 0 14px;
+  border: 0;
+  background: #1b21b1;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-stretch: 112.5%;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+.event__row button:hover { background: #151a8f; }
+.event__row button:disabled { opacity: 0.7; cursor: default; }
+.event__small,
+.event__error { margin-top: 8px; font-size: 13px; line-height: 1.4; }
+.event__small { color: #555; }
+.event__error { color: #a4231c; }
+/* The error takes the small print's place, so the panel stays on the picture */
+.event__form:has(.event__error:not([hidden])) .event__small { display: none; }
+.event__done p { font-size: 16px; line-height: 1.45; text-wrap: pretty; }
+/* Two to a row where three would be too narrow, a last card on its own across the row */
+@media (min-width: 701px) and (max-width: 980px) {
+  .events__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+/* What happened, after sending without JavaScript or following the link in the email: as on For companies and Get
+   updates, between the heading and the cards, the heading still in sight */
+.events .status { margin: -8px 0 32px; border-radius: 0; background: #e6eefe; font-family: var(--mona); scroll-margin-top: 116px; }
 @media (max-width: 700px) {
   .events { padding: 64px 0; }
   .events__inner { width: calc(100% - 40px); }
   .events h2 { margin-bottom: 32px; font-size: 34px; }
   .events__list { grid-template-columns: minmax(0, 1fr); }
+  .event__photo,
   .event__art { height: 180px; }
+  .events .status { margin: 0 0 24px; padding: 18px 20px; scroll-margin-top: 128px; }
 }
 
 /* The rest of the home page, in the header's style: white and pale blue bands, headings like the tournaments' */
 .intro,
 .start,
+.home-faq,
 .signup { padding: 96px 0; }
 .intro,
 .signup { background: #e6eefe; }
 .intro__inner,
 .start__inner,
+.home-faq__inner,
 .signup__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 .events h2,
 .start h2,
+.home-faq h2,
 .signup h2 {
   color: #000;
   font-family: var(--mona);
@@ -478,6 +554,15 @@ html.new-design.menu-open { --page-bg: #fff; }
 .start-card span { display: block; padding: 28px 26px; font-size: 24px; font-stretch: 125%; font-weight: 600; line-height: 1.15; }
 .start-card:hover img { transform: scale(1.05); }
 .start-card:focus-visible { outline: 3px solid #1b21b1; outline-offset: 3px; }
+/* Frequently asked questions: on white after the mailing list, the questions opening in place as on the FAQ page, a
+   line under each, then the way to the rest in the guide's blue button */
+.home-faq h2 { margin-bottom: 40px; }
+.home-faq__list { max-width: 760px; }
+.home-faq .qa { border-bottom: 1px solid #e7e7e7; }
+.home-faq .qa + .qa { border-top: 0; }
+.home-faq .qa summary { padding: 22px 0; }
+.home-faq .qa summary h3 { font-size: 20px; }
+.home-faq__more { margin-top: 48px; }
 /* The mailing list: the heading and the form in a white frame with a black button, on the left of the band */
 .signup__text { max-width: 560px; }
 .signup__text > p { margin-top: 16px; color: #111; font-size: 20px; line-height: 1.5; }
@@ -515,12 +600,19 @@ html.new-design.menu-open { --page-bg: #fff; }
 @media (max-width: 700px) {
   .intro,
   .start,
+  .home-faq,
   .signup { padding: 64px 0; }
   .intro__inner,
   .start__inner,
+  .home-faq__inner,
   .signup__inner { width: calc(100% - 40px); }
   .start h2,
+  .home-faq h2,
   .signup h2 { font-size: 34px; }
+  .home-faq h2 { margin-bottom: 20px; }
+  .home-faq .qa summary { padding: 20px 0; }
+  .home-faq .qa summary h3 { font-size: 18px; }
+  .home-faq__more { margin-top: 36px; }
   .start h2 { margin-bottom: 32px; }
   .intro p { font-size: 18px; }
   .intro .intro__lead { margin-bottom: 28px; font-size: 25px; }
@@ -1191,32 +1283,9 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 .updates-page { margin-top: 28px; }
 .updates-page .su { max-width: 480px; }
 
-/* The FAQ page: under the menu, the chips darkened, darkest behind the white title */
-.faq-hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: clamp(260px, 25vw, 400px);
-  background: #333 url(/assets/img/faq-hero.webp) 50% 55% / cover no-repeat;
-}
-.faq-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.66) 50%, rgba(0, 0, 0, 0.55));
-}
-.faq-hero__inner { position: relative; width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
-.faq-hero h1 {
-  max-width: 9.5em;
-  color: #fff;
-  font-family: var(--mona);
-  font-size: clamp(44px, 4.08vw, 65.28px);
-  font-stretch: 125%;
-  font-weight: 700;
-  line-height: 1.1;
-}
-/* Then tabs in blue capitals, the open one underlined (assets/site.js), over a column of questions that open in place.
-   Without JavaScript the parts follow one another, each under its heading. */
+/* The FAQ page: under the Rome header (.page-hero, like Get updates), tabs in blue capitals, the open one underlined
+   (assets/site.js), over a column of questions that open in place. Without JavaScript the parts follow one another,
+   each under its heading. */
 .faq { padding: 100px 0 120px; background: #fff; }
 .faq__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 .faq__tabs { display: flex; flex-wrap: wrap; gap: 12px 32px; margin-bottom: 40px; }
@@ -1274,9 +1343,6 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
 .qa__a p + p { margin-top: 12px; }
 .faq__closing { margin-top: 32px; color: #333; font-family: var(--mona); font-size: 17px; line-height: 1.6; }
 @media (max-width: 700px) {
-  .faq-hero { min-height: 220px; }
-  .faq-hero__inner { width: calc(100% - 40px); padding: 40px 0; }
-  .faq-hero h1 { font-size: 44px; }
   .faq { padding: 56px 0 80px; }
   .faq__inner { width: calc(100% - 40px); }
   /* The three tabs on one line */
@@ -1307,7 +1373,7 @@ html.new-design .link:hover { color: #2f62e6; text-decoration-color: #2f62e6; }
   background: linear-gradient(90deg, rgba(10, 14, 96, 0.76), rgba(10, 14, 96, 0.46) 60%, rgba(10, 14, 96, 0.16));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
-/* A header with little under its title, like Get updates: as tall as the FAQ page's */
+/* A header with little under its title, like Get updates and FAQ */
 .page-hero--short { min-height: clamp(260px, 25vw, 400px); }
 .page-hero--short .page-hero__inner { padding: 48px 0; }
 .page-hero h1 {
@@ -1488,9 +1554,9 @@ html.new-design h3 .link { font-weight: inherit; }
 .doc .status { margin-top: 28px; border-radius: 0; background: #e6eefe; }
 .doc .form-done h3,
 .doc .status h2,
-.doc .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
-.doc .status p { font-size: 17px; line-height: 1.6; }
-.doc .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.doc, .events) .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
+:is(.doc, .events) .status p { font-size: 17px; line-height: 1.6; }
+:is(.doc, .events) .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231b21b1'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .doc .status--done:target ~ .form { display: none; }
 /* Get updates: the form in the white frame of the home page's mailing list, on a pale blue panel */
 .doc .updates-page { max-width: 640px; padding: 32px; background: #e6eefe; }

@@ -73,15 +73,166 @@
     </div>
   </header>
 
-  <!-- Upcoming tournaments, as cards. None are public for now, so one card says so and leads to hosting one. -->
-  <section class="events" aria-labelledby="events-title">
+  <!-- Upcoming tournaments, as cards: each city where we'll hold one once enough people are interested, its date to be
+       set, and one for everywhere else. "I’m interested" opens a field for the email in the card (a details element,
+       so it works without JavaScript too), sent to api/interest.js: that tournament's list only, not the updates. A
+       city's key (boston) is the one in api/_resend.js. For a photo of the city in place of the pattern, an
+       <img class="event__photo" src="/assets/img/event-boston.webp" alt=""> instead of its event__art. -->
+  <section class="events" id="tournaments" aria-labelledby="events-title">
     <div class="events__inner">
       <h2 id="events-title">Upcoming tournaments</h2>
+      <!-- How it went: after sending without JavaScript (#interest-sent, #interest-failed), or after following the
+           link in the email (#interest-confirmed, #interest-invalid, #interest-failed) -->
+      <section class="status status--done" id="interest-sent" tabindex="-1">
+        <h3>Check your inbox</h3>
+        <p>We’ve sent you a link. Click it to confirm, and we’ll email you once there’s a date.</p>
+      </section>
+      <section class="status status--done" id="interest-confirmed" tabindex="-1">
+        <h3>You’re on the list</h3>
+        <p>Thanks! We’ll email you once there’s a date.</p>
+      </section>
+      <section class="status" id="interest-invalid" tabindex="-1">
+        <h3>That link didn’t work</h3>
+        <p>It may be more than a week old, or not copied in full. Click “I’m interested” again, and we’ll send you a new one.</p>
+      </section>
+      <section class="status" id="interest-failed" tabindex="-1">
+        <h3>Something went wrong</h3>
+        <p>Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+      </section>
       <div class="events__list">
-        <article class="event event--wide">
+        <article class="event">
           <div class="event__head">
-            <h3 class="event__title">No public tournaments right now</h3>
-            <p class="event__note">Most are private.</p>
+            <h3 class="event__title">Boston</h3>
+            <p class="event__when">Date to be set</p>
+          </div>
+          <div class="event__art"></div>
+          <details class="event__interest">
+            <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
+            <form class="event__form" action="/api/interest" method="post">
+              <input name="city" type="hidden" value="boston">
+              <label class="event__label" for="boston-email">Get an email once there’s a date</label>
+              <div class="event__row">
+                <input id="boston-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
+                <button type="submit">Count me in</button>
+              </div>
+              <div class="form__trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+              </div>
+              <p class="event__small">We’ll only email you about this tournament.</p>
+              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
+            </form>
+          </details>
+          <div class="event__done" tabindex="-1" hidden>
+            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm, and we’ll email you once there’s a date.</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="event__head">
+            <h3 class="event__title">Berkeley</h3>
+            <p class="event__when">Date to be set</p>
+          </div>
+          <div class="event__art"></div>
+          <details class="event__interest">
+            <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
+            <form class="event__form" action="/api/interest" method="post">
+              <input name="city" type="hidden" value="berkeley">
+              <label class="event__label" for="berkeley-email">Get an email once there’s a date</label>
+              <div class="event__row">
+                <input id="berkeley-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
+                <button type="submit">Count me in</button>
+              </div>
+              <div class="form__trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+              </div>
+              <p class="event__small">We’ll only email you about this tournament.</p>
+              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
+            </form>
+          </details>
+          <div class="event__done" tabindex="-1" hidden>
+            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm, and we’ll email you once there’s a date.</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="event__head">
+            <h3 class="event__title">New York</h3>
+            <p class="event__when">Date to be set</p>
+          </div>
+          <div class="event__art"></div>
+          <details class="event__interest">
+            <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
+            <form class="event__form" action="/api/interest" method="post">
+              <input name="city" type="hidden" value="nyc">
+              <label class="event__label" for="nyc-email">Get an email once there’s a date</label>
+              <div class="event__row">
+                <input id="nyc-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
+                <button type="submit">Count me in</button>
+              </div>
+              <div class="form__trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+              </div>
+              <p class="event__small">We’ll only email you about this tournament.</p>
+              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
+            </form>
+          </details>
+          <div class="event__done" tabindex="-1" hidden>
+            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm, and we’ll email you once there’s a date.</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="event__head">
+            <h3 class="event__title">London</h3>
+            <p class="event__when">Date to be set</p>
+          </div>
+          <div class="event__art"></div>
+          <details class="event__interest">
+            <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
+            <form class="event__form" action="/api/interest" method="post">
+              <input name="city" type="hidden" value="london">
+              <label class="event__label" for="london-email">Get an email once there’s a date</label>
+              <div class="event__row">
+                <input id="london-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
+                <button type="submit">Count me in</button>
+              </div>
+              <div class="form__trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+              </div>
+              <p class="event__small">We’ll only email you about this tournament.</p>
+              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
+            </form>
+          </details>
+          <div class="event__done" tabindex="-1" hidden>
+            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm, and we’ll email you once there’s a date.</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="event__head">
+            <h3 class="event__title">Oxford</h3>
+            <p class="event__when">Date to be set</p>
+          </div>
+          <div class="event__art"></div>
+          <details class="event__interest">
+            <summary class="event__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
+            <form class="event__form" action="/api/interest" method="post">
+              <input name="city" type="hidden" value="oxford">
+              <label class="event__label" for="oxford-email">Get an email once there’s a date</label>
+              <div class="event__row">
+                <input id="oxford-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
+                <button type="submit">Count me in</button>
+              </div>
+              <div class="form__trap" aria-hidden="true">
+                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+              </div>
+              <p class="event__small">We’ll only email you about this tournament.</p>
+              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
+            </form>
+          </details>
+          <div class="event__done" tabindex="-1" hidden>
+            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm, and we’ll email you once there’s a date.</p>
+          </div>
+        </article>
+        <article class="event">
+          <div class="event__head">
+            <h3 class="event__title">Somewhere else?</h3>
           </div>
           <div class="event__art"></div>
           <a class="event__btn" href="/host/">Host your own <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -128,8 +279,8 @@
           having the best guess or by bluffing everyone else out.
         </p>
         <p>
-          Hosting a tournament at a school or university? It’s free, and we may even pay for things like poker chips,
-          dry-erase markers and small prizes. Fill out our <a class="link" href="/host/#sign-up">contact form</a>.
+          Hosting a tournament at a school or university? It’s free, and we may even pay for things like poker chips
+          and small prizes. Fill out our <a class="link" href="/host/#sign-up">contact form</a>.
           Playing with friends? Our <a class="link" href="/how-to-play/">guide</a> covers everything you need. Planning a
           tournament at your company? Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
         </p>
@@ -201,6 +352,37 @@
             <p>We’ve sent a link to <b class="su-done__email"></b>. Click it to confirm, and you’re on the list.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Frequently asked questions: five of the FAQ page's, opening in place as there. Their answers are copies of the
+         FAQ page's: change them in both. -->
+    <section class="home-faq" aria-labelledby="home-faq-title">
+      <div class="home-faq__inner">
+        <h2 id="home-faq-title">Frequently asked questions</h2>
+        <div class="home-faq__list">
+          <details class="qa">
+            <summary><h3>Is it gambling?</h3></summary>
+            <div class="qa__a"><p>No. By the usual definitions, gambling means staking something of real value on an outcome decided largely by chance. In Fermi Poker, you bet with poker chips that have no cash value, and the random playing cards are replaced by estimation questions, so it comes down to skill, not luck. That’s why the Fermi Poker app is rated 3+ on Google Play and 13+ on the App Store, while most poker apps are rated 18+.</p></div>
+          </details>
+          <details class="qa">
+            <summary><h3>What age is it for?</h3></summary>
+            <div class="qa__a"><p>We recommend it from age 13, all the way through university.</p></div>
+          </details>
+          <details class="qa">
+            <summary><h3>Do you need to be good at math?</h3></summary>
+            <div class="qa__a"><p>No. Fermi estimation has surprisingly little to do with what’s taught in math class. What counts is knowing a bit about how the world works and breaking a question into parts you can reason about. The calculations stay simple, because there’s little time and everyone rounds heavily. So being bad at math doesn’t mean you’ll be bad at this.</p></div>
+          </details>
+          <details class="qa">
+            <summary><h3>Do you need to know poker?</h3></summary>
+            <div class="qa__a"><p>No. Fermi Poker is even easier to learn than regular poker, since there are no hand rankings to memorize, and if you already know poker, it will feel intuitive right away. The rules fit on one page. <a class="link" href="/how-to-play/">Read the rules</a>.</p></div>
+          </details>
+          <details class="qa">
+            <summary><h3>How long does a tournament take?</h3></summary>
+            <div class="qa__a"><p>Plan on 2 to 3 hours of play, plus time to set up. It depends on the number of players and on the ante, the mandatory bet everyone makes before each question. If a tournament runs long, raise the ante faster to speed it up.</p></div>
+          </details>
+        </div>
+        <a class="home-faq__more" href="/faq/">View all FAQs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </section>
   </main>

@@ -6,10 +6,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `faq/`: the questions and the educational value, in tabs (below)
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
-- `api/`: the Vercel Functions behind Get updates and the For companies form (below), the site's only code that runs
-  on a server
+- `api/`: the Vercel Functions behind Get updates, the tournaments' "I'm interested" and the For companies form
+  (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the forms on For schools and For companies, Get
-  updates, How to play's footnotes and the FAQ page's tabs
+  updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, all self-hosted),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
@@ -22,12 +22,12 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `rome-blueprint.webp` the
-  headers of every page but FAQ, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
-  `rome-blueprint-phone.webp` the strip of it that phones show; `faq-hero.webp` the poker chips for the FAQ page's
-  header, darkened there in CSS; `start-*.webp` the pictures on the cards under the home page's Learn more and get
-  involved (the chips, a drawing of University Hall, an office building painted in 1927, and students in the
-  University Hall in Leuven), toned in the header's blue; `enrico-fermi.webp` is a photo of Fermi that stood on the
-  home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
+  headers of every page, Piranesi's Forum (`forum-piranesi.webp`) as a blueprint, its lines light on blue, and
+  `rome-blueprint-phone.webp` the strip of it that phones show; `start-*.webp` the pictures on the cards under the
+  home page's Learn more and get involved (the chips, a drawing of University Hall, an office building painted in
+  1927, and students in the University Hall in Leuven), toned in the header's blue; `enrico-fermi.webp` is a photo of
+  Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on
+  a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -76,15 +76,29 @@ replying answers whoever sent it. Without JavaScript that form posts there direc
 how it went (`#sent`, `#failed`). Both pages are built like How to play: the blue header, then the page on white.
 So are About (its programs in rows too), Donate (`sponsor/`) and Get updates (below).
 
-The FAQ page has three parts, General, Hosting and Educational value, each a list of questions that open in place.
+The FAQ page, under the blue Rome header like Get updates, has three parts, General, Hosting and Educational value,
+each a list of questions that open in place.
 `site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
 part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
 opens its tab and the question.
 
-The home page runs in bands: the header, Upcoming tournaments, the introduction (pale blue), Learn more and get
-involved, and the mailing list (pale blue). Upcoming tournaments has one card for now, saying there are no public
-tournaments and leading to For schools; cards for real tournaments go in the same grid, three to a row, with the
-date as `event__when`. Each card under Learn more and get involved is a link with a picture.
+The home page runs in bands, white and pale blue in turn: the header, Upcoming tournaments, the introduction, Learn
+more and get involved, the mailing list, and Frequently asked questions. Each card under Learn more and get involved
+is a link with a picture. Frequently asked questions has five of the FAQ page's questions, opening in place, and a
+button to the rest; their answers are copies of the FAQ page's, so change them in both.
+
+Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
+Berkeley, New York, London and Oxford for now), its date "to be set" (`event__when`), over the pattern of card suits,
+and a last card, Somewhere else?, leading to For schools. A city's card can have a photo in place of the pattern (an
+`img` with the class `event__photo`, say `assets/img/event-boston.webp`). On a city's card, "I'm interested" opens a
+field for the email (a `details` element, so it works without JavaScript too). It goes to `api/interest.js`, which,
+like Get updates, adds the address to Resend's contacts and emails a link to confirm it; the link (`api/confirm.js`)
+puts them into that tournament's segment in Resend ("Boston tournament" and so on), and not into the one for updates,
+and emails contact@fermi.org about it, with how many are on that list now. Without JavaScript, and after the link,
+the home page says how it went, above the cards (`#interest-sent`, `#interest-confirmed`, `#interest-invalid`,
+`#interest-failed`). Once there's a date, write a Broadcast in Resend to the tournament's segment, and put the date on
+its card. To add a city: a card like Boston's (its key in the hidden `city` field and in the email field's id), and
+the key and name in `TOURNAMENTS` in `api/_resend.js`; its segment is made with the first sign-up.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
 about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
@@ -101,10 +115,17 @@ subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`
 subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "High school students", "University
 students", "Teachers and professors" or "Others" (what they said they are; "Students" from before high school and
 university were asked apart), emails contact@fermi.org about the new sign-up, and shows the
-Get updates page saying so. Both, and `api/team.js` for For companies, need Resend's key as `RESEND_API_KEY` in the
-project's environment variables on Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in
+Get updates page saying so. These, and `api/interest.js` and `api/team.js`, need Resend's key as `RESEND_API_KEY` in
+the project's environment variables on Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in
 Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work: the Get updates
 page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
+
+In Resend, a contact is subscribed or not as a whole, and what it hears about is the segments it's in: someone on a
+tournament's list only is subscribed, but not in "Fermi Poker updates", so a Broadcast to that segment doesn't reach
+them. So whether someone is on a list is whether they're in its segment: signing up for updates while on a
+tournament's list sends a link to confirm all the same. Unsubscribing from any Broadcast unsubscribes the contact from
+all of them; if they later confirm a sign-up again, they're first taken out of the segments they were in, so they
+hear only about what they've just asked for.
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
 uses the same picture, `assets/img/link-preview-blueprint.jpg` (1200 × 630): the home page's header, its headline and
