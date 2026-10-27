@@ -193,7 +193,11 @@ function openUpdates(how) {
   else updatesDialog.querySelector('.updates__title').focus()
 }
 
-if (!location.pathname.startsWith('/updates/')) {
+// The pop-up is off for now, to come back in the new design: set this to true to show it again. While it's off, "Get
+// updates" leads to the Get updates page, which has the same form.
+const UPDATES_POPUP = false
+
+if (UPDATES_POPUP && !location.pathname.startsWith('/updates/')) {
   document.querySelectorAll('a[href="/updates/"]').forEach(link => link.addEventListener('click', event => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
     event.preventDefault()

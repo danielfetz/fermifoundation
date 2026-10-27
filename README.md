@@ -72,7 +72,8 @@ on its own page (`updates/`), and in a pop-up that "Get updates" in the phone me
 pop-up also comes up by itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on
 phones and tablets after 30 seconds on the page. Then not again for 30 days, and never after signing up or sending the
 Host form (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
-itself.
+itself. The pop-up is off for now, to come back in the new design (`UPDATES_POPUP` in `site.js`): while it's off, it
+never comes up by itself, and "Get updates" leads to the Get updates page.
 
 The forms send to `api/subscribe.js`, which adds the address to the contacts in Resend (resend.com), not yet
 subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`api/confirm.js`, good for a week)
