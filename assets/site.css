@@ -850,7 +850,7 @@ html.guide-page.menu-open { --page-bg: #fff; }
 /* Footnotes, on How to play: a number in the text leads to its note at the bottom of the page. On wide screens each note
    also stands in the margin beside its line, and elsewhere hovering over the number or tapping it shows the note in
    place (assets/site.js). */
-.fn-ref { font-size: 0.68em; line-height: 0; vertical-align: 0.62em; }
+.fn-ref { font-size: 0.68em; line-height: 0; vertical-align: 0.2em; }
 .fn-ref a { padding: 0 1px; color: var(--blue); font-weight: 700; }
 .fn-ref a:hover,
 .fn-ref a[aria-expanded="true"] { text-decoration: underline; text-underline-offset: 2px; }
@@ -1280,25 +1280,24 @@ html.guide-page.menu-open { --page-bg: #fff; }
 }
 
 /* How to play, the first inner page in the new design (the others will follow). Under the white menu bar, a blue
-   header with the title, the introduction and the rule sheet, the players from the Fermi Poker box behind it as a
-   blueprint; then the guide on white in Mona Sans, its column lined up with the title, with the footnotes beside it on
-   wide screens. The guide's parts keep their classes and take the new look inside .doc. */
+   header with the title, the introduction and the rule sheet, the home page's Rome behind it under the same shade;
+   then the guide on white in Mona Sans, its column lined up with the title, with the footnotes beside it on wide
+   screens. The guide's parts keep their classes and take the new look inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
   min-height: clamp(400px, 34vw, 560px);
-  background: #18208f center 30% / cover no-repeat;
+  background: #18208f url(/assets/img/rome-blueprint.webp) center 40% / cover no-repeat;
   font-family: var(--mona);
 }
-.page-hero--guide { background-image: url(/assets/img/guide-hero.webp); }
 .page-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(10, 14, 96, 0.84), rgba(10, 14, 96, 0.58) 55%, rgba(10, 14, 96, 0.3));
+  background: linear-gradient(90deg, rgba(10, 14, 96, 0.6), rgba(10, 14, 96, 0.2) 60%, rgba(10, 14, 96, 0));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 64px 0; }
 .page-hero h1 {
@@ -1410,9 +1409,8 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
 html.guide-page .fn-pop .link { color: inherit; text-decoration-color: #1b21b1; }
 html.guide-page .fn-pop .link:hover { color: #1b21b1; }
 @media (max-width: 700px) {
-  .page-hero { min-height: 0; background-position: center; }
-  .page-hero--guide { background-image: url(/assets/img/guide-hero-phone.webp); }
-  .page-hero::before { background: rgba(10, 14, 96, 0.62); }
+  .page-hero { min-height: 0; background-image: url(/assets/img/rome-blueprint-phone.webp); background-position: center; }
+  .page-hero::before { background: rgba(10, 14, 96, 0.45); }
   .page-hero__inner { width: calc(100% - 40px); padding: 56px 0; }
   .page-hero h1 { font-size: 44px; }
   .page-hero__sub { font-size: 17px; line-height: 1.55; }
