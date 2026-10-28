@@ -387,20 +387,28 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
-/* Phones: the headline over the whole width and the buttons under it, each across it, on a strip of the hall from its
-   left edge */
+/* Phones: the headline smaller, on three lines, and the buttons side by side, each as wide as its words, on a strip
+   of the hall from its left edge */
 @media (max-width: 700px) {
   .hero {
-    --title: min(34px, (100vw - 40px) / 10.3);
+    --title: min(30px, (100vw - 40px) / 11.7);
     padding: calc(76px + 40px) 0 276px;
     background-position: left -135px;
   }
   /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
   .hero::after { height: 220px; }
   .hero__inner { width: calc(100% - 40px); }
-  .hero__sub { line-height: 1.55; }
-  .hero__actions { margin-top: 28px; }
-  .hero__actions a { flex: 1 1 100%; justify-content: center; }
+  .hero__title { margin-bottom: 12px; }
+  .hero__sub { font-size: 17px; line-height: 1.5; }
+  .hero__actions { gap: 10px; margin-top: 26px; }
+  .hero__actions a { padding: 11px 16px; font-size: 15px; }
+  .hero__play svg { width: 15px; height: 15px; }
+}
+/* Smaller phones: the buttons a little smaller, so they still fit side by side */
+@media (max-width: 389px) {
+  .hero__actions { gap: 8px; }
+  .hero__actions a { gap: 8px; padding: 11px 12px; font-size: 14px; }
+  .hero__play svg { width: 14px; height: 14px; }
 }
 
 /* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
@@ -1553,7 +1561,7 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   /* On phones as tall as the menu and the title need, with room around the title, and the hall from its left edge */
   .page-hero { padding: calc(76px + 48px) 0 64px; background-position-x: left; }
   .page-hero__inner { width: calc(100% - 40px); }
-  .page-hero h1 { font-size: min(34px, (100vw - 40px) / 10.3); }
+  .page-hero h1 { font-size: min(30px, (100vw - 40px) / 11.7); }
   .doc { padding: 56px 0 80px; }
   .doc .page-lead { margin-bottom: 36px; }
   .doc .page { width: calc(100% - 40px); margin-left: 20px; }
