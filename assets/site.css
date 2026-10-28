@@ -323,11 +323,11 @@ html.new-design.menu-open { --page-bg: #fff; }
   font-size: var(--title);
   font-stretch: 125%;
   font-weight: 700;
-  line-height: 1.12;
+  line-height: 1.2;
   letter-spacing: -0.005em;
   word-break: break-word;
 }
-/* The line under the headline, a little softer than white (at least 7.2:1) */
+/* The line under the headline, a little softer than white (at least 7.1:1) */
 .hero__sub {
   max-width: 640px;
   color: rgba(255, 255, 255, 0.86);
