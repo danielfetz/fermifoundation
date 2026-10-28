@@ -146,8 +146,8 @@ html {
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
 /* On the pages in the new design (their html has the class new-design), whose menu sits on the header's photo, the
-   top of the header, under its shade (on phones the colour the header starts with, --top-band); the page itself stays
-   white */
+   top of the header, under its shade (on phones the colour the header starts with, --top-band; on the home page, whose
+   menu on phones is a white bar, white); the page itself stays white */
 html.new-design { --page-bg: #3f2c1e; }
 @media (max-width: 700px) {
   html.new-design { --page-bg: #261d16; }
@@ -393,21 +393,24 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
-/* Phones: the headline smaller, on three lines, and the buttons under it, each across it, on a strip of the hall from
-   its middle */
+/* Phones: as before the menu moved onto the photo. A white menu bar (and Safari's strip above it white too), then the
+   headline large over the whole width and the buttons under it, each across it, on a strip of the hall from its left
+   edge that ends in a straight line, without the fade; Upcoming tournaments follow on white. */
 @media (max-width: 700px) {
+  html.home-page.new-design { --page-bg: #fff; }
+  html.home-page .nav--over { position: relative; background: #fff; color: inherit; }
   .hero {
-    --title: min(30px, (100vw - 40px) / 11.7);
-    padding: calc(76px + 40px) 0 276px;
-    background-position: 50% -135px;
+    --title: min(48px, (100vw - 40px) / 6.65);
+    padding: 56px 0;
+    background-position: left bottom;
   }
-  /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
-  .hero::after { height: 220px; }
+  .hero::after { display: none; }
   .hero__inner { width: calc(100% - 40px); }
-  .hero__title { margin-bottom: 12px; }
-  .hero__sub { font-size: 17px; line-height: 1.5; }
-  .hero__actions { margin-top: 28px; }
-  .hero__actions a { flex: 1 1 100%; justify-content: center; }
+  .hero__title { margin-bottom: 20px; line-height: 1.1; letter-spacing: 0; }
+  .hero__sub { color: #fff; font-size: 19px; line-height: 1.55; }
+  .hero__actions { margin-top: 36px; }
+  .hero__actions a { flex: 1 1 100%; justify-content: center; padding: 12px 26px; font-size: 17px; }
+  .hero__play svg { width: 17px; height: 17px; }
 }
 
 /* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
@@ -526,9 +529,10 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
    updates, between the heading and the cards, the heading still in sight */
 .events .status { margin: -8px 0 32px; border-radius: 0; background: #f2eee8; font-family: var(--mona); scroll-margin-top: 116px; }
 @media (max-width: 700px) {
-  .events { margin-top: -206px; padding: 0 0 64px; }
+  /* On phones under the header, on white, the heading as large as the others and centred, as before */
+  .events { margin-top: 0; padding: 64px 0; }
   .events__inner { width: calc(100% - 40px); }
-  .events h2 { margin-bottom: 18px; font-size: 24px; }
+  .events h2 { margin-bottom: 32px; color: #000; font-size: 34px; letter-spacing: 0; text-align: center; }
   .events__list { grid-template-columns: minmax(0, 1fr); }
   .event__photo,
   .event__art { height: 180px; }
@@ -1420,9 +1424,9 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
-/* Phones: both headers start with the dark brown band (--top-band) the strip under the notch is in */
+/* Phones: the inner pages' headers, with the menu on them, start with the dark brown band (--top-band) the strip under
+   the notch is in */
 @media (max-width: 700px) {
-  .hero::before,
   .page-hero::before {
     background: var(--top-band),
       linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
