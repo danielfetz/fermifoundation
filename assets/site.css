@@ -279,13 +279,13 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 /* The shade, on every screen and on the inner pages' headers too (.page-hero): the footer's charcoal at both edges,
    darkest on the left, behind the words, and a warm brown 70% of the way across. It never clears, so white on it
-   stays at least 5.5:1 behind every line, whatever part of the photo is there. */
+   stays at least 7.5:1 behind every line, whatever part of the photo is there. */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.88), rgba(62, 40, 28, 0.66) 70%, rgba(22, 20, 18, 0.82));
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
 .hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .hero__title {
@@ -1360,7 +1360,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.88), rgba(62, 40, 28, 0.66) 70%, rgba(22, 20, 18, 0.82));
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .page-hero h1 {
