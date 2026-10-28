@@ -113,6 +113,12 @@
   /* Design units: 1u is 1px on a 1728px-wide canvas and shrinks on narrower screens (--w keeps scaling up) */
   --u: min(1px, calc(100vw / 1728));
   --w: calc(100vw / 1728);
+  /* The headers' fade into white at their foot: eased, so it has no edge where it starts */
+  --fade: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.013) 8.1%, rgba(255, 255, 255, 0.049) 15.5%,
+    rgba(255, 255, 255, 0.104) 22.5%, rgba(255, 255, 255, 0.175) 29%, rgba(255, 255, 255, 0.259) 35.3%,
+    rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%,
+    rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%,
+    rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, #fff);
 }
 
 /* Reset */
@@ -130,12 +136,10 @@ html {
 /* The page's own background never shows inside the pages, but Safari paints it in the strip above the page
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
-/* On the pages in the new design (their html has the class new-design), the white of their menu bar */
-html.new-design { --page-bg: #fff; }
-/* On the home page, whose menu sits on the header's photo, the top of the header, under its shade; the page itself
-   stays white */
-html.home-page { --page-bg: #3f2c1e; }
-html.home-page body { background: #fff; }
+/* On the pages in the new design (their html has the class new-design), whose menu sits on the header's photo, the
+   top of the header, under its shade; the page itself stays white */
+html.new-design { --page-bg: #3f2c1e; }
+html.new-design body { background: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -243,7 +247,7 @@ button {
 .nav--light .nav__sheet { background: #fff; }
 .nav--light .nav__sheet { font-family: var(--mona); }
 html.new-design.menu-open { --page-bg: #fff; }
-/* On the home page the menu sits on the header's photo (nav--over), in white, until the phone menu opens */
+/* The menu sits on the header's photo (nav--over), in white, until the phone menu opens */
 .nav--over { position: absolute; top: 0; right: 0; left: 0; background: transparent; color: #fff; }
 .nav--over .nav__links a:hover { border-color: #fff; }
 .nav--over.is-open { color: inherit; }
@@ -297,8 +301,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
-/* The fade into white at its foot, eased, so it has no edge where it starts; white on its top, where the tournaments'
-   heading is, stays at least 7.4:1 */
+/* The fade into white at its foot (--fade); white on its top, where the tournaments' heading is, stays at least
+   7.4:1 */
 .hero::after {
   content: "";
   position: absolute;
@@ -307,11 +311,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   left: 0;
   z-index: -1;
   height: 260px;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.013) 8.1%, rgba(255, 255, 255, 0.049) 15.5%,
-    rgba(255, 255, 255, 0.104) 22.5%, rgba(255, 255, 255, 0.175) 29%, rgba(255, 255, 255, 0.259) 35.3%,
-    rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%,
-    rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%,
-    rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, #fff);
+  background: var(--fade);
 }
 .hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 /* On two lines where there's room, breaking after "estimation," (that line is 19.2em) */
@@ -1379,17 +1379,17 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   .qa__a { padding-right: 0; font-size: 16px; }
 }
 
-/* The inner pages: under the white menu bar, a header with the title alone over the home page's hall photo
-   (assets/img/poker-hall.webp), a little higher in it so the strip shows the room and its tables, under the same
-   shade, as tall on every page; then the page on white in Mona Sans (.doc), opening with what it's about (.page-lead),
-   its column lined up with the title. How to play has its footnotes beside it on wide screens; its parts keep their
-   classes from the paper look and take the new one inside .doc. */
+/* The inner pages: a header with the title alone over the home page's hall photo (assets/img/poker-hall.webp), a
+   little higher in it so the strip shows the room and its tables, under the same shade, from the top of the page with
+   the menu on it, as tall on every page; then the page on white in Mona Sans (.doc, and .faq on the FAQ page), opening
+   with what it's about (.page-lead), its column lined up with the title. On laptops the header fades into white and
+   the page rises into it as a white sheet (below); on narrower screens the photo ends in a straight line. How to play
+   has its footnotes beside it on wide screens; its parts keep their classes from the paper look and take the new one
+   inside .doc. */
 .page-hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  align-items: center;
-  min-height: clamp(260px, 25vw, 400px);
+  padding: calc(76px + clamp(64px, 7vw, 120px)) 0 clamp(64px, 7vw, 120px);
   background: #98693b url(/assets/img/poker-hall.webp) center 62% / cover no-repeat;
   font-family: var(--mona);
 }
@@ -1400,7 +1400,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
-.page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
+.page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 .page-hero h1 {
   max-width: 14em;
   color: #fff;
@@ -1410,6 +1410,36 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   line-height: 1.1;
 }
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); }
+/* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet, a
+   little wider than the column and its margin notes, the photo fading beside it */
+@media (min-width: 1280px) {
+  .page-hero { padding-bottom: 250px; }
+  .page-hero::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    height: 300px;
+    background: var(--fade);
+  }
+  .doc,
+  .faq { position: relative; z-index: 1; margin-top: -130px; padding-top: 64px; background: transparent; }
+  .doc::before,
+  .faq::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+    width: min(1192px, 100% - 120px);
+    transform: translateX(-50%);
+    background: #fff;
+    box-shadow: 0 -18px 36px -24px rgba(36, 30, 25, 0.45);
+  }
+}
 /* The column: as wide as before, its left edge under the header's title */
 .doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
 /* What the page is about, first on it, set like the rest */
@@ -1482,9 +1512,9 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 /* A note shown in place: white like the page (it's at the end of the page, outside .doc) */
 html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; font-family: var(--mona); }
 @media (max-width: 700px) {
-  /* On phones as tall as the title needs, with room around it, and the hall from its left edge */
-  .page-hero { min-height: 0; background-position-x: left; }
-  .page-hero__inner { width: calc(100% - 40px); padding: 80px 0; }
+  /* On phones as tall as the menu and the title need, with room around the title, and the hall from its left edge */
+  .page-hero { padding: calc(76px + 48px) 0 64px; background-position-x: left; }
+  .page-hero__inner { width: calc(100% - 40px); }
   .page-hero h1 { font-size: 44px; }
   .doc { padding: 56px 0 80px; }
   .doc .page-lead { margin-bottom: 36px; }

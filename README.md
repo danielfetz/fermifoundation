@@ -46,11 +46,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On
-wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
-page but Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
-(`nav--light`; on the home page it sits on the header's photo, in white, `nav--over`), with the name alone as the
-logo, links in the text as rust words a little bolder than the text, with a light underline, and the dark brown footer
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On wide
+screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
+Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
+the header's photo, in white (`nav--over`), the phone menu opening in white, with the name alone as the logo, links in
+the text as rust words a little bolder than the text, with a light underline, and the dark brown footer
 (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before (the sky band,
 the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in `site.css`, unused for
 now.
@@ -62,13 +62,14 @@ animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
-other inner pages: a header (`page-hero`, over the hall photo) with the title alone, as tall on every page,
-then the guide on white (`.doc`), opening with the introduction (`page-lead`), its column lined up with the title. The
-guide's parts keep their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in
-the text that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin
-beside its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and
-without JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden,
-to use later.
+other inner pages: a header (`page-hero`, over the hall photo, with the menu on it) with the title alone, then the
+guide on white (`.doc`), opening with the introduction (`page-lead`), its column lined up with the title. On laptops
+(from 1280px) the header fades into white at its foot and the page rises into it as a white sheet, the photo fading
+beside it; on narrower screens the photo ends in a straight line. The guide's parts keep their classes from the paper
+look, and `.doc` gives them the new one. Its footnotes are numbers in the text that lead to the notes at the bottom of
+the page. On wide screens `site.js` also sets each note in the margin beside its line, and elsewhere shows it in place
+when its number is hovered over or tapped; from the keyboard, and without JavaScript, a number leads to its note at
+the bottom. The worked sample question is still in the page, hidden, to use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
 for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as
