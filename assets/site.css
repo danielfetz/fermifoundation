@@ -134,7 +134,7 @@ html { background: var(--page-bg); }
 html.new-design { --page-bg: #fff; }
 /* On the home page, whose menu sits on the header's photo, the top of the header, under its shade; the page itself
    stays white */
-html.home-page { --page-bg: #3b2a1e; }
+html.home-page { --page-bg: #3f2c1e; }
 html.home-page body { background: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
@@ -281,18 +281,25 @@ html.new-design.menu-open { --page-bg: #fff; }
   --title: clamp(34.5px, 2.88vw, 42.25px);
   position: relative;
   isolation: isolate;
+  overflow: hidden;
   padding: calc(76px + clamp(80px, 9vw, 150px)) 0 340px;
-  background: #98693b url(/assets/img/poker-hall.webp) center bottom / cover no-repeat;
+  background: #98693b;
 }
-/* The shade, on every screen and on the inner pages' headers too (.page-hero): the footer's charcoal at both edges,
-   darkest on the left, behind the words, and a warm brown 70% of the way across. It never clears, so white on it
-   stays at least 7.5:1 behind every line, whatever part of the photo is there. */
+/* The photo, its top 135px above the header's, so more of the room and less of its ceiling shows (it covers that
+   taller box, so it's never short at the foot), under the shade. The shade is on the inner pages' headers too
+   (.page-hero): the footer's charcoal at both edges, darkest on the left, behind the words, and a warm brown 70% of
+   the way across. It never clears, so white on it stays at least 7.5:1 behind every line, whatever part of the photo
+   is there. */
 .hero::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: -135px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91)),
+    url(/assets/img/poker-hall.webp) center top / cover no-repeat;
 }
 /* The fade into white at its foot, eased, so it has no edge where it starts; white on its top, where the tournaments'
    heading is, stays at least 6.7:1 */
@@ -377,8 +384,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero {
     --title: min(34px, (100vw - 40px) / 10.3);
     padding: calc(76px + 40px) 0 276px;
-    background-position-x: left;
   }
+  .hero::before { background-position: center, left top; }
   /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
   .hero::after { height: 220px; }
   .hero__inner { width: calc(100% - 40px); }
