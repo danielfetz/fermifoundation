@@ -49,11 +49,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
 Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
-the header's photo, in white (`nav--over`; on phones the home page's is a white bar above the photo), the phone menu
-opening in white, with the name alone as the logo, links in the text as rust words a little bolder than the text, with
-a light underline, and the dark brown footer (`footer--dark`), which has where to write in place of the logo. The
-paper look the pages had before (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the
-dark footer) is still in `site.css`, unused for now.
+the header's photo, in white (`nav--over`), the phone menu opening in white, with the name alone as the logo, links in
+the text as rust words a little bolder than the text, with a light underline, and the dark brown footer
+(`footer--dark`), which has where to write in place of the logo. The paper look the pages had before (the sky band,
+the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in `site.css`, unused for
+now.
 
 Sections fade in, gliding up a little, as they come into view: `site.js` marks whatever is still below the screen
 when a page loads (`.reveal`, and `.is-in` once it shows; the list of what's marked is at the end of `site.js`).
@@ -90,12 +90,11 @@ opens its tab and the question.
 The home page runs in bands, white and pale beige in turn: the header, Upcoming tournaments, the introduction, Learn
 more and get involved, the mailing list, and Frequently asked questions. The header, with the menu on it, has two
 buttons under its headline: How to play, and Host a tournament. At its foot it fades into white, and the heading of
-Upcoming tournaments and the top of their first cards rise into it; on phones it ends in a straight line under a white
-menu bar, with the headline larger, and Upcoming tournaments follow on white. Host a tournament (`host-a-tournament/`)
-is a short page of links to the materials (the guide, the rule sheet and the questions to print, and the Play page),
-each row's heading the link (`boxes--links`), and under them the introduction's lines for schools and companies, so
-change those in both. Each card under Learn more and get involved is a link with a picture. Frequently asked questions
-has five of the FAQ page's questions, opening in place, and a button to the rest; their answers are copies of the FAQ
+Upcoming tournaments and the top of their first cards rise into it. Host a tournament (`host-a-tournament/`) is a
+short page of links to the materials (the guide, the rule sheet and the questions to print, and the Play page), each
+row's heading the link (`boxes--links`), and under them the introduction's lines for schools and companies, so change
+those in both. Each card under Learn more and get involved is a link with a picture. Frequently asked questions has
+five of the FAQ page's questions, opening in place, and a button to the rest; their answers are copies of the FAQ
 page's, so change them in both.
 
 Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
