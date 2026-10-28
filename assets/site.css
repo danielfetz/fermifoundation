@@ -263,7 +263,7 @@ html.new-design.menu-open { --page-bg: #fff; }
 
 /* The home page's header: the hall of a poker tournament, blurred so only the room and its tables show, across the
    whole width (assets/img/poker-hall.webp, credited on the Credits page). A black shade over it is darkest on the
-   left, behind the headline, which is in white with a line under it, and the guide in a white box. */
+   left, behind the headline, which is in white with a line under it, and the two buttons under that. */
 .hero {
   --title: clamp(48px, 4.08vw, 65.28px);
   position: relative;
@@ -303,29 +303,25 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.58;
   text-wrap: pretty;
 }
-/* The guide, as wide as the headline's first line. Its text is narrow enough to break after "Fermi Poker" ("Get the
-   guide to playing Fermi Poker" is about 18.7em long, "… and" 21em). */
-.hero__cta {
-  display: flex;
+/* The two buttons: How to play in white, and Host a tournament outlined */
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+.hero__actions a {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  width: calc(var(--title) * 11.9);
-  max-width: 100%;
-  margin-top: 48px;
-  padding: 16px 20px;
-  background: #fff;
-  color: #111;
-}
-.hero__cta p {
-  max-width: 20em;
+  gap: 10px;
+  padding: 12px 26px;
   font-family: var(--mona);
-  font-size: clamp(16px, 1.36vw, 22px);
+  font-size: 17px;
   font-stretch: 125%;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.4;
+  transition: background-color 150ms var(--ease);
 }
-.hero__btn,
+.hero__play { background: #fff; color: #222222; }
+.hero__play:hover { background: #f2eee8; }
+.hero__play svg { width: 17px; height: 17px; }
+.hero__host { box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85); color: #fff; }
+.hero__host:hover { background: rgba(255, 255, 255, 0.12); }
 .home-faq__more {
   display: inline-flex;
   flex: none;
@@ -341,17 +337,10 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.5;
   transition: background-color 150ms var(--ease);
 }
-.hero__btn:hover,
 .home-faq__more:hover { background: #111111; }
-.hero__btn svg,
 .home-faq__more svg { width: 16px; height: 16px; }
-/* Narrower screens: the guide's button under its text */
-@media (max-width: 899px) {
-  .hero__cta { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .hero__cta p { font-size: 18px; }
-}
-/* Phones: the headline over the whole width and the guide under it, with its button across the box, on a strip of the
-   hall from its left edge, evenly shaded */
+/* Phones: the headline over the whole width and the buttons under it, each across it, on a strip of the hall from its
+   left edge, evenly shaded */
 @media (max-width: 700px) {
   .hero {
     --title: min(48px, (100vw - 40px) / 6.65);
@@ -362,11 +351,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero::before { background: rgba(0, 0, 0, 0.72); }
   .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
   .hero__sub { font-size: 19px; line-height: 1.55; }
-  .hero__cta { align-items: stretch; width: auto; margin-top: 36px; padding: 8px 12px; }
-  /* In three lines: "Get the guide to playing / Fermi Poker and hosting / a tournament" (12.3em, 12.7em; with "a",
-     13.6em) */
-  .hero__cta p { max-width: 13.1em; font-size: 20px; }
-  .hero__btn { justify-content: center; }
+  .hero__actions { margin-top: 36px; }
+  .hero__actions a { flex: 1 1 100%; justify-content: center; }
 }
 
 /* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
@@ -1484,6 +1470,11 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
 .doc .boxes--rows > .box + .box { margin-top: 0; }
 .doc .boxes--rows > .box:last-child { border-bottom: 1px solid #e3e3e3; }
 .doc .boxes--rows h3 { font-size: 19px; font-stretch: 112.5%; }
+/* Rows whose headings are links, with an arrow that moves a little under the mouse (Host a tournament) */
+.doc .boxes--links h3 a { display: inline-flex; align-items: center; gap: 8px; color: #000; transition: color 150ms var(--ease); }
+.doc .boxes--links h3 a:hover { color: #9c4a17; }
+.doc .boxes--links h3 svg { width: 17px; height: 17px; transition: transform 150ms var(--ease); }
+.doc .boxes--links h3 a:hover svg { transform: translateX(3px); }
 /* A link in a heading stays as bold as the heading */
 html.new-design h3 .link { font-weight: inherit; }
 /* A label under a row's heading, like "Currently paused" on About */

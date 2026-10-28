@@ -6,6 +6,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `faq/`: the questions and the educational value, in tabs (below)
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
+- `host-a-tournament/`: Host a tournament, links to everything for hosting (below)
 - `credits/`: the credit for the header photo, which every page's footer links to (below)
 - `api/`: the Vercel Functions behind Get updates, the tournaments' "I'm interested" and the For companies form
   (below), the site's only code that runs on a server
@@ -45,9 +46,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all nine. On
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On
 wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
-page. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
+page but Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
 (`nav--light`), with the name alone as the logo, links in the text as rust words a little bolder than the text, with
 a light underline, and the charcoal footer (`footer--dark`), which has where to write in place of the logo. The paper
 look the pages had before (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark
@@ -83,7 +84,11 @@ part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gam
 opens its tab and the question.
 
 The home page runs in bands, white and pale beige in turn: the header, Upcoming tournaments, the introduction, Learn
-more and get involved, the mailing list, and Frequently asked questions. Each card under Learn more and get involved
+more and get involved, the mailing list, and Frequently asked questions. The header has two buttons under its
+headline: How to play, and Host a tournament. Host a tournament (`host-a-tournament/`) is a short page of links: where
+you're hosting (at home, to the guide; at a school or university, to For schools; at your company, to For
+companies) and the materials (the guide, the rule sheet and the questions to print, and the Play page). Each
+row's heading is the link (`boxes--links`). Each card under Learn more and get involved
 is a link with a picture. Frequently asked questions has five of the FAQ page's questions, opening in place, and a
 button to the rest; their answers are copies of the FAQ page's, so change them in both.
 
