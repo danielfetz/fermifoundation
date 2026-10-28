@@ -85,12 +85,12 @@ opens its tab and the question.
 
 The home page runs in bands, white and pale beige in turn: the header, Upcoming tournaments, the introduction, Learn
 more and get involved, the mailing list, and Frequently asked questions. The header has two buttons under its
-headline: How to play, and Host a tournament. Host a tournament (`host-a-tournament/`) is a short page of links: where
-you're hosting (at home, to the guide; at a school or university, to For schools; at your company, to For
-companies) and the materials (the guide, the rule sheet and the questions to print, and the Play page). Each
-row's heading is the link (`boxes--links`). Each card under Learn more and get involved
-is a link with a picture. Frequently asked questions has five of the FAQ page's questions, opening in place, and a
-button to the rest; their answers are copies of the FAQ page's, so change them in both.
+headline: How to play, and Host a tournament. Host a tournament (`host-a-tournament/`) is a short page of links to the
+materials (the guide, the rule sheet and the questions to print, and the Play page), each row's heading the link
+(`boxes--links`), and under them the introduction's lines for schools and companies, so change those in both. Each
+card under Learn more and get involved is a link with a picture. Frequently asked questions has five of the FAQ page's
+questions, opening in place, and a button to the rest; their answers are copies of the FAQ page's, so change them in
+both.
 
 Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
 Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over a photo of the city

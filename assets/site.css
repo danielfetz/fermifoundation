@@ -1475,6 +1475,8 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
 .doc .boxes--links h3 a:hover { color: #9c4a17; }
 .doc .boxes--links h3 svg { width: 17px; height: 17px; transition: transform 150ms var(--ease); }
 .doc .boxes--links h3 a:hover svg { transform: translateX(3px); }
+/* What follows the rows, as its own paragraph rather than one more row */
+.doc .boxes--links + .text { margin-top: 32px; }
 /* A link in a heading stays as bold as the heading */
 html.new-design h3 .link { font-weight: inherit; }
 /* A label under a row's heading, like "Currently paused" on About */
