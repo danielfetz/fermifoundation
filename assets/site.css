@@ -229,7 +229,11 @@ button {
 .nav--light { background: #fff; }
 .nav--light .nav__bar { min-height: 76px; }
 .nav--light .logo img { display: none; }
-.nav--light .nav__links { gap: clamp(20px, 2.4vw, 34px); font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
+.nav--light .nav__links { gap: clamp(28px, calc(2.4vw + 8px), 42px); font-family: var(--mona); font-size: 16px; font-stretch: 125%; font-weight: 600; }
+/* On laptops the name a little larger, as on the Play page */
+@media (min-width: 900px) {
+  .nav--light .logo { font-size: 23px; }
+}
 /* Its phone menu opens in white too, in the same type */
 .nav--light.is-open,
 .nav--light .nav__sheet { background: #fff; }
