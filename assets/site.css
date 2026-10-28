@@ -1533,7 +1533,8 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .doc .text,
   .doc .list,
   .doc .box__body { font-size: 17px; }
-  .doc .page-lead { width: auto; font-size: 20px; }
+  /* On phones the first paragraph as wide as the column and set like the rest of the text */
+  .doc .page-lead { width: auto; line-height: 1.6; }
   .doc .sticky-note { padding: 20px 20px 22px; }
   /* The quotation mark above the words, so they have the panel's whole width */
   .doc .box--quote { padding: 46px 20px 24px; }
