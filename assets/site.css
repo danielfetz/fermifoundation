@@ -282,7 +282,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), rgba(0, 1, 2, 0.7) 60%, rgba(5, 20, 45, 0));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(1, 1, 1, 0.6) 60%, rgba(5, 20, 45, 0));
 }
 .hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
 .hero__title {
