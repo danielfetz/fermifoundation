@@ -119,6 +119,15 @@
     rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%,
     rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%,
     rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, #fff);
+  /* The headers' top on phones: Safari's strip above the page (under the notch on iPhones) in a dark brown, and the
+     header fading from that same colour into the photo over its first 120px, so there's no seam whatever part of the
+     photo is there */
+  --top-band: linear-gradient(rgb(38, 29, 22), rgba(38, 29, 22, 0.987) 9.7px, rgba(38, 29, 22, 0.951) 18.6px,
+    rgba(38, 29, 22, 0.896) 27px, rgba(38, 29, 22, 0.825) 34.8px, rgba(38, 29, 22, 0.741) 42.4px,
+    rgba(38, 29, 22, 0.648) 49.4px, rgba(38, 29, 22, 0.55) 56.5px, rgba(38, 29, 22, 0.45) 63.5px,
+    rgba(38, 29, 22, 0.352) 70.6px, rgba(38, 29, 22, 0.259) 77.6px, rgba(38, 29, 22, 0.175) 85.2px,
+    rgba(38, 29, 22, 0.104) 93px, rgba(38, 29, 22, 0.049) 101.4px, rgba(38, 29, 22, 0.013) 110.3px,
+    rgba(38, 29, 22, 0) 120px);
 }
 
 /* Reset */
@@ -137,8 +146,12 @@ html {
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
 /* On the pages in the new design (their html has the class new-design), whose menu sits on the header's photo, the
-   top of the header, under its shade; the page itself stays white */
+   top of the header, under its shade (on phones the colour the header starts with, --top-band); the page itself stays
+   white */
 html.new-design { --page-bg: #3f2c1e; }
+@media (max-width: 700px) {
+  html.new-design { --page-bg: #261d16; }
+}
 html.new-design body { background: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
@@ -1399,6 +1412,14 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   inset: 0;
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+}
+/* Phones: both headers start with the dark brown band (--top-band) the strip under the notch is in */
+@media (max-width: 700px) {
+  .hero::before,
+  .page-hero::before {
+    background: var(--top-band),
+      linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+  }
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
 /* The title as large as the home page's headline, and set like it (.hero's --title), across the whole title space,
