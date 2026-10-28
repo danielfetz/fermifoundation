@@ -153,6 +153,12 @@ html.new-design { --page-bg: #3f2c1e; }
   html.new-design { --page-bg: #261d16; }
 }
 html.new-design body { background: #fff; }
+/* Safari colours that strip from the page's background colours, the html's with the body's over it, leaving pictures
+   out. So on phones, where the strip is the header's dark brown, the body's white is drawn as a picture (it looks the
+   same) and the strip takes the html's colour; with the phone menu open, white. */
+@media (max-width: 700px) {
+  html.new-design body { background: linear-gradient(#fff, #fff); }
+}
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -387,8 +393,8 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
-/* Phones: the headline smaller, on three lines, and the buttons side by side, each as wide as its words, on a strip
-   of the hall from its left edge */
+/* Phones: the headline smaller, on three lines, and the buttons under it, each across it, on a strip of the hall from
+   its left edge */
 @media (max-width: 700px) {
   .hero {
     --title: min(30px, (100vw - 40px) / 11.7);
@@ -400,15 +406,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero__inner { width: calc(100% - 40px); }
   .hero__title { margin-bottom: 12px; }
   .hero__sub { font-size: 17px; line-height: 1.5; }
-  .hero__actions { gap: 10px; margin-top: 26px; }
-  .hero__actions a { padding: 11px 16px; font-size: 15px; }
-  .hero__play svg { width: 15px; height: 15px; }
-}
-/* Smaller phones: the buttons a little smaller, so they still fit side by side */
-@media (max-width: 389px) {
-  .hero__actions { gap: 8px; }
-  .hero__actions a { gap: 8px; padding: 11px 12px; font-size: 14px; }
-  .hero__play svg { width: 14px; height: 14px; }
+  .hero__actions { margin-top: 28px; }
+  .hero__actions a { flex: 1 1 100%; justify-content: center; }
 }
 
 /* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
