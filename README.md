@@ -24,11 +24,13 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `poker-hall.webp` every page's
-  header, the hall of a poker tournament, blurred so only the room and its tables show; `start-*.webp` the pictures on
-  the cards under the home page's Learn more and get involved (the chips, a drawing of University Hall, an office
-  building painted in 1927, and students in the University Hall in Leuven), toned in warm greys; `event-*.webp` the
-  photos of the cities under Upcoming tournaments; `enrico-fermi.webp` is a photo of Fermi that stood on the home page
-  before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page for now)
+  header, the hall of a poker tournament, blurred so only the room and its tables show (on phones the home page's
+  shows `chips-dice.webp` instead, a close-up of the poker chips and dice, toned in the header's browns and softened);
+  `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a drawing of
+  University Hall, an office building painted in 1927, and students in the University Hall in Leuven), toned in warm
+  greys; `event-*.webp` the photos of the cities under Upcoming tournaments; `enrico-fermi.webp` is a photo of Fermi
+  that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him (neither is on a page
+  for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -90,8 +92,9 @@ opens its tab and the question.
 The home page runs in bands, white and pale beige in turn: the header, Upcoming tournaments, the introduction, Learn
 more and get involved, the mailing list, and Frequently asked questions. The header, with the menu on it, has two
 buttons under its headline: How to play, and Host a tournament. At its foot it fades into white, and the heading of
-Upcoming tournaments and the top of their first cards rise into it. Host a tournament (`host-a-tournament/`) is a
-short page of links to the materials (the guide, the rule sheet and the questions to print, and the Play page), each
+Upcoming tournaments and the top of their first cards rise into it. On phones its picture is a close-up of the poker
+chips and dice instead of the hall, whose crowd is too busy at that size. Host a tournament (`host-a-tournament/`) is
+a short page of links to the materials (the guide, the rule sheet and the questions to print, and the Play page), each
 row's heading the link (`boxes--links`), and under them the introduction's lines for schools and companies, so change
 those in both. Each card under Learn more and get involved is a link with a picture. Frequently asked questions has
 five of the FAQ page's questions, opening in place, and a button to the rest; their answers are copies of the FAQ
@@ -155,7 +158,8 @@ Page views are counted with Vercel Web Analytics, through the two script tags at
 Vercel serves its script only on the deployment, so a local preview shows a harmless 404 for
 `/_vercel/insights/script.js`.
 
-The poker chips photo came from the site's owner. The Enrico Fermi photo is a U.S. Department of Energy photo
+The poker chips photo came from the site's owner (on the How to play card, and behind the home page's header on
+phones). The Enrico Fermi photo is a U.S. Department of Energy photo
 (c. 1943–49) in the public domain. So are the pictures on the For schools and For companies cards, from Wikimedia
 Commons: a drawing of
 [University Hall](https://commons.wikimedia.org/wiki/File:University_Hall_from_the_Middle_Campus.jpg) and the 1927

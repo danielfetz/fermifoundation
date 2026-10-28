@@ -22,7 +22,9 @@
   <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/poker-hall.webp" as="image">
+  <!-- The header's picture: the hall on wider screens, the chips and dice on phones (assets/site.css) -->
+  <link rel="preload" href="/assets/img/poker-hall.webp" as="image" media="(min-width: 701px)">
+  <link rel="preload" href="/assets/img/chips-dice.webp" as="image" media="(max-width: 700px)">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
