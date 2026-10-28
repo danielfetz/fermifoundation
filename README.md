@@ -63,13 +63,14 @@ animation for people whose device asks for less motion, or without JavaScript.
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
 other inner pages: a header (`page-hero`, over the hall photo, with the menu on it) with the title alone, then the
-guide on white (`.doc`), opening with the introduction (`page-lead`), its column lined up with the title. On laptops
-(from 1280px) the header fades into white at its foot and the page rises into it as a white sheet, the photo fading
-beside it; on narrower screens the photo ends in a straight line. The guide's parts keep their classes from the paper
-look, and `.doc` gives them the new one. Its footnotes are numbers in the text that lead to the notes at the bottom of
-the page. On wide screens `site.js` also sets each note in the margin beside its line, and elsewhere shows it in place
-when its number is hovered over or tapped; from the keyboard, and without JavaScript, a number leads to its note at
-the bottom. The worked sample question is still in the page, hidden, to use later.
+guide on white (`.doc`), opening with the introduction (`page-lead`), a little larger and as wide as the title's
+space, then the guide's column, lined up with the title. On laptops (from 1280px) the header fades into white at its
+foot and the page rises into it as a white sheet, the photo fading beside it; on narrower screens the photo ends in a
+straight line. The guide's parts keep their classes from the paper look, and `.doc` gives them the new one. Its
+footnotes are numbers in the text that lead to the notes at the bottom of the page. On wide screens `site.js` also
+sets each note in the margin beside its line, and elsewhere shows it in place when its number is hovered over or
+tapped; from the keyboard, and without JavaScript, a number leads to its note at the bottom. The worked sample
+question is still in the page, hidden, to use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
 for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as

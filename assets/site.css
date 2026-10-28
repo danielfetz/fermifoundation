@@ -1409,9 +1409,11 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   font-weight: 700;
   line-height: 1.1;
 }
-.doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); }
-/* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet, a
-   little wider than the column and its margin notes, the photo fading beside it */
+/* A container, so the first paragraph can be as wide as the title's space (cqw) */
+.doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); container-type: inline-size; }
+/* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet, 48px
+   wider on each side than the title's space (1096px), the photo fading beside it. The words start 38px from its top,
+   which looks as far as the 48px at its sides once the first line's leading is counted. */
 @media (min-width: 1280px) {
   .page-hero { padding-bottom: 250px; }
   .page-hero::after {
@@ -1425,7 +1427,9 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
     background: var(--fade);
   }
   .doc,
-  .faq { position: relative; z-index: 1; margin-top: -130px; padding-top: 64px; background: transparent; }
+  .faq { position: relative; z-index: 1; margin-top: -130px; padding-top: 38px; background: transparent; }
+  /* The FAQ's tabs are smaller type, with less leading above them */
+  .faq { padding-top: 44px; }
   /* The sheet only 330px tall, so its edges run on 200px past the header and then dissolve into the white page */
   .doc::before,
   .faq::before {
@@ -1434,7 +1438,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
     top: 0;
     left: 50%;
     z-index: -1;
-    width: min(1192px, 100% - 120px);
+    width: 1192px;
     height: 330px;
     transform: translateX(-50%);
     background: #fff;
@@ -1443,7 +1447,8 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 }
 /* The column: as wide as before, its left edge under the header's title */
 .doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
-/* What the page is about, first on it, set like the rest */
+/* What the page is about, first on it: across the whole width the title and the margin notes share (on laptops the
+   sheet's, as far from its top as from its sides), a little larger than the rest (below) */
 .doc .page-lead { margin-bottom: 48px; }
 .doc .texts { margin-top: 0; }
 .doc .section { margin-top: 72px; }
@@ -1463,6 +1468,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .text,
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
+.doc .page-lead { width: min(1096px, 100cqw - 48px); max-width: none; font-size: 22px; line-height: 1.55; }
 .doc .section > .text { margin-top: 18px; }
 .doc .list li::marker { color: #3f362d; }
 /* The notes: pale beige panels, square like the header's button */
@@ -1527,6 +1533,7 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .doc .text,
   .doc .list,
   .doc .box__body { font-size: 17px; }
+  .doc .page-lead { width: auto; font-size: 20px; }
   .doc .sticky-note { padding: 20px 20px 22px; }
   /* The quotation mark above the words, so they have the panel's whole width */
   .doc .box--quote { padding: 46px 20px 24px; }
