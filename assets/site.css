@@ -132,6 +132,10 @@ html {
 html { background: var(--page-bg); }
 /* On the pages in the new design (their html has the class new-design), the white of their menu bar */
 html.new-design { --page-bg: #fff; }
+/* On the home page, whose menu sits on the header's photo, the top of the header, under its shade; the page itself
+   stays white */
+html.home-page { --page-bg: #3b2a1e; }
+html.home-page body { background: #fff; }
 /* With the mobile menu open, it matches the menu instead */
 html.menu-open { --page-bg: var(--cream); }
 body {
@@ -239,6 +243,10 @@ button {
 .nav--light .nav__sheet { background: #fff; }
 .nav--light .nav__sheet { font-family: var(--mona); }
 html.new-design.menu-open { --page-bg: #fff; }
+/* On the home page the menu sits on the header's photo (nav--over), in white, until the phone menu opens */
+.nav--over { position: absolute; top: 0; right: 0; left: 0; background: transparent; color: #fff; }
+.nav--over .nav__links a:hover { border-color: #fff; }
+.nav--over.is-open { color: inherit; }
 
 /* Logo: a small photo of Fermi next to the name, in Mona Sans, wide and semi-bold */
 .logo {
@@ -266,15 +274,14 @@ html.new-design.menu-open { --page-bg: #fff; }
 .sky__space { height: 190px; }
 
 /* The home page's header: the hall of a poker tournament, blurred so only the room and its tables show, across the
-   whole width (assets/img/poker-hall.webp, credited on the Credits page), under a warm shade, behind the headline,
-   which is in white with a line under it, and the two buttons under that. */
+   whole width (assets/img/poker-hall.webp, credited on the Credits page), under a warm shade, from the top of the page
+   with the menu on it. Lower down the headline, in white with a line under it, and the two buttons under that; at its
+   foot it fades into white, behind the heading of Upcoming tournaments and the top of their first cards. */
 .hero {
-  --title: clamp(48px, 4.08vw, 65.28px);
+  --title: clamp(34.5px, 2.88vw, 42.25px);
   position: relative;
   isolation: isolate;
-  display: flex;
-  align-items: center;
-  min-height: clamp(480px, 42.5vw, 680px);
+  padding: calc(76px + clamp(80px, 9vw, 150px)) 0 340px;
   background: #98693b url(/assets/img/poker-hall.webp) center bottom / cover no-repeat;
 }
 /* The shade, on every screen and on the inner pages' headers too (.page-hero): the footer's charcoal at both edges,
@@ -287,38 +294,56 @@ html.new-design.menu-open { --page-bg: #fff; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
-.hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; padding: 48px 0; }
+/* The fade into white at its foot, eased, so it has no edge where it starts; white on its top, where the tournaments'
+   heading is, stays at least 6.7:1 */
+.hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 260px;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.013) 8.1%, rgba(255, 255, 255, 0.049) 15.5%,
+    rgba(255, 255, 255, 0.104) 22.5%, rgba(255, 255, 255, 0.175) 29%, rgba(255, 255, 255, 0.259) 35.3%,
+    rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%,
+    rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%,
+    rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, #fff);
+}
+.hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
+/* On two lines where there's room, breaking after "estimation," (that line is 19.2em) */
 .hero__title {
-  max-width: 11.9em;
-  margin-bottom: 20px;
+  max-width: 20em;
+  margin-bottom: 14px;
   color: #fff;
   font-family: var(--mona);
   font-size: var(--title);
   font-stretch: 125%;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
   word-break: break-word;
 }
-/* The line under the headline */
+/* The line under the headline, a little softer than white (at least 6.5:1) */
 .hero__sub {
   max-width: 640px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.86);
   font-family: var(--mona);
-  font-size: 20px;
+  font-size: 18px;
   font-stretch: 112.5%;
   font-weight: 500;
   line-height: 1.58;
   text-wrap: pretty;
 }
 /* The two buttons: How to play in white, and Host a tournament outlined */
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
 .hero__actions a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 26px;
+  padding: 12px 22px;
   font-family: var(--mona);
-  font-size: 17px;
+  font-size: 16px;
   font-stretch: 125%;
   font-weight: 600;
   line-height: 1.4;
@@ -350,23 +375,34 @@ html.new-design.menu-open { --page-bg: #fff; }
    left edge */
 @media (max-width: 700px) {
   .hero {
-    --title: min(48px, (100vw - 40px) / 6.65);
-    align-items: flex-start;
-    min-height: 0;
+    --title: min(34px, (100vw - 40px) / 10.3);
+    padding: calc(76px + 40px) 0 276px;
     background-position-x: left;
   }
-  .hero__inner { width: calc(100% - 40px); padding: 56px 0; }
-  .hero__sub { font-size: 19px; line-height: 1.55; }
-  .hero__actions { margin-top: 36px; }
+  /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
+  .hero::after { height: 220px; }
+  .hero__inner { width: calc(100% - 40px); }
+  .hero__sub { line-height: 1.55; }
+  .hero__actions { margin-top: 28px; }
   .hero__actions a { flex: 1 1 100%; justify-content: center; }
 }
 
 /* Upcoming tournaments, under the header: cards with a dark head (the city and, in narrow capitals, the date) over a
    pattern of card suits (or a photo of the city) with the button on it, and a last card for everywhere else. The
-   pictures sit at the foot of the cards, so they line up across a row whatever the heads hold. */
-.events { padding: 100px 0 96px; background: #fff; }
+   pictures sit at the foot of the cards, so they line up across a row whatever the heads hold. The heading and the
+   top of the first cards rise into the header's fade, the heading on its dark part, in white. */
+.events { position: relative; z-index: 1; margin-top: -222px; padding: 0 0 96px; }
 .events__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
-.events h2 { margin-bottom: 48px; text-align: center; }
+.events h2 {
+  margin-bottom: 22px;
+  color: #fff;
+  font-family: var(--mona);
+  font-size: 26px;
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
 .events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .event { position: relative; display: flex; flex-direction: column; background: #222222; }
 /* Each head as tall as one with the name and the date, so a card without a date (Somewhere else?) matches, its foot
@@ -467,16 +503,16 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
    updates, between the heading and the cards, the heading still in sight */
 .events .status { margin: -8px 0 32px; border-radius: 0; background: #f2eee8; font-family: var(--mona); scroll-margin-top: 116px; }
 @media (max-width: 700px) {
-  .events { padding: 64px 0; }
+  .events { margin-top: -206px; padding: 0 0 64px; }
   .events__inner { width: calc(100% - 40px); }
-  .events h2 { margin-bottom: 32px; font-size: 34px; }
+  .events h2 { margin-bottom: 18px; font-size: 24px; }
   .events__list { grid-template-columns: minmax(0, 1fr); }
   .event__photo,
   .event__art { height: 180px; }
   .events .status { margin: 0 0 24px; padding: 18px 20px; scroll-margin-top: 128px; }
 }
 
-/* The rest of the home page, in the header's style: white and pale beige bands, headings like the tournaments' */
+/* The rest of the home page, in the header's style: white and pale beige bands, headings in Mona Sans at its widest */
 .intro,
 .start,
 .home-faq,
@@ -487,7 +523,6 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 .start__inner,
 .home-faq__inner,
 .signup__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
-.events h2,
 .start h2,
 .home-faq h2,
 .signup h2 {
