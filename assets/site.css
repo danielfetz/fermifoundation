@@ -1470,7 +1470,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .text,
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
-.doc .page-lead { width: min(1096px, 100cqw - 48px); max-width: none; font-size: 22px; line-height: 1.55; }
+.doc .page-lead { width: min(1096px, 100cqw - 48px); max-width: none; font-size: 20px; line-height: 1.6; }
 .doc .section > .text { margin-top: 18px; }
 .doc .list li::marker { color: #3f362d; }
 /* The notes: pale beige panels, square like the header's button */
