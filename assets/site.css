@@ -276,33 +276,29 @@ html.new-design.menu-open { --page-bg: #fff; }
 /* The home page's header: the hall of a poker tournament, blurred so only the room and its tables show, across the
    whole width (assets/img/poker-hall.webp, credited on the Credits page), under a warm shade, from the top of the page
    with the menu on it. Lower down the headline, in white with a line under it, and the two buttons under that; at its
-   foot it fades into white, behind the heading of Upcoming tournaments and the top of their first cards. */
+   foot it fades into white, behind the heading of Upcoming tournaments and the top of their first cards. The photo's
+   top is 135px above the header's, so more of the room and less of its ceiling shows; where that leaves it short at
+   the foot (up to 135px, on narrower screens), the header's own colour, the photo's along its bottom edge, shows
+   instead, under the fade and the cards. */
 .hero {
   --title: clamp(34.5px, 2.88vw, 42.25px);
   position: relative;
   isolation: isolate;
-  overflow: hidden;
   padding: calc(76px + clamp(80px, 9vw, 150px)) 0 340px;
-  background: #98693b;
+  background: #936d43 url(/assets/img/poker-hall.webp) center -135px / cover no-repeat;
 }
-/* The photo, its top 135px above the header's, so more of the room and less of its ceiling shows (it covers that
-   taller box, so it's never short at the foot), under the shade. The shade is on the inner pages' headers too
-   (.page-hero): the footer's charcoal at both edges, darkest on the left, behind the words, and a warm brown 70% of
-   the way across. It never clears, so white on it stays at least 7.5:1 behind every line, whatever part of the photo
-   is there. */
+/* The shade, on every screen and on the inner pages' headers too (.page-hero): the footer's charcoal at both edges,
+   darkest on the left, behind the words, and a warm brown 70% of the way across. It never clears, so white on it
+   stays at least 7.5:1 behind every line, whatever part of the photo is there. */
 .hero::before {
   content: "";
   position: absolute;
-  top: -135px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91)),
-    url(/assets/img/poker-hall.webp) center top / cover no-repeat;
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
 /* The fade into white at its foot, eased, so it has no edge where it starts; white on its top, where the tournaments'
-   heading is, stays at least 6.7:1 */
+   heading is, stays at least 7.4:1 */
 .hero::after {
   content: "";
   position: absolute;
@@ -331,7 +327,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   letter-spacing: -0.005em;
   word-break: break-word;
 }
-/* The line under the headline, a little softer than white (at least 6.5:1) */
+/* The line under the headline, a little softer than white (at least 7.2:1) */
 .hero__sub {
   max-width: 640px;
   color: rgba(255, 255, 255, 0.86);
@@ -384,8 +380,8 @@ html.new-design.menu-open { --page-bg: #fff; }
   .hero {
     --title: min(34px, (100vw - 40px) / 10.3);
     padding: calc(76px + 40px) 0 276px;
+    background-position: left -135px;
   }
-  .hero::before { background-position: center, left top; }
   /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
   .hero::after { height: 220px; }
   .hero__inner { width: calc(100% - 40px); }
