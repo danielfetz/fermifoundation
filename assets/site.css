@@ -1413,9 +1413,10 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 }
 /* A container, so the first paragraph can be as wide as the title's space (cqw) */
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); container-type: inline-size; }
-/* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet, 48px
-   wider on each side than the title's space (1096px), the photo fading beside it. The words start 38px from its top,
-   which looks as far as the 48px at its sides once the first line's leading is counted. */
+/* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet as
+   wide as the title's space (1096px), its edges under the title's, as the home page's cards are under its headline,
+   the photo fading beside it. The words sit 48px in from its sides (below) and start 38px from its top, which looks
+   as far once the first line's leading is counted. */
 @media (min-width: 1280px) {
   .page-hero { padding-bottom: 250px; }
   .page-hero::after {
@@ -1440,17 +1441,17 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
     top: 0;
     left: 50%;
     z-index: -1;
-    width: 1192px;
+    width: 1096px;
     height: 330px;
     transform: translateX(-50%);
     background: #fff;
     box-shadow: 0 -18px 36px -24px rgba(36, 30, 25, 0.45);
   }
 }
-/* The column: as wide as before, its left edge under the header's title */
+/* The column: as wide as before, its left edge under the header's title (on laptops 48px in, inside the sheet) */
 .doc .page { width: min(758px, 100% - 48px); margin: 0 0 0 max(24px, (100% - 1096px) / 2); padding: 0; }
 /* What the page is about, first on it: across the whole width the title and the margin notes share (on laptops the
-   sheet's, as far from its top as from its sides), a little larger than the rest (below) */
+   sheet's, less its 48px sides), a little larger than the rest (below) */
 .doc .page-lead { margin-bottom: 48px; }
 .doc .texts { margin-top: 0; }
 .doc .section { margin-top: 72px; }
@@ -1471,6 +1472,13 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
 .doc .page-lead { width: min(1096px, 100cqw - 48px); max-width: none; font-size: 20px; line-height: 1.6; }
+/* Laptops: everything 48px in from the sheet's sides, so the sheet's edges are under the title's and the words sit
+   inside it, as a card's words do on the home page */
+@media (min-width: 1280px) {
+  .doc .page { margin-left: calc((100% - 1096px) / 2 + 48px); }
+  .doc .page-lead { width: 1000px; }
+  .faq__inner { width: 1000px; }
+}
 .doc .section > .text { margin-top: 18px; }
 .doc .list li::marker { color: #3f362d; }
 /* The notes: pale beige panels, square like the header's button */
