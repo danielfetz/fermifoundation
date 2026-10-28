@@ -119,9 +119,9 @@
     rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%,
     rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%,
     rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, #fff);
-  /* The inner pages' headers' top on phones: Safari's strip above the page (under the notch on iPhones) in a dark
-     brown, and the header fading from that same colour into the photo over its first 120px, so there's no seam
-     whatever part of the photo is there */
+  /* The headers' top on phones: Safari's strip above the page (under the notch on iPhones) in a dark brown, and the
+     header fading from that same colour into the photo over its first 120px, so there's no seam whatever part of the
+     photo is there */
   --top-band: linear-gradient(rgb(38, 29, 22), rgba(38, 29, 22, 0.987) 9.7px, rgba(38, 29, 22, 0.951) 18.6px,
     rgba(38, 29, 22, 0.896) 27px, rgba(38, 29, 22, 0.825) 34.8px, rgba(38, 29, 22, 0.741) 42.4px,
     rgba(38, 29, 22, 0.648) 49.4px, rgba(38, 29, 22, 0.55) 56.5px, rgba(38, 29, 22, 0.45) 63.5px,
@@ -146,12 +146,11 @@ html {
    (under the notch on iPhones) and when you scroll past the top, so it matches the top of the etching */
 html { background: var(--page-bg); }
 /* On the pages in the new design (their html has the class new-design), whose menu sits on the header's photo, the
-   top of the header, under its shade (on phones the colour the inner pages' headers start with, --top-band, and on
-   the home page the even brown the top of its chips picture is); the page itself stays white */
+   top of the header, under its shade (on phones the colour the header starts with, --top-band); the page itself stays
+   white */
 html.new-design { --page-bg: #3f2c1e; }
 @media (max-width: 700px) {
   html.new-design { --page-bg: #261d16; }
-  html.home-page.new-design { --page-bg: #473a2d; }
 }
 html.new-design body { background: #fff; }
 /* Safari colours that strip from the page's background colours, the html's with the body's over it, leaving pictures
@@ -322,7 +321,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
 /* The fade into white at its foot (--fade); white on its top, where the tournaments' heading is, stays at least
-   7.3:1 */
+   6.9:1 */
 .hero::after {
   content: "";
   position: absolute;
@@ -347,7 +346,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   letter-spacing: -0.005em;
   word-break: break-word;
 }
-/* The line under the headline, a little softer than white (at least 7.3:1) */
+/* The line under the headline, a little softer than white (at least 6.7:1) */
 .hero__sub {
   max-width: 640px;
   color: rgba(255, 255, 255, 0.86);
@@ -394,17 +393,14 @@ html.new-design.menu-open { --page-bg: #fff; }
 }
 .home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
-/* Phones: the headline smaller, on three lines, and the buttons under it, each across it, on a close-up of the poker
-   chips and dice (assets/img/chips-dice.webp, the chips photo toned in the header's browns and softened) instead of
-   the hall, whose crowd is too busy at this size, under an even shade. Its top is an even brown (#473a2d, the blurred
-   table behind the chips) right across, so Safari's strip above the page is that colour and meets it without a band. */
+/* Phones: the headline smaller, on three lines, and the buttons under it, each across it, on a strip of the hall from
+   its middle */
 @media (max-width: 700px) {
   .hero {
     --title: min(30px, (100vw - 40px) / 11.7);
     padding: calc(76px + 40px) 0 276px;
-    background: #1b1511 url(/assets/img/chips-dice.webp) 50% 30% / cover no-repeat;
+    background-position: 50% -135px;
   }
-  .hero::before { background: linear-gradient(rgba(28, 22, 17, 0.74), rgba(28, 22, 17, 0.8)); }
   /* A shorter fade, so the tournaments' heading, a little lower here, is still on the dark */
   .hero::after { height: 220px; }
   .hero__inner { width: calc(100% - 40px); }
@@ -1424,9 +1420,9 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   z-index: -1;
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
-/* Phones: the inner pages' headers start with the dark brown band (--top-band) the strip under the notch is in (the
-   home page's needs none, above) */
+/* Phones: both headers start with the dark brown band (--top-band) the strip under the notch is in */
 @media (max-width: 700px) {
+  .hero::before,
   .page-hero::before {
     background: var(--top-band),
       linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
@@ -1776,4 +1772,23 @@ html.new-design h3 .link { font-weight: inherit; }
 @media (max-width: 720px) {
   .page__title { font-size: 32px; }
   .page__intro { margin-top: 30.5px; }
+}
+
+/* For now every header shows a close-up of the poker chips and dice instead of the hall (poker-hall.webp, which the
+   rules above still draw, and which we may go back to): assets/img/chips-dice.webp, the site owner's chips photo
+   toned in the header's browns and softened, zoomed in on every screen, under the headers' shade on wider screens
+   and an even one on phones. White on it stays at least 7.8:1 on the home page and 9:1 on the inner pages. To go back
+   to the hall, delete this block and preload poker-hall.webp again in the pages' heads, in place of chips-dice.webp. */
+.hero,
+.page-hero { background: #1b1511 url(/assets/img/chips-dice.webp) 50% 30% / cover no-repeat; }
+/* Safari's strip above the page: on wider screens the average of the header's top under its shade */
+html.new-design { --page-bg: #36291f; }
+@media (max-width: 700px) {
+  /* The top of the picture is an even brown (the blurred table behind the chips) right across, so Safari's strip above
+     the page is that colour and meets it without a band; the inner pages' shorter headers show the picture from its
+     top, so theirs starts with that brown too */
+  html.new-design { --page-bg: #473a2d; }
+  .page-hero { background-position: 50% 0; }
+  .hero::before,
+  .page-hero::before { background: linear-gradient(rgba(28, 22, 17, 0.74), rgba(28, 22, 17, 0.8)); }
 }
