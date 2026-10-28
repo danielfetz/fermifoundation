@@ -50,7 +50,7 @@ The menu and footer are repeated on every page (except Play, which has neither),
 wide screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every
 page but Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the white menu bar
 (`nav--light`; on the home page it sits on the header's photo, in white, `nav--over`), with the name alone as the
-logo, links in the text as rust words a little bolder than the text, with a light underline, and the charcoal footer
+logo, links in the text as rust words a little bolder than the text, with a light underline, and the dark brown footer
 (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before (the sky band,
 the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in `site.css`, unused for
 now.

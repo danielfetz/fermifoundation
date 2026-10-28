@@ -287,7 +287,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   padding: calc(76px + clamp(80px, 9vw, 150px)) 0 340px;
   background: #936d43 url(/assets/img/poker-hall.webp) center -135px / cover no-repeat;
 }
-/* The shade, on every screen and on the inner pages' headers too (.page-hero): the footer's charcoal at both edges,
+/* The shade, on every screen and on the inner pages' headers too (.page-hero): a warm near-black at both edges,
    darkest on the left, behind the words, and a warm brown 70% of the way across. It never clears, so white on it
    stays at least 7.5:1 behind every line, whatever part of the photo is there. */
 .hero::before {
@@ -352,7 +352,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.4;
   transition: background-color 150ms var(--ease);
 }
-.hero__play { background: #fff; color: #222222; }
+.hero__play { background: #fff; color: #3f362d; }
 .hero__play:hover { background: #f2eee8; }
 .hero__play svg { width: 17px; height: 17px; }
 .hero__host { box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85); color: #fff; }
@@ -363,7 +363,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   align-items: center;
   gap: 10px;
   padding: 8px 24px;
-  background: #222222;
+  background: #3f362d;
   color: #fff;
   font-family: var(--mona);
   font-size: 16px;
@@ -372,7 +372,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   line-height: 1.5;
   transition: background-color 150ms var(--ease);
 }
-.home-faq__more:hover { background: #111111; }
+.home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
 /* Phones: the headline over the whole width and the buttons under it, each across it, on a strip of the hall from its
    left edge */
@@ -407,7 +407,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   letter-spacing: -0.005em;
 }
 .events__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.event { position: relative; display: flex; flex-direction: column; background: #222222; }
+.event { position: relative; display: flex; flex-direction: column; background: #3f362d; }
 /* Each head as tall as one with the name and the date, so a card without a date (Somewhere else?) matches, its foot
    empty */
 .event__head { min-height: 89px; padding: 16px 16px 12px; color: #fff; }
@@ -429,7 +429,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   padding: 8px 24px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16), 0 6px 16px -6px rgba(0, 0, 0, 0.3);
-  color: #222222;
+  color: #3f362d;
   font-family: var(--mona);
   font-size: 16px;
   font-stretch: 125%;
@@ -473,13 +473,13 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   font: inherit;
   font-size: 15px;
 }
-.event__row input:focus-visible { border-color: #222222; outline: none; box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.18); }
+.event__row input:focus-visible { border-color: #3f362d; outline: none; box-shadow: 0 0 0 3px rgba(63, 54, 45, 0.2); }
 .event__row button {
   flex: none;
   height: 40px;
   padding: 0 14px;
   border: 0;
-  background: #222222;
+  background: #3f362d;
   color: #fff;
   font: inherit;
   font-size: 15px;
@@ -488,7 +488,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   cursor: pointer;
   transition: background-color 150ms var(--ease);
 }
-.event__row button:hover { background: #111111; }
+.event__row button:hover { background: #2f2822; }
 .event__row button:disabled { opacity: 0.7; cursor: default; }
 .event__small,
 .event__error { margin-top: 8px; font-size: 13px; line-height: 1.4; }
@@ -559,7 +559,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   display: block;
   aspect-ratio: 5 / 7;
   overflow: hidden;
-  background: #222222;
+  background: #3f362d;
   color: #fff;
 }
 .start-card img {
@@ -576,11 +576,11 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.38) 45%, rgba(0, 0, 0, 0.18));
+  background: linear-gradient(rgba(36, 30, 25, 0.84), rgba(36, 30, 25, 0.4) 45%, rgba(36, 30, 25, 0.2));
 }
 .start-card span { display: block; padding: 28px 26px; font-size: 24px; font-stretch: 125%; font-weight: 600; line-height: 1.15; }
 .start-card:hover img { transform: scale(1.05); }
-.start-card:focus-visible { outline: 3px solid #222222; outline-offset: 3px; }
+.start-card:focus-visible { outline: 3px solid #3f362d; outline-offset: 3px; }
 /* Frequently asked questions: on white after the mailing list, the questions opening in place as on the FAQ page, a
    line under each, then the way to the rest in the guide's dark button */
 .home-faq h2 { margin-bottom: 40px; }
@@ -605,20 +605,20 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
   font-size: 18px;
 }
 :is(.signup, .updates-page) .su input[type='email']:focus-visible { box-shadow: none; }
-:is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.35); }
+:is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(63, 54, 45, 0.35); }
 :is(.signup, .updates-page) .su__row .btn {
   height: 50px;
   padding: 0 30px;
   border-radius: 0;
-  background: #000;
+  background: #3f362d;
   box-shadow: none;
   font-size: 18px;
   font-weight: 600;
 }
-:is(.signup, .updates-page) .su__row .btn:hover { background: #222222; }
+:is(.signup, .updates-page) .su__row .btn:hover { background: #2f2822; }
 :is(.signup, .updates-page) .su__note { margin-top: 12px; color: #333; }
 .signup .su-done { margin-top: 28px; }
-:is(.signup, .updates-page) .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23222222'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.signup, .updates-page) .su-done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%233f362d'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 :is(.signup, .updates-page) .su-done h3 { font-family: var(--mona); font-stretch: 125%; font-weight: 600; }
 @media (max-width: 1100px) {
   .start__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1433,13 +1433,13 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .list,
 .doc .box__body { color: #222; font-size: 18px; line-height: 1.6; }
 .doc .section > .text { margin-top: 18px; }
-.doc .list li::marker { color: #222222; }
+.doc .list li::marker { color: #3f362d; }
 /* The notes: pale beige panels, square like the header's button */
 .doc .sticky-note { padding: 24px 28px 26px; border-radius: 0; background: #f2eee8; box-shadow: none; transform: none; }
 .doc .section > .sticky-note { margin-top: 28px; }
 /* Words to send or read out, the announcement and the rules: a paler panel, set in from a large dark quotation mark */
 .doc .box--quote { padding: 28px 32px 30px 76px; background: #f8f6f2; }
-.doc .box--quote::before { top: 16px; left: 22px; color: #222222; font-family: var(--mona); font-size: 72px; font-stretch: 125%; }
+.doc .box--quote::before { top: 16px; left: 22px; color: #3f362d; font-family: var(--mona); font-size: 72px; font-stretch: 125%; }
 /* Boxes that fold open, like the variations: rows like the FAQ page's questions, with thin lines between them */
 .doc .box--fold { padding: 0; border: 0; border-top: 1px solid #e3e3e3; border-radius: 0; background: none; }
 .doc .boxes > .box--fold + .box--fold { margin-top: 0; }
@@ -1530,7 +1530,7 @@ html.new-design h3 .link { font-weight: inherit; }
   padding: 2px 10px;
   border-radius: 999px;
   background: #f2eee8;
-  color: #222222;
+  color: #3f362d;
   font-family: var(--mona);
   font-size: 13px;
   font-weight: 600;
@@ -1547,19 +1547,19 @@ html.new-design h3 .link { font-weight: inherit; }
 .doc .field input:not([type='radio']),
 .doc .field textarea { border: 1px solid #d3ccc2; border-radius: 0; background: #fff; color: #111; font-size: 17px; }
 .doc .field input:focus-visible,
-.doc .field textarea:focus-visible { border-color: #222222; box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.18); }
-.doc .choice input { accent-color: #222222; }
+.doc .field textarea:focus-visible { border-color: #3f362d; box-shadow: 0 0 0 3px rgba(63, 54, 45, 0.2); }
+.doc .choice input { accent-color: #3f362d; }
 .doc .btn--primary {
   padding: 12px 28px;
   border-radius: 0;
-  background: #222222;
+  background: #3f362d;
   box-shadow: none;
   font-stretch: 125%;
   font-weight: 600;
 }
-.doc .btn--primary:hover { background: #111111; }
+.doc .btn--primary:hover { background: #2f2822; }
 /* The thanks, and what happened after sending a form without JavaScript or following the link in the email (on For
-   companies and Get updates): pale beige, with the check in the buttons' charcoal for good news; once sent, the form
+   companies and Get updates): pale beige, with the check in the buttons' brown for good news; once sent, the form
    gives way to it */
 .doc .form-done,
 .doc .status { margin-top: 28px; border-radius: 0; background: #f2eee8; }
@@ -1567,7 +1567,7 @@ html.new-design h3 .link { font-weight: inherit; }
 .doc .status h2,
 :is(.doc, .events) .status h3 { color: #000; font-family: var(--mona); font-size: 22px; font-stretch: 125%; font-weight: 700; line-height: 1.3; }
 :is(.doc, .events) .status p { font-size: 17px; line-height: 1.6; }
-:is(.doc, .events) .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23222222'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+:is(.doc, .events) .status--done::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%233f362d'/%3E%3Cpath d='M9.5 16.5l4.5 4.5 8.5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .doc .status--done:target ~ .form { display: none; }
 /* Get updates: the form in the white frame of the home page's mailing list, on a pale beige panel */
 .doc .updates-page { max-width: 640px; padding: 32px; background: #f2eee8; }
@@ -1642,10 +1642,10 @@ html.new-design h3 .link { font-weight: inherit; }
 @media (min-width: 721px) {
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr; }
 }
-/* On the pages in the new design: charcoal, in Mona Sans, with no paper's edge above it. On the left, where to write,
+/* On the pages in the new design: a dark brown, in Mona Sans, with no paper's edge above it. On the left, where to write,
    set like the introduction's first paragraph; the links in two columns on the right, their headings set like the
    menu's links; and the small print at the bottom, without the rule above it */
-.footer--dark { padding: 88px 0 64px; background: #161412; color: #fff; font-family: var(--mona); }
+.footer--dark { padding: 88px 0 64px; background: #2b251f; color: #fff; font-family: var(--mona); }
 .footer--dark .footer__grid,
 .footer--dark .footer__legal,
 .footer--dark .footer__credit { width: min(1096px, 100% - 48px); max-width: none; }
