@@ -1401,13 +1401,15 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
+/* The title as large as the home page's headline, and set like it (.hero's --title), across the whole title space,
+   so on laptops every title fits on one line */
 .page-hero h1 {
-  max-width: 14em;
   color: #fff;
-  font-size: clamp(44px, 4.08vw, 65.28px);
+  font-size: clamp(34.5px, 2.88vw, 42.25px);
   font-stretch: 125%;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
 }
 /* A container, so the first paragraph can be as wide as the title's space (cqw) */
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); container-type: inline-size; }
@@ -1522,7 +1524,7 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   /* On phones as tall as the menu and the title need, with room around the title, and the hall from its left edge */
   .page-hero { padding: calc(76px + 48px) 0 64px; background-position-x: left; }
   .page-hero__inner { width: calc(100% - 40px); }
-  .page-hero h1 { font-size: 44px; }
+  .page-hero h1 { font-size: min(34px, (100vw - 40px) / 10.3); }
   .doc { padding: 56px 0 80px; }
   .doc .page-lead { margin-bottom: 36px; }
   .doc .page { width: calc(100% - 40px); margin-left: 20px; }
