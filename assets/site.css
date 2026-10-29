@@ -1774,21 +1774,25 @@ html.new-design h3 .link { font-weight: inherit; }
   .page__intro { margin-top: 30.5px; }
 }
 
-/* For now every header shows a close-up of the poker chips and dice instead of the hall (poker-hall.webp, which the
+/* For now the headers show a close-up of the poker chips and dice instead of the hall (poker-hall.webp, which the
    rules above still draw, and which we may go back to): assets/img/chips-dice.webp, the site owner's chips photo
    toned in the header's browns and softened, zoomed in on every screen, under the headers' shade on wider screens
-   and an even one on phones. White on it stays at least 7.8:1 on the home page and 9:1 on the inner pages. To go back
-   to the hall, delete this block and preload poker-hall.webp again in the pages' heads, in place of chips-dice.webp. */
-.hero,
-.page-hero { background: #1b1511 url(/assets/img/chips-dice.webp) 50% 30% / cover no-repeat; }
+   and an even one on phones. Host a tournament, For schools and For companies (hosting-page, schools-page,
+   companies-page, named in each rule below) keep the hall. White on the chips stays at least 7.8:1 on the home page
+   and 9:1 on the inner pages. To go back to the hall everywhere, delete this block and preload poker-hall.webp again
+   in the pages' heads, in place of chips-dice.webp. */
+:where(html:not(.hosting-page, .schools-page, .companies-page)) :is(.hero, .page-hero) {
+  background: #1b1511 url(/assets/img/chips-dice.webp) 50% 30% / cover no-repeat;
+}
 /* Safari's strip above the page: on wider screens the average of the header's top under its shade */
-html.new-design { --page-bg: #36291f; }
+html.new-design:where(:not(.hosting-page, .schools-page, .companies-page)) { --page-bg: #36291f; }
 @media (max-width: 700px) {
   /* The top of the picture is an even brown (the blurred table behind the chips) right across, so Safari's strip above
      the page is that colour and meets it without a band; the inner pages' shorter headers show the picture from its
      top, so theirs starts with that brown too */
-  html.new-design { --page-bg: #473a2d; }
-  .page-hero { background-position: 50% 0; }
-  .hero::before,
-  .page-hero::before { background: linear-gradient(rgba(28, 22, 17, 0.74), rgba(28, 22, 17, 0.8)); }
+  html.new-design:where(:not(.hosting-page, .schools-page, .companies-page)) { --page-bg: #473a2d; }
+  :where(html:not(.hosting-page, .schools-page, .companies-page)) .page-hero { background-position: 50% 0; }
+  :where(html:not(.hosting-page, .schools-page, .companies-page)) :is(.hero, .page-hero)::before {
+    background: linear-gradient(rgba(28, 22, 17, 0.74), rgba(28, 22, 17, 0.8));
+  }
 }

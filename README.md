@@ -24,14 +24,15 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  every page's header for now, a close-up of the poker chips and dice, toned in the header's browns and softened;
-  `poker-hall.webp` the hall of a poker tournament, blurred so only the room and its tables show, which the headers
-  showed before and may again (delete the block at the end of `site.css` that puts the chips in its place, and preload
-  it again in the pages' heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get
-  involved (the chips, a drawing of University Hall, an office building painted in 1927, and students in the
-  University Hall in Leuven), toned in warm greys; `event-*.webp` the photos of the cities under Upcoming tournaments;
-  `enrico-fermi.webp` is a photo of Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper
-  cutout behind him (neither is on a page for now)
+  the headers for now (but Host a tournament's, For schools' and For companies', which keep the hall), a close-up of
+  the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
+  tournament, blurred so only the room and its tables show, which the other headers showed before and may again
+  (delete the block at the end of `site.css` that puts the chips in its place, and preload it again in the pages'
+  heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
+  drawing of University Hall, an office building painted in 1927, and students in the University Hall in Leuven),
+  toned in warm greys; `event-*.webp` the photos of the cities under Upcoming tournaments; `enrico-fermi.webp` is a
+  photo of Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him
+  (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
   printed cards. Its questions are in `play/questions.js`: the 63-question pack, in the order of the printed cards.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
@@ -65,17 +66,17 @@ animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
-other inner pages: a header (`page-hero`, over the same picture as the home page's, with the menu on it) with the
-title alone, then the guide on white (`.doc`), opening with the introduction (`page-lead`), a little larger and as
-wide as the title's space, then the guide's column, lined up with the title. On laptops (from 1280px) the header fades
-into white at its foot and the page rises into it as a white sheet as wide as the title's space, its edges under the
-title's (as the home page's cards are under its headline), the words 48px in from its sides and the photo fading
-beside it; on narrower screens the photo ends in a straight line and the words line up with the title. The guide's
-parts keep their classes from the paper look, and `.doc` gives them the new one. Its footnotes are numbers in the text
-that lead to the notes at the bottom of the page. On wide screens `site.js` also sets each note in the margin beside
-its line, and elsewhere shows it in place when its number is hovered over or tapped; from the keyboard, and without
-JavaScript, a number leads to its note at the bottom. The worked sample question is still in the page, hidden, to use
-later.
+other inner pages: a header (`page-hero`, over the chips picture, or on Host a tournament, For schools and For
+companies the hall photo, with the menu on it) with the title alone, then the guide on white (`.doc`), opening with
+the introduction (`page-lead`), a little larger and as wide as the title's space, then the guide's column, lined up
+with the title. On laptops (from 1280px) the header fades into white at its foot and the page rises into it as a white
+sheet as wide as the title's space, its edges under the title's (as the home page's cards are under its headline), the
+words 48px in from its sides and the photo fading beside it; on narrower screens the photo ends in a straight line and
+the words line up with the title. The guide's parts keep their classes from the paper look, and `.doc` gives them the
+new one. Its footnotes are numbers in the text that lead to the notes at the bottom of the page. On wide screens
+`site.js` also sets each note in the margin beside its line, and elsewhere shows it in place when its number is
+hovered over or tapped; from the keyboard, and without JavaScript, a number leads to its note at the bottom. The
+worked sample question is still in the page, hidden, to use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with
 for free: a form whose answers go to a Google Form (and from there to a Google Sheet), then the steps to host one, as
@@ -159,7 +160,7 @@ Page views are counted with Vercel Web Analytics, through the two script tags at
 Vercel serves its script only on the deployment, so a local preview shows a harmless 404 for
 `/_vercel/insights/script.js`.
 
-The poker chips photo came from the site's owner (on the How to play card, and in the headers). The Enrico Fermi
+The poker chips photo came from the site's owner (on the How to play card, and in most headers). The Enrico Fermi
 photo is a U.S. Department of Energy photo
 (c. 1943–49) in the public domain. So are the pictures on the For schools and For companies cards, from Wikimedia
 Commons: a drawing of
@@ -167,7 +168,7 @@ Commons: a drawing of
 [rendering of the Victor & Co. building](https://commons.wikimedia.org/wiki/File:Victor_%26_Co._building,_Buffalo,_New_York_-_architectural_rendering,_1927.jpg)
 in Buffalo, cropped above its lettering; the photo on the Sponsor or donate card, students in the
 [University Hall in Leuven](https://commons.wikimedia.org/wiki/File:Lakenhal_%2850839%29.jpg), is CC0. The hall photo
-(in the headers before the chips, and still in the link preview) is
+(in the headers of Host a tournament, For schools and For companies, and in the link preview) is
 [GPD Championship 2013](https://commons.wikimedia.org/wiki/File:GPD_Championsship_2013.jpg) by German Events GbR,
 under CC BY-SA 3.0, which asks for a credit: the title with a link to it, the author, the license with a link, and
 that it's blurred. It's on the Credits page (`credits/`), and every page's footer links to it (Photo credit), which
