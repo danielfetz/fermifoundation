@@ -1441,17 +1441,17 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   line-height: 1.2;
   letter-spacing: -0.005em;
 }
-/* Who wrote the page (How to play), under the title in the soft white of the home page's line under the headline,
-   the names in white; the header grows by it, so on laptops it stays above the fade (at least 7.3:1) */
+/* Who wrote the page (How to play), under the title, set like the home page's line under the headline (.hero__sub);
+   the header grows by it, so on laptops it stays above the fade (at least 7.3:1) */
 .page-hero__byline {
   margin-top: 10px;
   color: rgba(255, 255, 255, 0.86);
-  font-size: 16px;
+  font-family: var(--mona);
+  font-size: 18px;
   font-stretch: 112.5%;
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.58;
 }
-.page-hero__byline b { color: #fff; font-weight: 650; }
 .page-hero__byline a {
   color: inherit;
   text-decoration: underline;
@@ -1582,7 +1582,7 @@ html.guide-page .fn-pop { border-radius: 4px; background: #fff; color: #222; fon
   .page-hero { padding: calc(76px + 48px) 0 64px; background-position-x: left; }
   .page-hero__inner { width: calc(100% - 40px); }
   .page-hero h1 { font-size: min(30px, (100vw - 40px) / 11.7); line-height: 1.25; }
-  .page-hero__byline { margin-top: 8px; font-size: 14.5px; }
+  .page-hero__byline { margin-top: 8px; font-size: 17px; line-height: 1.5; }
   .doc { padding: 56px 0 80px; }
   .doc .page-lead { margin-bottom: 36px; }
   .doc .page { width: calc(100% - 40px); margin-left: 20px; }
