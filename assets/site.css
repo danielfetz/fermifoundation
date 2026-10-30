@@ -1452,14 +1452,6 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   line-height: 1.45;
 }
 .page-hero__byline b { color: #fff; font-weight: 650; }
-.page-hero__byline a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.45);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-.page-hero__byline a:hover { color: #fff; text-decoration-color: #fff; }
 /* A container, so the first paragraph can be as wide as the title's space (cqw) */
 .doc { padding: 80px 0 120px; background: #fff; font-family: var(--mona); container-type: inline-size; }
 /* Laptops: the header fades into white at its foot (--fade), and the page rises 130px into it as a white sheet as
