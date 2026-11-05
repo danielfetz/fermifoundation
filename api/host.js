@@ -37,8 +37,8 @@ module.exports = async function host(req, res) {
   // assets/site.js says how long the page was open; a post without it didn't come from the page
   const elapsed = Number(body.elapsed)
   if (!Number.isFinite(elapsed)) return answer(false)
-  // Only bots fill in the hidden field, send within seconds, or put links where a name goes (links in Tell us more are
-  // fine): pretend it worked
+  // Only bots fill in the hidden field, send within seconds, or put a link where their name goes (links anywhere else
+  // are fine): pretend it worked
   if (body.website || elapsed < QUICKEST) return answer(true)
 
   const form = {}
@@ -49,7 +49,7 @@ module.exports = async function host(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) || !['Yes', 'No'].includes(form.sponsor)) return answer(false)
   if (form.players && !/^\d+$/.test(form.players)) return answer(false)
   if (form.date && !/^\d{4}-\d{2}-\d{2}$/.test(form.date)) return answer(false)
-  if ([form.name, form.school, form.place].some(value => LINK.test(value))) return answer(true)
+  if (LINK.test(form.name)) return answer(true)
 
   const data = new URLSearchParams()
   for (const [key, entry] of FIELDS) {
