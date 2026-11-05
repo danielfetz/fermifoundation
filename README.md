@@ -24,9 +24,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  the headers for now (but Host a tournament's, For schools' and For companies', which keep the hall), a close-up of
+  the inner pages' headers for now (but Host a tournament's, For schools' and For companies', which keep the hall, like
+  the home page), a close-up of
   the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
-  tournament, blurred so only the room and its tables show, which the other headers showed before and may again
+  tournament, blurred so only the room and its tables show, in the home page's header and those three, which the
+  other headers showed before and may again
   (delete the block at the end of `site.css` that puts the chips in its place, and preload it again in the pages'
   heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
   drawing of University Hall, an office building painted in 1927, and students in the University Hall in Leuven),
