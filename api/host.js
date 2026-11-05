@@ -20,7 +20,7 @@ const FIELDS = [
 
 // Anyone faster than this from opening the page to sending hasn't read the form
 const QUICKEST = 4000
-const LINK = /https?:\/\/|www\.|\.(?:com|ru|xyz|top|biz|info)\b/i
+const LINK = /https?:\/\/|www\./i
 
 module.exports = async function host(req, res) {
   if (req.method !== 'POST') {
@@ -37,7 +37,8 @@ module.exports = async function host(req, res) {
   // assets/site.js says how long the page was open; a post without it didn't come from the page
   const elapsed = Number(body.elapsed)
   if (!Number.isFinite(elapsed)) return answer(false)
-  // Only bots fill in the hidden field, send within seconds, or put links where a name goes: pretend it worked
+  // Only bots fill in the hidden field, send within seconds, or put links where a name goes (links in Tell us more are
+  // fine): pretend it worked
   if (body.website || elapsed < QUICKEST) return answer(true)
 
   const form = {}
@@ -48,9 +49,7 @@ module.exports = async function host(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) || !['Yes', 'No'].includes(form.sponsor)) return answer(false)
   if (form.players && !/^\d+$/.test(form.players)) return answer(false)
   if (form.date && !/^\d{4}-\d{2}-\d{2}$/.test(form.date)) return answer(false)
-  if ([form.name, form.school, form.place].some(value => LINK.test(value)) || (form.more.match(/https?:\/\//gi) || []).length > 2) {
-    return answer(true)
-  }
+  if ([form.name, form.school, form.place].some(value => LINK.test(value))) return answer(true)
 
   const data = new URLSearchParams()
   for (const [key, entry] of FIELDS) {
