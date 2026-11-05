@@ -25,10 +25,12 @@ if (toggle && sheet) {
   })
 }
 
-// For schools sign-up: the answers go to a Google Form, which doesn't let the page read its reply. So the browser checks the
-// required fields, and once the request is sent we show the thanks. Without JavaScript the form posts to Google directly.
+// For schools sign-up: the answers go to /api/host (api/host.js), which passes them on to the Google Form, with how long
+// the page has been open, so it can tell people from bots. Without JavaScript the form posts there directly, and comes
+// back to the page with #failed (the time is missing), which offers the email address instead.
 const hostForm = document.querySelector('#host-form')
 const hostFormDone = document.querySelector('#host-form-done')
+const pageOpened = Date.now()
 
 if (hostForm && hostFormDone) {
   const button = hostForm.querySelector('button[type="submit"]')
@@ -36,28 +38,15 @@ if (hostForm && hostFormDone) {
 
   hostForm.addEventListener('submit', async event => {
     event.preventDefault()
-    // Only bots fill in the hidden field: pretend it worked
-    const isBot = hostForm.elements.website.value !== ''
-
-    const data = new URLSearchParams()
-    for (const [name, value] of new FormData(hostForm)) {
-      // Optional questions left empty aren't sent at all, which is how Google takes "no answer"
-      if (!name.startsWith('entry.') || value === '') continue
-      const date = hostForm.elements[name].type === 'date' && value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
-      if (date) {
-        // Google takes a date as separate year, month and day
-        data.append(`${name}_year`, date[1])
-        data.append(`${name}_month`, String(Number(date[2])))
-        data.append(`${name}_day`, String(Number(date[3])))
-      } else {
-        data.append(name, value)
-      }
-    }
-
     button.disabled = true
     error.hidden = true
     try {
-      if (!isBot) await fetch(hostForm.action, { method: 'POST', mode: 'no-cors', body: data })
+      const response = await fetch(hostForm.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...Object.fromEntries(new FormData(hostForm)), elapsed: Date.now() - pageOpened }),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
       remember.set({ host: Date.now() })
       hostForm.hidden = true
       hostFormDone.hidden = false
