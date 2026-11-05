@@ -82,8 +82,8 @@ For schools (`host/`, where Host a tournament was) is for schools and universiti
 for free: a form whose answers go to `api/host.js`, which passes them on to a Google Form (and from there to a Google
 Sheet), then the steps to host one, as rows (`boxes--rows`). The Google Form's address isn't on the page, where bots
 found it and posted spam to it directly: it's `HOST_FORM_URL` in the project's environment variables on Vercel (the
-form's link, ending in `/formResponse`; a copy of the form keeps its fields' IDs, which `api/host.js` lists), and
-until it's set, the old form's. `api/host.js` drops sign-ups that fill in the hidden field, come within four seconds of
+form's link, ending in `/formResponse`; a new form has its own fields' IDs, from its "Get pre-filled link", which go
+in `api/host.js`), and until it's set, the old form's. `api/host.js` drops sign-ups that fill in the hidden field, come within four seconds of
 opening the page, or put links in a name, and refuses ones without the time the page was open, which only
 `assets/site.js` sends: without JavaScript the form comes back to the page with `#failed`, offering the email address. For companies (`companies/`) is for teams, for team building and leadership workshops, which
 companies pay for: a short form that `api/team.js` emails to contact@fermi.org through Resend (below), so that

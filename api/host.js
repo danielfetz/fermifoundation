@@ -1,8 +1,8 @@
 // Sign-ups from schools and universities, from the form on For schools (host/index.html): sent by assets/site.js or,
 // without JavaScript, posted straight here. Passes them on to the Google Form whose answers fill the Google Sheet, so
 // the form's address stays off the page, where bots found it and posted to it directly. Its address is HOST_FORM_URL
-// in the project's environment variables on Vercel (the form's link, ending in /formResponse); the fields' IDs below
-// are the ones that form has, so a copy of it keeps them.
+// in the project's environment variables on Vercel (the form's link, ending in /formResponse). The fields' IDs below are
+// that form's: a new form has its own, in its "Get pre-filled link".
 const GOOGLE_FORM = process.env.HOST_FORM_URL ||
   'https://docs.google.com/forms/d/e/1FAIpQLSedrDBgiFtLCRzoa89NS37JuW8GJ1IdJbVU7rrM0b7nzaFuOg/formResponse'
 
