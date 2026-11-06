@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="hosting-page new-design">
+<html lang="en" class="hosting-page new-design classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,9 +17,8 @@
   <meta property="og:image:alt" content="“Fermi Poker is a game of estimation, reasoning and bluffing” over a blurred photo of a poker tournament">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/poker-hall.webp" as="image">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -29,7 +28,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <!-- The menu sits on the header's photo, in white (nav--over) -->
+  <!-- The menu sits on the header (nav--over), in ink -->
   <nav class="nav nav--light nav--over">
     <div class="nav__bar">
       <a class="nav__logo" href="/"><span class="logo">Fermi Foundation</span></a>
@@ -59,47 +58,50 @@
     </div>
   </nav>
 
-  <!-- The hall photo, blurred, behind the menu and the title (assets/site.css) -->
+  <!-- The header on paper: the title and where you can host one; the materials follow in a white card with a rust head -->
   <header class="page-hero">
     <div class="page-hero__inner">
       <h1>Host a tournament</h1>
+      <p class="page-hero__sub">
+        You can host a Fermi Poker tournament almost anywhere: at your school or university, at your company, at a
+        conference, as a public event in your city that anyone can join, or simply at home with friends.
+        Whatever the occasion, below you’ll find everything you need, from the rules to the question set.
+      </p>
     </div>
   </header>
 
   <main class="doc">
     <div class="page">
-      <p class="page-lead">
-        You can host a Fermi Poker tournament almost anywhere: at your school or university, at your company, at a
-        conference, as a public event in your city that anyone can join, or simply at home with friends.
-        Whatever the occasion,
-        below you’ll find everything you need, from the rules to the question set.
-      </p>
-      <section class="section">
-        <h2>Materials</h2>
-        <ul class="boxes boxes--rows boxes--links">
-          <li class="box">
-            <h3><a href="/how-to-play/">The guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
-            <div class="box__body"><p>How to play, the rules to read out, an ante schedule and variations.</p></div>
-          </li>
-          <li class="box">
-            <h3><a href="/files/fermi-poker-rules.pdf">Rule sheet (PDF) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
-            <div class="box__body"><p>All the rules on a single page. Print a copy or two for every table.</p></div>
-          </li>
-          <li class="box">
-            <h3><a href="/files/fermi-poker-63-question-pack.pdf">63 questions to print (PDF) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
-            <div class="box__body"><p>Question, hint and answer cards, and blank cards for your own questions.</p></div>
-          </li>
-          <li class="box">
-            <h3><a href="/play/">The cards on a screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
-            <div class="box__body"><p>Show the questions, hints and answers on a phone, tablet or laptop instead of printing them.</p></div>
-          </li>
-        </ul>
-        <!-- The home page intro's lines for schools and companies: change them in both -->
-        <p class="text">
-          Hosting a tournament at a school or university? It’s free, and we may even pay for things like poker chips
-          and small prizes. Fill out our <a class="link" href="/host/#sign-up">contact form</a>. Planning a
-          tournament at your company? Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
-        </p>
+      <section class="signup-card" aria-labelledby="materials-title">
+        <div class="signup-card__head">
+          <h2 id="materials-title">Materials</h2>
+        </div>
+        <div class="signup-card__body">
+          <ul class="boxes boxes--rows boxes--links">
+            <li class="box">
+              <h3><a href="/how-to-play/">The guide <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+              <div class="box__body"><p>How to play, the rules to read out, an ante schedule and variations.</p></div>
+            </li>
+            <li class="box">
+              <h3><a href="/files/fermi-poker-rules.pdf">Rule sheet (PDF) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+              <div class="box__body"><p>All the rules on a single page. Print a copy or two for every table.</p></div>
+            </li>
+            <li class="box">
+              <h3><a href="/files/fermi-poker-63-question-pack.pdf">63 questions to print (PDF) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+              <div class="box__body"><p>Question, hint and answer cards, and blank cards for your own questions.</p></div>
+            </li>
+            <li class="box">
+              <h3><a href="/play/">The cards on a screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></h3>
+              <div class="box__body"><p>Show the questions, hints and answers on a phone, tablet or laptop instead of printing them.</p></div>
+            </li>
+          </ul>
+          <!-- The home page intro's lines for schools and companies: change them in both -->
+          <p class="text">
+            Hosting a tournament at a school or university? It’s free, and we may even pay for things like poker chips
+            and small prizes. Fill out our <a class="link" href="/host/#sign-up">contact form</a>. Planning a
+            tournament at your company? Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.
+          </p>
+        </div>
       </section>
     </div>
   </main>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="about-page new-design">
+<html lang="en" class="about-page new-design classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,9 +17,8 @@
   <meta property="og:image:alt" content="“Fermi Poker is a game of estimation, reasoning and bluffing” over a blurred photo of a poker tournament">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/chips-dice.webp" as="image">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -29,7 +28,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <!-- The menu sits on the header's photo, in white (nav--over) -->
+  <!-- The menu sits on the header (nav--over), in ink -->
   <nav class="nav nav--light nav--over">
     <div class="nav__bar">
       <a class="nav__logo" href="/"><span class="logo">Fermi Foundation</span></a>
@@ -59,61 +58,66 @@
     </div>
   </nav>
 
-  <!-- The hall photo, blurred, behind the menu and the title (assets/site.css) -->
+  <!-- The header on paper: the title and what the foundation is; the programs follow in a white card with a rust head,
+       and how to reach us under it -->
   <header class="page-hero">
     <div class="page-hero__inner">
-      <h1>About</h1>
+      <h1>About the Fermi Foundation</h1>
+      <p class="page-hero__sub">
+        The Fermi Foundation is named for the physicist Enrico Fermi. Our goals include finding exceptional young
+        people around the world, popularizing Fermi Poker, and introducing a new generation to Enrico Fermi.
+      </p>
     </div>
   </header>
 
   <main class="doc">
     <div class="page">
-      <p class="page-lead">
-        The Fermi Foundation is named for the physicist Enrico Fermi. Our goals include finding exceptional young
-        people around the world, popularizing Fermi Poker, and introducing a new generation to Enrico Fermi.
-      </p>
-      <section class="section">
-        <h2>Our programs</h2>
-        <div class="boxes boxes--rows">
-          <div class="box">
-            <h3>Global Talent Identification</h3>
-            <div class="box__body">
-              <p>
-                Our aspiration is to build a global talent identification system, finding young people who have an
-                accurate model of the world, think quantitatively, revise their beliefs when the facts change, and are
-                adept at taking the perspective of others. We do this primarily by sponsoring
-                <a class="link" href="/">Fermi Poker tournaments</a> at schools and universities around the world,
-                and we plan to support hundreds of them to mark Enrico Fermi’s 125th birthday.
-              </p>
+      <section class="signup-card" aria-labelledby="programs-title">
+        <div class="signup-card__head">
+          <h2 id="programs-title">Our programs</h2>
+        </div>
+        <div class="signup-card__body">
+          <div class="boxes boxes--rows">
+            <div class="box">
+              <h3>Global Talent Identification</h3>
+              <div class="box__body">
+                <p>
+                  Our aspiration is to build a global talent identification system, finding young people who have an
+                  accurate model of the world, think quantitatively, revise their beliefs when the facts change, and are
+                  adept at taking the perspective of others. We do this primarily by sponsoring
+                  <a class="link" href="/">Fermi Poker tournaments</a> at schools and universities around the world,
+                  and we plan to support hundreds of them to mark Enrico Fermi’s 125th birthday.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="box">
-            <h3>Fermi Poker</h3>
-            <div class="box__body">
-              <p>
-                We plan to popularize the game of Fermi Poker around the world. It combines poker mechanics with Fermi
-                estimation, which is the art of decomposing a hard problem into smaller, more answerable parts, a skill
-                Enrico Fermi famously taught his students. But the game does more than that. It is inherently social,
-                rewarding players who excel at taking the perspective of others, and it helps them build a better model
-                of the world. We hope it will inspire a new generation to think the way Fermi did.
-              </p>
+            <div class="box">
+              <h3>Fermi Poker</h3>
+              <div class="box__body">
+                <p>
+                  We plan to popularize the game of Fermi Poker around the world. It combines poker mechanics with Fermi
+                  estimation, which is the art of decomposing a hard problem into smaller, more answerable parts, a skill
+                  Enrico Fermi famously taught his students. But the game does more than that. It is inherently social,
+                  rewarding players who excel at taking the perspective of others, and it helps them build a better model
+                  of the world. We hope it will inspire a new generation to think the way Fermi did.
+                </p>
+              </div>
             </div>
-          </div>
-          <div class="box">
-            <h3><a class="link" href="https://amideiprize.org">The Amidei Prize</a></h3>
-            <span class="box__tab">Currently paused</span>
-            <div class="box__body">
-              <p>
-                A prize established to honour Adolfo Amidei, the mentor who recognised the talent of the <span class="nowrap">thirteen-year-old</span>
-                Enrico Fermi. It is awarded to those who have identified exceptional young people and supported their
-                development through sustained personal effort.
-              </p>
+            <div class="box">
+              <h3><a class="link" href="https://amideiprize.org">The Amidei Prize</a></h3>
+              <span class="box__tab">Currently paused</span>
+              <div class="box__body">
+                <p>
+                  A prize established to honour Adolfo Amidei, the mentor who recognised the talent of the <span class="nowrap">thirteen-year-old</span>
+                  Enrico Fermi. It is awarded to those who have identified exceptional young people and supported their
+                  development through sustained personal effort.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section about-contact">
         <h2>Contact</h2>
         <p class="text">For inquiries, write to <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
       </section>

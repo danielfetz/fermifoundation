@@ -28,10 +28,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
   and width), the classic look's headings and text (below).
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  the headers of About, Get updates and Credits for now, a close-up of
+  the headers of Get updates and Credits for now, a close-up of
   the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
-  tournament, blurred so only the room and its tables show, in Host a tournament's header, which the
-  other headers showed before and may again
+  tournament, blurred so only the room and its tables show, which the headers showed before and may again (on no page
+  for now)
   (delete the block at the end of `site.css` that puts the chips in its place, and preload it again in the pages'
   heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
   drawing of University Hall, an office building painted in 1927, and students in the University Hall in Leuven),
@@ -89,7 +89,7 @@ For schools (`host/`, where Host a tournament was) is for schools and universiti
 free: a form whose answers go to `api/host.js`, which passes them on to a Google Form (and from there to a Google
 Sheet), then the steps to host one, as rows (`boxes--rows`). It's in the home page's classic look (`html.classic`:
 Instrument Serif and Instrument Sans, the menu in ink, links in ink with a faint underline), as are For companies, the
-FAQ, Donate and How to play, the whole page on paper, without the photo: a line in capitals in Mona Sans over the title and a line
+FAQ, Donate, How to play, Host a tournament and About, the whole page on paper, without the photo: a line in capitals in Mona Sans over the title and a line
 in the serif under it; the form in a white card whose head is deep rust, with a slide rule's scale along its top edge;
 the steps on a band of the same rust, its top corners rounded, rising behind the card. It's one block at the end of
 `site.css`. The Google Form's address isn't on the page, where bots found it and posted spam to it directly: it's
@@ -103,8 +103,9 @@ sends: without JavaScript the form comes back to the page with `#failed`, offeri
 JavaScript that form posts there directly and comes back to the page saying how it went (`#sent`, `#failed`). It's
 built like For schools: its introduction under the title, then its form in a card with a rust head (without For
 schools' band of steps). Donate (`sponsor/`) is the same: its introduction under the title, then a rust card saying to
-write us. About (its programs in rows), Get updates (below) and Credits, like Host a tournament, have the new design's
-first look: a header (`page-hero`, over the chips picture, on Host a tournament the hall photo, with the menu on it)
+write us. Host a tournament and About are built like it too: their introductions under the title, then a white card
+with a rust head, Host a tournament's holding the materials (rows whose headings are links), About's the programs, with
+Contact under the card. Get updates (below) and Credits have the new design's first look: a header (`page-hero`, over the chips picture, with the menu on it)
 with the title alone, then the page on white (`.doc`), its column lined up with the title. On laptops (from 1280px)
 the header fades into white at its foot and the page rises into it as a white sheet as wide as the title's space, its
 edges under the title's, the words 48px in from its sides and the photo fading beside it; on narrower screens the

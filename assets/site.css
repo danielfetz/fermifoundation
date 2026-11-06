@@ -1801,10 +1801,10 @@ html.new-design h3 .link { font-weight: inherit; }
    rules above still draw, and which we may go back to): assets/img/chips-dice.webp, the site owner's chips photo
    toned in the header's browns and softened, zoomed in on every screen, under the headers' shade on wider screens
    and an even one on phones. The home page, Host a tournament, For schools and For companies (home-page,
-   hosting-page, schools-page, companies-page, named in each rule below) don't: Host a tournament keeps the hall, and
-   the home page, For schools, For companies, FAQ, Donate and How to play have the classic look (at the end), which
-   draws over this. White on the chips stays at least 9:1 on the inner pages. To go back to the hall everywhere, delete this block and preload poker-hall.webp again
-   in the pages' heads, in place of chips-dice.webp. */
+   hosting-page, schools-page, companies-page, named in each rule below) don't, and the home page and every inner
+   page but Get updates and Credits have the classic look (at the end), which draws over this. White on the chips
+   stays at least 9:1 on the inner pages. To go back to the hall everywhere, delete this block and preload
+   poker-hall.webp again in the pages' heads, in place of chips-dice.webp. */
 :where(html:not(.home-page, .hosting-page, .schools-page, .companies-page)) :is(.hero, .page-hero) {
   background: #1b1511 url(/assets/img/chips-dice.webp) 50% 30% / cover no-repeat;
 }
@@ -2087,8 +2087,8 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder .status { margin-top: 20px; padding: 18px 20px; }
 }
 
-/* The inner pages in the classic look (For schools, For companies, FAQ, Donate and How to play, html.classic), in the
-   manner of a sign-up page: the whole page on paper, no photo. Over the title a line in capitals in Mona Sans, wide;
+/* The inner pages in the classic look (all but Get updates and Credits, html.classic), in the manner of a sign-up
+   page: the whole page on paper, no photo. Over the title a line in capitals in Mona Sans, wide;
    the title in Instrument Serif; a line in it under the title; then the page in white cards with soft corners, a
    form's with a deep rust head, a slide rule's scale along its top edge (estimation, not cards). On For schools the
    steps are on a band of the same rust, its top corners rounded, rising behind the card. */
@@ -2324,4 +2324,27 @@ html.guide-page.classic .fn-pop {
   html.guide-page.classic .doc .sticky-note { padding: 20px 18px 22px; border-radius: 14px; }
   html.guide-page.classic .doc .box--quote { padding: 50px 18px 22px; border-radius: 14px; }
   html.guide-page.classic .doc .box--quote::before { top: 10px; left: 16px; font-size: 64px; }
+}
+
+/* Host a tournament and About in the classic look (html.hosting-page.classic, html.about-page.classic), built like
+   Donate: what the page is about as the line under the title, then a white card with a rust head, holding the
+   materials to host with (rows whose headings are links) or the programs, in rows with their headings in the serif,
+   the first right under the head without a line over it. About's contact under the card, on the paper. */
+.doc .signup-card__body > .boxes--rows { margin-top: 0; }
+.doc .signup-card__body > .boxes--rows > .box:first-child { padding-top: 0; border-top: 0; }
+.doc .signup-card__body > .boxes--rows:last-child > .box:last-child { padding-bottom: 0; border-bottom: 0; }
+html.classic .doc .signup-card .boxes--rows > .box { border-color: #e6dfd3; }
+html.classic .doc .signup-card .boxes--rows h3 { color: var(--home-ink); font-family: var(--display); font-size: 28px; font-stretch: 100%; font-weight: 400; line-height: 1.15; }
+html.classic .doc .signup-card .box__body { margin-top: 6px; font-size: 17px; }
+html.classic .doc .boxes--links h3 a { gap: 10px; color: var(--home-ink); }
+html.classic .doc .boxes--links h3 a:hover { color: #9c4a17; }
+html.classic .doc .boxes--links h3 svg { width: 20px; height: 20px; }
+html.classic .doc .signup-card__body > .boxes--links + .text { margin-top: 28px; }
+html.about-page.classic .doc .about-contact { margin-top: 64px; text-align: center; }
+html.about-page.classic .doc .about-contact > h2 { color: var(--home-ink); font-family: var(--display); font-size: 44px; font-stretch: 100%; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+html.about-page.classic .doc .about-contact > .text { margin-top: 12px; }
+@media (max-width: 700px) {
+  html.classic .doc .signup-card .boxes--rows h3 { font-size: 24px; }
+  html.about-page.classic .doc .about-contact { margin-top: 48px; }
+  html.about-page.classic .doc .about-contact > h2 { font-size: 36px; }
 }
