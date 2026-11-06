@@ -1,5 +1,5 @@
-// Interest in a tournament, from the cards under Upcoming tournaments on the home page: sent by assets/site.js or,
-// without JavaScript, posted straight here. Like api/subscribe.js, adds the address to Resend's contacts if it isn't
+// Interest in a tournament, from the field on its own page (tournaments/boston/ and the others): sent by
+// assets/site.js or, without JavaScript, posted straight here. Like api/subscribe.js, adds the address to Resend's contacts if it isn't
 // there (not subscribed), and emails a link to confirm it (api/confirm.js), which adds the city to the contact's
 // "tournaments" and tells contact@fermi.org, leaving the list for updates as it was. Someone already signed up for that
 // city gets no email, but the same answer.
@@ -10,17 +10,18 @@ module.exports = async function interest(req, res) {
     res.setHeader('Allow', 'POST')
     return res.status(405).end()
   }
-  // The form on the site asks for JSON; a plain form post gets the home page back, saying what happened
+  const body = req.body && typeof req.body === 'object' ? req.body : {}
+  const city = typeof body.city === 'string' && Object.hasOwn(TOURNAMENTS, body.city) ? body.city : ''
+  // The form on the site asks for JSON; a plain form post gets the tournament's page back, saying what happened (the
+  // tournaments on the home page, if it names no tournament we know)
   const json = String(req.headers.accept || '').includes('application/json')
   const answer = (ok, status = ok ? 200 : 400) => json
     ? res.status(status).json({ ok })
-    : res.redirect(303, ok ? '/#interest-sent' : '/#interest-failed')
+    : res.redirect(303, city ? `/tournaments/${city}/#interest-${ok ? 'sent' : 'failed'}` : '/#tournaments')
 
-  const body = req.body && typeof req.body === 'object' ? req.body : {}
   // Only bots fill in the hidden field: pretend it worked
   if (body.website) return answer(true)
   const email = String(body.email || '').trim().toLowerCase()
-  const city = Object.hasOwn(TOURNAMENTS, body.city) ? body.city : ''
   if (!city || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return answer(false)
   if (!process.env.RESEND_API_KEY) {
     console.error('RESEND_API_KEY is missing')

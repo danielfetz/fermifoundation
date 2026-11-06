@@ -88,47 +88,13 @@
   </header>
 
   <!-- The tournaments, as a shop's stores: how many cities so far, and an invitation to host your own with us; then
-       the cities, each with its date and "I’m interested", which opens a field for the email (a details element, so it
-       works without JavaScript too), sent to api/interest.js: the city goes onto their contact in Resend. A city's key
-       (boston) is the one in api/_resend.js; its latitude and longitude put its dot on the map it's on (assets/site.js).
-       The maps (assets/img/map-us.svg, map-uk.svg) are only pictures. -->
+       the cities, each with its date, its name and "I’m interested" leading to its own page (tournaments/boston/ and
+       the others), where the email for a date is. A city's key (boston) is the one in api/_resend.js; its latitude and
+       longitude put its dot on the map it's on, a link to its page too (assets/site.js). The maps
+       (assets/img/map-us.svg, map-uk.svg) are only pictures. -->
   <section class="finder" id="tournaments" aria-labelledby="events-title">
     <div class="finder__inner">
       <h2 id="events-title">Find a tournament near you</h2>
-      <!-- How it went: after sending without JavaScript (#interest-sent, #interest-failed), or after following the
-           link in the email (#interest-boston and so on, one for each city, #interest-invalid, #interest-failed) -->
-      <section class="status status--done" id="interest-sent" tabindex="-1">
-        <h3>Check your inbox</h3>
-        <p>We’ve sent you a link. Click it to confirm, and we’ll email you once there’s a date.</p>
-      </section>
-      <section class="status status--done" id="interest-boston" tabindex="-1">
-        <h3>You’re on the list for Boston</h3>
-        <p>Thanks! We’ll email you once there’s a date.</p>
-      </section>
-      <section class="status status--done" id="interest-berkeley" tabindex="-1">
-        <h3>You’re on the list for Berkeley</h3>
-        <p>Thanks! We’ll email you once there’s a date.</p>
-      </section>
-      <section class="status status--done" id="interest-nyc" tabindex="-1">
-        <h3>You’re on the list for New York City</h3>
-        <p>Thanks! We’ll email you once there’s a date.</p>
-      </section>
-      <section class="status status--done" id="interest-london" tabindex="-1">
-        <h3>You’re on the list for London</h3>
-        <p>Thanks! We’ll email you once there’s a date.</p>
-      </section>
-      <section class="status status--done" id="interest-oxford" tabindex="-1">
-        <h3>You’re on the list for Oxford</h3>
-        <p>Thanks! We’ll email you once there’s a date.</p>
-      </section>
-      <section class="status" id="interest-invalid" tabindex="-1">
-        <h3>That link didn’t work</h3>
-        <p>It may be more than a week old, or not copied in full. Click “I’m interested” again, and we’ll send you a new one.</p>
-      </section>
-      <section class="status" id="interest-failed" tabindex="-1">
-        <h3>Something went wrong</h3>
-        <p>Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
-      </section>
       <p class="finder__sub">Tournaments planned in 5 cities so far. Nothing near you? <a class="link" href="/host-a-tournament/">Partner with us and host your own</a>!</p>
       <div class="finder__maps" aria-hidden="true">
         <div class="finder__map finder__map--us"><img src="/assets/img/map-us.svg" alt="" width="720" height="450"></div>
@@ -136,114 +102,29 @@
       </div>
       <ol class="finder__list">
         <li class="finder__city" data-city="boston" data-lat="42.3601" data-lon="-71.0589">
-          <h3 class="finder__name">Boston</h3>
+          <h3 class="finder__name"><a href="/tournaments/boston/">Boston</a></h3>
           <p class="finder__when">Date to be set</p>
-          <details class="event__interest finder__interest">
-            <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
-            <form class="event__form" action="/api/interest" method="post">
-              <input name="city" type="hidden" value="boston">
-              <label class="event__label" for="boston-email">Get an email once there’s a date</label>
-              <div class="event__row">
-                <input id="boston-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
-                <button type="submit">Count me in</button>
-              </div>
-              <div class="form__trap" aria-hidden="true">
-                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-              </div>
-              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
-            </form>
-          </details>
-          <div class="event__done" tabindex="-1" hidden>
-            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm.</p>
-          </div>
+          <a class="finder__btn" href="/tournaments/boston/">I’m interested<span class="sr-only"> in Boston</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
         <li class="finder__city" data-city="berkeley" data-lat="37.8716" data-lon="-122.2727">
-          <h3 class="finder__name">Berkeley</h3>
+          <h3 class="finder__name"><a href="/tournaments/berkeley/">Berkeley</a></h3>
           <p class="finder__when">Date to be set</p>
-          <details class="event__interest finder__interest">
-            <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
-            <form class="event__form" action="/api/interest" method="post">
-              <input name="city" type="hidden" value="berkeley">
-              <label class="event__label" for="berkeley-email">Get an email once there’s a date</label>
-              <div class="event__row">
-                <input id="berkeley-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
-                <button type="submit">Count me in</button>
-              </div>
-              <div class="form__trap" aria-hidden="true">
-                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-              </div>
-              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
-            </form>
-          </details>
-          <div class="event__done" tabindex="-1" hidden>
-            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm.</p>
-          </div>
+          <a class="finder__btn" href="/tournaments/berkeley/">I’m interested<span class="sr-only"> in Berkeley</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
         <li class="finder__city" data-city="nyc" data-lat="40.7128" data-lon="-74.006">
-          <h3 class="finder__name">New York City</h3>
+          <h3 class="finder__name"><a href="/tournaments/nyc/">New York City</a></h3>
           <p class="finder__when">Date to be set</p>
-          <details class="event__interest finder__interest">
-            <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
-            <form class="event__form" action="/api/interest" method="post">
-              <input name="city" type="hidden" value="nyc">
-              <label class="event__label" for="nyc-email">Get an email once there’s a date</label>
-              <div class="event__row">
-                <input id="nyc-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
-                <button type="submit">Count me in</button>
-              </div>
-              <div class="form__trap" aria-hidden="true">
-                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-              </div>
-              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
-            </form>
-          </details>
-          <div class="event__done" tabindex="-1" hidden>
-            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm.</p>
-          </div>
+          <a class="finder__btn" href="/tournaments/nyc/">I’m interested<span class="sr-only"> in New York City</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
         <li class="finder__city" data-city="london" data-lat="51.5072" data-lon="-0.1276">
-          <h3 class="finder__name">London</h3>
+          <h3 class="finder__name"><a href="/tournaments/london/">London</a></h3>
           <p class="finder__when">Date to be set</p>
-          <details class="event__interest finder__interest">
-            <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
-            <form class="event__form" action="/api/interest" method="post">
-              <input name="city" type="hidden" value="london">
-              <label class="event__label" for="london-email">Get an email once there’s a date</label>
-              <div class="event__row">
-                <input id="london-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
-                <button type="submit">Count me in</button>
-              </div>
-              <div class="form__trap" aria-hidden="true">
-                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-              </div>
-              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
-            </form>
-          </details>
-          <div class="event__done" tabindex="-1" hidden>
-            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm.</p>
-          </div>
+          <a class="finder__btn" href="/tournaments/london/">I’m interested<span class="sr-only"> in London</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
         <li class="finder__city" data-city="oxford" data-label="left" data-lat="51.752" data-lon="-1.2577">
-          <h3 class="finder__name">Oxford</h3>
+          <h3 class="finder__name"><a href="/tournaments/oxford/">Oxford</a></h3>
           <p class="finder__when">Date to be set</p>
-          <details class="event__interest finder__interest">
-            <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
-            <form class="event__form" action="/api/interest" method="post">
-              <input name="city" type="hidden" value="oxford">
-              <label class="event__label" for="oxford-email">Get an email once there’s a date</label>
-              <div class="event__row">
-                <input id="oxford-email" name="email" type="email" placeholder="Your email" autocomplete="email" maxlength="254" required>
-                <button type="submit">Count me in</button>
-              </div>
-              <div class="form__trap" aria-hidden="true">
-                <label>Leave this empty <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
-              </div>
-              <p class="event__error" role="alert" hidden>That didn’t work. Please try again.</p>
-            </form>
-          </details>
-          <div class="event__done" tabindex="-1" hidden>
-            <p><b>Thanks!</b> Click the link we’ve emailed you to confirm.</p>
-          </div>
+          <a class="finder__btn" href="/tournaments/oxford/">I’m interested<span class="sr-only"> in Oxford</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </li>
       </ol>
     </div>

@@ -26,7 +26,7 @@ const ROLE_NAMES = {
   student: 'Student',
 }
 
-// The tournaments people can ask to hear about (Upcoming tournaments, on the home page), by the key in its card's form.
+// The tournaments people can ask to hear about, each with its page (tournaments/boston/ and the others), by its key.
 // The cities someone has signed up for are kept on their contact in Resend, as the property "tournaments" ("Boston, New
 // York City"), not in segments of their own: Resend's free plan has only three.
 const TOURNAMENTS = {

@@ -7,11 +7,14 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
 - `host-a-tournament/`: Host a tournament, links to everything for hosting (below)
+- `tournaments/`: a page for each tournament (`tournaments/boston/` and the others), which the home page's finder leads
+  to (below); `tournaments/index.html` only sends anyone who opens `/tournaments/` to the finder
 - `credits/`: the credit for the header photo, which every page's footer links to (below)
-- `api/`: the Vercel Functions behind Get updates, the guide by email, the tournament finder's "I'm interested", and
-  the For schools and For companies forms (below), the site's only code that runs on a server
+- `api/`: the Vercel Functions behind Get updates, the guide by email, the tournaments' email for a date, and the For
+  schools and For companies forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
-  on For schools and For companies, Get updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
+  on For schools and For companies, Get updates, the tournaments' email for a date, How to play's footnotes and the
+  FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and in the classic look
   Instrument Serif and Instrument Sans, all self-hosted), `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
@@ -36,8 +39,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
   drawing of University Hall, an office building painted in 1927, and students in the University Hall in Leuven),
   toned in warm greys; `hall-paper.webp` the hall photo in light sepia, as if faded onto the paper, in the home page's
-  header; `map-us.svg` and `map-uk.svg` the finder's maps (below); `event-*.webp` the photos of the cities on the cards
-  Upcoming tournaments had (not on a page for now); `enrico-fermi.webp` is a
+  header; `map-us.svg` and `map-uk.svg` the finder's maps (below); `event-*.webp` the photos of the cities, from Pixabay (no
+  credit needed), on the tournaments' pages, and `event-*-paper.webp` the same in the hall's light sepia, faded behind
+  their titles (below); `enrico-fermi.webp` is a
   photo of Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him
   (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
@@ -57,7 +61,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On wide
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all fifteen (the five tournaments' pages among them). On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
 Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
 the header's photo, in white (`nav--over`; in ink on the paper of the pages in the classic look, below), the phone menu opening in white, with the
@@ -140,7 +144,7 @@ never comes up by itself.
 
 The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
 (Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on
-the map it's on, and "I'm interested"; under the heading, how many cities so far and an invitation to partner with us and
+the map it's on, and "I'm interested", its name, its dot and "I'm interested" all leading to its page; under the heading, how many cities so far and an invitation to partner with us and
 host your own (to Host a tournament). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
 US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
 drawn with d3-geo in conic equal-area projections; `site.js` knows those projections (`MAPS`) and puts each city's dot
@@ -149,19 +153,29 @@ search for your city and "Use my location", listing the cities nearest first wit
 `assets/data/places.json` from GeoNames): taken out while there are only a few cities, and in the git history to bring
 back.
 
-"I'm interested" opens a field for the email under the city (a `details` element, so it works without JavaScript too).
-It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and
+Each tournament has its page (`tournaments/boston/` and the others), in the classic look: "Fermi Poker tournament" in
+capitals over the city's name, its date under it, and on wider screens the city faded onto the paper behind them, as
+the hall is on the home page (`event-boston-paper.webp`: the photo in grey, mapped onto the hall's sepia from dark to
+light, and blurred a little; `--city-y` on the header says where it's cropped). On phones its photo is under the title
+instead. Then a white card across the page with when, where and a field for an email once there's a date, what the
+game is (the announcement from the guide), and the other tournaments as cards with their photos. The pages are alike
+but for the city: change one, change all five.
+
+The field goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and
 emails a link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in
 Resend (say "Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every
 city they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no
-segments of their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page says
-how it went, under the finder's heading (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`,
-`#interest-failed`). Once there's a date, find who signed up for the city (the "tournaments" property on the contacts in
-Resend, or the emails to contact@fermi.org) and email them, and put the date in its `finder__when`. To add a city: an
-item like Boston's in the finder's list (its key in `data-city`, the hidden `city` field and the email field's id, and
-its `data-lat` and `data-lon`; `data-label="left"` puts its name on the left of its dot, clear of a neighbour's), its
-status under the heading (`#interest-` and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`. A city
-off both maps is listed but has no dot.
+segments of their own, as Resend's free plan has only three. With JavaScript the card says to confirm with the link;
+without it, and after the link, the city's page says how it went, under the card (`#interest-sent`,
+`#interest-confirmed`, `#interest-invalid`, `#interest-failed`). Once there's a date, find who signed up for the city
+(the "tournaments" property on the contacts in Resend, or the emails to contact@fermi.org) and email them, and put the
+date on its page (the title's line, When, and its card on the other pages) and in its `finder__when` on the home page.
+To add a city: a page in `tournaments/`, a copy of Boston's with the city's key (in the hidden `city` field) and name,
+its photos (`event-<key>.webp`, 1000 by 571, and `event-<key>-paper.webp`, made from it as above), and a card for it
+under the other pages' Other tournaments; an item like Boston's in the finder's list on the home page (its key in
+`data-city` and the links, and its `data-lat` and `data-lon`; `data-label="left"` puts its name on the left of its dot,
+clear of a neighbour's); and the key and name in `TOURNAMENTS` in `api/_resend.js`. A city off both maps is listed but
+has no dot.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news about
 Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on its

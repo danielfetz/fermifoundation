@@ -90,28 +90,14 @@ if (teamForm && teamFormDone) {
   })
 }
 
-// Upcoming tournaments: "I’m interested" opens a field for the email in the card, which goes to /api/interest
-// (api/interest.js); then the card says to confirm with the link it emails. Escape closes the field again. Without
-// JavaScript the form posts there directly, and comes back to the home page saying how it went (#interest-sent...).
-for (const interest of document.querySelectorAll('.event__interest')) {
-  const summary = interest.querySelector('summary')
-  const form = interest.querySelector('form')
-  const done = interest.nextElementSibling
+// A tournament's own page (tournaments/boston/ and the others): the email for a date goes to /api/interest
+// (api/interest.js), and the card then says to confirm with the link it emails. Without JavaScript the form posts there
+// directly, and comes back to the page saying how it went (#interest-sent, #interest-failed).
+for (const form of document.querySelectorAll('.city__form')) {
   const button = form.querySelector('button[type="submit"]')
-  const error = form.querySelector('.event__error')
+  const error = form.querySelector('.city__error')
+  const done = form.nextElementSibling
 
-  // Opened here rather than by the browser, so the field can take the focus during the tap (which is when phones
-  // bring up the keyboard)
-  summary.addEventListener('click', event => {
-    event.preventDefault()
-    interest.open = true
-    form.elements.email.focus()
-  })
-  interest.addEventListener('keydown', event => {
-    if (event.key !== 'Escape' || !interest.open) return
-    interest.open = false
-    summary.focus()
-  })
   form.addEventListener('submit', async event => {
     event.preventDefault()
     button.disabled = true
@@ -123,7 +109,7 @@ for (const interest of document.querySelectorAll('.event__interest')) {
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      interest.hidden = true
+      form.hidden = true
       done.hidden = false
       done.focus()
     } catch {
@@ -134,7 +120,8 @@ for (const interest of document.querySelectorAll('.event__interest')) {
   })
 }
 
-// The tournament finder on the home page: a dot for each city on the map it's on, its name beside it
+// The tournament finder on the home page: a dot for each city on the map it's on, its name beside it, a link to its page
+// (out of the keyboard's way, as the maps are hidden from screen readers: the list's links lead there too)
 const finder = document.querySelector('.finder')
 
 if (finder) {
@@ -165,7 +152,9 @@ if (finder) {
   for (const city of cities) {
     const at = onMap(city.lat, city.lon)
     if (!at) continue
-    const dot = document.createElement('span')
+    const dot = document.createElement('a')
+    dot.href = `/tournaments/${city.item.dataset.city}/`
+    dot.tabIndex = -1
     dot.className = `finder__dot${city.item.dataset.label === 'left' ? ' finder__dot--left' : ''}`
     dot.style.setProperty('--x', `${at.x}%`)
     dot.style.setProperty('--y', `${at.y}%`)
