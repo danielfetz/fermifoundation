@@ -7,15 +7,18 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
 - `host-a-tournament/`: Host a tournament, links to everything for hosting (below)
+- `partner/`: Partner with us, for people who want to organize a tournament open to everyone in their city: a form that
+  `api/partner.js` emails to contact@fermi.org, like For companies' (below); the home page's tournaments and each
+  tournament's page link to it
 - `tournaments/`: a page for each tournament (`tournaments/boston/` and the others), which the home page's finder leads
   to (below); `tournaments/index.html` only sends anyone who opens `/tournaments/` to the finder
 - `credits/`: the credit for the header photo, which every page's footer links to (below)
 - `404.html`: the page Vercel shows for any address with nothing at it ("Page not found", in the classic look, kept out
   of search results), so its links and files all start at the root (`/`)
 - `api/`: the Vercel Functions behind Get updates, the guide by email, the tournaments' email for a date, and the For
-  schools and For companies forms (below), the site's only code that runs on a server
+  schools, For companies and Partner with us forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
-  on For schools and For companies, Get updates, the tournaments' email for a date, How to play's footnotes and the
+  on For schools, For companies and Partner with us, Get updates, the tournaments' email for a date, How to play's footnotes and the
   FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and in the classic look
   Instrument Serif and Instrument Sans, all self-hosted), `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
@@ -105,7 +108,9 @@ form's. `api/host.js` drops sign-ups that fill in the hidden field, come within 
 put a link (http, www) in the name, and refuses ones without the time the page was open, which only `assets/site.js`
 sends: without JavaScript the form comes back to the page with `#failed`, offering the email address. For companies
 (`companies/`) is for teams, for team building and leadership workshops, which companies pay for: a short form that
-`api/team.js` emails to contact@fermi.org through Resend (below), so that replying answers whoever sent it. Without
+`api/team.js` emails to contact@fermi.org through Resend (below), so that replying answers whoever sent it. Partner
+with us (`partner/`) is built the same way, for people who want to organize a tournament open to everyone in their
+city: its form (name, email, city and country, and more) goes to `api/partner.js`, which emails it the same way. Without
 JavaScript that form posts there directly and comes back to the page saying how it went (`#sent`, `#failed`). It's
 built like For schools: its introduction under the title, then its form in a card with a rust head (without For
 schools' band of steps). Donate (`sponsor/`) is the same: its introduction under the title, then a rust card saying to
@@ -148,8 +153,8 @@ The tournament finder, as a shop's store finder: the cities where we'll hold one
 (`event-boston-small.webp` and so on, 600px wide, also on the tournaments' pages' cards of the others), its date "to be
 set" (`finder__when`), a dot on the map it's on, and "I'm interested", its photo, name, dot and "I'm interested" all
 leading to its page; under the heading, that besides supporting events at schools and universities we plan to hold tournaments
-open to everyone in cities around the world, and an invitation to partner with us to organize one (to Host a
-tournament). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
+open to everyone in cities around the world, and an invitation to partner with us to organize one (to Partner with
+us). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
 US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
 drawn with d3-geo in conic equal-area projections; `site.js` knows those projections (`MAPS`) and puts each city's dot
 on them from its latitude and longitude, so redrawing a map means updating its numbers there. It once also had a

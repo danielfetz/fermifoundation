@@ -59,29 +59,30 @@ if (hostForm && hostFormDone) {
   })
 }
 
-// For companies: the request goes to /api/team (api/team.js), which emails it to us. Without JavaScript the form posts
-// there directly, and comes back to the page saying how it went (#sent, #failed).
-const teamForm = document.querySelector('#team-form')
-const teamFormDone = document.querySelector('#team-form-done')
+// For companies and Partner with us: the request goes to /api/team or /api/partner (api/team.js, api/partner.js),
+// which emails it to us. Without JavaScript the form posts there directly, and comes back to the page saying how it
+// went (#sent, #failed).
+for (const id of ['team-form', 'partner-form']) {
+  const form = document.getElementById(id)
+  const done = document.getElementById(`${id}-done`)
+  if (!form || !done) continue
+  const button = form.querySelector('button[type="submit"]')
+  const error = form.querySelector('.form__error')
 
-if (teamForm && teamFormDone) {
-  const button = teamForm.querySelector('button[type="submit"]')
-  const error = teamForm.querySelector('.form__error')
-
-  teamForm.addEventListener('submit', async event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault()
     button.disabled = true
     error.hidden = true
     try {
-      const response = await fetch(teamForm.action, {
+      const response = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(teamForm))),
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      teamForm.hidden = true
-      teamFormDone.hidden = false
-      teamFormDone.focus()
+      form.hidden = true
+      done.hidden = false
+      done.focus()
     } catch {
       error.hidden = false
     } finally {

@@ -2547,3 +2547,12 @@ html.notfound-page .page-hero { padding-bottom: clamp(104px, 11vw, 168px); }
   .notfound__home { margin-top: 28px; }
   .notfound__more { font-size: 16px; }
 }
+
+/* Partner with us (partner/, html.partner-page.classic), built like For companies: the title on two lines on laptops,
+   Organize a Fermi Poker tournament / in your city ("…tournament" is 11.8em, "…tournament in" 12.6em), then the form
+   in a card with a rust head, and under it the cities where we're also looking for organizers */
+html.partner-page.classic .page-hero h1 { max-width: 12.2em; }
+.partner__cities { max-width: 34em; margin: 40px auto 0; color: var(--home-ink); font-size: 17px; line-height: 1.6; text-align: center; }
+@media (max-width: 700px) {
+  .partner__cities { margin-top: 28px; font-size: 16px; }
+}
