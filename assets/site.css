@@ -2144,9 +2144,9 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
 }
 
 /* For schools, classic, in the manner of a sign-up page: the whole page on paper, no photo. Over the title a line in
-   capitals in Mona Sans, wide; the title in Instrument Serif; a short line in it; a round rust button to the form. The
-   form in a white card, its head deep rust, with a slide rule's scale along its top edge (estimation, not cards); the
-   steps on a band of the same rust, its top corners rounded, rising behind the card. */
+   capitals in Mona Sans, wide; the title in Instrument Serif; a short line in it, and the form right after, in a
+   white card, its head deep rust, with a slide rule's scale along its top edge (estimation, not cards); the steps on a
+   band of the same rust, its top corners rounded, rising behind the card. */
 html.schools-page.classic .doc { margin-top: 0; padding: 0; background: #efeade; }
 html.schools-page.classic .page-hero {
   padding: calc(76px + clamp(48px, 6vw, 96px)) 0 clamp(56px, 6vw, 88px);
@@ -2177,21 +2177,6 @@ html.schools-page.classic .page-hero h1 {
   letter-spacing: -0.01em;
 }
 .page-hero__sub { max-width: 26em; margin: 20px auto 0; color: var(--home-ink); font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
-.page-hero__cta {
-  display: inline-flex;
-  align-items: center;
-  height: 50px;
-  margin-top: 30px;
-  padding: 0 28px;
-  border-radius: 999px;
-  background: #9c4a17;
-  color: #fff;
-  font-family: var(--mona);
-  font-size: 16px;
-  font-weight: 600;
-  transition: background-color 150ms var(--ease);
-}
-.page-hero__cta:hover { background: #7c3511; }
 
 /* The column, centred, without the laptops' sheet */
 html.schools-page.classic .doc::before { display: none; }
@@ -2263,9 +2248,9 @@ html.schools-page.classic .doc .signup-card {
 @media (max-width: 700px) {
   html.schools-page.classic .page-hero { padding: calc(76px + 28px) 0 48px; }
   .page-hero__kicker { font-size: 11.5px; }
-  html.schools-page.classic .page-hero h1 { font-size: min(52px, (100vw - 40px) / 8.9); line-height: 1.04; }
+  /* As large as the home page's headline on phones */
+  html.schools-page.classic .page-hero h1 { font-size: min(60px, (100vw - 40px) / 6.85); line-height: 1.04; }
   .page-hero__sub { font-size: 22px; }
-  .page-hero__cta { margin-top: 24px; }
   html.schools-page.classic .doc .page { width: calc(100% - 32px); margin: 0 auto; }
   .signup-card__head { padding: 44px 22px 30px; }
   .signup-card__head h2 { font-size: 36px; }

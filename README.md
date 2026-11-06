@@ -91,20 +91,20 @@ For schools (`host/`, where Host a tournament was) is for schools and universiti
 free: a form whose answers go to `api/host.js`, which passes them on to a Google Form (and from there to a Google
 Sheet), then the steps to host one, as rows (`boxes--rows`). It's in the home page's classic look (`html.classic`:
 Instrument Serif and Instrument Sans, the menu in ink, links in ink with a faint underline), the whole page on paper,
-without the photo: a line in capitals in Mona Sans over the title, a line in the serif under it and a round rust
-button to the form; the form in a white card whose head is deep rust, with a slide rule's scale along its top edge;
-the steps on a band of the same rust, its top corners rounded, rising behind the card. It's one block at the end of
-`site.css`. The Google Form's address isn't on the page, where bots found it and posted spam to it directly: it's
-`HOST_FORM_URL` in the project's environment variables on Vercel (the form's link, ending in `/formResponse`; a new
-form has its own fields' IDs, from its "Get pre-filled link", which go in `api/host.js`), and until it's set, the old
-form's. `api/host.js` drops sign-ups that fill in the hidden field, come within four seconds of opening the page, or
-put a link (http, www) in the name, and refuses ones without the time the page was open, which only `assets/site.js`
-sends: without JavaScript the form comes back to the page with `#failed`, offering the email address. For companies
-(`companies/`) is for teams, for team building and leadership workshops, which companies pay for: a short form that
-`api/team.js` emails to contact@fermi.org through Resend (below), so that replying answers whoever sent it. Without
-JavaScript that form posts there directly and comes back to the page saying how it went (`#sent`, `#failed`). For
-companies is built like How to play: the photo header, then the page on white. So are About (its programs in rows
-too), Donate (`sponsor/`), Get updates (below) and Credits.
+without the photo: a line in capitals in Mona Sans over the title and a line in the serif under it; the form in a
+white card whose head is deep rust, with a slide rule's scale along its top edge; the steps on a band of the same
+rust, its top corners rounded, rising behind the card. It's one block at the end of `site.css`. The Google Form's
+address isn't on the page, where bots found it and posted spam to it directly: it's `HOST_FORM_URL` in the project's
+environment variables on Vercel (the form's link, ending in `/formResponse`; a new form has its own fields' IDs, from
+its "Get pre-filled link", which go in `api/host.js`), and until it's set, the old form's. `api/host.js` drops
+sign-ups that fill in the hidden field, come within four seconds of opening the page, or put a link (http, www) in the
+name, and refuses ones without the time the page was open, which only `assets/site.js` sends: without JavaScript the
+form comes back to the page with `#failed`, offering the email address. For companies (`companies/`) is for teams, for
+team building and leadership workshops, which companies pay for: a short form that `api/team.js` emails to
+contact@fermi.org through Resend (below), so that replying answers whoever sent it. Without JavaScript that form posts
+there directly and comes back to the page saying how it went (`#sent`, `#failed`). For companies is built like How to
+play: the photo header, then the page on white. So are About (its programs in rows too), Donate (`sponsor/`), Get
+updates (below) and Credits.
 
 The FAQ page, under the photo header like Get updates, has three parts, General, Hosting and Educational value,
 each a list of questions that open in place.
