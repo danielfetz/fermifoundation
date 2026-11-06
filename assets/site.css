@@ -2509,3 +2509,31 @@ html.credits-page.classic .doc .credits .page-lead { width: auto; margin: 0; fon
   html.classic .doc :is(.updates-page, .credits) { padding: 24px 20px 26px; border-radius: 18px; }
   html.get-updates-page.classic .doc .status { padding: 18px 20px; }
 }
+
+/* The page Vercel shows for an address with nothing at it (404.html, html.notfound-page): the header alone, on the
+   paper, and the way back in it: a round button to the home page in ink, as the guide's, and a line with three pages */
+html.notfound-page body { background: #efeade; }
+html.notfound-page .page-hero { padding-bottom: clamp(104px, 11vw, 168px); }
+.notfound__home { margin-top: 36px; }
+.notfound__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--home-ink);
+  color: #f6f1e7;
+  font-family: var(--mona);
+  font-size: 17px;
+  font-weight: 600;
+  transition: background-color 150ms var(--ease);
+}
+.notfound__btn:hover { background: #1b1511; }
+.notfound__btn svg { width: 16px; height: 16px; }
+.notfound__more { margin-top: 20px; color: var(--home-ink); font-family: var(--mona); font-size: 17px; line-height: 1.5; }
+@media (max-width: 700px) {
+  html.notfound-page .page-hero { padding-bottom: 88px; }
+  .notfound__home { margin-top: 28px; }
+  .notfound__more { font-size: 16px; }
+}

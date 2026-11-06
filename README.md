@@ -10,6 +10,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `tournaments/`: a page for each tournament (`tournaments/boston/` and the others), which the home page's finder leads
   to (below); `tournaments/index.html` only sends anyone who opens `/tournaments/` to the finder
 - `credits/`: the credit for the header photo, which every page's footer links to (below)
+- `404.html`: the page Vercel shows for any address with nothing at it ("Page not found", in the classic look, kept out
+  of search results), so its links and files all start at the root (`/`)
 - `api/`: the Vercel Functions behind Get updates, the guide by email, the tournaments' email for a date, and the For
   schools and For companies forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
