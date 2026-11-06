@@ -74,13 +74,13 @@ animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the classic look (below): the
-title on the paper with who wrote it under it (`page-hero__byline`, set like the other pages' line under the title), then the guide in a white card with soft corners
-(`.doc` itself is the card), as wide as the other pages' cards with its sides, starting with the introduction
-(`page-lead`); its headings in the serif, the notes and the words to read out on panels in a pale tint of the paper.
-The guide's parts keep their classes from the paper look, and `.doc` (and `html.guide-page.classic`, at the end of
-`site.css`) gives them the new one. Its footnotes are numbers in the text that lead to the notes at the bottom of the
-page. On wide screens (from 1340px, a width set in both `site.js` and `site.css`) `site.js` also sets each note on the
-paper to the right of the card, beside its line; elsewhere it shows a note in place when its number is hovered over
+title on the paper with who wrote it under it (`page-hero__byline`, set like the other pages' line under the title), then the guide on a white sheet across the page
+(`.doc`), its top corners rounded as For schools' band's are, running into the footer, the column centred on it,
+starting with the introduction (`page-lead`, set like the rest); its headings in the serif, the notes and the words to
+read out on panels in a pale tint of the paper. The guide's parts keep their classes from the paper look, and `.doc`
+(and `html.guide-page.classic`, at the end of `site.css`) gives them the new one. Its footnotes are numbers in the text
+that lead to the notes at the bottom of the page. On wide screens (from 1280px, a width set in both `site.js` and
+`site.css`) `site.js` also sets each note on the sheet to the right of the column, beside its line; elsewhere it shows a note in place when its number is hovered over
 or tapped. From the keyboard, and without JavaScript, a number leads to its note at the bottom. The worked sample
 question is still in the page, hidden, to use later.
 

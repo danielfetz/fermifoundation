@@ -1012,7 +1012,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 .footnotes .link:hover,
 .sidenote .link:hover { color: var(--blue); }
 .sidenote { display: none; }
-@media (min-width: 1340px) {
+@media (min-width: 1280px) {
   .page--sidenotes { position: relative; }
   /* Placed where its number is, then moved into the margin: inline, so it stays on the number's line */
   .page--sidenotes .sidenote {
@@ -1572,7 +1572,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .fn-ref a,
 .doc .fn-back,
 .doc .sidenote__n { color: #9c4a17; }
-@media (min-width: 1340px) {
+@media (min-width: 1280px) {
   .doc .page--sidenotes .sidenote { width: 250px; color: #666; font-family: var(--mona); font-size: 14px; }
   .doc .page--sidenotes .sidenote.is-lit { color: #000; }
 }
@@ -2309,10 +2309,11 @@ html.classic .faq__panel { max-width: none; }
 }
 
 /* How to play in the classic look (html.guide-page.classic): the header as on the other inner pages, with who wrote
-   the guide under the title, in the serif, as the other pages' line under the title (above). Then the guide in one white card on the paper (.doc), as
-   wide as the other pages' cards with its sides, starting with what the page is about; on wide screens its footnotes
-   stand on the paper to its right, beside their lines (assets/site.js). Its headings in the serif, the notes and the
-   words to read out on panels in a pale tint of the paper, with soft corners. */
+   the guide under the title, in the serif, as the other pages' line under the title (above). Then the guide on a
+   white sheet across the page (.doc), its top corners rounded as For schools' band's are, running into the footer, the
+   column centred on it, starting with what the page is about, set like the rest; on wide screens the footnotes stand
+   on the sheet to the column's right, beside their lines (assets/site.js). Its headings in the serif, the notes and
+   the words to read out on panels in a pale tint of the paper, with soft corners. */
 html.guide-page.classic body { background: #efeade; }
 html.classic .page-hero__byline a {
   color: inherit;
@@ -2321,16 +2322,12 @@ html.classic .page-hero__byline a {
   transition: text-decoration-color 150ms var(--ease);
 }
 html.classic .page-hero__byline a:hover { color: inherit; text-decoration-color: currentColor; }
-html.guide-page.classic .doc {
-  width: min(832px, 100% - 48px);
-  margin: 0 auto 120px;
-  padding: 56px 56px 64px;
-  border-radius: 24px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(43, 37, 31, 0.06), 0 24px 48px -28px rgba(43, 37, 31, 0.35);
-}
-html.guide-page.classic .doc .page { width: auto; margin: 0; }
-html.guide-page.classic .doc .page-lead { width: auto; }
+html.guide-page.classic .doc { margin: 0; padding: 80px 0 120px; border-radius: 72px 72px 0 0; background: #fff; }
+html.guide-page.classic .doc .page { width: min(720px, 100% - 48px); margin: 0 auto; }
+html.guide-page.classic .doc .page-lead { width: auto; margin-bottom: 28px; font-size: 18px; }
+html.guide-page.classic .doc .section { margin-top: 64px; }
+html.guide-page.classic .doc .section__step { margin-top: 40px; }
+html.guide-page.classic .doc .section > h2 + .section__step { margin-top: 28px; }
 html.guide-page.classic .doc .section > h2 {
   color: var(--home-ink);
   font-family: var(--display);
@@ -2367,17 +2364,18 @@ html.guide-page.classic .fn-pop {
   box-shadow: 0 2px 6px rgba(43, 37, 31, 0.12), 0 18px 40px -16px rgba(43, 37, 31, 0.45);
   color: var(--home-ink);
 }
-/* Wide screens (from 1340px, as in assets/site.js): the card as it is, centred, and the notes on the paper to its
-   right, 32px from it (past the card's 56px side), as wide as the paper beside the card leaves them, less 28px, at
-   most 250px: from 194px at 1340px to 250px from 1452px */
-@media (min-width: 1340px) {
-  html.guide-page.classic .doc .page--sidenotes .sidenote { left: calc(100% + 56px + 32px); width: min(250px, 50vw - 476px); color: #6b6158; font-size: 14.5px; }
+/* Wide screens (from 1280px, as in assets/site.js): the notes 48px to the column's right, as wide as the sheet beside
+   it leaves them, less 28px, at most 250px: from 204px at 1280px to 250px from 1372px */
+@media (min-width: 1280px) {
+  html.guide-page.classic .doc .page--sidenotes .sidenote { left: calc(100% + 48px); width: min(250px, 50vw - 436px); color: #6b6158; font-size: 14.5px; }
   html.guide-page.classic .doc .page--sidenotes .sidenote.is-lit { color: var(--home-ink); }
 }
 @media (max-width: 700px) {
   /* The title on two lines, How to play / Fermi Poker ("How to play Fermi" is 5.9em, "Fermi Poker" 4em) */
   html.guide-page.classic .page-hero h1 { max-width: 5em; }
-  html.guide-page.classic .doc { width: calc(100% - 32px); margin-bottom: 72px; padding: 30px 20px 36px; border-radius: 18px; }
+  html.guide-page.classic .doc { padding: 44px 0 72px; border-radius: 32px 32px 0 0; }
+  html.guide-page.classic .doc .page { width: calc(100% - 40px); }
+  html.guide-page.classic .doc .page-lead { font-size: 17px; }
   html.guide-page.classic .doc .section > h2 { font-size: 38px; }
   html.guide-page.classic .doc .section__step { font-size: 26px; }
   html.guide-page.classic .doc .section__aside { font-size: 15px; }

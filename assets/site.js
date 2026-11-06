@@ -541,7 +541,7 @@ const footnoteRefs = [...document.querySelectorAll('.fn-ref a')]
 
 if (footnoteRefs.length) {
   const page = document.querySelector('.page')
-  const wide = matchMedia('(min-width: 1340px)')
+  const wide = matchMedia('(min-width: 1280px)')
   const hover = matchMedia('(hover: hover) and (pointer: fine)')
   // A note's text, without its link back up
   const textOf = ref => {
