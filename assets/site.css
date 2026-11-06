@@ -1889,7 +1889,7 @@ html.home-page .hero__title {
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
-html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 20px; font-stretch: 100%; font-weight: 450; }
+html.home-page .hero__sub { max-width: 34.25em; margin: 0 auto; color: var(--home-ink); font-size: 20px; font-stretch: 100%; font-weight: 450; }
 /* Links in the text (on the home page under the headline, in the introduction, the FAQ and the messages): in ink, as
    the words around them, with a faint underline set a little below, which darkens under the mouse */
 html.classic :is(.link, .hero__sub a) {
