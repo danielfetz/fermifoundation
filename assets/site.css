@@ -1985,59 +1985,21 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   .hero__guide-error { font-size: 14px; }
 }
 
-/* The finder: centred on white, as a shop's store finder: the heading in rust, a search on a line, two links in
-   small capitals, the two maps (the lower 48 states, and Great Britain and Ireland: assets/img/map-us.svg, map-uk.svg)
-   with a dot for each city, and the cities in a row under them, nearest first once we know where you are */
+/* The finder: centred on white, as a shop's store finder: the heading in rust, a line under it in the serif (how many
+   cities so far, and an invitation to host your own with us), the two maps (the lower 48 states, and Great Britain and
+   Ireland: assets/img/map-us.svg, map-uk.svg) with a dot for each city, and the cities in a row under them */
 .finder { position: relative; z-index: 1; padding: 40px 0 96px; background: #fff; font-family: var(--mona); }
 .finder__inner { width: min(1096px, 100% - 48px); margin: 0 auto; text-align: center; }
 .finder h2 { color: #9c4a17; font-family: var(--display); font-size: 56px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
-.finder__search { display: flex; width: min(460px, 100%); margin: 26px auto 0; border-bottom: 1.5px solid var(--home-ink); }
-.finder__search:focus-within { border-color: #9c4a17; }
-.finder__search input {
-  flex: 1 1 auto;
-  min-width: 0;
-  height: 48px;
-  padding: 0 2px;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  color: #222;
-  font: inherit;
-  font-size: 18px;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.finder__search input::placeholder { color: #7a7067; }
-.finder__search input:focus-visible { outline: none; }
-.finder__search input::-webkit-search-cancel-button { display: none; }
-.finder__search button,
-.finder__links > * {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--home-ink);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-.finder__search button { padding-left: 16px; color: #9c4a17; font-weight: 700; }
-.finder__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px; margin-top: 20px; }
-.finder__links > * { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
-.finder__links > *:hover { color: #9c4a17; }
-.finder__links svg { display: inline-block; width: 13px; height: 13px; margin-left: 2px; vertical-align: -2px; }
-.finder__near { margin-top: 16px; color: #6b6158; font-family: var(--display); font-size: 21px; font-style: italic; line-height: 1.4; }
-.finder__near b { color: #222; font-weight: 400; }
-/* The maps side by side, as tall as each other; the dots, and where you are, put on them by assets/site.js */
+/* Set like the inner pages' line under the title (.page-hero__sub) */
+.finder__sub { max-width: 26em; margin: 20px auto 0; color: var(--home-ink); font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
+/* The maps side by side, as tall as each other; the dots put on them by assets/site.js */
 .finder__maps { display: flex; align-items: flex-end; gap: 48px; margin-top: 36px; }
 .finder__map { position: relative; }
 .finder__map--us { flex: 720 1 0; }
 .finder__map--uk { flex: 330 1 0; }
 .finder__map img { display: block; width: 100%; height: auto; }
-.finder__dot,
-.finder__you {
+.finder__dot {
   position: absolute;
   top: var(--y);
   left: var(--x);
@@ -2049,8 +2011,7 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   background: #3f362d;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
-.finder__dot > span,
-.finder__you > span {
+.finder__dot > span {
   position: absolute;
   top: 50%;
   left: 17px;
@@ -2062,21 +2023,11 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #fff, 0 0 4px #fff;
 }
 .finder__dot--left > span { right: 17px; left: auto; }
-.finder__dot.is-near { z-index: 1; width: 18px; height: 18px; margin: -9px; background: #9c4a17; }
-.finder__dot.is-near > span { color: #9c4a17; }
-/* Where you are: a black dot with a soft ring, its name on the left (on the right near the map's left edge) */
-.finder__you { z-index: 2; width: 12px; height: 12px; margin: -6px; border: 0; background: #1b1511; box-shadow: 0 0 0 5px rgba(27, 21, 17, 0.16); }
-.finder__you > span { right: 15px; left: auto; color: #1b1511; }
-.finder__you--right > span { right: auto; left: 15px; }
-.finder__you[hidden] { display: none; }
-/* The cities in a row, each with its date, how far it is, and I'm interested */
+/* The cities in a row, each with its date and I'm interested */
 .finder__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 28px; margin-top: 44px; text-align: left; }
 .finder__city { padding-top: 18px; border-top: 1px solid #e3ddd4; }
 .finder__name { color: #000; font-family: var(--display); font-size: 27px; font-weight: 400; line-height: 1.15; }
-.finder__city.is-near .finder__name { color: #9c4a17; }
 .finder__when { margin-top: 4px; color: #555; font-size: 15px; line-height: 1.4; }
-.finder__far { margin-top: 6px; color: #9c4a17; font-size: 16px; font-weight: 600; }
-.finder__far[hidden] { display: none; }
 summary.finder__btn {
   display: inline-block;
   margin-top: 12px;
@@ -2122,26 +2073,16 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder__inner { width: calc(100% - 40px); }
   /* Two lines, Find a tournament / near you: "Find a tournament near" is 7.9em, "Find a tournament" 6.1em */
   .finder h2 { font-size: min(56px, (100vw - 40px) / 7.3); }
-  .finder__search { margin-top: 20px; }
-  .finder__search input { font-size: 17px; }
-  .finder__links { gap: 10px 22px; margin-top: 16px; }
-  .finder__links > * { font-size: 12px; }
-  .finder__near { font-size: 19px; }
+  .finder__sub { font-size: 22px; }
   .finder__maps { gap: 14px; margin-top: 24px; }
-  .finder__dot,
-  .finder__you { width: 11px; height: 11px; margin: -5.5px; border-width: 1.5px; }
-  .finder__dot.is-near { width: 13px; height: 13px; margin: -6.5px; }
-  .finder__dot > span,
-  .finder__you > span { display: none; }
-  /* On phones the cities are a list, a line each: the name and the date, and how far on the right */
+  .finder__dot { width: 11px; height: 11px; margin: -5.5px; border-width: 1.5px; }
+  .finder__dot > span { display: none; }
+  /* On phones the cities are a list, one under another */
   .finder__list { display: block; margin-top: 28px; }
-  .finder__city { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; padding: 14px 0 16px; }
+  .finder__city { padding: 14px 0 16px; }
   .finder__city:last-child { border-bottom: 1px solid #e3ddd4; }
   .finder__name { font-size: 24px; }
-  .finder__when { grid-column: 1; margin-top: 2px; }
-  .finder__far { grid-row: 1; grid-column: 2; margin-top: 2px; text-align: right; }
-  .finder__interest,
-  .finder .event__done { grid-column: 1 / -1; }
+  .finder__when { margin-top: 2px; }
   summary.finder__btn { margin-top: 8px; }
   .finder .status { margin-top: 20px; padding: 18px 20px; }
 }

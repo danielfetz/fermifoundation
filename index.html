@@ -87,9 +87,8 @@
     </div>
   </header>
 
-  <!-- The tournaments: a finder, as for a shop's stores. The cities, nearest first once we know roughly where you are
-       (api/where.js, from Vercel), or where you say (a place from assets/data/places.json) or your device does, each
-       with its date, how far it is, and "I’m interested", which opens a field for the email (a details element, so it
+  <!-- The tournaments, as a shop's stores: how many cities so far, and an invitation to host your own with us; then
+       the cities, each with its date and "I’m interested", which opens a field for the email (a details element, so it
        works without JavaScript too), sent to api/interest.js: the city goes onto their contact in Resend. A city's key
        (boston) is the one in api/_resend.js; its latitude and longitude put its dot on the map it's on (assets/site.js).
        The maps (assets/img/map-us.svg, map-uk.svg) are only pictures. -->
@@ -130,26 +129,15 @@
         <h3>Something went wrong</h3>
         <p>Please try again, or write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
       </section>
-      <form class="finder__search" role="search" action="#tournaments">
-        <label class="sr-only" for="finder-q">Your city</label>
-        <input id="finder-q" name="q" type="search" placeholder="Enter your city" autocomplete="off" list="finder-places" enterkeyhint="search">
-        <datalist id="finder-places"></datalist>
-        <button type="submit">Find</button>
-      </form>
-      <p class="finder__links">
-        <button class="finder__locate" type="button">Use my location</button>
-        <a href="/host-a-tournament/">Not near you? Host your own <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </p>
-      <p class="finder__near" aria-live="polite">Tournaments in 5 cities so far, with more to come.</p>
+      <p class="finder__sub">Tournaments in 5 cities so far, with more to come. Not near you? <a class="link" href="/host-a-tournament/">Host your own and partner with us</a>.</p>
       <div class="finder__maps" aria-hidden="true">
-        <div class="finder__map finder__map--us"><img src="/assets/img/map-us.svg" alt="" width="720" height="450"><span class="finder__you" hidden><span></span></span></div>
-        <div class="finder__map finder__map--uk"><img src="/assets/img/map-uk.svg" alt="" width="330" height="450"><span class="finder__you" hidden><span></span></span></div>
+        <div class="finder__map finder__map--us"><img src="/assets/img/map-us.svg" alt="" width="720" height="450"></div>
+        <div class="finder__map finder__map--uk"><img src="/assets/img/map-uk.svg" alt="" width="330" height="450"></div>
       </div>
       <ol class="finder__list">
         <li class="finder__city" data-city="boston" data-lat="42.3601" data-lon="-71.0589">
           <h3 class="finder__name">Boston</h3>
           <p class="finder__when">Date to be set</p>
-          <p class="finder__far" hidden></p>
           <details class="event__interest finder__interest">
             <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -172,7 +160,6 @@
         <li class="finder__city" data-city="berkeley" data-lat="37.8716" data-lon="-122.2727">
           <h3 class="finder__name">Berkeley</h3>
           <p class="finder__when">Date to be set</p>
-          <p class="finder__far" hidden></p>
           <details class="event__interest finder__interest">
             <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -195,7 +182,6 @@
         <li class="finder__city" data-city="nyc" data-lat="40.7128" data-lon="-74.006">
           <h3 class="finder__name">New York City</h3>
           <p class="finder__when">Date to be set</p>
-          <p class="finder__far" hidden></p>
           <details class="event__interest finder__interest">
             <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -218,7 +204,6 @@
         <li class="finder__city" data-city="london" data-lat="51.5072" data-lon="-0.1276">
           <h3 class="finder__name">London</h3>
           <p class="finder__when">Date to be set</p>
-          <p class="finder__far" hidden></p>
           <details class="event__interest finder__interest">
             <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">
@@ -241,7 +226,6 @@
         <li class="finder__city" data-city="oxford" data-label="left" data-lat="51.752" data-lon="-1.2577">
           <h3 class="finder__name">Oxford</h3>
           <p class="finder__when">Date to be set</p>
-          <p class="finder__far" hidden></p>
           <details class="event__interest finder__interest">
             <summary class="finder__btn"><span>I’m interested <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></summary>
             <form class="event__form" action="/api/interest" method="post">

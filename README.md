@@ -7,14 +7,13 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
 - `host-a-tournament/`: Host a tournament, links to everything for hosting (below)
-- `credits/`: the credit for the header photo and the town list, which every page's footer links to (below)
-- `api/`: the Vercel Functions behind Get updates, the guide by email, the tournament finder and its "I'm interested",
-  and the For schools and For companies forms (below), the site's only code that runs on a server
+- `credits/`: the credit for the header photo, which every page's footer links to (below)
+- `api/`: the Vercel Functions behind Get updates, the guide by email, the tournament finder's "I'm interested", and
+  the For schools and For companies forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
   on For schools and For companies, Get updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and in the classic look
-  Instrument Serif and Instrument Sans, all self-hosted), `assets/data/places.json` (the towns the finder looks up),
-  `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
+  Instrument Serif and Instrument Sans, all self-hosted), `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
 - The fonts' Latin files (`fermi-sans-*.woff2`, `fermi-serif-*.woff2`) are PT Sans and PT Serif without their
   kerning around spaces, which made the gap after a period narrower than a word space. They were made with fontTools by
@@ -140,16 +139,14 @@ never comes up by itself.
 
 The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
 (Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on
-the map it's on, and "I'm interested". The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
+the map it's on, and "I'm interested"; under the heading, how many cities so far and an invitation to host your own and
+partner with us (to Host a tournament). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
 US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
 drawn with d3-geo in conic equal-area projections; `site.js` knows those projections (`MAPS`) and puts each city's dot
-on them from its latitude and longitude, so redrawing a map means updating its numbers there. The page first guesses
-roughly where the visit comes from (`api/where.js` answers with the city and coordinates Vercel gives each request, from
-its IP address, and keeps nothing), then lists the cities nearest first, with how far each is (miles in the US and the
-UK, km elsewhere), and marks where you are on the map. The search looks places up in `assets/data/places.json`
-(every town of 30,000 people or more, and of 10,000 or more in the US, the UK, Canada, Ireland, Australia and New
-Zealand, from GeoNames, CC BY 4.0, credited on the Credits page; a row is name, country, region, latitude, longitude
-and thousands of people), loaded only once someone types in the field. "Use my location" asks the browser.
+on them from its latitude and longitude, so redrawing a map means updating its numbers there. It once also had a
+search for your city and "Use my location", listing the cities nearest first with how far each was (`api/where.js`,
+`assets/data/places.json` from GeoNames): taken out while there are only a few cities, and in the git history to bring
+back.
 
 "I'm interested" opens a field for the email under the city (a `details` element, so it works without JavaScript too).
 It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and

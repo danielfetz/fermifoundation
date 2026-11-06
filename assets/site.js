@@ -134,23 +134,11 @@ for (const interest of document.querySelectorAll('.event__interest')) {
   })
 }
 
-// The tournament finder on the home page: a dot for each city on the map it's on, and the cities nearest you first,
-// with how far each is, and where you are on the maps. Where you are: roughly where the visit comes from (/api/where,
-// api/where.js, from Vercel), a place you type in (assets/data/places.json: every town of 30,000 people or more, and of
-// 10,000 or more in the US, the UK, Canada, Ireland, Australia and New Zealand, from GeoNames), or your device's
-// location if you ask. None of it is kept.
+// The tournament finder on the home page: a dot for each city on the map it's on, its name beside it
 const finder = document.querySelector('.finder')
 
 if (finder) {
-  const list = finder.querySelector('.finder__list')
-  const near = finder.querySelector('.finder__near')
-  const search = finder.querySelector('.finder__search')
-  const input = search.elements.q
-  const suggestions = finder.querySelector('#finder-places')
-  const intro = near.textContent
-  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-  const regionName = code => { try { return regionNames.of(code) } catch { return code } }
-  const cities = [...list.children].map(item => ({ item, key: item.dataset.city, lat: +item.dataset.lat, lon: +item.dataset.lon }))
+  const cities = [...finder.querySelectorAll('.finder__city')].map(item => ({ item, lat: +item.dataset.lat, lon: +item.dataset.lon }))
 
   // The maps' projections, as they were drawn (d3's conic equal-area: its parallels, central meridian, scale and
   // offset, in the pictures' own units), so places can be put on them here
@@ -177,108 +165,13 @@ if (finder) {
   for (const city of cities) {
     const at = onMap(city.lat, city.lon)
     if (!at) continue
-    city.dot = document.createElement('span')
-    city.dot.className = `finder__dot${city.item.dataset.label === 'left' ? ' finder__dot--left' : ''}`
-    city.dot.style.setProperty('--x', `${at.x}%`)
-    city.dot.style.setProperty('--y', `${at.y}%`)
-    city.dot.append(Object.assign(document.createElement('span'), { textContent: city.item.querySelector('.finder__name').textContent }))
-    finder.querySelector(`.finder__map--${at.id}`).append(city.dot)
+    const dot = document.createElement('span')
+    dot.className = `finder__dot${city.item.dataset.label === 'left' ? ' finder__dot--left' : ''}`
+    dot.style.setProperty('--x', `${at.x}%`)
+    dot.style.setProperty('--y', `${at.y}%`)
+    dot.append(Object.assign(document.createElement('span'), { textContent: city.item.querySelector('.finder__name').textContent }))
+    finder.querySelector(`.finder__map--${at.id}`).append(dot)
   }
-
-  // Distance on the globe, in km, and as the page says it (miles in the US and the UK)
-  const km = (a, b) => {
-    const h = Math.sin((b.lat - a.lat) * rad / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin((b.lon - a.lon) * rad / 2) ** 2
-    return 12742 * Math.asin(Math.sqrt(h))
-  }
-  const far = (d, miles) => {
-    const v = miles ? d / 1.609344 : d, unit = miles ? 'mi' : 'km'
-    return v < 1 ? `< 1 ${unit}` : `${(v < 10 ? v.toFixed(1) : Math.round(v).toLocaleString('en-US'))} ${unit}`
-  }
-  // How a place is named: "Overland Park, KS", "Oxford, UK", "Munich, Germany"
-  const placeName = ([city, country, region]) =>
-    country === 'US' && /^[A-Z]{2}$/.test(region) ? `${city}, ${region}` : `${city}, ${country === 'GB' ? 'UK' : regionName(country)}`
-
-  const show = (where, label, country) => {
-    const miles = ['US', 'GB', 'LR', 'MM'].includes(country)
-    const sorted = cities.map(c => ({ ...c, d: km(where, c) })).sort((a, b) => a.d - b.d)
-    for (const [i, c] of sorted.entries()) {
-      list.append(c.item)
-      c.item.classList.toggle('is-near', i === 0)
-      c.dot?.classList.toggle('is-near', i === 0)
-      const p = c.item.querySelector('.finder__far')
-      p.textContent = far(c.d, miles)
-      p.hidden = false
-    }
-    near.replaceChildren('Tournaments nearest to ', Object.assign(document.createElement('b'), { textContent: label }))
-    const at = onMap(where.lat, where.lon)
-    for (const you of finder.querySelectorAll('.finder__you')) {
-      you.hidden = !at || !you.parentElement.matches(`.finder__map--${at.id}`)
-      if (you.hidden) continue
-      you.style.setProperty('--x', `${at.x}%`)
-      you.style.setProperty('--y', `${at.y}%`)
-      // Its name on the left, away from a city's dot to its right, unless it's at the map's left edge
-      you.classList.toggle('finder__you--right', at.x < 15)
-      you.firstElementChild.textContent = label.split(',')[0]
-    }
-  }
-
-  let places
-  const loadPlaces = () => (places ??= fetch('/assets/data/places.json').then(r => r.json()))
-  const fold = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
-
-  // "Cambridge" is the biggest Cambridge; "Cambridge, MA", "Cambridge UK" or "Cambridge, United States" narrow it down
-  const lookUp = async query => {
-    const all = await loadPlaces()
-    const [city, ...rest] = query.split(',').map(fold)
-    const within = rest.join(' ').trim()
-    const named = p => [p[2], p[1], regionName(p[1]), p[1] === 'GB' ? 'uk' : '', p[1] === 'US' ? 'usa' : ''].some(x => x && fold(x).startsWith(within))
-    const exact = all.filter(p => fold(p[0]) === city && (!within || named(p)))
-    const hits = exact.length ? exact : all.filter(p => fold(p[0]).startsWith(city) && (!within || named(p)))
-    return hits.sort((a, b) => b[5] - a[5])[0]
-  }
-
-  search.addEventListener('submit', async event => {
-    event.preventDefault()
-    if (!input.value.trim()) return input.focus()
-    const place = await lookUp(input.value).catch(() => null)
-    if (!place) {
-      near.textContent = `We couldn’t find “${input.value.trim()}”. Try a bigger town nearby.`
-      return
-    }
-    show({ lat: place[3], lon: place[4] }, placeName(place), place[1])
-  })
-
-  // Suggestions as you type, the biggest places first
-  input.addEventListener('focus', () => loadPlaces().catch(() => {}), { once: true })
-  input.addEventListener('input', async () => {
-    const q = fold(input.value)
-    if (q.length < 2 || q.includes(',')) return
-    const all = await loadPlaces().catch(() => [])
-    suggestions.replaceChildren(...all.filter(p => fold(p[0]).startsWith(q)).sort((a, b) => b[5] - a[5]).slice(0, 8)
-      .map(p => Object.assign(document.createElement('option'), { value: placeName(p) })))
-  })
-
-  // Your device's location, named after the nearest place on the list
-  finder.querySelector('.finder__locate').addEventListener('click', () => {
-    if (!navigator.geolocation) return
-    near.textContent = 'Finding where you are…'
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-      const here = { lat: coords.latitude, lon: coords.longitude }
-      const all = await loadPlaces().catch(() => [])
-      let best, bestD = Infinity
-      for (const p of all) {
-        const d = km(here, { lat: p[3], lon: p[4] })
-        if (d < bestD) [best, bestD] = [p, d]
-      }
-      show(here, best && bestD < 50 ? placeName(best) : 'your location', best?.[1])
-    }, () => { near.textContent = intro })
-  })
-
-  // A first guess, from where the visit comes from
-  fetch('/api/where').then(r => (r.ok ? r.json() : {})).then(w => {
-    if (!Number.isFinite(w.lat) || !Number.isFinite(w.lon)) return
-    show({ lat: w.lat, lon: w.lon }, w.city ? placeName([w.city, w.country, w.region]) : 'you', w.country)
-  }).catch(() => {})
 }
 
 // The guide by email, in the home page's header: sent to /api/guide (api/guide.js) with how long the page has been
