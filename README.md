@@ -21,7 +21,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   on For schools, For companies and Partner with us, Get updates, the tournaments' email for a date, How to play's footnotes and the
   FAQ page's tabs
 - `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and in the classic look
-  Instrument Serif and Instrument Sans, all self-hosted), `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
+  Instrument Serif and Instrument Sans, all self-hosted), `files/` (the rule sheet PDF, and the question pack to print, `fermi-poker-question-pack.pdf`, 63 questions for now,
+  with blank cards for your own questions on its last
   page)
 - The fonts' Latin files (`fermi-sans-*.woff2`, `fermi-serif-*.woff2`) are PT Sans and PT Serif without their
   kerning around spaces, which made the gap after a period narrower than a word space. They were made with fontTools by
@@ -140,8 +141,12 @@ answers are copies of the FAQ page's, so change them in both.
 
 The guide by email goes to `api/guide.js`, which emails the links to everything for hosting (the guide, the rule
 sheet, the questions to print, the Play page, and the For schools form for funding), from contact@fermi.org with
-replies to it. It keeps the address among Resend's contacts with the property "guide" (the day they asked), not
-subscribed to updates: that takes signing up for them. Like the For schools form, `site.js` sends how long the page
+replies to it. It also emails daniel@fermi.org who asked (`GUIDE_NOTIFY` in `api/guide.js`; replying writes to
+them), and keeps the address among Resend's contacts with the property "guide" (the day they asked), not subscribed to
+updates: that takes signing up for them. Who opens the links isn't known (Resend can track clicks, a setting there).
+The question pack has a name without its count (`files/fermi-poker-question-pack.pdf`), so a new pack can replace it
+at the same address and every link, in the emails too, gets it; `vercel.json` sends its old name
+(`fermi-poker-63-question-pack.pdf`, in the first emails) there. Like the For schools form, `site.js` sends how long the page
 was open, and `api/guide.js` drops sign-ups that fill in the hidden field or come within a second and a half, and
 refuses ones without the time: without JavaScript the form comes back to the page with `#guide-failed`, offering the
 guide online. Once it's sent the form stays as it is and its button says "Sent! Check your inbox", until the address

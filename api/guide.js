@@ -1,11 +1,13 @@
 // The guide by email, from the form in the home page's header: sent by assets/site.js or, without JavaScript, posted
 // straight here. Emails links to everything for hosting (the guide, the rule sheet, the questions to print, the cards
-// on a screen), and keeps the address among Resend's contacts with the property "guide" (the day it was asked for), not
-// subscribed to updates: that takes signing up for them.
+// on a screen), tells daniel@fermi.org who asked, and keeps the address among Resend's contacts with the property
+// "guide" (the day it was asked for), not subscribed to updates: that takes signing up for them.
 const { FROM, NOTIFY, resend, contactFor, listAll, origin, escape } = require('./_resend.js')
 
 // The contact's property that says they asked for the guide, and when
 const GUIDE = 'guide'
+// Who hears about each request for the guide (the requests are also among the contacts in Resend, with the day)
+const GUIDE_NOTIFY = 'daniel@fermi.org'
 // Anyone faster than this from opening the page to sending hasn't typed an address
 const QUICKEST = 1500
 
@@ -16,7 +18,7 @@ function guideEmail(site) {
   const links = [
     ['The guide', `${site}/how-to-play/`, 'How to play, the rules to read out, an ante schedule and variations.'],
     ['Rule sheet (PDF)', `${site}/files/fermi-poker-rules.pdf`, 'All the rules on a single page. Print a copy or two for every table.'],
-    ['63 questions to print (PDF)', `${site}/files/fermi-poker-63-question-pack.pdf`, 'Question, hint and answer cards, and blank cards for your own questions.'],
+    ['Questions to print (PDF)', `${site}/files/fermi-poker-question-pack.pdf`, 'Question, hint and answer cards, and blank cards for your own questions.'],
     ['The cards on a screen', `${site}/play/`, 'Show the questions, hints and answers on a phone, tablet or laptop instead of printing them.'],
   ]
   const html = `<!doctype html><html lang="en"><body style="margin:0;padding:0;background:#efeade">
@@ -91,7 +93,19 @@ module.exports = async function guide(req, res) {
     console.error('Resend email:', sent.status, JSON.stringify(sent.data))
     return answer(false, 502)
   }
-  // The guide is on its way whatever happens now; keeping the address is a bonus
+  // The guide is on its way whatever happens now; telling us and keeping the address are a bonus
+  const told = await resend('/emails', {
+    method: 'POST',
+    body: {
+      from: FROM,
+      to: [GUIDE_NOTIFY],
+      reply_to: email,
+      subject: `Guide requested: ${email}`,
+      text: `${email} asked for the guide on fermi.org. Reply to this email to write them.\n`,
+      html: `<p>${escape(email)} asked for the guide on fermi.org. Reply to this email to write them.</p>`,
+    },
+  })
+  if (!told.ok) console.error('Resend email (to us):', told.status, JSON.stringify(told.data))
   try {
     const contact = await contactFor(email)
     if (contact) await saveGuide(contact.id)
