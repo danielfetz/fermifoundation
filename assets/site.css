@@ -1012,7 +1012,7 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 .footnotes .link:hover,
 .sidenote .link:hover { color: var(--blue); }
 .sidenote { display: none; }
-@media (min-width: 1230px) {
+@media (min-width: 1340px) {
   .page--sidenotes { position: relative; }
   /* Placed where its number is, then moved into the margin: inline, so it stays on the number's line */
   .page--sidenotes .sidenote {
@@ -1572,7 +1572,7 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .doc .fn-ref a,
 .doc .fn-back,
 .doc .sidenote__n { color: #9c4a17; }
-@media (min-width: 1230px) {
+@media (min-width: 1340px) {
   .doc .page--sidenotes .sidenote { width: 250px; color: #666; font-family: var(--mona); font-size: 14px; }
   .doc .page--sidenotes .sidenote.is-lit { color: #000; }
 }
@@ -2296,11 +2296,11 @@ html.classic .faq__panel { max-width: none; }
   .doc .steps-band .boxes--rows h3 { font-size: 24px; }
 }
 
-/* How to play in the classic look (html.guide-page.classic): the header as on the other inner pages, with what the
-   page is about as the line in the serif under the title, and who wrote it under that, smaller, in Instrument Sans.
-   Then the guide in one white card on the paper (.doc), the column inside it; on wide screens the card is as wide as
-   the title's space and the footnotes stand in its right margin, beside their lines (assets/site.js). Its headings in
-   the serif, the notes and the words to read out on panels in a pale tint of the paper, with soft corners. */
+/* How to play in the classic look (html.guide-page.classic): the header as on the other inner pages, with who wrote
+   the guide under the title, smaller, in Instrument Sans. Then the guide in one white card on the paper (.doc), as
+   wide as the other pages' cards with its sides, starting with what the page is about; on wide screens its footnotes
+   stand on the paper to its right, beside their lines (assets/site.js). Its headings in the serif, the notes and the
+   words to read out on panels in a pale tint of the paper, with soft corners. */
 html.guide-page.classic body { background: #efeade; }
 html.classic .page-hero__byline {
   margin: 22px auto 0;
@@ -2327,6 +2327,7 @@ html.guide-page.classic .doc {
   box-shadow: 0 1px 2px rgba(43, 37, 31, 0.06), 0 24px 48px -28px rgba(43, 37, 31, 0.35);
 }
 html.guide-page.classic .doc .page { width: auto; margin: 0; }
+html.guide-page.classic .doc .page-lead { width: auto; }
 html.guide-page.classic .doc .section > h2 {
   color: var(--home-ink);
   font-family: var(--display);
@@ -2363,10 +2364,11 @@ html.guide-page.classic .fn-pop {
   box-shadow: 0 2px 6px rgba(43, 37, 31, 0.12), 0 18px 40px -16px rgba(43, 37, 31, 0.45);
   color: var(--home-ink);
 }
-/* Wide screens: the column on the left (700px), the notes in the margin to its right (236px), 40px from it */
-@media (min-width: 1230px) {
-  html.guide-page.classic .doc { width: 1096px; padding: 64px 332px 72px 64px; }
-  html.guide-page.classic .doc .page--sidenotes .sidenote { left: calc(100% + 40px); width: 236px; color: #6b6158; font-size: 14.5px; }
+/* Wide screens (from 1340px, as in assets/site.js): the card as it is, centred, and the notes on the paper to its
+   right, 32px from it (past the card's 56px side), as wide as the paper beside the card leaves them, less 28px, at
+   most 250px: from 194px at 1340px to 250px from 1452px */
+@media (min-width: 1340px) {
+  html.guide-page.classic .doc .page--sidenotes .sidenote { left: calc(100% + 56px + 32px); width: min(250px, 50vw - 476px); color: #6b6158; font-size: 14.5px; }
   html.guide-page.classic .doc .page--sidenotes .sidenote.is-lit { color: var(--home-ink); }
 }
 @media (max-width: 700px) {
