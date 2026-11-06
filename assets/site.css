@@ -2248,8 +2248,7 @@ html.schools-page.classic .doc .signup-card {
 
 @media (max-width: 700px) {
   html.schools-page.classic .page-hero { padding: calc(76px + 28px) 0 48px; }
-  /* On one line on every phone (it's 21.8em long) */
-  .page-hero__kicker { font-size: min(13.5px, (100vw - 40px) / 21.8); }
+  .page-hero__kicker { font-size: 12px; }
   /* As large as the home page's headline on phones */
   html.schools-page.classic .page-hero h1 { font-size: min(60px, (100vw - 40px) / 6.85); line-height: 1.04; }
   .page-hero__sub { font-size: 22px; }
