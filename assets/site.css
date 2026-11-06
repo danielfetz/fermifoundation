@@ -1881,13 +1881,13 @@ html.home-page .hero__title {
   margin: 0 auto 18px;
   color: var(--home-ink);
   font-family: var(--display);
-  font-size: clamp(46px, 4.6vw, 68px);
+  font-size: clamp(46px, 4.75vw, 70px);
   font-stretch: 100%;
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
-html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
+html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 20px; font-stretch: 100%; font-weight: 400; }
 /* Links in the text (on the home page under the headline, in the introduction, the FAQ and the messages): in ink, as
    the words around them, with a faint underline set a little below, which darkens under the mouse */
 html.classic :is(.link, .hero__sub a) {
@@ -1922,7 +1922,7 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   color: #111;
   font: inherit;
   font-family: var(--mona);
-  font-size: 17px;
+  font-size: 18px;
 }
 .hero__guide-row input::placeholder { color: #7a7067; }
 .hero__guide-row input:focus-visible { outline: none; }
@@ -1939,7 +1939,7 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   color: #f6f1e7;
   font: inherit;
   font-family: var(--mona);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 150ms var(--ease);
