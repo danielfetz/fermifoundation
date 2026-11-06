@@ -394,12 +394,13 @@ html.new-design.menu-open { --page-bg: #fff; }
 .home-faq__more:hover { background: #2f2822; }
 .home-faq__more svg { width: 16px; height: 16px; }
 /* Phones: the headline across the whole width, its size following the width so it breaks the same way on every phone,
-   into four lines (Fermi Poker is a / game of / estimation, betting / and bluffing: "estimation, betting" is 10.07em
-   and "game of estimation," 10.54em, so the width is 10.3em), up to the laptops' size; and the buttons under it, each
+   into four lines (Fermi Poker is a / game of estimation, / reasoning and / bluffing: "game of estimation," is
+   10.66em, and "estimation, reasoning" 11.64em and "Fermi Poker is a game" 11.7em mustn't fit, so the width is 11em),
+   up to the laptops' size; and the buttons under it, each
    across it, on a strip of the hall from its middle */
 @media (max-width: 700px) {
   .hero {
-    --title: min(42px, (100vw - 40px) / 10.3);
+    --title: min(42px, (100vw - 40px) / 11);
     padding: calc(76px + 40px) 0 276px;
     background-position: 50% -135px;
   }
