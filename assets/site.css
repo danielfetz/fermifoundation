@@ -2067,6 +2067,19 @@ html.home-page .home-faq__more {
 }
 html.home-page .home-faq__more:hover { background: #1b1511; }
 
+/* The mailing list and the FAQ centred, as the header and the finder (the introduction stays as it is): the mailing
+   list's heading, line, form and note in the middle; the FAQ's heading over its list, in the middle of the page, the
+   questions left in it, and its button under it */
+html.home-page .signup__inner { text-align: center; }
+html.home-page .signup__text { max-width: 620px; margin: 0 auto; }
+html.home-page .signup .su { width: min(560px, 100%); margin-right: auto; margin-left: auto; }
+html.home-page .signup .su__row { text-align: left; }
+html.home-page .signup :is(.su__note, .su__error) { padding-left: 0; }
+html.home-page .signup .su-done { width: fit-content; max-width: 100%; margin-right: auto; margin-left: auto; text-align: left; }
+html.home-page .home-faq h2 { text-align: center; }
+html.home-page .home-faq__list { margin-right: auto; margin-left: auto; }
+html.home-page .home-faq__more { display: flex; width: fit-content; margin-right: auto; margin-left: auto; }
+
 /* The headings further down in the serif too */
 html.home-page :is(.intro__lead, .home-main h2) { font-family: var(--display); font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
 /* The introduction's first paragraph larger (40px; 32px on phones) */
