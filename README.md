@@ -107,19 +107,17 @@ each a list of questions that open in place.
 part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
 opens its tab and the question.
 
-The home page runs in bands, white and pale beige in turn, under a bar in ink at the very top: the header, the
-tournament finder, the introduction, Learn more and get involved, the mailing list, and Frequently asked questions.
-It's set a little more classic than the other pages: its headings in Instrument Serif and its text in Instrument Sans,
-and its header on paper (`#efeade`), with the hall photo faded onto it (`hall-paper.webp`) rising from its foot, the
-menu and the words in ink and centred. All of it is one block at the end of `site.css` (the rules above it for the
-home page's header still describe the dark hall). Under the headline is the guide by email: a field and "Send me the
-guide", in ink. The bar at the very top (`topbar`) tells student organizers we can cover materials and small prizes,
-and links to the For schools form; the menu sits right under it (`top: auto`), and Safari's strip above the page is
-its ink. Host a tournament (`host-a-tournament/`) is a short page of links to the materials (the guide, the rule sheet
-and the questions to print, and the Play page), each row's heading the link (`boxes--links`), and under them the
-introduction's lines for schools and companies, so change those in both. Each card under Learn more and get involved
-is a link with a picture. Frequently asked questions has five of the FAQ page's questions, opening in place, and a
-button to the rest; their answers are copies of the FAQ page's, so change them in both.
+The home page runs in bands, white and pale beige in turn: the header, the tournament finder, the introduction, Learn
+more and get involved, the mailing list, and Frequently asked questions. It's set a little more classic than the other
+pages: its headings in Instrument Serif and its text in Instrument Sans, and its header on paper (`#efeade`), with the
+hall photo faded onto it (`hall-paper.webp`) rising from its foot, the menu and the words in ink and centred. All of
+it is one block at the end of `site.css` (the rules above it for the home page's header still describe the dark hall).
+Under the headline is the guide by email: a field and "Send me the guide", in ink. Host a tournament
+(`host-a-tournament/`) is a short page of links to the materials (the guide, the rule sheet and the questions to
+print, and the Play page), each row's heading the link (`boxes--links`), and under them the introduction's lines for
+schools and companies, so change those in both. Each card under Learn more and get involved is a link with a picture.
+Frequently asked questions has five of the FAQ page's questions, opening in place, and a button to the rest; their
+answers are copies of the FAQ page's, so change them in both.
 
 The guide by email goes to `api/guide.js`, which emails the links to everything for hosting (the guide, the rule
 sheet, the questions to print, the Play page, and the For schools form for funding), from contact@fermi.org with

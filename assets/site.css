@@ -1853,24 +1853,8 @@ html.new-design.home-page {
   --home-ink: #2b251f;
   --home-paper: #efeade;
 }
-/* Safari's strip above the page: the ink of the bar at the very top, even while the phone menu is open under it */
-html.new-design.home-page { --page-bg: #2b251f; }
-
-/* The bar at the very top, for student organizers, in ink, the link to the For schools form in white; the menu right
-   under it (where it would be if it weren't over the header) */
-.topbar {
-  padding: 10px 24px;
-  background: var(--home-ink);
-  color: #efe9de;
-  font-family: var(--mona);
-  font-size: 14.5px;
-  line-height: 1.45;
-  text-align: center;
-}
-.topbar a { margin-left: 4px; color: #fff; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.topbar a:hover { text-decoration-thickness: 2px; }
-.topbar svg { display: inline-block; width: 14px; height: 14px; margin-left: 3px; vertical-align: -2px; }
-html.home-page .nav--over { top: auto; }
+/* Safari's strip above the page: the paper (white while the phone menu is open) */
+html.new-design.home-page:not(.menu-open) { --page-bg: #efeade; }
 
 /* The menu in ink, its links a little lighter (500), the name in the serif */
 html.home-page .nav--over { color: var(--home-ink); }
@@ -1983,7 +1967,6 @@ html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-i
   .hero__guide-row input:focus-visible { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
   .hero__guide-row button { justify-content: center; height: 50px; }
   .hero__guide-error { font-size: 14px; }
-  .topbar { padding: 9px 20px; font-size: 13.5px; }
 }
 
 /* The finder: centred on white, as a shop's store finder: the heading in rust, a search on a line, two links in
