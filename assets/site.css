@@ -2045,6 +2045,8 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   text-underline-offset: 4px;
 }
 .finder__btn:hover { color: #9c4a17; }
+/* Under the cities, why those at schools aren't among them */
+.finder__note { margin-top: 40px; color: #6b6158; font-size: 15px; line-height: 1.5; }
 .finder__btn svg { display: inline-block; width: 14px; height: 14px; margin-left: 2px; vertical-align: -2px; }
 
 /* The headings further down in the serif too */
@@ -2078,6 +2080,7 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder__name { font-size: 24px; }
   .finder__when { margin-top: 2px; }
   .finder__btn { margin-top: 8px; }
+  .finder__note { margin-top: 24px; font-size: 14px; }
 }
 
 /* The inner pages in the classic look (all of them, html.classic), in the manner of a sign-up page: the whole page on paper, no photo. Over the title a line in capitals in Mona Sans, wide;
