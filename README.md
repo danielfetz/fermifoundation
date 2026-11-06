@@ -15,6 +15,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `credits/`: the credit for the header photo, which every page's footer links to (below)
 - `404.html`: the page Vercel shows for any address with nothing at it ("Page not found", in the classic look, kept out
   of search results), so its links and files all start at the root (`/`)
+- `scripts/guide_email.py`: makes the guide's email version (`api/_guide-email.js`) from How to play; run it after
+  changing the guide (below)
 - `api/`: the Vercel Functions behind Get updates, the guide by email, the tournaments' email for a date, and the For
   schools, For companies and Partner with us forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
@@ -141,9 +143,14 @@ schools and companies, so change those in both. Each card under Learn more and g
 Frequently asked questions has five of the FAQ page's questions, opening in place, and a button to the rest; their
 answers are copies of the FAQ page's, so change them in both.
 
-The guide by email goes to `api/guide.js`, which emails the links to everything for hosting (the guide, the rule
-sheet, the questions to print, the Play page, and the For schools form for funding), from contact@fermi.org with
-replies to it. It also emails daniel@fermi.org who asked (`GUIDE_NOTIFY` in `api/guide.js`; replying writes to
+The guide by email goes to `api/guide.js`, which emails the whole guide, from contact@fermi.org with replies to it:
+a line on what's in it, the links to the rule sheet, the questions to print and the questions on a screen (the Play
+page), a line on the question set that isn't public (write us for it), then the guide itself, as on How to play
+(every variation open, the footnotes at the end, the hidden sample question left out), and the way to funding for
+schools. The guide in it comes from `api/_guide-email.js`, which `scripts/guide_email.py` makes from
+`how-to-play/index.html` (in HTML with its styles on each element, as email apps want them, and as plain text): after
+changing the guide, run `python3 scripts/guide_email.py` (it needs nothing but Python 3), or the email keeps the old
+text. It also emails daniel@fermi.org who asked (`GUIDE_NOTIFY` in `api/guide.js`; replying writes to
 them), and keeps the address among Resend's contacts with the property "guide" (the day they asked), not subscribed to
 updates: that takes signing up for them. Who opens the links isn't known (Resend can track clicks, a setting there).
 The question pack has a name without its count (`files/fermi-poker-question-pack.pdf`), so a new pack can replace it
