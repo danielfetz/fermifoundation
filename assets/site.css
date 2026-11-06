@@ -1887,7 +1887,7 @@ html.home-page .hero__title {
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
-html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 20px; font-stretch: 100%; font-weight: 400; }
+html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 20px; font-stretch: 100%; font-weight: 450; }
 /* Links in the text (on the home page under the headline, in the introduction, the FAQ and the messages): in ink, as
    the words around them, with a faint underline set a little below, which darkens under the mouse */
 html.classic :is(.link, .hero__sub a) {
@@ -1976,9 +1976,9 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
   .hero__guide { margin-top: 26px; }
   .hero__guide-row { flex-direction: column; padding: 0; border: 0; background: none; }
   .hero__guide-row:focus-within { box-shadow: none; }
-  .hero__guide-row input { height: 50px; border: 1.5px solid var(--home-ink); background: rgba(255, 255, 255, 0.92); }
+  .hero__guide-row input { height: 50px; border: 1.5px solid var(--home-ink); background: rgba(255, 255, 255, 0.92); font-size: 17px; }
   .hero__guide-row input:focus-visible { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
-  .hero__guide-row button { justify-content: center; height: 50px; }
+  .hero__guide-row button { justify-content: center; height: 50px; font-size: 16px; }
   .hero__guide-error { font-size: 14px; }
 }
 
