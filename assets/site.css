@@ -2051,6 +2051,20 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
 .finder__btn:hover { color: #9c4a17; }
 .finder__btn svg { display: inline-block; width: 14px; height: 14px; margin-left: 2px; vertical-align: -2px; }
 
+/* Learn more and get involved: the cards with soft corners, as the other cards in the classic look; and the button to
+   the FAQ page round, in ink, as the guide's */
+html.home-page .start-card { border-radius: 18px; }
+html.home-page .home-faq__more {
+  height: 50px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: var(--home-ink);
+  color: #f6f1e7;
+  font-size: 17px;
+  font-stretch: 100%;
+}
+html.home-page .home-faq__more:hover { background: #1b1511; }
+
 /* The headings further down in the serif too */
 html.home-page :is(.intro__lead, .home-main h2) { font-family: var(--display); font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
 /* The introduction's first paragraph larger (40px; 32px on phones) */
