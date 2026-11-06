@@ -1886,8 +1886,7 @@ html.home-page .hero__title {
   line-height: 1.02;
   letter-spacing: -0.01em;
 }
-/* A sentence a line where there's room ("Funding is available…" is 29.4em; the first sentence and "Funding" 32.3em) */
-html.home-page .hero__sub { max-width: 31em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
+html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
 
 /* The guide by email: a round field with the button in it, in ink, and the small print under them */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
