@@ -134,12 +134,193 @@ for (const interest of document.querySelectorAll('.event__interest')) {
   })
 }
 
+// The tournament finder on the home page: a dot for each city on the map it's on, and the cities nearest you first,
+// with how far each is, and where you are on the maps. Where you are: roughly where the visit comes from (/api/where,
+// api/where.js, from Vercel), a place you type in (assets/data/places.json: every town of 30,000 people or more, and of
+// 10,000 or more in the US, the UK, Canada, Ireland, Australia and New Zealand, from GeoNames), or your device's
+// location if you ask. None of it is kept.
+const finder = document.querySelector('.finder')
+
+if (finder) {
+  const list = finder.querySelector('.finder__list')
+  const near = finder.querySelector('.finder__near')
+  const search = finder.querySelector('.finder__search')
+  const input = search.elements.q
+  const suggestions = finder.querySelector('#finder-places')
+  const intro = near.textContent
+  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
+  const regionName = code => { try { return regionNames.of(code) } catch { return code } }
+  const cities = [...list.children].map(item => ({ item, key: item.dataset.city, lat: +item.dataset.lat, lon: +item.dataset.lon }))
+
+  // The maps' projections, as they were drawn (d3's conic equal-area: its parallels, central meridian, scale and
+  // offset, in the pictures' own units), so places can be put on them here
+  const MAPS = {
+    us: { w: 720, h: 450, par: [29.5, 45.5], rot: 96, k: 959.2240719212782, t: [367.56461203652145, 306.91154700940876] },
+    uk: { w: 330, h: 450, par: [50, 58], rot: 4, k: 2271.8468508540677, t: [173.62747157320388, 1078.2816726932483] },
+  }
+  const rad = Math.PI / 180
+  const project = ({ par, rot, k, t }, lat, lon) => {
+    const s0 = Math.sin(par[0] * rad), n = (s0 + Math.sin(par[1] * rad)) / 2, c = 1 + s0 * (2 * n - s0), r0 = Math.sqrt(c) / n
+    const y0 = r0 - Math.sqrt(c - 2 * n * Math.sin(33.6442 * rad)) / n
+    const r = Math.sqrt(c - 2 * n * Math.sin(lat * rad)) / n, l = (lon + rot) * rad * n
+    return [t[0] + k * r * Math.sin(l), t[1] - k * (r0 - r * Math.cos(l) - y0)]
+  }
+  // The map a place is on, and where on it (as percentages), or nothing
+  const onMap = (lat, lon) => {
+    for (const [id, map] of Object.entries(MAPS)) {
+      const [x, y] = project(map, lat, lon)
+      if (x > 0 && x < map.w && y > 0 && y < map.h) return { id, x: (x / map.w) * 100, y: (y / map.h) * 100 }
+    }
+  }
+
+  // A dot for each city, its name beside it (on the left if the city says so, to keep clear of a neighbour)
+  for (const city of cities) {
+    const at = onMap(city.lat, city.lon)
+    if (!at) continue
+    city.dot = document.createElement('span')
+    city.dot.className = `finder__dot${city.item.dataset.label === 'left' ? ' finder__dot--left' : ''}`
+    city.dot.style.setProperty('--x', `${at.x}%`)
+    city.dot.style.setProperty('--y', `${at.y}%`)
+    city.dot.append(Object.assign(document.createElement('span'), { textContent: city.item.querySelector('.finder__name').textContent }))
+    finder.querySelector(`.finder__map--${at.id}`).append(city.dot)
+  }
+
+  // Distance on the globe, in km, and as the page says it (miles in the US and the UK)
+  const km = (a, b) => {
+    const h = Math.sin((b.lat - a.lat) * rad / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin((b.lon - a.lon) * rad / 2) ** 2
+    return 12742 * Math.asin(Math.sqrt(h))
+  }
+  const far = (d, miles) => {
+    const v = miles ? d / 1.609344 : d, unit = miles ? 'mi' : 'km'
+    return v < 1 ? `< 1 ${unit}` : `${(v < 10 ? v.toFixed(1) : Math.round(v).toLocaleString('en-US'))} ${unit}`
+  }
+  // How a place is named: "Overland Park, KS", "Oxford, UK", "Munich, Germany"
+  const placeName = ([city, country, region]) =>
+    country === 'US' && /^[A-Z]{2}$/.test(region) ? `${city}, ${region}` : `${city}, ${country === 'GB' ? 'UK' : regionName(country)}`
+
+  const show = (where, label, country) => {
+    const miles = ['US', 'GB', 'LR', 'MM'].includes(country)
+    const sorted = cities.map(c => ({ ...c, d: km(where, c) })).sort((a, b) => a.d - b.d)
+    for (const [i, c] of sorted.entries()) {
+      list.append(c.item)
+      c.item.classList.toggle('is-near', i === 0)
+      c.dot?.classList.toggle('is-near', i === 0)
+      const p = c.item.querySelector('.finder__far')
+      p.textContent = far(c.d, miles)
+      p.hidden = false
+    }
+    near.replaceChildren('Tournaments nearest to ', Object.assign(document.createElement('b'), { textContent: label }))
+    const at = onMap(where.lat, where.lon)
+    for (const you of finder.querySelectorAll('.finder__you')) {
+      you.hidden = !at || !you.parentElement.matches(`.finder__map--${at.id}`)
+      if (you.hidden) continue
+      you.style.setProperty('--x', `${at.x}%`)
+      you.style.setProperty('--y', `${at.y}%`)
+      // Its name on the left, away from a city's dot to its right, unless it's at the map's left edge
+      you.classList.toggle('finder__you--right', at.x < 15)
+      you.firstElementChild.textContent = label.split(',')[0]
+    }
+  }
+
+  let places
+  const loadPlaces = () => (places ??= fetch('/assets/data/places.json').then(r => r.json()))
+  const fold = text => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
+
+  // "Cambridge" is the biggest Cambridge; "Cambridge, MA", "Cambridge UK" or "Cambridge, United States" narrow it down
+  const lookUp = async query => {
+    const all = await loadPlaces()
+    const [city, ...rest] = query.split(',').map(fold)
+    const within = rest.join(' ').trim()
+    const named = p => [p[2], p[1], regionName(p[1]), p[1] === 'GB' ? 'uk' : '', p[1] === 'US' ? 'usa' : ''].some(x => x && fold(x).startsWith(within))
+    const exact = all.filter(p => fold(p[0]) === city && (!within || named(p)))
+    const hits = exact.length ? exact : all.filter(p => fold(p[0]).startsWith(city) && (!within || named(p)))
+    return hits.sort((a, b) => b[5] - a[5])[0]
+  }
+
+  search.addEventListener('submit', async event => {
+    event.preventDefault()
+    if (!input.value.trim()) return input.focus()
+    const place = await lookUp(input.value).catch(() => null)
+    if (!place) {
+      near.textContent = `We couldn’t find “${input.value.trim()}”. Try a bigger town nearby.`
+      return
+    }
+    show({ lat: place[3], lon: place[4] }, placeName(place), place[1])
+  })
+
+  // Suggestions as you type, the biggest places first
+  input.addEventListener('focus', () => loadPlaces().catch(() => {}), { once: true })
+  input.addEventListener('input', async () => {
+    const q = fold(input.value)
+    if (q.length < 2 || q.includes(',')) return
+    const all = await loadPlaces().catch(() => [])
+    suggestions.replaceChildren(...all.filter(p => fold(p[0]).startsWith(q)).sort((a, b) => b[5] - a[5]).slice(0, 8)
+      .map(p => Object.assign(document.createElement('option'), { value: placeName(p) })))
+  })
+
+  // Your device's location, named after the nearest place on the list
+  finder.querySelector('.finder__locate').addEventListener('click', () => {
+    if (!navigator.geolocation) return
+    near.textContent = 'Finding where you are…'
+    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+      const here = { lat: coords.latitude, lon: coords.longitude }
+      const all = await loadPlaces().catch(() => [])
+      let best, bestD = Infinity
+      for (const p of all) {
+        const d = km(here, { lat: p[3], lon: p[4] })
+        if (d < bestD) [best, bestD] = [p, d]
+      }
+      show(here, best && bestD < 50 ? placeName(best) : 'your location', best?.[1])
+    }, () => { near.textContent = intro })
+  })
+
+  // A first guess, from where the visit comes from
+  fetch('/api/where').then(r => (r.ok ? r.json() : {})).then(w => {
+    if (!Number.isFinite(w.lat) || !Number.isFinite(w.lon)) return
+    show({ lat: w.lat, lon: w.lon }, w.city ? placeName([w.city, w.country, w.region]) : 'you', w.country)
+  }).catch(() => {})
+}
+
+// The guide by email, in the home page's header: sent to /api/guide (api/guide.js) with how long the page has been
+// open, so it can tell people from bots; then a line says it's on its way. Without JavaScript the form posts there
+// directly, and comes back with #guide-failed, which offers the guide online.
+const guideForm = document.querySelector('.hero__guide')
+
+if (guideForm) {
+  const button = guideForm.querySelector('button[type="submit"]')
+  const error = guideForm.querySelector('.hero__guide-error')
+  const done = document.querySelector('#guide-sent')
+
+  guideForm.addEventListener('submit', async event => {
+    event.preventDefault()
+    button.disabled = true
+    error.hidden = true
+    try {
+      const response = await fetch(guideForm.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...Object.fromEntries(new FormData(guideForm)), elapsed: Date.now() - pageOpened }),
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      remember.set({ guide: Date.now() })
+      guideForm.hidden = true
+      done.classList.add('is-shown')
+      done.focus()
+    } catch {
+      error.hidden = false
+    } finally {
+      button.disabled = false
+    }
+  })
+}
+
 // Updates: the sign-up forms in the page (home, /updates/), and a short one in a pop-up, with a small heading over each
 // field. They send to
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
 // when the mouse leaves the page at the top, heading for the tabs or the close button, after 10 seconds on the page;
-// on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up or sending the
-// For schools form. "Get updates" in the menu opens it any time. The Play page doesn't load this script, so never there.
+// on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up, sending the
+// For schools form or asking for the guide. "Get updates" in the menu opens it any time. The Play page doesn't load this
+// script, so never there.
 const remember = {
   get() {
     try { return JSON.parse(localStorage.getItem('fermi-updates')) || {} } catch { return {} }
@@ -268,14 +449,14 @@ if (UPDATES_POPUP && !location.pathname.startsWith('/updates/')) {
     openUpdates('menu')
   }))
 
-  // Whether it may come up by itself now: never once someone has signed up, sent the For schools form or seen it lately; not
-  // while they type, or while a sign-up form is on screen anyway
+  // Whether it may come up by itself now: never once someone has signed up, sent the For schools form, asked for the guide
+  // or seen it lately; not while they type, or while a sign-up form (or the guide's) is on screen anyway
   const DAY = 24 * 60 * 60 * 1000
   const mayOpen = () => {
     const known = remember.get()
-    if (known.signedUp || known.host || (known.seen && Date.now() - known.seen < 30 * DAY)) return 'never'
+    if (known.signedUp || known.host || known.guide || (known.seen && Date.now() - known.seen < 30 * DAY)) return 'never'
     if (document.querySelector('dialog[open]') || document.activeElement?.matches('input, textarea, select')) return 'later'
-    const inView = [...document.querySelectorAll('form.su')].some(form => {
+    const inView = [...document.querySelectorAll('form.su, form.hero__guide')].some(form => {
       const box = form.getBoundingClientRect()
       return box.bottom > 0 && box.top < innerHeight
     })

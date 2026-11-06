@@ -1,6 +1,7 @@
-// Shared by api/subscribe.js, api/interest.js and api/confirm.js: calls to Resend (resend.com), which keeps the lists
-// of people who want updates or to hear about a tournament, and sends the emails. Its key is RESEND_API_KEY in the
-// project's environment variables on Vercel. (Files starting with an underscore aren't functions of their own.)
+// Shared by api/subscribe.js, api/interest.js, api/confirm.js and api/guide.js: calls to Resend (resend.com), which
+// keeps the lists of people who want updates or to hear about a tournament, and sends the emails. Its key is
+// RESEND_API_KEY in the project's environment variables on Vercel. (Files starting with an underscore aren't functions
+// of their own.)
 const crypto = require('node:crypto')
 
 // Who the emails come from, and who hears about each new confirmed sign-up
@@ -208,6 +209,6 @@ function origin(req) {
 const escape = text => String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
 
 module.exports = {
-  FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, LINK_DAYS, resend, sign, signedOk, contactFor, segmentsOf,
-  removeFromSegments, addToSegments, onListAfterAll, citiesOf, saveCities, confirmEmail, origin, escape,
+  FROM, NOTIFY, ROLES, EVERYONE, ROLE_NAMES, TOURNAMENTS, LINK_DAYS, resend, sign, signedOk, contactFor, listAll,
+  segmentsOf, removeFromSegments, addToSegments, onListAfterAll, citiesOf, saveCities, confirmEmail, origin, escape,
 }

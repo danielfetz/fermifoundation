@@ -1819,3 +1819,308 @@ html.new-design:where(:not(.home-page, .hosting-page, .schools-page, .companies-
     background: linear-gradient(rgba(28, 22, 17, 0.74), rgba(28, 22, 17, 0.8));
   }
 }
+
+/* The home page, classic: the hall faded onto paper behind the header, the words in ink and centred like a title page,
+   headings in Instrument Serif and the text in Instrument Sans (both Open Font License), the guide by email under the
+   headline in place of the buttons, and the tournaments as a finder, with maps (as a shop's store finder), in place
+   of the cards. The rules above for the header and the cards still describe the dark hall; to go back to it, delete
+   this block and take index.html's header and tournaments from before (git history). */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-serif-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-serif-italic-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url(/assets/fonts/instrument-sans-latin.woff2) format('woff2');
+}
+html.new-design.home-page {
+  --mona: 'Instrument Sans', var(--sans);
+  --display: 'Instrument Serif', Georgia, serif;
+  --home-ink: #2b251f;
+  --home-paper: #efeade;
+}
+/* Safari's strip above the page: the paper (white while the phone menu is open) */
+html.new-design.home-page:not(.menu-open) { --page-bg: #efeade; }
+
+/* The menu in ink, the name in the serif */
+html.home-page .nav--over { color: var(--home-ink); }
+html.home-page .nav--over .nav__links a:hover { border-color: var(--home-ink); }
+html.home-page .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
+
+/* The header: paper, with the hall faded onto it (assets/img/hall-paper.webp, the hall photo in sepia, light) rising
+   from its foot under a wash of the paper, and the fade into white below it. Dark words on it stay at least 7.5:1 (the
+   small print under the guide's field; the rest 8:1 or more). */
+html.home-page .hero {
+  padding: calc(76px + clamp(64px, 7vw, 120px)) 0 clamp(260px, 24vw, 380px);
+  background:
+    linear-gradient(to bottom, rgba(239, 234, 222, 0.95), rgba(239, 234, 222, 0.85) 40%, rgba(239, 234, 222, 0.4) 78%, rgba(239, 234, 222, 0.15)),
+    #efeade url(/assets/img/hall-paper.webp) 50% 70% / cover no-repeat;
+  text-align: center;
+}
+html.home-page .hero::before { display: none; }
+html.home-page .hero::after { height: 150px; }
+/* The headline on two lines on laptops, breaking after "estimation," (11.9em; with "reasoning" it's 15.3em) */
+html.home-page .hero__title {
+  max-width: 13em;
+  margin: 0 auto 18px;
+  color: var(--home-ink);
+  font-family: var(--display);
+  font-size: clamp(46px, 4.6vw, 68px);
+  font-stretch: 100%;
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
+
+/* The guide by email: a round field with the button in it, in ink, and the small print under them */
+.hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
+.hero__guide[hidden] { display: none; }
+.hero__guide-row {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border: 1.5px solid var(--home-ink);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.hero__guide-row:focus-within { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
+.hero__guide-row input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 46px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: #111;
+  font: inherit;
+  font-family: var(--mona);
+  font-size: 17px;
+}
+.hero__guide-row input::placeholder { color: #7a7067; }
+.hero__guide-row input:focus-visible { outline: none; }
+.hero__guide-row button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--home-ink);
+  color: #f6f1e7;
+  font: inherit;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+.hero__guide-row button svg { width: 16px; height: 16px; }
+.hero__guide-row button:hover { background: #1b1511; }
+.hero__guide-row button:disabled { opacity: 0.7; cursor: default; }
+.hero__guide-small,
+.hero__guide-error { margin-top: 12px; color: var(--home-ink); font-family: var(--mona); font-size: 15px; line-height: 1.5; }
+.hero__guide-error { color: #a4231c; }
+.hero__guide:has(.hero__guide-error:not([hidden])) .hero__guide-small { display: none; }
+:is(.hero__guide-small, .hero__guide-error, .hero__guide-done) a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+:is(.hero__guide-small, .hero__guide-done) a:hover { color: #9c4a17; }
+/* Once sent (or, without JavaScript, when it didn't work: #guide-failed), a line in its place */
+.hero__guide-done { display: none; margin: 30px auto 0; color: var(--home-ink); font-family: var(--mona); font-size: 18px; line-height: 1.5; outline: none; scroll-margin-top: 40vh; }
+.hero__guide-done:target,
+.hero__guide-done.is-shown { display: block; }
+.hero__guide-done--failed:target { margin-top: 12px; color: #a4231c; font-size: 15px; }
+
+@media (max-width: 700px) {
+  /* The photo along the foot, 420px tall, its top edge fading into the paper over 170px (from 420px above the foot to
+     250px), under the paper's wash */
+  html.home-page .hero {
+    padding: calc(76px + 32px) 0 230px;
+    background:
+      linear-gradient(to bottom, rgba(239, 234, 222, 0.96), rgba(239, 234, 222, 0.9) 50%, rgba(239, 234, 222, 0.45) 82%, rgba(239, 234, 222, 0.15)),
+      linear-gradient(#efeade, rgba(239, 234, 222, 0.75) 35%, rgba(239, 234, 222, 0)) left 0 bottom 250px / 100% 170px no-repeat,
+      #efeade url(/assets/img/hall-paper.webp) 50% 100% / auto 420px no-repeat;
+  }
+  html.home-page .hero::after { height: 110px; }
+  /* Four lines: Fermi Poker is a / game of estimation, / reasoning and / bluffing ("game of estimation," is 6.5em,
+     "Fermi Poker is a game" 7.2em) */
+  html.home-page .hero__title { max-width: none; font-size: min(52px, (100vw - 40px) / 6.85); line-height: 1.04; }
+  html.home-page .hero__sub { font-size: 17px; }
+  /* The field and the button one above the other, each across */
+  .hero__guide { margin-top: 26px; }
+  .hero__guide-row { flex-direction: column; padding: 0; border: 0; background: none; }
+  .hero__guide-row:focus-within { box-shadow: none; }
+  .hero__guide-row input { height: 50px; border: 1.5px solid var(--home-ink); background: rgba(255, 255, 255, 0.92); }
+  .hero__guide-row input:focus-visible { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
+  .hero__guide-row button { justify-content: center; height: 50px; }
+  .hero__guide-small,
+  .hero__guide-error { font-size: 14px; }
+}
+
+/* The finder: centred on white, as a shop's store finder: the heading in rust, a search on a line, two links in
+   small capitals, the two maps (the lower 48 states, and Great Britain and Ireland: assets/img/map-us.svg, map-uk.svg)
+   with a dot for each city, and the cities in a row under them, nearest first once we know where you are */
+.finder { position: relative; z-index: 1; padding: 40px 0 96px; background: #fff; font-family: var(--mona); }
+.finder__inner { width: min(1096px, 100% - 48px); margin: 0 auto; text-align: center; }
+.finder h2 { color: #9c4a17; font-family: var(--display); font-size: 56px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+.finder__search { display: flex; width: min(460px, 100%); margin: 26px auto 0; border-bottom: 1.5px solid var(--home-ink); }
+.finder__search:focus-within { border-color: #9c4a17; }
+.finder__search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 48px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #222;
+  font: inherit;
+  font-size: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.finder__search input::placeholder { color: #7a7067; }
+.finder__search input:focus-visible { outline: none; }
+.finder__search input::-webkit-search-cancel-button { display: none; }
+.finder__search button,
+.finder__links > * {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--home-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.finder__search button { padding-left: 16px; color: #9c4a17; font-weight: 700; }
+.finder__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 32px; margin-top: 20px; }
+.finder__links > * { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.finder__links > *:hover { color: #9c4a17; }
+.finder__links svg { display: inline-block; width: 13px; height: 13px; margin-left: 2px; vertical-align: -2px; }
+.finder__near { margin-top: 16px; color: #6b6158; font-family: var(--display); font-size: 21px; font-style: italic; line-height: 1.4; }
+.finder__near b { color: #222; font-weight: 400; }
+/* The maps side by side, as tall as each other; the dots, and where you are, put on them by assets/site.js */
+.finder__maps { display: flex; align-items: flex-end; gap: 48px; margin-top: 36px; }
+.finder__map { position: relative; }
+.finder__map--us { flex: 720 1 0; }
+.finder__map--uk { flex: 330 1 0; }
+.finder__map img { display: block; width: 100%; height: auto; }
+.finder__dot,
+.finder__you {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #3f362d;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.finder__dot > span,
+.finder__you > span {
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  transform: translateY(-50%);
+  color: #3f362d;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #fff, 0 0 4px #fff;
+}
+.finder__dot--left > span { right: 17px; left: auto; }
+.finder__dot.is-near { z-index: 1; width: 18px; height: 18px; margin: -9px; background: #9c4a17; }
+.finder__dot.is-near > span { color: #9c4a17; }
+/* Where you are: a black dot with a soft ring, its name on the left (on the right near the map's left edge) */
+.finder__you { z-index: 2; width: 12px; height: 12px; margin: -6px; border: 0; background: #1b1511; box-shadow: 0 0 0 5px rgba(27, 21, 17, 0.16); }
+.finder__you > span { right: 15px; left: auto; color: #1b1511; }
+.finder__you--right > span { right: auto; left: 15px; }
+.finder__you[hidden] { display: none; }
+/* The cities in a row, each with its date, how far it is, and I'm interested */
+.finder__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 28px; margin-top: 44px; text-align: left; }
+.finder__city { padding-top: 18px; border-top: 1px solid #e3ddd4; }
+.finder__name { color: #000; font-family: var(--display); font-size: 27px; font-weight: 400; line-height: 1.15; }
+.finder__city.is-near .finder__name { color: #9c4a17; }
+.finder__when { margin-top: 4px; color: #555; font-size: 15px; line-height: 1.4; }
+.finder__far { margin-top: 6px; color: #9c4a17; font-size: 16px; font-weight: 600; }
+.finder__far[hidden] { display: none; }
+summary.finder__btn {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--home-ink);
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+summary.finder__btn::-webkit-details-marker { display: none; }
+summary.finder__btn:hover { color: #9c4a17; }
+summary.finder__btn svg { display: inline-block; width: 14px; height: 14px; margin-left: 2px; vertical-align: -2px; }
+/* The email field opens in the column */
+.finder .event__form,
+.finder .event__done { position: static; margin-top: 12px; padding: 0; background: none; box-shadow: none; }
+.finder .event__label { font-size: 14px; }
+.finder .event__row input { flex-basis: 100%; }
+.finder .event__row button { flex: 1 1 100%; }
+/* What happened, after sending without JavaScript or following the link in the email */
+.finder .status { max-width: 640px; margin: 24px auto 0; border-radius: 0; background: #f2eee8; text-align: left; scroll-margin-top: 24px; }
+.finder .status h3 { color: #000; font-family: var(--display); font-size: 26px; font-weight: 400; line-height: 1.2; }
+
+/* The headings further down in the serif too */
+html.home-page :is(.intro__lead, .home-main h2) { font-family: var(--display); font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
+
+@media (max-width: 1100px) {
+  .finder__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+}
+@media (max-width: 700px) {
+  .finder { padding: 32px 0 64px; }
+  .finder__inner { width: calc(100% - 40px); }
+  /* Two lines, Find a tournament / near you: "Find a tournament near" is 7.9em, "Find a tournament" 6.1em */
+  .finder h2 { font-size: min(56px, (100vw - 40px) / 7.3); }
+  .finder__search { margin-top: 20px; }
+  .finder__search input { font-size: 17px; }
+  .finder__links { gap: 10px 22px; margin-top: 16px; }
+  .finder__links > * { font-size: 12px; }
+  .finder__near { font-size: 19px; }
+  .finder__maps { gap: 14px; margin-top: 24px; }
+  .finder__dot,
+  .finder__you { width: 11px; height: 11px; margin: -5.5px; border-width: 1.5px; }
+  .finder__dot.is-near { width: 13px; height: 13px; margin: -6.5px; }
+  .finder__dot > span,
+  .finder__you > span { display: none; }
+  /* On phones the cities are a list, a line each: the name and the date, and how far on the right */
+  .finder__list { display: block; margin-top: 28px; }
+  .finder__city { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; padding: 14px 0 16px; }
+  .finder__city:last-child { border-bottom: 1px solid #e3ddd4; }
+  .finder__name { font-size: 24px; }
+  .finder__when { grid-column: 1; margin-top: 2px; }
+  .finder__far { grid-row: 1; grid-column: 2; margin-top: 2px; text-align: right; }
+  .finder__interest,
+  .finder .event__done { grid-column: 1 / -1; }
+  summary.finder__btn { margin-top: 8px; }
+  .finder .status { margin-top: 20px; padding: 18px 20px; }
+}

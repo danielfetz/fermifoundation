@@ -7,12 +7,13 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 - `how-to-play/`, `host/`, `companies/`, `sponsor/`, `about/`, `updates/`: the inner pages (`host/` is For schools,
   `companies/` For companies, `updates/` Get updates, all below)
 - `host-a-tournament/`: Host a tournament, links to everything for hosting (below)
-- `credits/`: the credit for the header photo, which every page's footer links to (below)
-- `api/`: the Vercel Functions behind Get updates, the tournaments' "I'm interested" and the For schools and For
-  companies forms (below), the site's only code that runs on a server
-- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the forms on For schools and For companies, Get
-  updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, all self-hosted),
+- `credits/`: the credit for the header photo and the town list, which every page's footer links to (below)
+- `api/`: the Vercel Functions behind Get updates, the guide by email, the tournament finder and its "I'm interested",
+  and the For schools and For companies forms (below), the site's only code that runs on a server
+- `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
+  on For schools and For companies, Get updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and on the home page
+  Instrument Serif and Instrument Sans, all self-hosted), `assets/data/places.json` (the towns the finder looks up),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
 - The fonts' Latin files (`fermi-sans-*.woff2`, `fermi-serif-*.woff2`) are PT Sans and PT Serif without their
@@ -23,6 +24,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
   the letters of "Fermi Poker", for the logo on every page (1 KB); add any letter the logo gains. It was made with
   fontTools (instancer and subset) and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
+- `instrument-serif-latin.woff2` (and its italic) and `instrument-sans-latin.woff2` are Instrument Serif and
+  Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
+  and width), the home page's headings and text.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
   the inner pages' headers for now (but Host a tournament's, For schools' and For companies', which keep the hall, like
   the home page), a close-up of
@@ -32,7 +36,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   (delete the block at the end of `site.css` that puts the chips in its place, and preload it again in the pages'
   heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
   drawing of University Hall, an office building painted in 1927, and students in the University Hall in Leuven),
-  toned in warm greys; `event-*.webp` the photos of the cities under Upcoming tournaments; `enrico-fermi.webp` is a
+  toned in warm greys; `hall-paper.webp` the hall photo in light sepia, as if faded onto the paper, in the home page's
+  header; `map-us.svg` and `map-uk.svg` the finder's maps (below); `event-*.webp` the photos of the cities on the cards
+  Upcoming tournaments had (not on a page for now); `enrico-fermi.webp` is a
   photo of Fermi that stood on the home page before, with `enrico-fermi-paper.svg` the paper cutout behind him
   (neither is on a page for now)
 - `play/`: the Play page, which shows the question, hint and answer cards on a phone, tablet or laptop instead of
@@ -55,11 +61,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
 Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
-the header's photo, in white (`nav--over`), the phone menu opening in white, with the name alone as the logo, links in
-the text as rust words a little bolder than the text, with a light underline, and the dark brown footer
-(`footer--dark`), which has where to write in place of the logo. The paper look the pages had before (the sky band,
-the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in `site.css`, unused for
-now.
+the header's photo, in white (`nav--over`; in ink on the home page's paper), the phone menu opening in white, with the
+name alone as the logo, links in the text as rust words a little bolder than the text, with a light underline, and the
+dark brown footer (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before
+(the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in
+`site.css`, unused for now.
 
 Sections fade in, gliding up a little, as they come into view: `site.js` marks whatever is still below the screen
 when a page loads (`.reveal`, and `.is-in` once it shows; the list of what's marked is at the end of `site.js`).
@@ -100,39 +106,61 @@ each a list of questions that open in place.
 part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
 opens its tab and the question.
 
-The home page runs in bands, white and pale beige in turn: the header, Upcoming tournaments, the introduction, Learn
-more and get involved, the mailing list, and Frequently asked questions. The header, with the menu on it, has two
-buttons under its headline: How to play, and Host a tournament. At its foot it fades into white, and the heading of
-Upcoming tournaments and the top of their first cards rise into it. Host a tournament (`host-a-tournament/`) is a
+The home page runs in bands, white and pale beige in turn: the header, the tournament finder, the introduction, Learn
+more and get involved, the mailing list, and Frequently asked questions. It's set a little more classic than the other
+pages: its headings in Instrument Serif and its text in Instrument Sans, and its header on paper (`#efeade`), with the
+hall photo faded onto it (`hall-paper.webp`) rising from its foot, the menu and the words in ink and centred. All of
+it is one block at the end of `site.css` (the rules above it for the home page's header still describe the dark hall).
+Under the headline is the guide by email: a field and "Send me the guide", in ink, with the small print linking to the
+guide online. Host a tournament (`host-a-tournament/`) is a
 short page of links to the materials (the guide, the rule sheet and the questions to print, and the Play page), each
 row's heading the link (`boxes--links`), and under them the introduction's lines for schools and companies, so change
 those in both. Each card under Learn more and get involved is a link with a picture. Frequently asked questions has
 five of the FAQ page's questions, opening in place, and a button to the rest; their answers are copies of the FAQ
 page's, so change them in both.
 
-Upcoming tournaments has a card for each city where we'll hold one once enough people are interested (Boston,
-Berkeley, New York City, London and Oxford for now), its date "to be set" (`event__when`), over a photo of the city
-(`event__photo`, `assets/img/event-boston.webp` and so on, cropped to about 1.75 to 1), and a last card, Somewhere
-else?, over a pattern of card suits, its button (Partner with us) an email to contact@fermi.org. On a city's card,
-"I'm interested" opens a field for the email (a `details` element, so it works without JavaScript too). It goes to
-`api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and emails a
-link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in Resend (say
-"Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every city
-they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no segments of
-their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page says how it
-went, above the cards (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`, `#interest-failed`). Once
-there's a date, find who signed up for the city (the "tournaments" property on the contacts in Resend, or the emails
-to contact@fermi.org) and email them, and put the date on its card. To add a city: a card like Boston's (its key in
-the hidden `city` field, in the email field's id and in its photo's name), its status above the cards (`#interest-`
-and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`.
+The guide by email goes to `api/guide.js`, which emails the links to everything for hosting (the guide, the rule
+sheet, the questions to print, the Play page, and the For schools form for funding), from contact@fermi.org with
+replies to it. It keeps the address among Resend's contacts with the property "guide" (the day they asked), not
+subscribed to updates: that takes signing up for them. Like the For schools form, `site.js` sends how long the page was
+open, and `api/guide.js` drops sign-ups that fill in the hidden field or come within a second and a half, and refuses
+ones without the time: without JavaScript the form comes back to the page with `#guide-failed`, offering the guide
+online. Once someone has asked for the guide, the updates pop-up never comes up by itself.
 
-Get updates: people leave their email to hear when we release new question sets, and whenever there's other news
-about Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now),
-on its own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens
-(`assets/site.js`). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The
-pop-up also comes up by itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on
-phones and tablets after 30 seconds on the page. Then not again for 30 days, and never after signing up or sending the
-For schools form (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
+The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
+(Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on
+the map it's on, and "I'm interested". The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
+US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
+drawn with d3-geo in conic equal-area projections; `site.js` knows those projections (`MAPS`) and puts each city's dot
+on them from its latitude and longitude, so redrawing a map means updating its numbers there. The page first guesses
+roughly where the visit comes from (`api/where.js` answers with the city and coordinates Vercel gives each request, from
+its IP address, and keeps nothing), then lists the cities nearest first, with how far each is (miles in the US and the
+UK, km elsewhere), and marks where you are on the map. The search looks places up in `assets/data/places.json`
+(every town of 30,000 people or more, and of 10,000 or more in the US, the UK, Canada, Ireland, Australia and New
+Zealand, from GeoNames, CC BY 4.0, credited on the Credits page; a row is name, country, region, latitude, longitude
+and thousands of people), loaded only once someone types in the field. "Use my location" asks the browser.
+
+"I'm interested" opens a field for the email under the city (a `details` element, so it works without JavaScript too).
+It goes to `api/interest.js`, which, like Get updates, adds the address to Resend's contacts if it isn't there yet and
+emails a link to confirm it. The link (`api/confirm.js`) adds the city to the contact's property "tournaments" in
+Resend (say "Boston, New York City"), and emails contact@fermi.org "New sign-up for the Boston tournament", with every
+city they've signed up for. That's all it changes: whether they get updates stays as it was. The cities have no
+segments of their own, as Resend's free plan has only three. Without JavaScript, and after the link, the home page says
+how it went, under the finder's heading (`#interest-sent`, `#interest-boston` and so on, `#interest-invalid`,
+`#interest-failed`). Once there's a date, find who signed up for the city (the "tournaments" property on the contacts in
+Resend, or the emails to contact@fermi.org) and email them, and put the date in its `finder__when`. To add a city: an
+item like Boston's in the finder's list (its key in `data-city`, the hidden `city` field and the email field's id, and
+its `data-lat` and `data-lon`; `data-label="left"` puts its name on the left of its dot, clear of a neighbour's), its
+status under the heading (`#interest-` and the key), and the key and name in `TOURNAMENTS` in `api/_resend.js`. A city
+off both maps is listed but has no dot.
+
+Get updates: people leave their email to hear when we release new question sets, and whenever there's other news about
+Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on its
+own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens (`assets/site.js`).
+The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by
+itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after
+30 seconds on the page. Then not again for 30 days, and never after signing up, sending the For schools form or asking
+for the guide (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates
 itself. The pop-up is off for now, to come back in the new design (`UPDATES_POPUP` in `site.js`): while it's off, it
 never comes up by itself, and "Get updates" leads to the Get updates page.
 
@@ -141,10 +169,10 @@ subscribed, and emails a link to confirm it, from contact@fermi.org. The link (`
 subscribes them, puts them into the segments "Fermi Poker updates" (everyone) and "High school students", "University
 students", "Teachers and professors" or "Others" (what they said they are; "Students" from before high school and
 university were asked apart), emails contact@fermi.org about the new sign-up, and shows the
-Get updates page saying so. These, and `api/interest.js` and `api/team.js`, need Resend's key as `RESEND_API_KEY` in
-the project's environment variables on Vercel, and fermi.org verified in Resend. To send news, write a Broadcast in
-Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work: the Get updates
-page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
+Get updates page saying so. These, and `api/interest.js`, `api/guide.js` and `api/team.js`, need Resend's key as
+`RESEND_API_KEY` in the project's environment variables on Vercel, and fermi.org verified in Resend. To send news,
+write a Broadcast in Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work:
+the Get updates page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
 
 In Resend, a contact is subscribed or not as a whole, and what it hears about is the segments it's in: whether someone
 gets updates is whether they're subscribed and in "Fermi Poker updates". The free plan has three segments, so the link
