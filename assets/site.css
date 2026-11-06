@@ -1853,8 +1853,24 @@ html.new-design.home-page {
   --home-ink: #2b251f;
   --home-paper: #efeade;
 }
-/* Safari's strip above the page: the paper (white while the phone menu is open) */
-html.new-design.home-page:not(.menu-open) { --page-bg: #efeade; }
+/* Safari's strip above the page: the ink of the bar at the very top, even while the phone menu is open under it */
+html.new-design.home-page { --page-bg: #2b251f; }
+
+/* The bar at the very top, for student organizers, in ink, the link to the For schools form in white; the menu right
+   under it (where it would be if it weren't over the header) */
+.topbar {
+  padding: 10px 24px;
+  background: var(--home-ink);
+  color: #efe9de;
+  font-family: var(--mona);
+  font-size: 14.5px;
+  line-height: 1.45;
+  text-align: center;
+}
+.topbar a { margin-left: 4px; color: #fff; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.topbar a:hover { text-decoration-thickness: 2px; }
+.topbar svg { display: inline-block; width: 14px; height: 14px; margin-left: 3px; vertical-align: -2px; }
+html.home-page .nav--over { top: auto; }
 
 /* The menu in ink, its links a little lighter (500), the name in the serif */
 html.home-page .nav--over { color: var(--home-ink); }
@@ -1863,8 +1879,7 @@ html.home-page .nav--over .nav__links a:hover { border-color: var(--home-ink); }
 html.home-page .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
 
 /* The header: paper, with the hall faded onto it (assets/img/hall-paper.webp, the hall photo in sepia, light) rising
-   from its foot under a wash of the paper, and the fade into white below it. Dark words on it stay at least 7.5:1 (the
-   small print under the guide's field; the rest 8:1 or more). */
+   from its foot under a wash of the paper, and the fade into white below it. Dark words on it stay at least 8:1. */
 html.home-page .hero {
   padding: calc(76px + clamp(64px, 7vw, 120px)) 0 clamp(260px, 24vw, 380px);
   background:
@@ -1888,7 +1903,7 @@ html.home-page .hero__title {
 }
 html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
 
-/* The guide by email: a round field with the button in it, in ink, and the small print under them */
+/* The guide by email: a round field with the button in it, in ink */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
 .hero__guide[hidden] { display: none; }
 .hero__guide-row {
@@ -1936,12 +1951,9 @@ html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-i
 .hero__guide-row button svg { width: 16px; height: 16px; }
 .hero__guide-row button:hover { background: #1b1511; }
 .hero__guide-row button:disabled { opacity: 0.7; cursor: default; }
-.hero__guide-small,
-.hero__guide-error { margin-top: 12px; color: var(--home-ink); font-family: var(--mona); font-size: 15px; line-height: 1.5; }
-.hero__guide-error { color: #a4231c; }
-.hero__guide:has(.hero__guide-error:not([hidden])) .hero__guide-small { display: none; }
-:is(.hero__guide-small, .hero__guide-error, .hero__guide-done) a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-:is(.hero__guide-small, .hero__guide-done) a:hover { color: #9c4a17; }
+.hero__guide-error { margin-top: 12px; color: #a4231c; font-family: var(--mona); font-size: 15px; line-height: 1.5; }
+:is(.hero__guide-error, .hero__guide-done) a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.hero__guide-done a:hover { color: #9c4a17; }
 /* Once sent (or, without JavaScript, when it didn't work: #guide-failed), a line in its place */
 .hero__guide-done { display: none; margin: 30px auto 0; color: var(--home-ink); font-family: var(--mona); font-size: 18px; line-height: 1.5; outline: none; scroll-margin-top: 40vh; }
 .hero__guide-done:target,
@@ -1970,8 +1982,8 @@ html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-i
   .hero__guide-row input { height: 50px; border: 1.5px solid var(--home-ink); background: rgba(255, 255, 255, 0.92); }
   .hero__guide-row input:focus-visible { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
   .hero__guide-row button { justify-content: center; height: 50px; }
-  .hero__guide-small,
   .hero__guide-error { font-size: 14px; }
+  .topbar { padding: 9px 20px; font-size: 13.5px; }
 }
 
 /* The finder: centred on white, as a shop's store finder: the heading in rust, a search on a line, two links in
