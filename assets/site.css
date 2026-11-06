@@ -1801,7 +1801,8 @@ html.new-design h3 .link { font-weight: inherit; }
    rules above still draw, and which we may go back to): assets/img/chips-dice.webp, the site owner's chips photo
    toned in the header's browns and softened, zoomed in on every screen, under the headers' shade on wider screens
    and an even one on phones. The home page, Host a tournament, For schools and For companies (home-page,
-   hosting-page, schools-page, companies-page, named in each rule below) keep the hall. White on the chips stays at
+   hosting-page, schools-page, companies-page, named in each rule below) don't: Host a tournament and For companies
+   keep the hall, and the home page and For schools have looks of their own (at the end). White on the chips stays at
    least 9:1 on the inner pages. To go back to the hall everywhere, delete this block and preload poker-hall.webp again
    in the pages' heads, in place of chips-dice.webp. */
 :where(html:not(.home-page, .hosting-page, .schools-page, .companies-page)) :is(.hero, .page-hero) {
@@ -1847,20 +1848,21 @@ html.new-design:where(:not(.home-page, .hosting-page, .schools-page, .companies-
   font-display: swap;
   src: url(/assets/fonts/instrument-sans-latin.woff2) format('woff2');
 }
-html.new-design.home-page {
+/* The classic look, shared by the home page and For schools (html.classic): the fonts, the paper, the menu in ink */
+html.new-design.classic {
   --mona: 'Instrument Sans', var(--sans);
   --display: 'Instrument Serif', Georgia, serif;
   --home-ink: #2b251f;
   --home-paper: #efeade;
 }
 /* Safari's strip above the page: the paper (white while the phone menu is open) */
-html.new-design.home-page:not(.menu-open) { --page-bg: #efeade; }
+html.new-design.classic:not(.menu-open) { --page-bg: #efeade; }
 
 /* The menu in ink, its links a little lighter (500), the name in the serif */
-html.home-page .nav--over { color: var(--home-ink); }
-html.home-page .nav--light .nav__links { font-weight: 500; }
-html.home-page .nav--over .nav__links a:hover { border-color: var(--home-ink); }
-html.home-page .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
+html.classic .nav--over { color: var(--home-ink); }
+html.classic .nav--light .nav__links { font-weight: 500; }
+html.classic .nav--over .nav__links a:hover { border-color: var(--home-ink); }
+html.classic .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
 
 /* The header: paper, with the hall faded onto it (assets/img/hall-paper.webp, the hall photo in sepia, light) rising
    from its foot under a wash of the paper, and the fade into white below it. Dark words on it stay at least 8:1. */
@@ -1886,16 +1888,16 @@ html.home-page .hero__title {
   letter-spacing: -0.01em;
 }
 html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
-/* Links in the text on the home page (under the headline, in the introduction, the FAQ and the messages): in ink, as
+/* Links in the text (on the home page under the headline, in the introduction, the FAQ and the messages): in ink, as
    the words around them, with a faint underline set a little below, which darkens under the mouse */
-html.home-page :is(.link, .hero__sub a) {
+html.classic :is(.link, .hero__sub a) {
   color: inherit;
   font-weight: inherit;
   text-decoration: underline 1px rgba(43, 37, 31, 0.3);
   text-underline-offset: 5px;
   transition: text-decoration-color 150ms var(--ease);
 }
-html.home-page :is(.link, .hero__sub a):hover { color: inherit; text-decoration-color: currentColor; }
+html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-color: currentColor; }
 
 /* The guide by email: a round field with the button in it, in ink */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
@@ -2139,4 +2141,140 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder .event__done { grid-column: 1 / -1; }
   summary.finder__btn { margin-top: 8px; }
   .finder .status { margin-top: 20px; padding: 18px 20px; }
+}
+
+/* For schools, classic, in the manner of a sign-up page: the whole page on paper, no photo. Over the title a line in
+   capitals in Mona Sans, wide; the title in Instrument Serif; a short line in it; a round rust button to the form. The
+   form in a white card, its head deep rust, with a slide rule's scale along its top edge (estimation, not cards); the
+   steps on a band of the same rust, its top corners rounded, rising behind the card. */
+html.schools-page.classic .doc { margin-top: 0; padding: 0; background: #efeade; }
+html.schools-page.classic .page-hero {
+  padding: calc(76px + clamp(48px, 6vw, 96px)) 0 clamp(56px, 6vw, 88px);
+  background: #efeade;
+  text-align: center;
+}
+html.schools-page.classic .page-hero::before,
+html.schools-page.classic .page-hero::after { display: none; }
+.page-hero__kicker {
+  color: var(--home-ink);
+  font-family: 'Mona Sans', var(--sans);
+  font-size: 13px;
+  font-stretch: 125%;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+/* Two lines, Host a tournament at your / school or university ("…at your" is 8.6em, "…at your school" 10.9em) */
+html.schools-page.classic .page-hero h1 {
+  max-width: 9.5em;
+  margin: 18px auto 0;
+  color: var(--home-ink);
+  font-family: var(--display);
+  font-size: clamp(48px, 5.6vw, 84px);
+  font-stretch: 100%;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.page-hero__sub { margin: 20px auto 0; color: var(--home-ink); font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
+.page-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  margin-top: 30px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: #9c4a17;
+  color: #fff;
+  font-family: var(--mona);
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 150ms var(--ease);
+}
+.page-hero__cta:hover { background: #7c3511; }
+
+/* The column, centred, without the laptops' sheet */
+html.schools-page.classic .doc::before { display: none; }
+html.schools-page.classic .doc .page { width: min(720px, 100% - 48px); margin: 0 auto; }
+/* The card, above the band */
+html.schools-page.classic .doc .signup-card {
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(43, 37, 31, 0.06), 0 24px 48px -28px rgba(43, 37, 31, 0.35);
+  scroll-margin-top: 24px;
+}
+.signup-card__head { position: relative; padding: 56px 40px 40px; background: #7c3511; color: #fff; text-align: center; }
+.signup-card__head::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='18'%3E%3Cpath d='M0.75 0v12M21.67 0v6M34.35 0v6M43.35 0v6M50.33 0v9M56.03 0v6M60.85 0v6M65.02 0v6M68.71 0v6' stroke='%23d79a70' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") 18px 0 / 72px 18px repeat-x;
+}
+.signup-card__head h2 {
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(40px, 4vw, 54px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.signup-card__head h2 em { font-style: italic; }
+.signup-card__head p { max-width: 30em; margin: 14px auto 0; color: rgba(255, 255, 255, 0.9); font-family: var(--mona); font-size: 17px; line-height: 1.5; }
+.signup-card__body { padding: 36px 40px 40px; }
+.doc .signup-card__body > .text { margin-top: 0; }
+.doc .signup-card__body > .text + .text { margin-top: 14px; }
+.doc .signup-card__note { color: #555; font-size: 16px; }
+/* The form in it: no panel of its own, the fields with soft corners, the button round, in rust */
+.doc .signup-card .form { margin-top: 28px; padding: 0; border-radius: 0; background: none; }
+.doc .signup-card .field input:not([type='radio']),
+.doc .signup-card .field textarea { border: 1px solid #cfc6b8; border-radius: 12px; background: #fff; font-size: 17px; }
+.doc .signup-card .field input:focus-visible,
+.doc .signup-card .field textarea:focus-visible { border-color: var(--home-ink); box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
+.doc .signup-card .btn--primary { height: 52px; padding: 0 30px; border-radius: 999px; background: #9c4a17; font-stretch: 100%; font-weight: 600; }
+.doc .signup-card .btn--primary:hover { background: #7c3511; }
+.doc .signup-card :is(.form-done, .status) { margin-top: 24px; border-radius: 14px; }
+.doc .signup-card :is(.form-done, .status) h3 { font-family: var(--display); font-size: 28px; font-stretch: 100%; font-weight: 400; }
+
+/* The steps on a deep rust band, rising 180px behind the card */
+.steps-band {
+  margin-top: -180px;
+  padding: calc(180px + 88px) 0 112px;
+  border-radius: 72px 72px 0 0;
+  background: #7c3511;
+  color: #f6efe6;
+  font-family: var(--mona);
+}
+.steps-band__inner { width: min(720px, 100% - 48px); margin: 0 auto; }
+.steps-band h2 { color: #fff; font-family: var(--display); font-size: 52px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; text-align: center; }
+.doc .steps-band .boxes--rows { margin-top: 32px; }
+.doc .steps-band .boxes--rows > .box { padding: 22px 0 24px; border-top: 1px solid rgba(255, 255, 255, 0.2); }
+.doc .steps-band .boxes--rows > .box:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+.doc .steps-band .boxes--rows h3 { color: #fff; font-family: var(--display); font-size: 27px; font-stretch: 100%; font-weight: 400; line-height: 1.15; }
+.doc .steps-band .box__body { margin-top: 6px; color: rgba(255, 255, 255, 0.86); font-size: 17px; line-height: 1.6; }
+.doc .steps-band .link { color: #fff; text-decoration-color: rgba(255, 255, 255, 0.45); }
+.doc .steps-band .link:hover { text-decoration-color: #fff; }
+
+@media (max-width: 700px) {
+  html.schools-page.classic .page-hero { padding: calc(76px + 28px) 0 48px; }
+  .page-hero__kicker { font-size: 11.5px; }
+  html.schools-page.classic .page-hero h1 { font-size: min(52px, (100vw - 40px) / 8.9); line-height: 1.04; }
+  .page-hero__sub { font-size: 22px; }
+  .page-hero__cta { margin-top: 24px; }
+  html.schools-page.classic .doc .page { width: calc(100% - 32px); margin: 0 auto; }
+  .signup-card__head { padding: 44px 22px 30px; }
+  .signup-card__head h2 { font-size: 36px; }
+  .signup-card__head p { font-size: 16px; }
+  .signup-card__body { padding: 26px 20px 28px; }
+  .doc .signup-card .btn--primary { width: 100%; justify-content: center; }
+  .steps-band { margin-top: -120px; padding: calc(120px + 56px) 0 72px; border-radius: 36px 36px 0 0; }
+  .steps-band__inner { width: calc(100% - 40px); }
+  .steps-band h2 { font-size: 40px; }
+  .doc .steps-band .boxes--rows h3 { font-size: 24px; }
 }
