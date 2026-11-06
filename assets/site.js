@@ -25,6 +25,13 @@ if (toggle && sheet) {
   })
 }
 
+// The menu stays at the top (site.css); once the page has moved, it gets the paper behind it and a line under it
+if (nav) {
+  const stick = () => nav.classList.toggle('is-stuck', scrollY > 8)
+  stick()
+  addEventListener('scroll', stick, { passive: true })
+}
+
 // For schools sign-up: the answers go to /api/host (api/host.js), which passes them on to the Google Form, with how long
 // the page has been open, so it can tell people from bots. Without JavaScript the form posts there directly, and comes
 // back to the page with #failed (the time is missing), which offers the email address instead.
