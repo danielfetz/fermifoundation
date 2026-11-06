@@ -1886,16 +1886,16 @@ html.home-page .hero__title {
   letter-spacing: -0.01em;
 }
 html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
-/* Its links (the guide, For schools) as links are in the text elsewhere: rust, with a light underline, the rust a
-   little deeper than elsewhere, so they stay at least 4.5:1 on the photo */
-html.home-page .hero__sub a {
-  color: #853d12;
-  text-decoration: underline;
-  text-decoration-color: rgba(133, 61, 18, 0.35);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+/* Links in the text on the home page (under the headline, in the introduction, the FAQ and the messages): in ink, as
+   the words around them, with a faint underline set a little below, which darkens under the mouse */
+html.home-page :is(.link, .hero__sub a) {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: underline 1px rgba(43, 37, 31, 0.3);
+  text-underline-offset: 5px;
+  transition: text-decoration-color 150ms var(--ease);
 }
-html.home-page .hero__sub a:hover { text-decoration-color: #853d12; }
+html.home-page :is(.link, .hero__sub a):hover { color: inherit; text-decoration-color: currentColor; }
 
 /* The guide by email: a round field with the button in it, in ink */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
