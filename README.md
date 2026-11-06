@@ -73,7 +73,9 @@ Nothing on screen is ever hidden, things that come into view together come in on
 animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
-need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the classic look (below): the
+need, an announcement, the rules to read aloud, an ante schedule and variations. Its title is The Fermi Poker guide, as
+the home page and the email with the guide call it (in the browser's tab and search results, How to play and host
+Fermi Poker); the menu, the footer and the links to it still say How to play. It's in the classic look (below): the
 title on the paper with who wrote it under it (`page-hero__byline`, set like the other pages' line under the title), then the guide on a white sheet across the page
 (`.doc`), its top corners rounded as For schools' band's are, running into the footer, the column centred on it,
 starting with the introduction (`page-lead`, set like the rest); its headings in the serif, the notes and the words to

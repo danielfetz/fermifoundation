@@ -2371,7 +2371,8 @@ html.guide-page.classic .fn-pop {
   html.guide-page.classic .doc .page--sidenotes .sidenote.is-lit { color: var(--home-ink); }
 }
 @media (max-width: 700px) {
-  /* The title on two lines, How to play / Fermi Poker ("How to play Fermi" is 5.9em, "Fermi Poker" 4em) */
+  /* The title on two lines, The Fermi / Poker guide ("The Fermi Poker" is 5.4em, "Poker guide" 3.9em), not leaving
+     "guide" alone on the second */
   html.guide-page.classic .page-hero h1 { max-width: 5em; }
   html.guide-page.classic .doc { padding: 44px 0 72px; border-radius: 32px 32px 0 0; }
   html.guide-page.classic .doc .page { width: calc(100% - 40px); }
