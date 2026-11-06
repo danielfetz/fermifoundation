@@ -156,8 +156,8 @@ itself while the other request does it all, so before saying something went wron
 wrong, contact@fermi.org gets an email with what Resend said.
 
 Link previews (WhatsApp, iMessage, LinkedIn and so on) come from the `og:` tags in each page's `<head>`. Every page
-uses the same picture, `assets/img/link-preview-hall-2.jpg` (1200 × 630): the home page's header, its headline and the
-line under it over the hall photo, with the name above. The photo's credit is a link away, in the footer of the page
+uses the same picture, `assets/img/link-preview-hall-3.jpg` (1200 × 630): the home page's header, its headline and a
+shorter version of the line under it over the hall photo, with the name above. The photo's credit is a link away, in the footer of the page
 the preview leads to. The tags need absolute URLs, so they name
 https://fermi.org. Apps keep a preview for a while; a new picture under a new file name makes them fetch it again
 (LinkedIn's Post Inspector refreshes it at once).
