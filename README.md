@@ -12,7 +12,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   and the For schools and For companies forms (below), the site's only code that runs on a server
 - `assets/site.css`: all styles; `assets/site.js`: the mobile menu, the guide by email, the tournament finder, the forms
   on For schools and For companies, Get updates, "I'm interested", How to play's footnotes and the FAQ page's tabs
-- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and on the home page
+- `assets/img/`, `assets/fonts/` (PT Sans and PT Serif, and for the new design Mona Sans, and in the classic look
   Instrument Serif and Instrument Sans, all self-hosted), `assets/data/places.json` (the towns the finder looks up),
   `files/` (the rule sheet PDF, and the 63-question pack to print, with blank cards for your own questions on its last
   page)
@@ -27,9 +27,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `instrument-serif-latin.woff2` (and its italic) and `instrument-sans-latin.woff2` are Instrument Serif and
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
-  and width), the home page's headings and text.
+  and width), the classic look's headings and text (below).
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  the headers of How to play, About, Get updates and Credits for now, a close-up of
+  the headers of About, Get updates and Credits for now, a close-up of
   the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
   tournament, blurred so only the room and its tables show, in Host a tournament's header, which the
   other headers showed before and may again
@@ -61,7 +61,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all ten. On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
 Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
-the header's photo, in white (`nav--over`; in ink on the home page's paper), the phone menu opening in white, with the
+the header's photo, in white (`nav--over`; in ink on the paper of the pages in the classic look, below), the phone menu opening in white, with the
 name alone as the logo, links in the text as rust words a little bolder than the text, with a light underline, and the
 dark brown footer (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before
 (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in
@@ -73,24 +73,22 @@ Nothing on screen is ever hidden, things that come into view together come in on
 animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
-need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the new design, like the
-other inner pages: a header (`page-hero`, over the chips picture, or on Host a tournament, For schools and For
-companies the hall photo, with the menu on it) with the title alone, then the guide on white (`.doc`), opening with
-the introduction (`page-lead`), a little larger and as wide as the title's space, then the guide's column, lined up
-with the title. On laptops (from 1280px) the header fades into white at its foot and the page rises into it as a white
-sheet as wide as the title's space, its edges under the title's (as the home page's cards are under its headline), the
-words 48px in from its sides and the photo fading beside it; on narrower screens the photo ends in a straight line and
-the words line up with the title. The guide's parts keep their classes from the paper look, and `.doc` gives them the
-new one. Its footnotes are numbers in the text that lead to the notes at the bottom of the page. On wide screens
-`site.js` also sets each note in the margin beside its line, and elsewhere shows it in place when its number is
-hovered over or tapped; from the keyboard, and without JavaScript, a number leads to its note at the bottom. The
-worked sample question is still in the page, hidden, to use later.
+need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the classic look (below): the
+title on the paper, the introduction under it in the serif (`page-hero__sub`) and who wrote it under that
+(`page-hero__byline`), then the guide in a white card with soft corners (`.doc` itself is the card), its headings in
+the serif, the notes and the words to read out on panels in a pale tint of the paper. The guide's parts keep their
+classes from the paper look, and `.doc` (and `html.guide-page.classic`, at the end of `site.css`) gives them the new
+one. Its footnotes are numbers in the text that lead to the notes at the bottom of the page. On wide screens (from
+1230px) the card is as wide as the title's space (1096px), the column on its left, and `site.js` also sets each note
+in the card's right margin, beside its line; elsewhere it shows a note in place when its number is hovered over or
+tapped. From the keyboard, and without JavaScript, a number leads to its note at the bottom. The worked sample
+question is still in the page, hidden, to use later.
 
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with for
 free: a form whose answers go to `api/host.js`, which passes them on to a Google Form (and from there to a Google
 Sheet), then the steps to host one, as rows (`boxes--rows`). It's in the home page's classic look (`html.classic`:
 Instrument Serif and Instrument Sans, the menu in ink, links in ink with a faint underline), as are For companies, the
-FAQ and Donate, the whole page on paper, without the photo: a line in capitals in Mona Sans over the title and a line
+FAQ, Donate and How to play, the whole page on paper, without the photo: a line in capitals in Mona Sans over the title and a line
 in the serif under it; the form in a white card whose head is deep rust, with a slide rule's scale along its top edge;
 the steps on a band of the same rust, its top corners rounded, rising behind the card. It's one block at the end of
 `site.css`. The Google Form's address isn't on the page, where bots found it and posted spam to it directly: it's
@@ -104,8 +102,12 @@ sends: without JavaScript the form comes back to the page with `#failed`, offeri
 JavaScript that form posts there directly and comes back to the page saying how it went (`#sent`, `#failed`). It's
 built like For schools: its introduction under the title, then its form in a card with a rust head (without For
 schools' band of steps). Donate (`sponsor/`) is the same: its introduction under the title, then a rust card saying to
-write us. About (its programs in rows), Get updates (below) and Credits are built like How to play: the photo header,
-then the page on white.
+write us. About (its programs in rows), Get updates (below) and Credits, like Host a tournament, have the new design's
+first look: a header (`page-hero`, over the chips picture, on Host a tournament the hall photo, with the menu on it)
+with the title alone, then the page on white (`.doc`), its column lined up with the title. On laptops (from 1280px)
+the header fades into white at its foot and the page rises into it as a white sheet as wide as the title's space, its
+edges under the title's, the words 48px in from its sides and the photo fading beside it; on narrower screens the
+photo ends in a straight line and the words line up with the title.
 
 The FAQ page, in the classic look, its title alone on the paper and the questions in a white card, has three parts,
 General, Hosting and Educational value, each a list of questions that open in place. `site.js` turns the parts into
