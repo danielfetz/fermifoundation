@@ -1992,8 +1992,8 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
 .finder { position: relative; z-index: 1; padding: 40px 0 96px; background: #fff; font-family: var(--mona); }
 .finder__inner { width: min(1096px, 100% - 48px); margin: 0 auto; text-align: center; }
 .finder h2 { color: #9c4a17; font-family: var(--display); font-size: 56px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
-/* Set like the inner pages' line under the title (.page-hero__sub) */
-.finder__sub { max-width: 26em; margin: 20px auto 0; color: var(--home-ink); font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
+/* Set like the line under the headline (.hero__sub): Instrument Sans, 20px (17px on phones) */
+.finder__sub { max-width: 34em; margin: 16px auto 0; color: var(--home-ink); font-size: 20px; font-weight: 450; line-height: 1.5; }
 /* The maps side by side, as tall as each other; the dots put on them by assets/site.js */
 .finder__maps { display: flex; align-items: flex-end; gap: 48px; margin-top: 36px; }
 .finder__map { position: relative; }
@@ -2066,7 +2066,7 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder__inner { width: calc(100% - 40px); }
   /* Two lines, Find a tournament / near you: "Find a tournament near" is 7.9em, "Find a tournament" 6.1em */
   .finder h2 { font-size: min(56px, (100vw - 40px) / 7.3); }
-  .finder__sub { font-size: 22px; }
+  .finder__sub { font-size: 17px; }
   .finder__maps { gap: 14px; margin-top: 24px; }
   .finder__dot { width: 11px; height: 11px; margin: -5.5px; border-width: 1.5px; }
   .finder__dot > span { display: none; }
