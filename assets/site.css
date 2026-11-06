@@ -318,7 +318,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.83), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.83));
 }
 /* The fade into white at its foot (--fade); white on its top, where the tournaments' heading is, stays at least
    6.9:1 */
@@ -1421,14 +1421,14 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+  background: linear-gradient(90deg, rgba(22, 20, 18, 0.83), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.83));
 }
 /* Phones: both headers start with the dark brown band (--top-band) the strip under the notch is in */
 @media (max-width: 700px) {
   .hero::before,
   .page-hero::before {
     background: var(--top-band),
-      linear-gradient(90deg, rgba(22, 20, 18, 0.93), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.91));
+      linear-gradient(90deg, rgba(22, 20, 18, 0.83), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.83));
   }
 }
 .page-hero__inner { width: min(1096px, 100% - 48px); margin: 0 auto; }
