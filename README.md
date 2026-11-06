@@ -145,7 +145,7 @@ never comes up by itself.
 
 The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
 (Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on
-the map it's on, and "I'm interested", its name, its dot and "I'm interested" all leading to its page; under the heading, that we hope to hold tournaments open to everyone in these cities
+the map it's on, and "I'm interested", its name, its dot and "I'm interested" all leading to its page; under the heading, that we plan to hold tournaments open to everyone in these cities
 once enough people are interested (most others, like those at schools, are private and not listed) and an invitation to partner with us and host your own
 (to Host a tournament). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
 US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
