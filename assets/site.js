@@ -282,17 +282,21 @@ if (finder) {
 }
 
 // The guide by email, in the home page's header: sent to /api/guide (api/guide.js) with how long the page has been
-// open, so it can tell people from bots; then a line says it's on its way. Without JavaScript the form posts there
-// directly, and comes back with #guide-failed, which offers the guide online.
+// open, so it can tell people from bots. Once sent the form stays as it is, and its button says so, until the address
+// is changed (to fix a typo, say). Without JavaScript the form posts there directly, and comes back with #guide-sent
+// or #guide-failed, which offers the guide online.
 const guideForm = document.querySelector('.hero__guide')
 
 if (guideForm) {
   const button = guideForm.querySelector('button[type="submit"]')
+  const ask = button.innerHTML
   const error = guideForm.querySelector('.hero__guide-error')
-  const done = document.querySelector('#guide-sent')
+  const status = document.querySelector('#guide-status')
+  const sent = 'Sent! Check your inbox <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
 
   guideForm.addEventListener('submit', async event => {
     event.preventDefault()
+    if (button.classList.contains('is-sent')) return
     button.disabled = true
     error.hidden = true
     try {
@@ -303,14 +307,21 @@ if (guideForm) {
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       remember.set({ guide: Date.now() })
-      guideForm.hidden = true
-      done.classList.add('is-shown')
-      done.focus()
+      button.classList.add('is-sent')
+      button.innerHTML = sent
+      status.textContent = 'On its way! Check your inbox for the guide.'
     } catch {
       error.hidden = false
-    } finally {
       button.disabled = false
     }
+  })
+  // Another address: the button asks again
+  guideForm.elements.email.addEventListener('input', () => {
+    if (!button.classList.contains('is-sent')) return
+    button.classList.remove('is-sent')
+    button.innerHTML = ask
+    button.disabled = false
+    status.textContent = ''
   })
 }
 

@@ -127,10 +127,12 @@ answers are copies of the FAQ page's, so change them in both.
 The guide by email goes to `api/guide.js`, which emails the links to everything for hosting (the guide, the rule
 sheet, the questions to print, the Play page, and the For schools form for funding), from contact@fermi.org with
 replies to it. It keeps the address among Resend's contacts with the property "guide" (the day they asked), not
-subscribed to updates: that takes signing up for them. Like the For schools form, `site.js` sends how long the page was
-open, and `api/guide.js` drops sign-ups that fill in the hidden field or come within a second and a half, and refuses
-ones without the time: without JavaScript the form comes back to the page with `#guide-failed`, offering the guide
-online. Once someone has asked for the guide, the updates pop-up never comes up by itself.
+subscribed to updates: that takes signing up for them. Like the For schools form, `site.js` sends how long the page
+was open, and `api/guide.js` drops sign-ups that fill in the hidden field or come within a second and a half, and
+refuses ones without the time: without JavaScript the form comes back to the page with `#guide-failed`, offering the
+guide online. Once it's sent the form stays as it is and its button says "Sent! Check your inbox", until the address
+is changed, so a typo can be fixed and the guide sent again. Once someone has asked for the guide, the updates pop-up
+never comes up by itself.
 
 The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
 (Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on

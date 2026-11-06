@@ -1947,14 +1947,16 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
 .hero__guide-row button svg { width: 16px; height: 16px; }
 .hero__guide-row button:hover { background: #1b1511; }
 .hero__guide-row button:disabled { opacity: 0.7; cursor: default; }
+/* Sent: the button says so, with a check, as dark as before */
+.hero__guide-row button.is-sent { opacity: 1; }
+.hero__guide-row button.is-sent:hover { background: var(--home-ink); }
 .hero__guide-error { margin-top: 12px; color: #a4231c; font-family: var(--mona); font-size: 15px; line-height: 1.5; }
 :is(.hero__guide-error, .hero__guide-done) a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .hero__guide-done a:hover { color: #9c4a17; }
-/* Once sent (or, without JavaScript, when it didn't work: #guide-failed), a line in its place */
-.hero__guide-done { display: none; margin: 30px auto 0; color: var(--home-ink); font-family: var(--mona); font-size: 18px; line-height: 1.5; outline: none; scroll-margin-top: 40vh; }
-.hero__guide-done:target,
-.hero__guide-done.is-shown { display: block; }
-.hero__guide-done--failed:target { margin-top: 12px; color: #a4231c; font-size: 15px; }
+/* Without JavaScript, once sent or when it didn't work (#guide-sent, #guide-failed), a line under it */
+.hero__guide-done { display: none; margin: 12px auto 0; color: var(--home-ink); font-family: var(--mona); font-size: 16px; line-height: 1.5; outline: none; scroll-margin-top: 40vh; }
+.hero__guide-done:target { display: block; }
+.hero__guide-done--failed:target { color: #a4231c; font-size: 15px; }
 
 @media (max-width: 700px) {
   /* The photo along the foot, 420px tall, its top edge fading into the paper over 170px (from 420px above the foot to

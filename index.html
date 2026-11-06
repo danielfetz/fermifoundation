@@ -64,7 +64,8 @@
 
   <!-- A poker tournament's hall, blurred and faded onto paper, behind the menu and the headline, fading into white at
        its foot; under the headline, the guide by email (api/guide.js; assets/site.js sends it with how long the page
-       was open, and without JavaScript it comes back here with #guide-failed) -->
+       was open, and its button then says it's sent; without JavaScript it comes back here with #guide-sent or
+       #guide-failed) -->
   <header class="hero">
     <div class="hero__inner">
       <h1 class="hero__title">Fermi Poker is a game of estimation, reasoning and bluffing</h1>
@@ -80,6 +81,7 @@
         </div>
         <p class="hero__guide-error" role="alert" hidden>That didn’t work. Please try again, or <a href="/how-to-play/">read the guide online</a>.</p>
       </form>
+      <p class="sr-only" id="guide-status" role="status"></p>
       <p class="hero__guide-done" id="guide-sent" tabindex="-1"><b>On its way!</b> Check your inbox for the guide.</p>
       <p class="hero__guide-done hero__guide-done--failed" id="guide-failed" tabindex="-1">That didn’t work. Please try again, or <a href="/how-to-play/">read the guide online</a>.</p>
     </div>
