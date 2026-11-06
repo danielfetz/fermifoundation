@@ -310,9 +310,9 @@ html.new-design.menu-open { --page-bg: #fff; }
   padding: calc(76px + clamp(80px, 9vw, 150px)) 0 340px;
   background: #936d43 url(/assets/img/poker-hall.webp) center -135px / cover no-repeat;
 }
-/* The shade, on every screen and on the inner pages' headers too (.page-hero): a warm near-black at both edges,
-   darkest on the left, behind the words, and a warm brown 70% of the way across. It never clears, so white on it
-   stays at least 7.5:1 behind every line, whatever part of the photo is there. */
+/* The shade, on every screen and on the inner pages' headers too (.page-hero): a warm near-black at both edges
+   (83%), and a warm brown 70% of the way across (77%). It never clears, so white on it stays at least 7:1 behind
+   the headline and the menu, whatever part of the photo is there (the line under the headline at least 6.7:1). */
 .hero::before {
   content: "";
   position: absolute;
@@ -321,7 +321,7 @@ html.new-design.menu-open { --page-bg: #fff; }
   background: linear-gradient(90deg, rgba(22, 20, 18, 0.83), rgba(62, 40, 28, 0.77) 70%, rgba(22, 20, 18, 0.83));
 }
 /* The fade into white at its foot (--fade); white on its top, where the tournaments' heading is, stays at least
-   6.9:1 */
+   5.9:1 (on the narrowest phones; 6.1:1 on wide laptops) */
 .hero::after {
   content: "";
   position: absolute;
