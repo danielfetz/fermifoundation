@@ -42,7 +42,7 @@ ${fill(GUIDE_PAGE.html)}
     </div>
     <p style="margin:28px 0 0;padding-top:18px;border-top:1px solid #e6dfd3;font-family:${sans};font-size:16px;line-height:1.5">Hosting a tournament at a school or university? Funding is available: <a href="${escape(`${site}/host/#sign-up`)}" style="color:${ink}">tell us about it</a>. Any questions? Just reply to this email.</p>
   </div>
-  <p style="max-width:600px;margin:16px auto 0;color:${soft};font-family:${sans};font-size:13px;line-height:1.5;text-align:center">You asked for the guide on fermi.org. We won’t email you again unless you <a href="${escape(`${site}/updates/`)}" style="color:${soft}">sign up for updates</a>.<br>Fermi Foundation · <a href="https://fermi.org" style="color:${soft}">fermi.org</a></p>
+  <p style="max-width:600px;margin:16px auto 0;color:${soft};font-family:${sans};font-size:13px;line-height:1.5;text-align:center">You asked for the guide on fermi.org. We won’t add you to our mailing list unless you <a href="${escape(`${site}/updates/`)}" style="color:${soft}">sign up for updates</a>.<br>Fermi Foundation · <a href="https://fermi.org" style="color:${soft}">fermi.org</a></p>
 </div>
 </body></html>`
   const text = `Your Fermi Poker guide
@@ -65,7 +65,7 @@ ${fill(GUIDE_PAGE.text)}
 Hosting a tournament at a school or university? Funding is available. Tell us about it: ${site}/host/#sign-up
 Any questions? Just reply to this email.
 
-You asked for the guide on fermi.org. We won’t email you again unless you sign up for updates: ${site}/updates/
+You asked for the guide on fermi.org. We won’t add you to our mailing list unless you sign up for updates: ${site}/updates/
 
 Fermi Foundation · fermi.org
 `
