@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="companies-page new-design">
+<html lang="en" class="companies-page new-design classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +18,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/poker-hall.webp" as="image">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -29,7 +29,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <!-- The menu sits on the header's photo, in white (nav--over) -->
+  <!-- The menu sits on the header (nav--over), in ink -->
   <nav class="nav nav--light nav--over">
     <div class="nav__bar">
       <a class="nav__logo" href="/"><span class="logo">Fermi Foundation</span></a>
@@ -59,24 +59,25 @@
     </div>
   </nav>
 
-  <!-- The hall photo, blurred, behind the menu and the title (assets/site.css) -->
+  <!-- The header on paper: a line in capitals, the title, and a line under it; the form follows right after -->
   <header class="page-hero">
     <div class="page-hero__inner">
+      <p class="page-hero__kicker">For companies</p>
       <h1>Fermi Poker for teams</h1>
+      <p class="page-hero__sub">Fermi Poker is a game of estimation, bluffing and friendly competition. Bring it to your next team event, offsite or leadership workshop.</p>
     </div>
   </header>
 
   <main class="doc">
     <div class="page">
-      <p class="page-lead">
-        Fermi Poker is a game of estimation, bluffing and friendly competition. Bring it to your next team event,
-        offsite or leadership workshop.
-      </p>
       <!-- The request goes to api/team.js, which emails it to contact@fermi.org; assets/site.js sends it and shows the
            thanks. Without JavaScript the form posts there directly and comes back here with #sent or #failed. -->
-      <section class="section" id="sign-up">
-        <h2>Tell us about your team</h2>
-        <p class="text">We’ll get back to you with options and pricing.</p>
+      <section class="section signup-card" id="sign-up">
+        <div class="signup-card__head">
+          <h2>Tell us about your team</h2>
+          <p>We’ll get back to you with options and pricing.</p>
+        </div>
+        <div class="signup-card__body">
         <section class="status status--done" id="sent" tabindex="-1">
           <h3>Thanks!</h3>
           <p>We’ll get back to you soon.</p>
@@ -132,6 +133,7 @@
         <div class="form-done" id="team-form-done" tabindex="-1" hidden>
           <h3>Thanks!</h3>
           <p>We’ll get back to you soon.</p>
+        </div>
         </div>
       </section>
     </div>

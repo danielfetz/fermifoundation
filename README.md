@@ -29,10 +29,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
   and width), the home page's headings and text.
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  the inner pages' headers for now (but Host a tournament's, For schools' and For companies', which keep the hall, like
-  the home page), a close-up of
+  the headers of How to play, About, Get updates and Credits for now, a close-up of
   the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
-  tournament, blurred so only the room and its tables show, in the home page's header and those three, which the
+  tournament, blurred so only the room and its tables show, in Host a tournament's header, which the
   other headers showed before and may again
   (delete the block at the end of `site.css` that puts the chips in its place, and preload it again in the pages'
   heads); `start-*.webp` the pictures on the cards under the home page's Learn more and get involved (the chips, a
@@ -90,27 +89,28 @@ worked sample question is still in the page, hidden, to use later.
 For schools (`host/`, where Host a tournament was) is for schools and universities, whose tournaments we help with for
 free: a form whose answers go to `api/host.js`, which passes them on to a Google Form (and from there to a Google
 Sheet), then the steps to host one, as rows (`boxes--rows`). It's in the home page's classic look (`html.classic`:
-Instrument Serif and Instrument Sans, the menu in ink, links in ink with a faint underline), the whole page on paper,
-without the photo: a line in capitals in Mona Sans over the title and a line in the serif under it; the form in a
-white card whose head is deep rust, with a slide rule's scale along its top edge; the steps on a band of the same
-rust, its top corners rounded, rising behind the card. It's one block at the end of `site.css`. The Google Form's
-address isn't on the page, where bots found it and posted spam to it directly: it's `HOST_FORM_URL` in the project's
-environment variables on Vercel (the form's link, ending in `/formResponse`; a new form has its own fields' IDs, from
-its "Get pre-filled link", which go in `api/host.js`), and until it's set, the old form's. `api/host.js` drops
-sign-ups that fill in the hidden field, come within four seconds of opening the page, or put a link (http, www) in the
-name, and refuses ones without the time the page was open, which only `assets/site.js` sends: without JavaScript the
-form comes back to the page with `#failed`, offering the email address. For companies (`companies/`) is for teams, for
-team building and leadership workshops, which companies pay for: a short form that `api/team.js` emails to
-contact@fermi.org through Resend (below), so that replying answers whoever sent it. Without JavaScript that form posts
-there directly and comes back to the page saying how it went (`#sent`, `#failed`). For companies is built like How to
-play: the photo header, then the page on white. So are About (its programs in rows too), Donate (`sponsor/`), Get
-updates (below) and Credits.
+Instrument Serif and Instrument Sans, the menu in ink, links in ink with a faint underline), as are For companies, the
+FAQ and Donate, the whole page on paper, without the photo: a line in capitals in Mona Sans over the title and a line
+in the serif under it; the form in a white card whose head is deep rust, with a slide rule's scale along its top edge;
+the steps on a band of the same rust, its top corners rounded, rising behind the card. It's one block at the end of
+`site.css`. The Google Form's address isn't on the page, where bots found it and posted spam to it directly: it's
+`HOST_FORM_URL` in the project's environment variables on Vercel (the form's link, ending in `/formResponse`; a new
+form has its own fields' IDs, from its "Get pre-filled link", which go in `api/host.js`), and until it's set, the old
+form's. `api/host.js` drops sign-ups that fill in the hidden field, come within four seconds of opening the page, or
+put a link (http, www) in the name, and refuses ones without the time the page was open, which only `assets/site.js`
+sends: without JavaScript the form comes back to the page with `#failed`, offering the email address. For companies
+(`companies/`) is for teams, for team building and leadership workshops, which companies pay for: a short form that
+`api/team.js` emails to contact@fermi.org through Resend (below), so that replying answers whoever sent it. Without
+JavaScript that form posts there directly and comes back to the page saying how it went (`#sent`, `#failed`). It's
+built like For schools: its introduction under the title, then its form in a card with a rust head (without For
+schools' band of steps). Donate (`sponsor/`) is the same: its introduction under the title, then a rust card saying to
+write us. About (its programs in rows), Get updates (below) and Credits are built like How to play: the photo header,
+then the page on white.
 
-The FAQ page, under the photo header like Get updates, has three parts, General, Hosting and Educational value,
-each a list of questions that open in place.
-`site.js` turns the parts into tabs named by their headings; without JavaScript they follow one another. A link to a
-part (`/faq/#hosting`) opens its tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words)
-opens its tab and the question.
+The FAQ page, in the classic look, its title alone on the paper and the questions in a white card, has three parts,
+General, Hosting and Educational value, each a list of questions that open in place. `site.js` turns the parts into
+tabs named by their headings; without JavaScript they follow one another. A link to a part (`/faq/#hosting`) opens its
+tab, and a link to a question (`/faq/#is-it-gambling`, its id made from its words) opens its tab and the question.
 
 The home page runs in bands, white and pale beige in turn: the header, the tournament finder, the introduction, Learn
 more and get involved, the mailing list, and Frequently asked questions. It's set a little more classic than the other

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="donate-page new-design">
+<html lang="en" class="donate-page new-design classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +18,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/chips-dice.webp" as="image">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -29,7 +29,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <!-- The menu sits on the header's photo, in white (nav--over) -->
+  <!-- The menu sits on the header (nav--over), in ink -->
   <nav class="nav nav--light nav--over">
     <div class="nav__bar">
       <a class="nav__logo" href="/"><span class="logo">Fermi Foundation</span></a>
@@ -59,25 +59,23 @@
     </div>
   </nav>
 
-  <!-- The hall photo, blurred, behind the menu and the title (assets/site.css) -->
+  <!-- The header on paper: a line in capitals, the title, and a line under it; then how to get in touch, in a card -->
   <header class="page-hero">
     <div class="page-hero__inner">
+      <p class="page-hero__kicker">Sponsor or donate</p>
       <h1>Support Fermi Poker tournaments</h1>
+      <p class="page-hero__sub">With your help, we can bring Fermi Poker to hundreds, and later thousands, of schools and universities. Every tournament needs things like poker chips and dry-erase markers, and ideally snacks, soft drinks and small prizes. That’s what your money pays for.</p>
     </div>
   </header>
 
   <main class="doc">
     <div class="page">
-      <p class="page-lead">
-        With your help, we can bring Fermi Poker to hundreds, and later thousands, of schools and universities. Every
-        tournament needs things like poker chips and dry-erase markers, and ideally snacks, soft drinks and small
-        prizes. That’s what your money pays for.
-      </p>
-      <div class="texts">
-        <div class="sticky-note">
-          <p class="text">Interested in becoming a sponsor or making a donation? Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
+      <section class="signup-card">
+        <div class="signup-card__head">
+          <h2>Interested in becoming a sponsor or making a donation?</h2>
+          <p>Write us at <a class="link" href="mailto:contact@fermi.org">contact@fermi.org</a>.</p>
         </div>
-      </div>
+      </section>
     </div>
   </main>
 
