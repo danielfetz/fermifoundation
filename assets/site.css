@@ -2164,9 +2164,10 @@ html.schools-page.classic .page-hero::after { display: none; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-/* Two lines, Host a tournament at your / school or university ("…at your" is 8.6em, "…at your school" 10.9em) */
+/* Two lines on laptops, Host a Fermi Poker tournament / at your school or university ("…tournament" is 10.3em,
+   "…tournament at" 11.1em); on phones three, as they fall */
 html.schools-page.classic .page-hero h1 {
-  max-width: 9.5em;
+  max-width: 10.6em;
   margin: 18px auto 0;
   color: var(--home-ink);
   font-family: var(--display);
