@@ -1958,9 +1958,10 @@ html.home-page .hero__sub a:hover { color: #9c4a17; }
       #efeade url(/assets/img/hall-paper.webp) 50% 100% / auto 420px no-repeat;
   }
   html.home-page .hero::after { height: 110px; }
-  /* Four lines: Fermi Poker is a / game of estimation, / reasoning and / bluffing ("game of estimation," is 6.5em,
-     "Fermi Poker is a game" 7.2em) */
-  html.home-page .hero__title { max-width: none; font-size: min(52px, (100vw - 40px) / 6.85); line-height: 1.04; }
+  /* Four lines on every phone: Fermi Poker is a / game of estimation, / reasoning and / bluffing ("game of
+     estimation," is 6.5em, "Fermi Poker is a game" 7.2em), its size following the width up to 60px, and its lines
+     6.85em long at most, so they break the same way above that too */
+  html.home-page .hero__title { max-width: 6.85em; font-size: min(60px, (100vw - 40px) / 6.85); line-height: 1.04; }
   html.home-page .hero__sub { font-size: 17px; }
   /* The field and the button one above the other, each across */
   .hero__guide { margin-top: 26px; }
@@ -2094,6 +2095,10 @@ html.home-page :is(.intro__lead, .home-main h2) { font-family: var(--display); f
 
 @media (max-width: 1100px) {
   .finder__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+}
+/* Between phones and laptops, room on the right for London's name, which runs past the small map */
+@media (min-width: 701px) and (max-width: 799px) {
+  .finder__maps { padding-right: 28px; }
 }
 @media (max-width: 700px) {
   .finder { padding: 32px 0 64px; }
