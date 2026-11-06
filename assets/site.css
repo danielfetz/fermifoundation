@@ -1356,6 +1356,8 @@ html.new-design .link:hover { color: #9c4a17; text-decoration-color: #9c4a17; }
 .faq__tab[aria-selected='true'] { border-color: currentColor; color: #111111; }
 .faq__panel { max-width: 656px; }
 .faq__panel + .faq__panel { margin-top: 72px; }
+/* As tabs (assets/site.js hides the others), each part starts right under the tabs */
+.faq__panel[hidden] + .faq__panel { margin-top: 0; }
 .faq__heading {
   margin-bottom: 8px;
   color: #111111;
