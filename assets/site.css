@@ -1886,9 +1886,16 @@ html.home-page .hero__title {
   letter-spacing: -0.01em;
 }
 html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
-/* Its link to For schools underlined, as in the text, rust when pointed at */
-html.home-page .hero__sub a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-html.home-page .hero__sub a:hover { color: #9c4a17; }
+/* Its links (the guide, For schools) as links are in the text elsewhere: rust, with a light underline, the rust a
+   little deeper than elsewhere, so they stay at least 4.5:1 on the photo */
+html.home-page .hero__sub a {
+  color: #853d12;
+  text-decoration: underline;
+  text-decoration-color: rgba(133, 61, 18, 0.35);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+html.home-page .hero__sub a:hover { text-decoration-color: #853d12; }
 
 /* The guide by email: a round field with the button in it, in ink */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
@@ -2092,6 +2099,11 @@ summary.finder__btn svg { display: inline-block; width: 14px; height: 14px; marg
 
 /* The headings further down in the serif too */
 html.home-page :is(.intro__lead, .home-main h2) { font-family: var(--display); font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
+/* The introduction's first paragraph larger (40px; 32px on phones) */
+html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
+@media (max-width: 700px) {
+  html.home-page .intro .intro__lead { font-size: 32px; }
+}
 
 @media (max-width: 1100px) {
   .finder__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
