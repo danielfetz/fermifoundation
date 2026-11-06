@@ -66,7 +66,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
   `play.css`.
 
-The menu and footer are repeated on every page (except Play, which has neither), so change them on all fifteen (the five tournaments' pages among them). On wide
+The menu and footer are repeated on every page (except Play, which has neither), so change them on all seventeen (the five tournaments' pages, Partner with us and the page not found among them). On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
 Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
 the header's photo, in white (`nav--over`; in ink on the paper of the pages in the classic look, below), the phone menu opening in white, with the
