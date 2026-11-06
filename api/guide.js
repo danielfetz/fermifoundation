@@ -40,7 +40,7 @@ ${links.map(([title, href, what]) => `    <p style="margin:0 0 14px;font-family:
       <p style="margin:0 0 22px;font-family:${sans};font-size:15px;line-height:1.5;color:${ink}">${fill(GUIDE_PAGE.bylineHtml)}</p>
 ${fill(GUIDE_PAGE.html)}
     </div>
-    <p style="margin:28px 0 0;padding-top:18px;border-top:1px solid #e6dfd3;font-family:${sans};font-size:16px;line-height:1.5">Hosting a tournament at a school or university? Funding is available: <a href="${escape(`${site}/host/#sign-up`)}" style="color:${ink}">tell us about it</a>. Any questions? Just reply to this email.</p>
+    <p style="margin:28px 0 0;padding-top:18px;border-top:1px solid #e6dfd3;font-family:${sans};font-size:16px;line-height:1.5">Hosting a tournament at a school or university? Funding is available: <a href="${escape(`${site}/host/#sign-up`)}" style="color:${ink}">tell us about it</a>. Any questions? Just write us at <a href="mailto:${NOTIFY}" style="color:${ink}">${NOTIFY}</a></p>
   </div>
   <p style="max-width:600px;margin:16px auto 0;color:${soft};font-family:${sans};font-size:13px;line-height:1.5;text-align:center">You asked for the guide on fermi.org. We won’t add you to our mailing list unless you <a href="${escape(`${site}/updates/`)}" style="color:${soft}">sign up for updates</a>.<br>Fermi Foundation · <a href="https://fermi.org" style="color:${soft}">fermi.org</a></p>
 </div>
@@ -63,7 +63,7 @@ ${fill(GUIDE_PAGE.text)}
 ------------------------------------------------------------
 
 Hosting a tournament at a school or university? Funding is available. Tell us about it: ${site}/host/#sign-up
-Any questions? Just reply to this email.
+Any questions? Just write us at ${NOTIFY}
 
 You asked for the guide on fermi.org. We won’t add you to our mailing list unless you sign up for updates: ${site}/updates/
 
