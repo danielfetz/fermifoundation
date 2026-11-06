@@ -26,8 +26,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   License reserves the original names for unmodified fonts. The `latin-ext` files are unchanged.
 - `mona-sans-latin.woff2` is Mona Sans (Open Font License, unmodified), the variable file with every weight and width
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
-  the letters of "Fermi Foundation" (the name in the menu) and "Fermi Poker" (the Play page's), for the logo on every
-  page (2 KB); add any letter the logo gains. It was made with fontTools (instancer, and subset with only the kerning)
+  the letters of "Fermi Foundation" and "Fermi Poker", for the name at the top of the pages before the classic look
+  (2 KB; on no page for now: the name is now in Instrument Serif, on the Play page too); add any letter it gains. It was made with fontTools (instancer, and subset with only the kerning)
   and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
 - `instrument-serif-latin.woff2` (and its italic) and `instrument-sans-latin.woff2` are Instrument Serif and
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight

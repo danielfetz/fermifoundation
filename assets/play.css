@@ -71,8 +71,8 @@ body.play {
      after, and each move redraws its buttons a fraction of a pixel to the side. */
   will-change: transform;
 }
-.ph .logo { font-size: 20px; white-space: nowrap; }
-.ph .logo img { width: 32px; height: 32px; }
+/* The name alone, in Instrument Serif, as the main site's (Fermi Foundation) */
+.ph .logo { color: #2b251f; font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; white-space: nowrap; }
 .ph__tools { display: flex; align-items: center; gap: 8px; }
 .ph-btn {
   position: relative;
@@ -364,8 +364,7 @@ body.play {
 }
 @media (min-width: 900px) {
   .ph { padding: calc(16px + env(safe-area-inset-top)) max(32px, env(safe-area-inset-right)) 16px max(32px, env(safe-area-inset-left)); }
-  .ph .logo { font-size: 23px; }
-  .ph .logo img { width: 38px; height: 38px; }
+  .ph .logo { font-size: 31px; }
 }
 
 /* The rule sheet, set like the printed one. On phones it slides up from the bottom; on bigger screens it opens in
