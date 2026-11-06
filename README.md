@@ -31,7 +31,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
   and width), the classic look's headings and text (below).
 - `assets/img/edge-top.svg`, `edge-bottom.svg`: the torn edges of the old paper look; `chips-dice.webp` the picture in
-  the headers of Get updates and Credits for now, a close-up of
+  the new design's first headers (on no page for now), a close-up of
   the poker chips and dice, toned in the header's browns and softened; `poker-hall.webp` the hall of a poker
   tournament, blurred so only the room and its tables show, which the headers showed before and may again (on no page
   for now)
@@ -109,11 +109,10 @@ built like For schools: its introduction under the title, then its form in a car
 schools' band of steps). Donate (`sponsor/`) is the same: its introduction under the title, then a rust card saying to
 write us. Host a tournament and About are built like it too: their introductions under the title, then a white card
 with a rust head, Host a tournament's holding the materials (rows whose headings are links), About's the programs, with
-Contact under the card. Get updates (below) and Credits have the new design's first look: a header (`page-hero`, over the chips picture, with the menu on it)
-with the title alone, then the page on white (`.doc`), its column lined up with the title. On laptops (from 1280px)
-the header fades into white at its foot and the page rises into it as a white sheet as wide as the title's space, its
-edges under the title's, the words 48px in from its sides and the photo fading beside it; on narrower screens the
-photo ends in a straight line and the words line up with the title.
+Contact under the card. Get updates (below) and Credits are in it too: the title on the paper (Get updates with what we
+send under it), then a white card with the form or the credits. The new design's first look, a header over the chips
+picture with the title alone and the page on white rising into it on laptops, is still in `site.css`, on no page for
+now.
 
 The FAQ page, in the classic look, its title alone on the paper and the questions in a white card, has three parts,
 General, Hosting and Educational value, each a list of questions that open in place. `site.js` turns the parts into
@@ -181,7 +180,8 @@ has no dot.
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news about
 Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on its
 own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens (`assets/site.js`).
-The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by
+In the classic look the form is a round field with the button in it, in ink, like the guide by email under the home
+page's headline (on phones the button under the field). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by
 itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after
 30 seconds on the page. Then not again for 30 days, and never after signing up, sending the For schools form or asking
 for the guide (the browser remembers this as `fermi-updates` in local storage); never on the Play page or Get updates

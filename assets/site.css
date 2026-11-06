@@ -613,7 +613,8 @@ summary.event__btn > span { display: flex; align-items: center; gap: 10px; }
 .home-faq .qa summary { padding: 22px 0; }
 .home-faq .qa summary h3 { font-size: 20px; }
 .home-faq__more { margin-top: 48px; }
-/* The mailing list: the heading and the form in a white frame with a black button, on the left of the band */
+/* The mailing list: the heading and the form in a white frame with a black button, on the left of the band (in the
+   classic look a round field with the button in it, at the end) */
 .signup__text { max-width: 560px; }
 .signup__text > p { margin-top: 16px; color: #111; font-size: 20px; line-height: 1.5; }
 .signup .su { margin-top: 32px; }
@@ -1802,7 +1803,7 @@ html.new-design h3 .link { font-weight: inherit; }
    toned in the header's browns and softened, zoomed in on every screen, under the headers' shade on wider screens
    and an even one on phones. The home page, Host a tournament, For schools and For companies (home-page,
    hosting-page, schools-page, companies-page, named in each rule below) don't, and the home page and every inner
-   page but Get updates and Credits have the classic look (at the end), which draws over this. White on the chips
+   page have the classic look (at the end), which draws over this: the chips are on no page for now. White on the chips
    stays at least 9:1 on the inner pages. To go back to the hall everywhere, delete this block and preload
    poker-hall.webp again in the pages' heads, in place of chips-dice.webp. */
 :where(html:not(.home-page, .hosting-page, .schools-page, .companies-page)) :is(.hero, .page-hero) {
@@ -2079,8 +2080,7 @@ html.home-page .intro .intro__lead { font-size: 40px; line-height: 1.2; }
   .finder__btn { margin-top: 8px; }
 }
 
-/* The inner pages in the classic look (all but Get updates and Credits, html.classic), in the manner of a sign-up
-   page: the whole page on paper, no photo. Over the title a line in capitals in Mona Sans, wide;
+/* The inner pages in the classic look (all of them, html.classic), in the manner of a sign-up page: the whole page on paper, no photo. Over the title a line in capitals in Mona Sans, wide;
    the title in Instrument Serif; a line in it under the title; then the page in white cards with soft corners, a
    form's with a deep rust head, a slide rule's scale along its top edge (estimation, not cards). On For schools the
    steps are on a band of the same rust, its top corners rounded, rising behind the card. */
@@ -2450,4 +2450,62 @@ html.city-page .status p { font-size: 17px; }
   .city__others-grid { gap: 20px 14px; }
   .city-other__name { font-size: 22px; }
   .city__partner { font-size: 22px; }
+}
+
+/* The sign-up for updates in the classic look (the home page's mailing list and the Get updates page): a round field
+   with the button in it, in ink, as the guide by email under the home page's headline; on phones the button under
+   the field */
+html.classic :is(.signup, .updates-page) .su__row {
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 6px;
+  border: 1.5px solid var(--home-ink);
+  border-radius: 999px;
+  background: #fff;
+}
+html.classic :is(.signup, .updates-page) .su__row:focus-within { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
+html.classic :is(.signup, .updates-page) .su input[type='email'] { height: 46px; padding: 0 18px; border: 0; border-radius: 999px; background: none; color: #111; font-size: 18px; }
+html.classic :is(.signup, .updates-page) .su input[type='email']::placeholder { color: #7a7067; }
+html.classic :is(.signup, .updates-page) .su__row .btn {
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--home-ink);
+  color: #f6f1e7;
+  font-family: var(--mona);
+  font-size: 17px;
+  font-stretch: 100%;
+  font-weight: 600;
+}
+html.classic :is(.signup, .updates-page) .su__row .btn:hover { background: #1b1511; }
+html.classic :is(.signup, .updates-page) .su__note { margin-top: 12px; padding-left: 20px; color: #6b6158; font-size: 15px; }
+html.classic :is(.signup, .updates-page) .su__error { padding-left: 20px; font-size: 15px; }
+html.classic :is(.signup, .updates-page) .su-done h3 { color: var(--home-ink); font-family: var(--display); font-size: 26px; font-stretch: 100%; font-weight: 400; line-height: 1.2; }
+html.classic :is(.signup, .updates-page) .su-done p { font-size: 17px; }
+
+/* Get updates and Credits in the classic look (html.get-updates-page.classic, html.credits-page.classic): the title on
+   the paper (Get updates with what we send under it), then a white card: the form, or the credits. What happened, after
+   sending the form without JavaScript or following the link in the email, in a card of its own over the form's. */
+html:is(.get-updates-page, .credits-page).classic body { background: #efeade; }
+html.classic .doc :is(.updates-page, .credits) {
+  max-width: none;
+  padding: 36px 40px 40px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(43, 37, 31, 0.06), 0 24px 48px -28px rgba(43, 37, 31, 0.35);
+}
+html.get-updates-page.classic .doc .updates-page { margin-top: 0; }
+html.get-updates-page.classic .doc .status { margin: 0 0 24px; padding: 24px 28px; border-radius: 18px; background: #fff; box-shadow: 0 1px 2px rgba(43, 37, 31, 0.06), 0 24px 48px -28px rgba(43, 37, 31, 0.35); }
+html.get-updates-page.classic .doc .status h2 { color: var(--home-ink); font-family: var(--display); font-size: 26px; font-weight: 400; line-height: 1.2; }
+html.get-updates-page.classic .doc .status p { font-size: 17px; }
+html.credits-page.classic .doc .credits .page-lead { width: auto; margin: 0; font-size: 18px; line-height: 1.6; }
+@media (max-width: 700px) {
+  html.classic :is(.signup, .updates-page) .su__row { flex-direction: column; padding: 0; border: 0; background: none; }
+  html.classic :is(.signup, .updates-page) .su__row:focus-within { box-shadow: none; }
+  html.classic :is(.signup, .updates-page) .su input[type='email'] { flex: none; height: 50px; border: 1.5px solid var(--home-ink); background: #fff; font-size: 17px; }
+  html.classic :is(.signup, .updates-page) .su input[type='email']:focus-visible { box-shadow: 0 0 0 3px rgba(43, 37, 31, 0.15); }
+  html.classic :is(.signup, .updates-page) .su__row .btn { flex: none; width: 100%; height: 50px; font-size: 16px; }
+  html.classic :is(.signup, .updates-page) :is(.su__note, .su__error) { padding-left: 0; }
+  html.classic .doc :is(.updates-page, .credits) { padding: 24px 20px 26px; border-radius: 18px; }
+  html.get-updates-page.classic .doc .status { padding: 18px 20px; }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="get-updates-page new-design">
+<html lang="en" class="get-updates-page new-design classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,9 +18,8 @@
   <meta property="og:image:alt" content="“Fermi Poker is a game of estimation, reasoning and bluffing” over a blurred photo of a poker tournament">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="preload" href="/assets/fonts/mona-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/fermi-logo.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/img/chips-dice.webp" as="image">
+  <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
   <!-- Vercel Web Analytics: counts page views; the script only exists on the Vercel deployment -->
@@ -30,7 +29,7 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <!-- The menu sits on the header's photo, in white (nav--over) -->
+  <!-- The menu sits on the header (nav--over), in ink -->
   <nav class="nav nav--light nav--over">
     <div class="nav__bar">
       <a class="nav__logo" href="/"><span class="logo">Fermi Foundation</span></a>
@@ -60,18 +59,18 @@
     </div>
   </nav>
 
-  <!-- The hall photo, blurred, behind the menu and the title (assets/site.css) -->
+  <!-- The header on paper: the title and what we send; the form follows in a white card -->
   <header class="page-hero">
     <div class="page-hero__inner">
       <h1>Get updates</h1>
+      <p class="page-hero__sub">
+        We’ll let you know when we release new question sets, and whenever there’s other news about Fermi Poker.
+      </p>
     </div>
   </header>
 
   <main class="doc">
     <div class="page">
-      <p class="page-lead">
-        We’ll let you know when we release new question sets, and whenever there’s other news about Fermi Poker.
-      </p>
       <!-- What happened: after sending the form without JavaScript (#sent, #failed), or after following the link in
            the email (#confirmed, #invalid, #failed). api/subscribe.js and api/confirm.js send people here. -->
       <section class="status status--done" id="sent" tabindex="-1">
