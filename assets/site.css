@@ -1947,7 +1947,7 @@ html.classic :is(.link, .hero__sub a):hover { color: inherit; text-decoration-co
 .hero__guide-row button svg { width: 16px; height: 16px; }
 .hero__guide-row button:hover { background: #1b1511; }
 .hero__guide-row button:disabled { opacity: 0.7; cursor: default; }
-/* Sent: the button says so, with a check, as dark as before */
+/* Sent: the button says so, a check before the words, as dark as before */
 .hero__guide-row button.is-sent { opacity: 1; }
 .hero__guide-row button.is-sent:hover { background: var(--home-ink); }
 .hero__guide-error { margin-top: 12px; color: #a4231c; font-family: var(--mona); font-size: 15px; line-height: 1.5; }

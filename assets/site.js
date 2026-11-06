@@ -292,7 +292,7 @@ if (guideForm) {
   const ask = button.innerHTML
   const error = guideForm.querySelector('.hero__guide-error')
   const status = document.querySelector('#guide-status')
-  const sent = 'Sent! Check your inbox <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+  const sent = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sent! Check your inbox'
 
   guideForm.addEventListener('submit', async event => {
     event.preventDefault()
