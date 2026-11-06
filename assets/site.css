@@ -1867,12 +1867,11 @@ html.classic .nav--over { color: var(--home-ink); }
 html.classic .nav--light .nav__links { font-weight: 500; }
 html.classic .nav--over .nav__links a:hover { border-color: var(--home-ink); }
 /* The menu stays at the top as the page scrolls: see-through over the header, and once the page has moved
-   (assets/site.js: .is-stuck) on the paper, a little see-through and blurred, with a hairline under it. The phone
+   (assets/site.js: .is-stuck) on the paper, a little see-through and blurred. The phone
    menu scrolls within the screen when it's taller than it, and links within a page land below the menu. */
-html.classic .nav--over { position: fixed; transition: background-color 200ms var(--ease), box-shadow 200ms var(--ease); }
+html.classic .nav--over { position: fixed; transition: background-color 200ms var(--ease); }
 html.classic .nav--over.is-stuck:not(.is-open) {
   background: rgba(239, 234, 222, 0.94);
-  box-shadow: 0 1px 0 rgba(43, 37, 31, 0.1);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }

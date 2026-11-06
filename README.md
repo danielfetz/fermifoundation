@@ -75,7 +75,7 @@ name alone as the logo, links in the text as rust words a little bolder than the
 dark brown footer (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before
 (the sky band, the paper with torn edges, `edge-top.svg` and `edge-bottom.svg`, the dark footer) is still in
 `site.css`, unused for now. The menu stays at the top as the page scrolls (fixed): see-through over the header, and once the page has
-moved on the paper with a hairline under it (`is-stuck`, which `site.js` sets); links within a page land below it
+moved on the paper (`is-stuck`, which `site.js` sets); links within a page land below it
 (`scroll-padding-top`), and the phone menu scrolls within the screen when it's taller.
 
 Sections fade in, gliding up a little, as they come into view: `site.js` marks whatever is still below the screen
