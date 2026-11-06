@@ -144,8 +144,10 @@ is changed, so a typo can be fixed and the guide sent again. Once someone has as
 never comes up by itself.
 
 The tournament finder, as a shop's store finder: the cities where we'll hold one once enough people are interested
-(Boston, Berkeley, New York City, London and Oxford for now), each with its date "to be set" (`finder__when`), a dot on
-the map it's on, and "I'm interested", its name, its dot and "I'm interested" all leading to its page; under the heading, that besides supporting events at schools and universities we plan to hold tournaments
+(Boston, Berkeley, New York City, London and Oxford for now), each with a small photo of the city
+(`event-boston-small.webp` and so on, 600px wide, also on the tournaments' pages' cards of the others), its date "to be
+set" (`finder__when`), a dot on the map it's on, and "I'm interested", its photo, name, dot and "I'm interested" all
+leading to its page; under the heading, that besides supporting events at schools and universities we plan to hold tournaments
 open to everyone in cities around the world, and an invitation to partner with us to organize one (to Host a
 tournament). The maps are pictures, `assets/img/map-us.svg` (the lower 48 states, from the
 US Census Bureau's boundaries) and `map-uk.svg` (Great Britain and Ireland, from Natural Earth), both public domain,
