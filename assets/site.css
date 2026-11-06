@@ -1886,6 +1886,9 @@ html.home-page .hero__title {
   letter-spacing: -0.01em;
 }
 html.home-page .hero__sub { max-width: 34em; margin: 0 auto; color: var(--home-ink); font-size: 19px; font-stretch: 100%; }
+/* Its link to For schools underlined, as in the text, rust when pointed at */
+html.home-page .hero__sub a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+html.home-page .hero__sub a:hover { color: #9c4a17; }
 
 /* The guide by email: a round field with the button in it, in ink */
 .hero__guide { width: min(620px, 100%); margin: 30px auto 0; }
