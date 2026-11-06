@@ -74,7 +74,7 @@ animation for people whose device asks for less motion, or without JavaScript.
 
 How to play is the guide from LessWrong (https://www.lesswrong.com/posts/JFYvJqMaLw9nhfrur/fermi-poker): what you
 need, an announcement, the rules to read aloud, an ante schedule and variations. It's in the classic look (below): the
-title on the paper with who wrote it under it (`page-hero__byline`), then the guide in a white card with soft corners
+title on the paper with who wrote it under it (`page-hero__byline`, set like the other pages' line under the title), then the guide in a white card with soft corners
 (`.doc` itself is the card), as wide as the other pages' cards with its sides, starting with the introduction
 (`page-lead`); its headings in the serif, the notes and the words to read out on panels in a pale tint of the paper.
 The guide's parts keep their classes from the paper look, and `.doc` (and `html.guide-page.classic`, at the end of

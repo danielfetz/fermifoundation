@@ -2180,7 +2180,18 @@ html.classic .page-hero h1 {
 /* For schools' on two lines on laptops, Host a Fermi Poker tournament / at your school or university ("…tournament" is
    10.3em, "…tournament at" 11.1em); on phones three, as they fall */
 html.schools-page.classic .page-hero h1 { max-width: 10.6em; }
-.page-hero__sub { max-width: 26em; margin: 20px auto 0; color: var(--home-ink); font-family: var(--display); font-size: clamp(24px, 2.2vw, 32px); line-height: 1.2; }
+/* (How to play's line saying who wrote it is set like it) */
+.page-hero__sub,
+html.classic .page-hero__byline {
+  max-width: 26em;
+  margin: 20px auto 0;
+  color: var(--home-ink);
+  font-family: var(--display);
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-stretch: 100%;
+  font-weight: 400;
+  line-height: 1.2;
+}
 
 /* The page on paper, a centred column, without the laptops' sheet; For schools' band ends it */
 html.classic :is(.doc, .faq) { margin-top: 0; padding: 0 0 120px; background: #efeade; }
@@ -2277,7 +2288,8 @@ html.classic .faq__panel { max-width: none; }
   .page-hero__kicker { font-size: 12px; }
   /* As large as the home page's headline on phones */
   html.classic .page-hero h1 { font-size: min(60px, (100vw - 40px) / 6.85); line-height: 1.04; }
-  .page-hero__sub { font-size: 22px; }
+  .page-hero__sub,
+  html.classic .page-hero__byline { font-size: 22px; }
   html.classic :is(.doc, .faq) { padding-bottom: 72px; }
   html.schools-page.classic .doc { padding-bottom: 0; }
   html.classic .doc .page { width: calc(100% - 32px); margin: 0 auto; }
@@ -2297,20 +2309,11 @@ html.classic .faq__panel { max-width: none; }
 }
 
 /* How to play in the classic look (html.guide-page.classic): the header as on the other inner pages, with who wrote
-   the guide under the title, smaller, in Instrument Sans. Then the guide in one white card on the paper (.doc), as
+   the guide under the title, in the serif, as the other pages' line under the title (above). Then the guide in one white card on the paper (.doc), as
    wide as the other pages' cards with its sides, starting with what the page is about; on wide screens its footnotes
    stand on the paper to its right, beside their lines (assets/site.js). Its headings in the serif, the notes and the
    words to read out on panels in a pale tint of the paper, with soft corners. */
 html.guide-page.classic body { background: #efeade; }
-html.classic .page-hero__byline {
-  margin: 22px auto 0;
-  color: #5c5249;
-  font-family: var(--mona);
-  font-size: 17px;
-  font-stretch: 100%;
-  font-weight: 450;
-  line-height: 1.5;
-}
 html.classic .page-hero__byline a {
   color: inherit;
   text-decoration: underline 1px rgba(43, 37, 31, 0.3);
@@ -2374,7 +2377,6 @@ html.guide-page.classic .fn-pop {
 @media (max-width: 700px) {
   /* The title on two lines, How to play / Fermi Poker ("How to play Fermi" is 5.9em, "Fermi Poker" 4em) */
   html.guide-page.classic .page-hero h1 { max-width: 5em; }
-  html.classic .page-hero__byline { margin-top: 18px; font-size: 15px; }
   html.guide-page.classic .doc { width: calc(100% - 32px); margin-bottom: 72px; padding: 30px 20px 36px; border-radius: 18px; }
   html.guide-page.classic .doc .section > h2 { font-size: 38px; }
   html.guide-page.classic .doc .section__step { font-size: 26px; }
