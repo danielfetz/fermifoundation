@@ -222,7 +222,7 @@ if (guideForm) {
 // /api/subscribe (api/subscribe.js), which emails a link to confirm. The pop-up comes up by itself once: on laptops
 // when the mouse leaves the page at the top, heading for the tabs or the close button, after 10 seconds on the page;
 // on phones and tablets after 30 seconds on it. Then not again for 30 days, and never after signing up, sending the
-// For schools form or asking for the guide. "Get updates" in the menu opens it any time. The Play page doesn't load this
+// For schools form or asking for the guide. "Get updates" in the footer opens it any time. The Play page doesn't load this
 // script, so never there.
 const remember = {
   get() {

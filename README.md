@@ -75,8 +75,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `python3 scripts/deck_etching.py` (it needs Pillow).
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seventeen (the five tournaments' pages, Partner with us and the page not found among them). On wide
-screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
-Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
+screens the menu shows For schools, For companies, FAQ and Donate, and the phone menu shows the same four; the footer
+lists every page but Credits. Every page but Play is in the new design (its `html` has the class `new-design`): the menu (`nav--light`) on
 the header's photo, in white (`nav--over`; in ink on the paper of the pages in the classic look, below), the phone menu opening in white, with the
 name alone as the logo, links in the text as rust words a little bolder than the text, with a light underline, and the
 dark brown footer (`footer--dark`), which has where to write in place of the logo. The paper look the pages had before
@@ -155,10 +155,9 @@ Frequently asked questions has five of the FAQ page's questions, opening in plac
 answers are copies of the FAQ page's, so change them in both.
 
 The guide by email goes to `api/guide.js`, which emails the whole guide, from contact@fermi.org with replies to it:
-a line on what's in it, the links to the rule sheet, the questions to print and the questions on a screen (the Play
-page), a line on the question set that isn't public (write us for it), then the guide itself, as on How to play
-(every variation open, the footnotes at the end, the hidden sample question left out), and the way to funding for
-schools. The guide in it comes from `api/_guide-email.js`, which `scripts/guide_email.py` makes from
+the guide itself straight away, as on How to play (every variation open, the footnotes at the end, the hidden sample
+question left out; the rule sheet, the questions to print, the Play page and the question set that isn't public are
+in it, under Materials), then the way to funding for schools. The guide in it comes from `api/_guide-email.js`, which `scripts/guide_email.py` makes from
 `how-to-play/index.html` (in HTML with its styles on each element, as email apps want them, and as plain text): after
 changing the guide, run `python3 scripts/guide_email.py` (it needs nothing but Python 3), or the email keeps the old
 text. It also emails daniel@fermi.org who asked (`GUIDE_NOTIFY` in `api/guide.js`; replying writes to
@@ -213,7 +212,7 @@ has no dot.
 
 Get updates: people leave their email to hear when we release new question sets, and whenever there's other news about
 Fermi Poker. The form is at the end of the home page (a second one, under the introduction, is hidden for now), on its
-own page (`updates/`), and in a pop-up that "Get updates" in the phone menu and the footer opens (`assets/site.js`).
+own page (`updates/`), and in a pop-up that "Get updates" in the footer opens (`assets/site.js`).
 In the classic look the form is a round field with the button in it, in ink, like the guide by email under the home
 page's headline (on phones the button under the field). The forms ask only for the email; the pop-up also asks what they are ("I'm a…", optional). The pop-up also comes up by
 itself once: on laptops when the mouse leaves the page at the top, after 10 seconds on it; on phones and tablets after
