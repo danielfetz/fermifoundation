@@ -1877,7 +1877,8 @@ html.classic .nav--over.is-stuck:not(.is-open) {
 }
 html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
 /* The home page's bar over the menu (html.has-topbar): white, a line pointing to the Play page and one small round
-   button to it, in ink; on phones a shorter line. The menu sits under it and sticks to the top once the bar has
+   button to it, in ink; on narrower screens a shorter line (below 780px), and a shorter one still on the smallest
+   phones (below 360px), so it always fits on one line. The menu sits under it and sticks to the top once the bar has
    gone by, and the header starts under the menu, as it does without the bar. Safari's strip above the page is white
    like the bar. */
 .topbar {
@@ -1897,6 +1898,7 @@ html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100d
   font-weight: 500;
   white-space: nowrap;
 }
+.topbar__medium,
 .topbar__short { display: none; }
 .topbar__btn {
   display: inline-flex;
@@ -1917,9 +1919,15 @@ html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100d
 html.has-topbar.classic .nav--over { position: sticky; top: 0; }
 html.has-topbar :is(.hero, .page-hero) { margin-top: -76px; }
 html.new-design.classic.has-topbar:not(.menu-open) { --page-bg: #fff; }
+@media (max-width: 779px) {
+  .topbar__long { display: none; }
+  .topbar__medium { display: inline; }
+}
 @media (max-width: 520px) {
   .topbar { gap: 10px; font-size: 14px; }
-  .topbar__long { display: none; }
+}
+@media (max-width: 359px) {
+  .topbar__medium { display: none; }
   .topbar__short { display: inline; }
 }
 html.classic { scroll-padding-top: 92px; }
