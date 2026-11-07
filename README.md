@@ -34,7 +34,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   (Fontsource's "standard" Latin file). `fermi-logo.woff2` is Mona Sans fixed at weight 600 and width 125%, with only
   the letters of "Fermi Foundation" and "Fermi Poker", for the name at the top of the pages before the classic look
   (2 KB; on no page for now: the name is now in Instrument Serif, on the Play page too); add any letter it gains. It was made with fontTools (instancer, and subset with only the kerning)
-  and renamed Fermi Logo, as "Mona" is a Reserved Font Name.
+  and renamed Fermi Logo, as "Mona" is a Reserved Font Name. `fermi-wide-latin.woff2` is the same cut with all of basic
+  Latin and Latin-1 and the curly quotes (17 KB), for the questions in it on the home page's bar, so the home page
+  needn't load the whole of Mona Sans; made the same way (subset with only the features browsers turn on by
+  themselves) and renamed Fermi Wide.
 - `instrument-serif-latin.woff2` (and its italic) and `instrument-sans-latin.woff2` are Instrument Serif and
   Instrument Sans (Open Font License, unmodified; Fontsource's Latin files, the sans the variable one with every weight
   and width), the classic look's headings and text (below).
@@ -136,9 +139,12 @@ more and get involved, the mailing list, and Frequently asked questions. It's se
 pages: its headings in Instrument Serif and its text in Instrument Sans, and its header on paper (`#efeade`), with the
 hall photo faded onto it (`hall-paper.webp`) rising from its foot, the menu and the words in ink and centred. All of
 it is one block at the end of `site.css` (the rules above it for the home page's header still describe the dark hall).
-Over the menu, a white bar points to the Play page: nine questions from the pack drifting by in the serif (copied
-word for word from `play/questions.js`; change them in both) and a small round "Play now" button; the menu sits under it and sticks to the top once
-it has scrolled away (`html.has-topbar`, only on the home page). Under the headline is the guide by email: a field and
+Over the menu, a deep rust bar points to the Play page: eight questions from the pack drifting by in cream, in turn
+in the serif and in Mona Sans at its widest (copied word for word from `play/questions.js`; change them in both, and
+keep their number even, so the two faces still take turns where the loop starts over), and a small round cream "Play
+now" button; the menu sits under it and sticks to the top once it has scrolled away (`html.has-topbar`, only on the
+home page). For now, `/?bar=b3` shows the bar white instead, with the questions and the button in rust, to compare.
+Under the headline is the guide by email: a field and
 "Send me the guide", in ink. Host a tournament
 (`host-a-tournament/`) is a short page of links to the materials (the guide, the rule sheet and the questions to
 print, and the Play page), each row's heading the link (`boxes--links`), and under them the introduction's lines for

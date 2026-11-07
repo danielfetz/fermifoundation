@@ -72,6 +72,16 @@
   font-display: swap;
   src: url(/assets/fonts/fermi-logo.woff2) format('woff2');
 }
+/* The same, with all of basic Latin and Latin-1 and the curly quotes (17 KB), for the questions in it on the home
+   page's bar, so the home page needn't load the whole of Mona Sans. Also under its own name, as the license asks. */
+@font-face {
+  font-family: 'Fermi Wide';
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 125%;
+  font-display: swap;
+  src: url(/assets/fonts/fermi-wide-latin.woff2) format('woff2');
+}
 /* Local fallbacks sized like the web fonts, so text doesn't jump when they load */
 @font-face {
   font-family: 'Fermi Sans Fallback';
@@ -1876,22 +1886,22 @@ html.classic .nav--over.is-stuck:not(.is-open) {
   backdrop-filter: blur(10px);
 }
 html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
-/* The home page's bar over the menu (html.has-topbar): white, questions from the pack drifting by in the serif, with
-   a small rust star between them, and on the right a small round button to the Play page, in ink. The questions fade
-   out at the bar's ends, stop under the mouse (not under a finger, where a tap could leave them stopped), and stand still for people whose device asks for less motion. The menu
-   sits under the bar and sticks to the top once the bar has gone by, and the header starts under the menu, as it does
-   without the bar. Safari's strip above the page is white like the bar. */
+/* The home page's bar over the menu (html.has-topbar): deep rust, questions from the pack drifting by in cream, in
+   turn in the serif and in Mona Sans at its widest (.topbar__q--alt, in the cut Fermi Wide), with only space between
+   them, and on the right a small round cream button to the Play page. The questions fade out at the bar's ends, stop
+   under the mouse (not under a finger, where a tap could leave them stopped), and stand still for people whose device
+   asks for less motion. The menu sits under the bar and sticks to the top once the bar has gone by, and the header
+   starts under the menu, as it does without the bar. Safari's strip above the page is rust like the bar. */
 .topbar {
   position: relative;
   z-index: 101;
   display: flex;
   align-items: center;
   gap: 14px;
-  height: 48px;
+  height: 62px;
   padding: 0 16px 0 0;
-  border-bottom: 1px solid rgba(43, 37, 31, 0.1);
-  background: #fff;
-  color: var(--home-ink);
+  background: #7c3511;
+  color: #f6efe6;
   white-space: nowrap;
 }
 .topbar__ticker {
@@ -1904,7 +1914,7 @@ html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100d
   -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 60px), transparent);
   mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 60px), transparent);
 }
-.topbar__track { display: flex; align-items: center; animation: topbar-run 90s linear infinite; }
+.topbar__track { display: flex; align-items: center; animation: topbar-run 98s linear infinite; }
 @media (hover: hover) {
   .topbar__ticker:hover .topbar__track { animation-play-state: paused; }
 }
@@ -1912,34 +1922,41 @@ html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100d
 @media (prefers-reduced-motion: reduce) {
   .topbar__track { animation: none; }
 }
-.topbar__q { font-family: var(--display); font-size: 18px; }
-.topbar__sep { padding: 0 22px; color: #9c4a17; font-size: 11px; }
+.topbar__q { padding: 0 20px; font-family: var(--display); font-size: 25px; line-height: 1; }
+.topbar__q--alt { font-family: 'Fermi Wide', var(--sans); font-size: 18px; font-stretch: 125%; font-weight: 600; letter-spacing: -0.005em; }
 .topbar__btn {
   display: inline-flex;
   flex: none;
   align-items: center;
   gap: 6px;
-  height: 32px;
-  padding: 0 15px;
+  height: 38px;
+  padding: 0 18px;
   border-radius: 999px;
-  background: var(--home-ink);
-  color: #f6f1e7;
+  background: #f6efe6;
+  color: #7c3511;
   font-family: var(--mona);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   transition: background-color 150ms var(--ease);
 }
-.topbar__btn:hover { background: #1b1511; }
+.topbar__btn:hover { background: #fff; }
 .topbar__btn svg { width: 13px; height: 13px; transition: transform 150ms var(--ease); }
 .topbar__btn:hover svg { transform: translateX(2px); }
 html.has-topbar.classic .nav--over { position: sticky; top: 0; }
 html.has-topbar :is(.hero, .page-hero) { margin-top: -76px; }
-html.new-design.classic.has-topbar:not(.menu-open) { --page-bg: #fff; }
+html.new-design.classic.has-topbar:not(.menu-open) { --page-bg: #7c3511; }
 @media (max-width: 700px) {
-  .topbar__q { font-size: 16px; }
-  .topbar__sep { padding: 0 16px; }
-  .topbar__btn { padding: 0 13px; }
+  .topbar { height: 54px; }
+  .topbar__q { font-size: 21px; }
+  .topbar__q--alt { font-size: 15.5px; }
+  .topbar__btn { height: 34px; padding: 0 14px; font-size: 14px; }
 }
+/* For now, to compare the two looks (fermi.org/?bar=b3, which a line in the home page's head turns into the class
+   bar-b3): the bar white, with a hairline under it, the questions in rust and the button rust */
+html.bar-b3 .topbar { border-bottom: 1px solid rgba(43, 37, 31, 0.1); background: #fff; color: #7c3511; }
+html.bar-b3 .topbar__btn { background: #9c4a17; color: #fff; }
+html.bar-b3 .topbar__btn:hover { background: #7c3511; }
+html.new-design.classic.has-topbar.bar-b3:not(.menu-open) { --page-bg: #fff; }
 html.classic { scroll-padding-top: 92px; }
 html.classic .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
 

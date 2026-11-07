@@ -22,6 +22,7 @@
   <link rel="preload" href="/assets/fonts/fermi-serif-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/fermi-wide-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/img/hall-paper.webp" as="image">
   <link rel="stylesheet" href="/assets/site.css">
   <script src="/assets/site.js" defer></script>
@@ -29,14 +30,20 @@
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
+  <!-- For now, to compare the bar's two looks: fermi.org/?bar=b3 shows it white, the questions and the button in rust -->
+  <script>
+    if (/[?&]bar=b3(&|$)/.test(location.search)) document.documentElement.classList.add('bar-b3');
+  </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <!-- The menu sits on the header (nav--over), in ink on the home page -->
-  <!-- A white bar over the menu, pointing to the Play page: questions from the pack (play/questions.js, word for word)
-       drifting by, and a button to play (assets/site.css). The track holds them twice, so it loops without a seam. -->
+  <!-- A rust bar over the menu, pointing to the Play page: eight questions from the pack (play/questions.js, word for
+       word) drifting by, in turn in the serif and in the wide sans (topbar__q--alt), and a button to play
+       (assets/site.css). The track holds them twice, so it loops without a seam; with an even number of questions, the
+       faces keep taking turns there too. -->
   <div class="topbar">
-    <div class="topbar__ticker" aria-hidden="true"><div class="topbar__track"><span class="topbar__q">How many new smartphones were sold worldwide in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many people work in McDonald’s restaurants in the United States?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many visitors did the Louvre Museum have in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">What percentage of Earth’s surface is land?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many babies were born worldwide in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many people used Duolingo on an average day in mid-2026?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many Summer Olympic medals have American athletes won in total?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many iPhones has Apple ever sold (up until July 2025)?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many passenger flights departed the US for Europe in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many new smartphones were sold worldwide in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many people work in McDonald’s restaurants in the United States?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many visitors did the Louvre Museum have in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">What percentage of Earth’s surface is land?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many babies were born worldwide in 2025?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many people used Duolingo on an average day in mid-2026?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many Summer Olympic medals have American athletes won in total?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many iPhones has Apple ever sold (up until July 2025)?</span><span class="topbar__sep">✦</span><span class="topbar__q">How many passenger flights departed the US for Europe in 2025?</span><span class="topbar__sep">✦</span></div></div>
+    <div class="topbar__ticker" aria-hidden="true"><div class="topbar__track"><span class="topbar__q">How many new smartphones were sold worldwide in 2025?</span><span class="topbar__q topbar__q--alt">How many people work in McDonald’s restaurants in the United States?</span><span class="topbar__q">How many visitors did the Louvre Museum have in 2025?</span><span class="topbar__q topbar__q--alt">What percentage of Earth’s surface is land?</span><span class="topbar__q">How many babies were born worldwide in 2025?</span><span class="topbar__q topbar__q--alt">How many Summer Olympic medals have American athletes won in total?</span><span class="topbar__q">How many iPhones has Apple ever sold (up until July 2025)?</span><span class="topbar__q topbar__q--alt">How many passenger flights departed the US for Europe in 2025?</span><span class="topbar__q">How many new smartphones were sold worldwide in 2025?</span><span class="topbar__q topbar__q--alt">How many people work in McDonald’s restaurants in the United States?</span><span class="topbar__q">How many visitors did the Louvre Museum have in 2025?</span><span class="topbar__q topbar__q--alt">What percentage of Earth’s surface is land?</span><span class="topbar__q">How many babies were born worldwide in 2025?</span><span class="topbar__q topbar__q--alt">How many Summer Olympic medals have American athletes won in total?</span><span class="topbar__q">How many iPhones has Apple ever sold (up until July 2025)?</span><span class="topbar__q topbar__q--alt">How many passenger flights departed the US for Europe in 2025?</span></div></div>
     <a class="topbar__btn" href="/play/">Play now<span class="sr-only"> with our questions on a screen</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
   <nav class="nav nav--light nav--over">
