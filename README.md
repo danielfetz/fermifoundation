@@ -60,8 +60,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   Each device plays them in an order of its own, shuffled the first time and then kept. Rewording, adding, removing
   or reordering questions in the file starts every device again, in a new order (a hint or an answer can change
   without that). Its styles and script are
-  `assets/play.css` and `assets/play.js`. Its cards use the printed cards' fonts, IBM Plex Sans and IBM Plex Mono
-  (`assets/fonts/ibm-plex-*.woff2`, Open Font License, self-hosted as Google Fonts serves them). It isn't in the menu
+  `assets/play.css` and `assets/play.js`. Its cards use the printed cards' font, IBM Plex Sans, the answer in it too
+  (`assets/fonts/ibm-plex-sans-var-latin.woff2`, Open Font License, self-hosted as Google Fonts serves it). It isn't in the menu
   yet. Its Rules button opens the rules needed
   at the table, in the rule sheet's words (the PDF's text without its introduction and example, the game variants and
   the end of the game), so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
