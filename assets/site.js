@@ -9,6 +9,8 @@ if (toggle && sheet) {
     // The page background follows, so Safari paints the strip under the notch in the menu's color too
     document.documentElement.classList.toggle('menu-open', open)
     sheet.hidden = !open
+    // As tall as the screen leaves under the menu (on the home page the bar over it may still be in view)
+    if (open) sheet.style.maxHeight = `${Math.max(200, innerHeight - nav.getBoundingClientRect().bottom)}px`
     toggle.setAttribute('aria-expanded', String(open))
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
   }
