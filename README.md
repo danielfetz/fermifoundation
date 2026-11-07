@@ -139,11 +139,11 @@ more and get involved, the mailing list, and Frequently asked questions. It's se
 pages: its headings in Instrument Serif and its text in Instrument Sans, and its header on paper (`#efeade`), with the
 hall photo faded onto it (`hall-paper.webp`) rising from its foot, the menu and the words in ink and centred. All of
 it is one block at the end of `site.css` (the rules above it for the home page's header still describe the dark hall).
-Over the menu, a deep rust bar points to the Play page: eight questions from the pack drifting by in cream, in turn
-in the serif and in Mona Sans at its widest (copied word for word from `play/questions.js`; change them in both, and
-keep their number even, so the two faces still take turns where the loop starts over), and a small round cream "Play
-now" button; the menu sits under it and sticks to the top once it has scrolled away (`html.has-topbar`, only on the
-home page). For now, `/?bar=b3` shows the bar white instead, with the questions and the button in rust, to compare.
+Over the menu, a white bar points to the Play page: eight questions from the pack drifting by in ink, in turn in the
+serif and in Mona Sans at its widest (copied word for word from `play/questions.js`; change them in both, and keep
+their number even, so the two faces still take turns where the loop starts over), and a small round "Play now" button
+in ink; the menu sits under it and sticks to the top once it has scrolled away (`html.has-topbar`, only on the home
+page).
 Under the headline is the guide by email: a field and
 "Send me the guide", in ink. Host a tournament
 (`host-a-tournament/`) is a short page of links to the materials (the guide, the rule sheet and the questions to
