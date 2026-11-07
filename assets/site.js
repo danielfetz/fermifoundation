@@ -27,9 +27,11 @@ if (toggle && sheet) {
   })
 }
 
-// The menu stays at the top (site.css); once the page has moved, it gets the paper behind it and a line under it
+// The menu stays at the top (site.css); once the page has moved on under it, it gets the paper behind it. On the home
+// page it only reaches the top when the bar over it (.topbar) has gone by, so the page has to move on from there.
 if (nav) {
-  const stick = () => nav.classList.toggle('is-stuck', scrollY > 8)
+  const topbar = document.querySelector('.topbar')
+  const stick = () => nav.classList.toggle('is-stuck', scrollY > (topbar ? topbar.offsetHeight : 0) + 8)
   stick()
   addEventListener('scroll', stick, { passive: true })
 }
