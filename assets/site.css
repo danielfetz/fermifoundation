@@ -1876,39 +1876,55 @@ html.classic .nav--over.is-stuck:not(.is-open) {
   backdrop-filter: blur(10px);
 }
 html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
-/* The home page's bar over the menu (html.has-topbar): white, a line pointing to the Play page and one small round
-   button to it, in ink; on narrower screens a shorter line (below 700px), and a shorter one still on the smallest
-   phones (below 360px), so it always fits on one line. The menu sits under it and sticks to the top once the bar has
-   gone by, and the header starts under the menu, as it does without the bar. Safari's strip above the page is white
-   like the bar. */
+/* The home page's bar over the menu (html.has-topbar): white, questions from the pack drifting by in the serif, with
+   a small rust star between them, and on the right a small round button to the Play page, in ink. The questions fade
+   out at the bar's ends, stop under the mouse (not under a finger, where a tap could leave them stopped), and stand still for people whose device asks for less motion. The menu
+   sits under the bar and sticks to the top once the bar has gone by, and the header starts under the menu, as it does
+   without the bar. Safari's strip above the page is white like the bar. */
 .topbar {
   position: relative;
   z-index: 101;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 14px;
-  height: 50px;
-  padding: 0 16px;
+  height: 48px;
+  padding: 0 16px 0 0;
   border-bottom: 1px solid rgba(43, 37, 31, 0.1);
   background: #fff;
   color: var(--home-ink);
-  font-family: var(--mona);
-  font-size: 15px;
-  font-weight: 500;
   white-space: nowrap;
 }
-.topbar__medium,
-.topbar__short { display: none; }
+.topbar__ticker {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 60px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 60px), transparent);
+}
+.topbar__track { display: flex; align-items: center; animation: topbar-run 90s linear infinite; }
+@media (hover: hover) {
+  .topbar__ticker:hover .topbar__track { animation-play-state: paused; }
+}
+@keyframes topbar-run { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .topbar__track { animation: none; }
+}
+.topbar__q { font-family: var(--display); font-size: 18px; }
+.topbar__sep { padding: 0 22px; color: #9c4a17; font-size: 11px; }
 .topbar__btn {
   display: inline-flex;
+  flex: none;
   align-items: center;
   gap: 6px;
-  height: 30px;
-  padding: 0 14px;
+  height: 32px;
+  padding: 0 15px;
   border-radius: 999px;
   background: var(--home-ink);
   color: #f6f1e7;
+  font-family: var(--mona);
   font-size: 14px;
   font-weight: 600;
   transition: background-color 150ms var(--ease);
@@ -1919,16 +1935,10 @@ html.classic .nav__sheet { max-height: calc(100vh - 76px); max-height: calc(100d
 html.has-topbar.classic .nav--over { position: sticky; top: 0; }
 html.has-topbar :is(.hero, .page-hero) { margin-top: -76px; }
 html.new-design.classic.has-topbar:not(.menu-open) { --page-bg: #fff; }
-@media (max-width: 699px) {
-  .topbar__long { display: none; }
-  .topbar__medium { display: inline; }
-}
-@media (max-width: 520px) {
-  .topbar { gap: 10px; font-size: 14px; }
-}
-@media (max-width: 359px) {
-  .topbar__medium { display: none; }
-  .topbar__short { display: inline; }
+@media (max-width: 700px) {
+  .topbar__q { font-size: 16px; }
+  .topbar__sep { padding: 0 16px; }
+  .topbar__btn { padding: 0 13px; }
 }
 html.classic { scroll-padding-top: 92px; }
 html.classic .logo { font-family: var(--display); font-size: 29px; font-stretch: 100%; font-weight: 400; letter-spacing: -0.005em; }
