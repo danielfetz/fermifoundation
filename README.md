@@ -136,9 +136,9 @@ more and get involved, the mailing list, and Frequently asked questions. It's se
 pages: its headings in Instrument Serif and its text in Instrument Sans, and its header on paper (`#efeade`), with the
 hall photo faded onto it (`hall-paper.webp`) rising from its foot, the menu and the words in ink and centred. All of
 it is one block at the end of `site.css` (the rules above it for the home page's header still describe the dark hall).
-Over the menu, a white bar points to the Play page: "Playing with friends? Show the questions on a phone or tablet
-instead of printing them." and a small round "Try it" button (below 780px "Playing with friends? Use a phone.", below
-360px "Questions on your phone."); the menu sits under it and sticks to the top once
+Over the menu, a white bar points to the Play page: "All you need to play is a few friends, poker chips and
+something to write with." and a small round "Try it" button (below 700px "Play with friends, chips and a pen.",
+below 360px "Want to play?"); the menu sits under it and sticks to the top once
 it has scrolled away (`html.has-topbar`, only on the home page). Under the headline is the guide by email: a field and
 "Send me the guide", in ink. Host a tournament
 (`host-a-tournament/`) is a short page of links to the materials (the guide, the rule sheet and the questions to
