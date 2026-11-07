@@ -297,16 +297,22 @@ body.play {
   touch-action: manipulation;
 }
 /* The etching of the table shows through it, faintly, lined up with the table: play.js works out where the etching
-   lies under each card (--etching-at, --etching-size). Only its lines darken the cream, not its paper. */
+   lies under each card (--etching-at, --etching-size). Only its lines darken the cream, not its paper. The etching is
+   a copy made for this (forum-piranesi-deck.webp, by scripts/deck_etching.py): already grey, its contrast raised and
+   faded to 15%, so the card only multiplies it in (done here with a filter and an opacity, it was slow for phones to
+   draw). The picture is set on its own, apart from its place and size: in one shorthand with them, which differ from
+   card to card (var()), Chrome takes it for a new picture whenever the card's style is worked out again, and so
+   draws the card again on every frame while it moves. */
 .back::before {
   content: "";
   position: absolute;
   z-index: -1;
   inset: 0;
   border-radius: inherit;
-  background: url(/assets/img/forum-piranesi.webp) var(--etching-at, 0 0) / var(--etching-size, cover) no-repeat;
-  filter: grayscale(1) contrast(1.3);
-  opacity: 0.15;
+  background-image: url(/assets/img/forum-piranesi-deck.webp);
+  background-position: var(--etching-at, 0 0);
+  background-size: var(--etching-size, cover);
+  background-repeat: no-repeat;
   mix-blend-mode: multiply;
   clip-path: inset(8.5px round 1px);
   pointer-events: none;

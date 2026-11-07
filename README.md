@@ -70,7 +70,9 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   the viewport tag, with `touch-action` in `play.css`, and for Safari's pinch, which can ignore both, in `play.js`.
   The deck's cards are thin cream paper with the table's etching showing through them, lined up with it: `play.js`
   knows the etching's size and place on the table (`ETCHING`), so change it along with the `.rome` background in
-  `play.css`.
+  `play.css`. What shows through is a copy of the etching made for it, already grey and faint
+  (`forum-piranesi-deck.webp`, which the cards multiply in): after changing the etching, make it again with
+  `python3 scripts/deck_etching.py` (it needs Pillow).
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seventeen (the five tournaments' pages, Partner with us and the page not found among them). On wide
 screens the menu shows For schools, For companies, FAQ and Donate; the phone menu and the footer list every page but
