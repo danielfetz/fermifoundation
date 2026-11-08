@@ -688,13 +688,17 @@
     if (closing && /^rules-(down|out)$/.test(event.animationName)) rules.close();
   });
   rules.addEventListener('close', () => {
+    dimmed(false);
     clearTimeout(closing);
     closing = 0;
     rules.classList.remove('is-closing');
     rulesButton.focus({ preventScroll: true });
   });
+  // While a sheet is open, Safari's strip above the page is dimmed with the table (play.css)
+  const dimmed = (on) => document.documentElement.classList.toggle('has-sheet', on);
   rulesButton.addEventListener('click', () => {
     showMenu(false);
+    dimmed(true);
     rules.showModal();
     rulesBody.scrollTop = 0;
     rulesBody.focus({ preventScroll: true });
@@ -739,6 +743,7 @@
   function openTour() {
     if (tour.open) return;
     tour.classList.remove('is-closing');
+    dimmed(true);
     tour.showModal();
     tourSlides.scrollLeft = 0;
     tourShow(0);
@@ -755,6 +760,7 @@
     if (tourClosing && event.target === tour && /^rules-(down|out)$/.test(event.animationName)) tour.close();
   });
   tour.addEventListener('close', () => {
+    dimmed(false);
     clearTimeout(tourClosing);
     tourClosing = 0;
     tour.classList.remove('is-closing');
@@ -790,6 +796,68 @@
     showMenu(false);
     openTour();
   });
+
+  // On phones the rule sheet and the tour are sheets from the bottom, with a handle: dragged down (the tour anywhere,
+  // the rules by their top), the sheet follows the finger, and far enough down, or flicked, it closes; otherwise it
+  // springs back. A drag that ends on a button doesn't press it. (Sideways is the tour's slides, and up is nothing.)
+  const sheets = matchMedia('not all and (min-width: 700px)');
+  function dragToClose(sheet, from, close) {
+    let drag = null;
+    let pressed = true;
+    from.addEventListener('pointerdown', (event) => {
+      if (!sheets.matches || !event.isPrimary || event.button > 0) return;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, dy: 0, moving: false, at: event.timeStamp, speed: 0 };
+    });
+    from.addEventListener('pointermove', (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const dx = event.clientX - drag.x;
+      const dy = event.clientY - drag.y;
+      if (!drag.moving) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (dy < 0 || Math.abs(dx) > Math.abs(dy)) {
+          drag = null;
+          return;
+        }
+        drag.moving = true;
+        from.setPointerCapture(event.pointerId);
+        sheet.style.transition = 'none';
+      }
+      const down = Math.max(0, dy);
+      if (event.timeStamp > drag.at) drag.speed = (down - drag.dy) / (event.timeStamp - drag.at);
+      drag.at = event.timeStamp;
+      drag.dy = down;
+      sheet.style.transform = `translateY(${down}px)`;
+      sheet.style.setProperty('--drag', String(Math.min(1, down / sheet.offsetHeight)));
+    });
+    const release = (event, cancelled) => {
+      if (!drag || event.pointerId !== drag.id) return;
+      const { moving, dy, speed } = drag;
+      drag = null;
+      if (!moving) return;
+      // The click this pointer may still bring is the end of the drag, not a press
+      pressed = false;
+      setTimeout(() => { pressed = true; });
+      if (!cancelled && (dy > Math.min(140, sheet.offsetHeight / 4) || (speed > 0.5 && dy > 24))) return close();
+      sheet.style.transition = 'transform 220ms var(--ease)';
+      sheet.style.transform = '';
+      sheet.style.removeProperty('--drag');
+    };
+    from.addEventListener('pointerup', (event) => release(event, false));
+    from.addEventListener('pointercancel', (event) => release(event, true));
+    from.addEventListener('click', (event) => {
+      if (pressed) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
+    // As it was, for the next time it opens
+    sheet.addEventListener('close', () => {
+      sheet.style.transition = '';
+      sheet.style.transform = '';
+      sheet.style.removeProperty('--drag');
+    });
+  }
+  dragToClose(rules, rules.querySelector('.rules__head'), closeRules);
+  dragToClose(tour, tour, closeTour);
 
   // No zooming in (see play.css and the viewport tag): Safari lets you pinch the page anyway, unless the pinch is
   // stopped as it starts
