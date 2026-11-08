@@ -381,11 +381,11 @@ body.play {
   inset: auto 0 0;
   width: 100%;
   max-width: none;
-  max-height: calc(100% - 40px);
+  max-height: calc(100% - 24px);
   margin: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: 16px 16px 0 0;
+  border-radius: 28px 28px 0 0;
   background: #fffef8;
   color: var(--pc-ink);
   font-family: 'IBM Plex Sans', sans-serif;
@@ -415,18 +415,16 @@ body.play {
 @keyframes rules-out { to { opacity: 0; transform: translateY(10px) scale(0.98); } }
 @keyframes rules-fade-in { from { opacity: 0; } }
 @keyframes rules-fade-out { to { opacity: 0; } }
-.rules__handle { position: absolute; z-index: 1; top: 8px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: rgba(21, 29, 35, 0.22); }
-.rules__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 20px 12px 10px 22px;
-  /* A soft line, just enough to show where the text scrolls under the header */
-  border-bottom: 1px solid rgba(21, 21, 21, 0.14);
-}
-.rules__head h2 { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.rules__handle { position: absolute; z-index: 2; top: 9px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: rgba(21, 29, 35, 0.22); }
+/* The head as How betting works' (below): the title in the serif, the round × in the corner; the text fades out as it
+   scrolls under the head, and at the foot */
+.rules__head { position: relative; padding: 36px 66px 0 26px; }
+.rules__head h2 { font-family: 'Instrument Serif', Georgia, serif; font-size: 33px; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
 .rules__close {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
   display: grid;
   place-items: center;
   width: 40px;
@@ -435,16 +433,23 @@ body.play {
   color: var(--pc-ink);
   transition: background-color 150ms var(--ease);
 }
-.rules__close:hover { background: rgba(21, 29, 35, 0.07); }
-.rules__close svg { width: 22px; height: 22px; }
+.rules__close svg { width: 20px; height: 20px; }
+/* On plain paper the round ×, here and on How betting works, is a shade darker than the paper, to stand out a little,
+   as it does on the tour's etching */
+.rules__close,
+.betting .tour__close { background: rgba(27, 35, 42, 0.07); }
+.rules__close:hover,
+.betting .tour__close:hover { background: rgba(27, 35, 42, 0.12); }
 .rules__body {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 0 22px 26px;
+  padding: 8px 26px 26px;
   font-size: 16px;
   line-height: 1.45;
+  -webkit-mask-image: linear-gradient(transparent, #000 8px, #000 calc(100% - 22px), transparent);
+  mask-image: linear-gradient(transparent, #000 8px, #000 calc(100% - 22px), transparent);
 }
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
@@ -456,7 +461,7 @@ body.play {
   display: block;
   width: 100%;
   min-height: 116px;
-  margin-top: 16px;
+  margin-top: 14px;
   padding: 15px 18px 16px;
   overflow: hidden;
   border-radius: 16px;
@@ -479,6 +484,11 @@ body.play {
 .rules__tour-note .tour-note__paper { --margin: 15px; padding: 8px 11px 4px 23px; background-position: 0 0, 0 8px; }
 .rules__tour-note .tour-note__paper b { font-size: 20px; line-height: 28px; }
 .tour-chips.rules__tour-chips { right: calc(6px + clamp(0px, (100% - 296px) * 0.8, 40px)); bottom: 8px; width: 98px; height: 60px; }
+@media (max-width: 370px) {
+  .rules__head { padding-left: 20px; }
+  .rules__head h2 { font-size: 30px; }
+  .rules__body { padding-inline: 20px; }
+}
 /* The narrowest phones: the title and the picture a little smaller, to stay clear of each other */
 @media (max-width: 350px) {
   .rules__tour-title { font-size: 27px; }
@@ -519,18 +529,17 @@ body.play {
 @media (min-width: 700px) {
   .rules {
     inset: 0;
-    width: min(640px, 100% - 64px);
-    max-height: min(100% - 64px, 920px);
+    width: 500px;
+    max-height: min(100% - 48px, 760px);
     margin: auto;
-    border-radius: 8px;
+    border-radius: 26px;
     box-shadow: 0 2px 6px rgba(21, 29, 35, 0.15), 0 30px 70px -20px rgba(21, 29, 35, 0.6);
   }
   .rules[open] { animation-name: rules-in; animation-duration: 240ms; }
   .rules.is-closing { animation-name: rules-out; animation-duration: 160ms; }
   .rules.is-closing::backdrop { animation-duration: 160ms; }
   .rules__handle { display: none; }
-  .rules__head { padding: 14px 16px 12px 30px; }
-  .rules__body { padding: 0 30px 28px; }
+  .rules__head { padding-top: 32px; }
 }
 /* The first visit (play.js): what you need, and the game in four steps, in a sheet like the rule sheet (in the middle
    on bigger screens). Each slide has a picture of the game on top, made of the page's own cards, chips and paper,

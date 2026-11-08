@@ -62,8 +62,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   without that). Its styles and script are
   `assets/play.css` and `assets/play.js`. Its cards use the printed cards' font, IBM Plex Sans, the answer in it too
   (`assets/fonts/ibm-plex-sans-var-latin.woff2`, Open Font License, self-hosted as Google Fonts serves it). It isn't in the menu
-  yet. Its Rules button opens the rules as the questions players ask at the table ("Who acts first?", "Fewer
-  chips than the ante?"), grouped under five headings, each opening to its answer in the words of the rule sheet and the guide
+  yet. Its Rules button opens the rules, in a sheet like the tour's and How betting works' (below), as the questions
+  players ask at the table ("Who acts first?", "Not enough chips left for the ante?"), grouped under five headings, each opening to its answer in the words of the rule sheet and the guide
   (the guide's ante schedule and 60-second clock among them), with an example for side pots, and
   above them a way into the tour (a banner on the etching with slide 1's chips and a guess); so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
   that one, and only to look at it: the menu and the deck then take you back to the question in play). While the page
