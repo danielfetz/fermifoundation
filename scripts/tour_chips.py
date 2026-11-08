@@ -8,7 +8,8 @@ symbols: three stacks (#tour-chips, on the first slide) and the pot, a loose pil
 
     python3 scripts/tour_chips.py
 
-It needs nothing but Python 3. It rewrites the tour's <svg class="tour__defs"> in play/index.html.
+It needs nothing but Python 3. It rewrites the <svg class="tour__defs"> at the top of play/index.html, which the tour
+and the rules' way into it draw from.
 """
 import math
 import re

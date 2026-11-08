@@ -65,7 +65,7 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   yet. Its Rules button opens the rules as the questions players ask at the table ("Who acts first?", "Fewer
   chips than the ante?"), grouped under five headings, each opening to its answer in the words of the rule sheet and the guide
   (the guide's ante schedule and 60-second clock among them), with an example for side pots, and
-  a link to the tour above them; so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
+  above them a way into the tour (a banner on the etching with slide 1's chips and a guess); so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
   that one, and only to look at it: the menu and the deck then take you back to the question in play). While the page
   is open, it keeps the screen on. Zooming in is turned off there, as the table is laid out for the whole screen: in
   the viewport tag, with `touch-action` in `play.css`, and for Safari's pinch, which can ignore both, in `play.js`.

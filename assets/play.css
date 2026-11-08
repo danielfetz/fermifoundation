@@ -445,10 +445,40 @@ body.play {
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
 /* Above the questions: where to learn the game */
-.rules__intro { margin-top: 16px; padding: 12px 15px; border-radius: 12px; background: #f4efe6; color: #3d4a54; font-size: 15px; line-height: 1.4; }
-.rules__tour { color: var(--pc-ink); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.rules__tour:hover { color: var(--blue); }
+/* A banner on the etching, as the tour's pictures lie on it, with slide 1's chips and a guess on the right, clear of
+   the text */
+.rules__tour {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 116px;
+  margin-top: 16px;
+  padding: 15px 18px 16px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(244, 239, 230, 0.96) 45%, rgba(244, 239, 230, 0.7)), url(/assets/img/forum-piranesi.webp) 33% 40% / cover;
+  color: var(--pc-ink);
+  text-align: left;
+  box-shadow: inset 0 0 0 1px rgba(27, 35, 42, 0.08);
+}
 .rules__tour:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.rules__tour-text { position: relative; z-index: 1; display: grid; justify-items: start; gap: 4px; }
+.rules__tour-kicker { color: #6b6158; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.rules__tour-title { display: inline-flex; align-items: center; gap: 8px; font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; line-height: 1.05; letter-spacing: -0.01em; }
+.rules__tour-title svg { width: 18px; height: 18px; color: #9c4a17; transition: transform 150ms var(--ease); }
+.rules__tour:hover .rules__tour-title svg { transform: translateX(3px); }
+.rules__tour-sub { color: #3d4a54; font-size: 14.5px; }
+.rules__tour-art { position: absolute; top: 0; right: 0; bottom: 0; width: 118px; }
+.rules__tour-note { top: 13px; right: 10px; transform: rotate(6deg); }
+.rules__tour-note .tour-note__paper { --margin: 15px; padding: 8px 11px 4px 23px; background-position: 0 0, 0 8px; }
+.rules__tour-note .tour-note__paper b { font-size: 20px; line-height: 28px; }
+.tour-chips.rules__tour-chips { right: 6px; bottom: 8px; width: 98px; height: 60px; }
+/* The narrowest phones: the title and the picture a little smaller, to stay clear of each other */
+@media (max-width: 350px) {
+  .rules__tour-title { font-size: 27px; }
+  .rules__tour-note .tour-note__paper b { font-size: 17px; line-height: 24px; }
+  .tour-chips.rules__tour-chips { width: 86px; height: 53px; }
+}
 /* The questions, under a heading for each part of the game: each opens to its answer */
 .rules section { padding-top: 28px; }
 .rules h3 { margin-bottom: 6px; font-family: 'Instrument Serif', Georgia, serif; font-size: 29px; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
@@ -532,6 +562,7 @@ body.play {
   -webkit-mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
   mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
 }
+/* The chips' drawings, at the top of the page */
 .tour__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .tour__handle { position: absolute; z-index: 2; top: 9px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: rgba(21, 29, 35, 0.22); }
 .tour__close {
