@@ -73,9 +73,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `play.css`. What shows through is a copy of the etching made for it, already grey and faint
   (`forum-piranesi-deck.webp`, which the cards multiply in): after changing the etching, make it again with
   `python3 scripts/deck_etching.py` (it needs Pillow). Once on every device, the first time it opens the page (players
-  from before it came along too), a sheet explains it in four slides, each with a picture of the game made of the page's own cards, chips
-  and paper: what you need (the page only shows the cards), writing down a range, betting like in poker, and the
-  narrowest range winning. Its text is in the guide's words, so change them together. Local storage keeps
+  from before it came along too), a sheet explains it in four slides, each with a picture of the game: what you need (chips, and a guess
+  on a sheet torn off a notepad), writing down a range (the question card and a guess), betting like in poker (what
+  players say, in speech bubbles around the pot), and the narrowest range winning (the answer card with four guesses
+  around it, the wrong ones struck through). The cards are drawn like the page's own; the chips are SVG drawn by
+  `python3 scripts/tour_chips.py`, which writes them into `play/index.html` (change their colours or piles there). Its text is in the guide's words, so change them together. Local storage keeps
   `fermi-play-tour` once it has been shown, and "How it works" in the ⋯ menu brings it back. It's `#tour` in
   `play/index.html`, with its styles after the rule sheet's in `play.css`.
 

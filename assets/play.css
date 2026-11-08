@@ -582,7 +582,8 @@ body.play {
   .tour__handle { display: none; }
   .tour__foot { padding-bottom: 26px; }
 }
-/* The pictures: cards like the ones on the table (smaller), a guess written on a slip of paper, chips, a pencil */
+/* The pictures: cards like the ones on the table (smaller), guesses written on notepaper, chips (drawn by
+   scripts/tour_chips.py), a pencil, and what players say at the table */
 .tour-card {
   position: absolute;
   width: 238px;
@@ -591,43 +592,76 @@ body.play {
   background: #fffef8;
   box-shadow: inset 0 0 0 5px #fffef8, inset 0 0 0 6.2px rgba(27, 35, 42, 0.5), 0 0 0 1px rgba(27, 35, 42, 0.14), 0 14px 30px -12px rgba(30, 22, 8, 0.45);
 }
-.tour-card__top { display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1.2px solid #151515; font-size: 13px; font-weight: 700; }
-.tour-card__top span { color: #9c4a17; }
+.tour-card__top { padding-bottom: 6px; border-bottom: 1.2px solid #151515; font-size: 13px; font-weight: 700; }
 .tour-card__text { margin-top: 9px; font-size: 16px; line-height: 1.32; }
-.tour-card--back { height: 120px; }
-.tour-slip { position: absolute; display: grid; gap: 2px; padding: 10px 16px 12px; border-radius: 3px; background: #fffdf6; box-shadow: 0 1px 1px rgba(30, 22, 8, 0.12), 0 12px 24px -12px rgba(30, 22, 8, 0.5); }
-.tour-slip span { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6158; }
-.tour-slip b { font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; font-style: italic; font-weight: 400; line-height: 1; white-space: nowrap; }
-.tour-chips { position: absolute; width: 170px; height: 90px; }
+.tour-card__value { margin-top: 8px; font-size: 44px; line-height: 1.05; }
+/* A guess: a sheet torn off a notepad (its ragged top a clip-path), ruled, with a margin line, written in pencil */
+.tour-note { position: absolute; filter: drop-shadow(0 1px 1px rgba(30, 22, 8, 0.14)) drop-shadow(0 12px 12px rgba(30, 22, 8, 0.24)); }
+.tour-note__paper {
+  --margin: 24px;
+  display: grid;
+  padding: 15px 18px 10px 34px;
+  background:
+    linear-gradient(90deg, transparent var(--margin), rgba(196, 84, 60, 0.55) var(--margin), rgba(196, 84, 60, 0.55) calc(var(--margin) + 1.5px), transparent calc(var(--margin) + 1.5px)),
+    repeating-linear-gradient(transparent 0, transparent 21px, rgba(64, 104, 150, 0.22) 21px, rgba(64, 104, 150, 0.22) 22px),
+    #fffdf7;
+  background-position: 0 0, 0 15px;
+  clip-path: polygon(0 3px, 3.57% 1.6px, 7.14% 0.8px, 10.71% 2.4px, 14.29% 0.0px, 17.86% 0.0px, 21.43% 3.2px, 25.00% 0.0px, 28.57% 1.6px, 32.14% 3.2px, 35.71% 0.0px, 39.29% 3.2px, 42.86% 0.8px, 46.43% 0.0px, 50.00% 0.0px, 53.57% 2.4px, 57.14% 2.4px, 60.71% 0.0px, 64.29% 0.8px, 67.86% 0.0px, 71.43% 3.2px, 75.00% 2.4px, 78.57% 0.0px, 82.14% 3.2px, 85.71% 0.0px, 89.29% 0.8px, 92.86% 3.2px, 96.43% 0.0px, 100% 2px, 100% 100%, 0 100%);
+  color: #383d42;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+}
+.tour-note__paper span { font-size: 17px; line-height: 22px; }
+.tour-note__paper b { font-size: 34px; font-weight: 400; line-height: 44px; white-space: nowrap; }
+/* Smaller, without "My guess:", on the last slide; the wrong ones struck through */
+.tour-note--small .tour-note__paper { --margin: 18px; padding: 10px 12px 4px 28px; background-position: 0 0, 0 10px; }
+.tour-note--small .tour-note__paper b { position: relative; font-size: 25px; line-height: 34px; }
+.tour-note--out { opacity: 0.85; }
+.tour-note--out .tour-note__paper b::after { content: ""; position: absolute; top: 54%; right: -3px; left: -3px; height: 1.6px; border-radius: 1px; background: rgba(56, 61, 66, 0.8); transform: rotate(-4deg); }
+.tour-chips { position: absolute; width: 172px; height: 106px; }
+.tour-pot { position: absolute; width: 194px; height: 91px; }
 .tour-pencil { position: absolute; width: 150px; height: 22px; }
-.tour__pic--table .tour-chips { left: 22px; top: 120px; transform: rotate(-4deg); }
-.tour__pic--table .tour-slip { left: 150px; top: 58px; transform: rotate(5deg); }
+/* What players say, in speech bubbles, each tail part of its bubble (so the shadow goes round both) */
+.tour-say {
+  position: absolute;
+  padding: 7px 15px 9px;
+  border-radius: 18px;
+  background: #fffdf6;
+  color: #1b232a;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 25px;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+  filter: drop-shadow(0 1px 1px rgba(30, 22, 8, 0.14)) drop-shadow(0 10px 10px rgba(30, 22, 8, 0.22));
+}
+.tour-say::after { content: ""; position: absolute; width: 17px; height: 13px; background: #fffdf6; }
+/* 1: the chips and a guess, with the pencil */
+.tour__pic--table .tour-chips { left: 18px; top: 100px; }
+.tour__pic--table .tour-note { left: 152px; top: 46px; transform: rotate(5deg); }
 .tour__pic--table .tour-pencil { right: 18px; top: 168px; transform: rotate(-24deg); }
-.tour__pic--cards .tour-card--question { left: 55px; top: 84px; transform: rotate(-4deg); }
-.tour__pic--cards .tour-card--hint1 { left: 83px; top: 58px; transform: rotate(3deg); }
-.tour__pic--cards .tour-card--hint2 { left: 111px; top: 36px; transform: rotate(9deg); }
-.tour__pic--cards .tour-slip { right: 12px; top: 186px; transform: rotate(-6deg); }
-.tour__pic--cards .tour-slip b { font-size: 28px; }
-.tour__pic--bet .tour-card--turn { left: 30px; top: 46px; width: 246px; transform: rotate(-4deg); }
-.tour__pic--bet .tour-chips { right: 8px; top: 150px; width: 150px; height: 80px; transform: rotate(5deg); }
-.tour-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-.tour-pills span { display: grid; place-items: center; height: 36px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px #1b232a; font: 700 14px/1 var(--sans); }
-.tour-pills .is-on { background: #1b232a; color: #fffef8; }
-/* The number line: the answer, and three ranges, the narrowest one that contains it dark */
-.tour__pic--wins .tour-card--line { left: 42px; top: 34px; width: 306px; padding-bottom: 12px; transform: rotate(-2.5deg); }
-.tour-line { position: relative; margin-top: 12px; }
-.tour-line__row { display: flex; align-items: center; height: 34px; }
-.tour-line__row span { flex: none; width: 74px; font-size: 13px; font-weight: 700; color: #3d4a54; }
-.tour-line__row div { position: relative; flex: 1; height: 16px; }
-.tour-line__row i { position: absolute; top: 0; height: 16px; border-radius: 8px; background: rgba(27, 35, 42, 0.2); }
-.tour-line__row.is-win span { color: #1b232a; }
-.tour-line__row.is-win i { background: #1b232a; }
-.tour-line__row.is-miss span { color: #8a9299; }
-.tour-line__row.is-miss i { background: rgba(27, 35, 42, 0.08); }
-.tour-line__axis { position: relative; height: 18px; margin-left: 74px; border-top: 1px solid rgba(21, 21, 21, 0.3); }
-.tour-line__axis em { position: absolute; top: 3px; transform: translateX(-50%); font-size: 11px; font-style: normal; color: #6b6158; }
-.tour-line__axis em:first-child { transform: none; }
-.tour-line__answer { position: absolute; top: -4px; bottom: 18px; left: calc(74px + (100% - 74px) * 0.417); width: 2px; margin-left: -1px; background: #9c4a17; }
+/* 2: the question, and a guess beside it */
+.tour__pic--cards .tour-card--question { left: 14px; top: 58px; transform: rotate(-3deg); }
+.tour__pic--cards .tour-note { right: 8px; top: 104px; transform: rotate(5deg); }
+.tour__pic--cards .tour-note__paper b { padding-bottom: 6px; font-size: 24px; line-height: 30px; }
+/* 3: the pot, and the bubbles around it, their tails down and towards whoever says it (up for across the table) */
+.tour__pic--bet .tour-pot { left: 98px; top: 104px; }
+.tour-say--check { left: 24px; top: 48px; transform: rotate(-3deg); }
+.tour-say--bet { left: 160px; top: 34px; transform: rotate(2deg); }
+.tour-say--call { right: 30px; top: 84px; transform: rotate(3deg); }
+.tour-say--fold { left: 28px; top: 134px; transform: rotate(2deg); }
+.tour-say--allin { right: 20px; top: 158px; transform: rotate(-2deg); }
+.tour-say--check::after,
+.tour-say--fold::after { bottom: -12px; left: 15px; clip-path: polygon(30% 0, 100% 0, 0 100%); }
+.tour-say--call::after,
+.tour-say--allin::after { right: 15px; bottom: -12px; clip-path: polygon(0 0, 70% 0, 100% 100%); }
+.tour-say--bet::after { top: -12px; right: 18px; clip-path: polygon(0 100%, 70% 100%, 100% 0); }
+/* 4: the answer in the middle, the guesses around it as on the table, the wrong ones struck through */
+.tour__pic--wins .tour-card--answer { left: 104px; top: 66px; width: 182px; transform: rotate(-2deg); }
+.tour-guess--1 { left: 12px; top: 28px; transform: rotate(-5deg); }
+.tour-guess--2 { left: 214px; top: 22px; transform: rotate(5deg); }
+.tour-guess--3 { left: 18px; top: 150px; transform: rotate(3deg); }
+.tour-guess--4 { left: 238px; top: 152px; transform: rotate(3deg); }
 
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
