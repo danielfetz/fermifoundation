@@ -160,7 +160,7 @@
       button = back('Current question', 'Go back', 'Back to the current question');
       button.dataset.return = '';
     } else if (left > 0) {
-      button = back(CARDS[n].name, `${verb()} to turn over`, `Turn over ${theCard(n)}`);
+      button = back(CARDS[n].name, 'Reveal', `Turn over ${theCard(n)}`);
     } else {
       // All four turned over: the next question's four cards wait on the deck (after the last question, the first
       // again). Not numbered: the number only says where it is in the set.
