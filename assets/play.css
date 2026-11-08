@@ -121,7 +121,8 @@ body.play {
   text-align: left;
 }
 .ph-menu button[hidden] { display: none; }
-.ph-menu button:not([hidden]) + button::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid rgba(21, 29, 35, 0.1); }
+/* A line between the choices shown (some are hidden at times) */
+.ph-menu button:not([hidden]) ~ button:not([hidden])::before { content: ""; position: absolute; top: 0; left: 12px; right: 12px; border-top: 1px solid rgba(21, 29, 35, 0.1); }
 .ph-menu button:hover { background: rgba(21, 29, 35, 0.06); }
 .ph-menu svg { flex: none; width: 20px; height: 20px; color: var(--ink-soft); }
 /* While looking back, the way back to the question in play: the arrow the other way */
@@ -473,11 +474,168 @@ body.play {
   .rules__cols > section { break-inside: avoid; }
   .rules__betting { break-before: column; }
 }
+/* The first visit (play.js): what you need, and the game in four steps, in a sheet like the rule sheet (in the middle
+   on bigger screens). Each slide has a picture of the game on top, made of the page's own cards, chips and paper,
+   lying on a band of the etching that fades into the sheet; the band stays as the slides scroll sideways under it,
+   snapping, by a swipe or the Next button. The pictures are drawn for a phone 390px wide (.tour__pic), and shrink
+   (--pic) on narrower phones and short screens, so the sheet always fits. */
+.tour {
+  --pic: 1;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: calc(100% - 24px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 28px 28px 0 0;
+  background: #fffef8;
+  color: #1b232a;
+  font-family: 'IBM Plex Sans', sans-serif;
+  box-shadow: 0 -12px 40px -16px rgba(21, 29, 35, 0.55);
+}
+.tour[open] { display: flex; flex-direction: column; animation: rules-up 320ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.tour::backdrop { background: rgba(21, 29, 35, 0.45); }
+.tour[open]::backdrop { animation: rules-fade-in 260ms ease-out; }
+.tour.is-closing { animation: rules-down 200ms ease-in forwards; }
+.tour.is-closing::backdrop { animation: rules-fade-out 200ms ease-in forwards; }
+.tour::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: calc(262px * var(--pic));
+  background: linear-gradient(rgba(244, 239, 230, 0.78), rgba(244, 239, 230, 0.78)), url(/assets/img/forum-piranesi.webp) 33% 40% / cover;
+  -webkit-mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
+  mask-image: linear-gradient(#000 calc(100% - 70px), transparent);
+}
+.tour__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.tour__handle { position: absolute; z-index: 2; top: 9px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: rgba(21, 29, 35, 0.22); }
+.tour__close {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 254, 248, 0.85);
+  color: #1b232a;
+}
+.tour__close svg { width: 20px; height: 20px; }
+.tour__slides {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.tour__slides::-webkit-scrollbar { display: none; }
+/* It takes the focus when the sheet opens, so the arrow keys move the slides; a ring around it isn't needed */
+.tour__slides:focus { outline: none; }
+.tour__slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.tour__art { position: relative; height: calc(262px * var(--pic)); overflow: hidden; }
+.tour__pic { position: absolute; top: 0; left: 50%; width: 390px; height: 262px; margin-left: -195px; transform: scale(var(--pic)); transform-origin: 50% 0; }
+.tour__slide > h2 { margin: 4px 26px 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
+.tour__slide > h2 span { color: #9c4a17; }
+.tour__slide > p { margin: 10px 26px 0; color: #4a5660; font-size: 17px; line-height: 1.45; }
+.tour__foot { flex: none; padding: 18px 26px max(22px, env(safe-area-inset-bottom)); }
+.tour__dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 16px; }
+.tour__dots i { width: 8px; height: 8px; border-radius: 4px; background: rgba(21, 21, 21, 0.18); transition: width 250ms var(--ease), background-color 250ms var(--ease); }
+.tour__dots i.is-on { width: 22px; background: #1b232a; }
+.tour__next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+  border-radius: 999px;
+  background: #1b232a;
+  color: #fffef8;
+  font: 700 17px/1 var(--sans);
+  transition: background-color 150ms var(--ease);
+}
+.tour__next:hover { background: #0f1418; }
+.tour__close:focus-visible,
+.tour__next:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+@media (max-width: 370px) {
+  .tour { --pic: 0.85; }
+  .tour__slide > h2 { margin-inline: 20px; font-size: 31px; }
+  .tour__slide > p { margin-inline: 20px; font-size: 16px; }
+  .tour__foot { padding-inline: 20px; }
+}
+@media (max-height: 720px) { .tour { --pic: 0.8; } }
+@media (max-height: 620px) { .tour { --pic: 0.66; } }
+@media (min-width: 700px) {
+  .tour { inset: 0; width: 500px; max-height: min(100% - 48px, 760px); margin: auto; border-radius: 26px; box-shadow: 0 2px 6px rgba(21, 29, 35, 0.15), 0 30px 70px -20px rgba(21, 29, 35, 0.6); }
+  .tour[open] { animation-name: rules-in; animation-duration: 240ms; }
+  .tour.is-closing { animation-name: rules-out; animation-duration: 160ms; }
+  .tour.is-closing::backdrop { animation-duration: 160ms; }
+  .tour__handle { display: none; }
+  .tour__foot { padding-bottom: 26px; }
+}
+/* The pictures: cards like the ones on the table (smaller), a guess written on a slip of paper, chips, a pencil */
+.tour-card {
+  position: absolute;
+  width: 238px;
+  padding: 14px 18px 16px;
+  border-radius: 5px;
+  background: #fffef8;
+  box-shadow: inset 0 0 0 5px #fffef8, inset 0 0 0 6.2px rgba(27, 35, 42, 0.5), 0 0 0 1px rgba(27, 35, 42, 0.14), 0 14px 30px -12px rgba(30, 22, 8, 0.45);
+}
+.tour-card__top { display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1.2px solid #151515; font-size: 13px; font-weight: 700; }
+.tour-card__top span { color: #9c4a17; }
+.tour-card__text { margin-top: 9px; font-size: 16px; line-height: 1.32; }
+.tour-card--back { height: 120px; }
+.tour-slip { position: absolute; display: grid; gap: 2px; padding: 10px 16px 12px; border-radius: 3px; background: #fffdf6; box-shadow: 0 1px 1px rgba(30, 22, 8, 0.12), 0 12px 24px -12px rgba(30, 22, 8, 0.5); }
+.tour-slip span { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6158; }
+.tour-slip b { font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; font-style: italic; font-weight: 400; line-height: 1; white-space: nowrap; }
+.tour-chips { position: absolute; width: 170px; height: 90px; }
+.tour-pencil { position: absolute; width: 150px; height: 22px; }
+.tour__pic--table .tour-chips { left: 22px; top: 120px; transform: rotate(-4deg); }
+.tour__pic--table .tour-slip { left: 150px; top: 58px; transform: rotate(5deg); }
+.tour__pic--table .tour-pencil { right: 18px; top: 168px; transform: rotate(-24deg); }
+.tour__pic--cards .tour-card--question { left: 55px; top: 84px; transform: rotate(-4deg); }
+.tour__pic--cards .tour-card--hint1 { left: 83px; top: 58px; transform: rotate(3deg); }
+.tour__pic--cards .tour-card--hint2 { left: 111px; top: 36px; transform: rotate(9deg); }
+.tour__pic--cards .tour-slip { right: 12px; top: 186px; transform: rotate(-6deg); }
+.tour__pic--cards .tour-slip b { font-size: 28px; }
+.tour__pic--bet .tour-card--turn { left: 30px; top: 46px; width: 246px; transform: rotate(-4deg); }
+.tour__pic--bet .tour-chips { right: 8px; top: 150px; width: 150px; height: 80px; transform: rotate(5deg); }
+.tour-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.tour-pills span { display: grid; place-items: center; height: 36px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px #1b232a; font: 700 14px/1 var(--sans); }
+.tour-pills .is-on { background: #1b232a; color: #fffef8; }
+/* The number line: the answer, and three ranges, the narrowest one that contains it dark */
+.tour__pic--wins .tour-card--line { left: 42px; top: 34px; width: 306px; padding-bottom: 12px; transform: rotate(-2.5deg); }
+.tour-line { position: relative; margin-top: 12px; }
+.tour-line__row { display: flex; align-items: center; height: 34px; }
+.tour-line__row span { flex: none; width: 74px; font-size: 13px; font-weight: 700; color: #3d4a54; }
+.tour-line__row div { position: relative; flex: 1; height: 16px; }
+.tour-line__row i { position: absolute; top: 0; height: 16px; border-radius: 8px; background: rgba(27, 35, 42, 0.2); }
+.tour-line__row.is-win span { color: #1b232a; }
+.tour-line__row.is-win i { background: #1b232a; }
+.tour-line__row.is-miss span { color: #8a9299; }
+.tour-line__row.is-miss i { background: rgba(27, 35, 42, 0.08); }
+.tour-line__axis { position: relative; height: 18px; margin-left: 74px; border-top: 1px solid rgba(21, 21, 21, 0.3); }
+.tour-line__axis em { position: absolute; top: 3px; transform: translateX(-50%); font-size: 11px; font-style: normal; color: #6b6158; }
+.tour-line__axis em:first-child { transform: none; }
+.tour-line__answer { position: absolute; top: -4px; bottom: 18px; left: calc(74px + (100% - 74px) * 0.417); width: 2px; margin-left: -1px; background: #9c4a17; }
+
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
   .rules[open],
-  .rules[open]::backdrop { animation: none; }
-  .pc { transition: none; }
+  .rules[open]::backdrop,
+  .tour[open],
+  .tour[open]::backdrop { animation: none; }
+  .pc,
+  .tour__dots i { transition: none; }
 }
 
 .sr-only {

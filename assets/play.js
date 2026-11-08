@@ -3,7 +3,8 @@
 // and turn over and fly onto the pile when tapped. On screens up to 1000px tall, from hint 2 on, earlier cards fold
 // to one line (see play.css); tapping one opens it in its place and folds the others. Each device has the questions
 // in an order of its own, shuffled the first time, and remembers where you are, until the questions change. The
-// header has the rules, and a menu for skipping a question or going back to the last one.
+// header has the rules, and a menu for skipping a question or going back to the last one. The first time, the page
+// explains itself (the tour, near the end).
 (() => {
   const questions = window.FERMI_QUESTIONS || [];
   const pile = document.getElementById('pile');
@@ -13,6 +14,8 @@
   const menu = document.getElementById('more');
   const skipItem = menu.querySelector('[data-skip]');
   const backItem = menu.querySelector('[data-back]');
+  const tourItem = menu.querySelector('[data-tour]');
+  const tour = document.getElementById('tour');
   const rulesButton = document.getElementById('rules-open');
   const rules = document.getElementById('rules');
   const rome = document.querySelector('.rome');
@@ -25,6 +28,8 @@
     { name: 'Answer', then: 'betting round 4, then the showdown.' },
   ];
   const STORE = 'fermi-play';
+  // Set once the tour has been shown on this device
+  const TOUR = 'fermi-play-tour';
   const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
   // Screens up to 1000px tall fold earlier cards (the same media query as in play.css)
   const folding = matchMedia('(max-height: 1000px)');
@@ -48,6 +53,9 @@
     return order;
   };
   const isOrder = (order) => Array.isArray(order) && order.length === questions.length && [...order].sort((a, b) => a - b).every((v, i) => v === i);
+  // Whether this device has been here before (with these questions or others), or seen the tour: if not, it's shown
+  let beenHere = true;
+  try { beenHere = localStorage.getItem(STORE) !== null || localStorage.getItem(TOUR) !== null; } catch {}
   let state = null;
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
@@ -700,6 +708,77 @@
     closeRules();
   });
 
+  // The tour: what you need, and the game in four steps. The slides scroll sideways, snapping (a swipe), or move on with
+  // Next and the arrow keys; the last button starts playing. It opens and closes like the rule sheet: on its own the
+  // first time on a device (at the end), and from the ⋯ menu any time.
+  const tourSlides = tour.querySelector('.tour__slides');
+  const tourNext = tour.querySelector('.tour__next');
+  const tourDots = [...tour.querySelectorAll('.tour__dots i')];
+  const tourLast = tourDots.length - 1;
+  let tourAt = 0;
+  let tourClosing = 0;
+  function tourShow(i) {
+    tourAt = i;
+    tourDots.forEach((dot, k) => dot.classList.toggle('is-on', k === i));
+    tourNext.textContent = i === tourLast ? 'Start playing' : 'Next';
+  }
+  function tourGo(i) {
+    const to = Math.max(0, Math.min(tourLast, i));
+    tourSlides.scrollTo({ left: to * tourSlides.clientWidth, behavior: calm.matches ? 'auto' : 'smooth' });
+  }
+  function openTour() {
+    if (tour.open) return;
+    tour.classList.remove('is-closing');
+    tour.showModal();
+    tourSlides.scrollLeft = 0;
+    tourShow(0);
+    tourSlides.focus({ preventScroll: true });
+  }
+  function closeTour() {
+    if (!tour.open || tourClosing) return;
+    if (!moving()) return tour.close();
+    tour.classList.add('is-closing');
+    // In case the animation never ends (a hidden tab, say)
+    tourClosing = setTimeout(() => tour.close(), 400);
+  }
+  tour.addEventListener('animationend', (event) => {
+    if (tourClosing && event.target === tour && /^rules-(down|out)$/.test(event.animationName)) tour.close();
+  });
+  tour.addEventListener('close', () => {
+    clearTimeout(tourClosing);
+    tourClosing = 0;
+    tour.classList.remove('is-closing');
+  });
+  tourSlides.addEventListener('scroll', () => {
+    const i = Math.round(tourSlides.scrollLeft / tourSlides.clientWidth);
+    if (i !== tourAt && i >= 0 && i <= tourLast) tourShow(i);
+  }, { passive: true });
+  tourNext.addEventListener('click', () => (tourAt === tourLast ? closeTour() : tourGo(tourAt + 1)));
+  tour.querySelector('[data-close]').addEventListener('click', closeTour);
+  tour.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeTour();
+  });
+  tour.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+    event.preventDefault();
+    tourGo(tourAt + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  // A click beside the sheet, on the dimmed page, closes it (the sheet's own band of etching is the dialog too)
+  tour.addEventListener('click', (event) => {
+    if (event.target !== tour) return;
+    const box = tour.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeTour();
+  });
+  // Turning the phone keeps the slide in place
+  addEventListener('resize', () => {
+    if (tour.open) tourSlides.scrollLeft = tourAt * tourSlides.clientWidth;
+  });
+  tourItem.addEventListener('click', () => {
+    showMenu(false);
+    openTour();
+  });
+
   // No zooming in (see play.css and the viewport tag): Safari lets you pinch the page anyway, unless the pinch is
   // stopped as it starts
   for (const type of ['gesturestart', 'gesturechange']) document.addEventListener(type, (event) => event.preventDefault());
@@ -738,4 +817,10 @@
   render();
   // The cards are set in web fonts: once they're in, the cards may be a little taller
   document.fonts?.ready.then(reveal);
+  // The first time on this device: the tour, once its type is in (or after a moment, whichever comes first)
+  if (!beenHere) {
+    try { localStorage.setItem(TOUR, '1'); } catch {}
+    const type = document.fonts ? Promise.all(['34px', 'italic 34px'].map((size) => document.fonts.load(`${size} "Instrument Serif"`))) : Promise.resolve();
+    Promise.race([type, new Promise((done) => setTimeout(done, 800))]).then(openTour, openTour);
+  }
 })();
