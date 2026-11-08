@@ -468,12 +468,13 @@ body.play {
 .rules__tour-title svg { width: 18px; height: 18px; color: #9c4a17; transition: transform 150ms var(--ease); }
 .rules__tour:hover .rules__tour-title svg { transform: translateX(3px); }
 .rules__tour-sub { color: #3d4a54; font-size: 14.5px; }
-/* The picture spans the banner, so the chips can move left as the banner widens (wider phones), clear of the text */
+/* The picture spans the banner, so the chips can move left as the banner widens, up to where a 390px phone has them
+   (starting a little left of the note), clear of the text */
 .rules__tour-art { position: absolute; inset: 0; pointer-events: none; }
 .rules__tour-note { top: 13px; right: 10px; transform: rotate(6deg); }
 .rules__tour-note .tour-note__paper { --margin: 15px; padding: 8px 11px 4px 23px; background-position: 0 0, 0 8px; }
 .rules__tour-note .tour-note__paper b { font-size: 20px; line-height: 28px; }
-.tour-chips.rules__tour-chips { right: calc(6px + clamp(0px, (100% - 296px) * 0.8, 80px)); bottom: 8px; width: 98px; height: 60px; }
+.tour-chips.rules__tour-chips { right: calc(6px + clamp(0px, (100% - 296px) * 0.8, 40px)); bottom: 8px; width: 98px; height: 60px; }
 /* The narrowest phones: the title and the picture a little smaller, to stay clear of each other */
 @media (max-width: 350px) {
   .rules__tour-title { font-size: 27px; }
