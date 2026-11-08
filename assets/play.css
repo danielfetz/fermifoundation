@@ -456,22 +456,6 @@ body.play {
 }
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
-/* On phones, a strip of paper fixed to the foot of the screen, a bar of its own, under the rules (and How betting
-   works, below). With these sheets open, Safari on iPhones showed the area around its own bar at the bottom grey, the
-   dimmed page's colour, not the sheet's (the tour, shorter, was fine): it seems to take that colour from a bar fixed to
-   the foot of the screen, and to pass over a sheet nearly as tall as the screen. */
-.rules__foot,
-.betting__edge { display: none; }
-@media (max-width: 699.98px) {
-  .rules__foot,
-  .betting__edge { position: fixed; z-index: 3; right: 0; bottom: 0; left: 0; display: block; height: max(14px, env(safe-area-inset-bottom)); background: #fffef8; pointer-events: none; }
-  /* And the paper carried on below the foot of the screen, behind Safari's bar, should Safari show what lies there
-     rather than a colour it picks (the dimmed page's) */
-  .rules__foot::after,
-  .betting__edge::after { content: ""; position: absolute; top: 100%; right: 0; left: 0; height: 50vh; background: inherit; }
-  /* The rules' last lines scroll clear of it */
-  .rules__body { padding-bottom: calc(26px + max(14px, env(safe-area-inset-bottom))); }
-}
 /* Above the questions: where to learn the game */
 /* A banner on the etching, as the tour's pictures lie on it, with slide 1's chips and a guess on the right, clear of
    the text */
@@ -851,6 +835,14 @@ body.play {
   .betting__head { padding-top: 32px; }
 }
 
+/* On phones the sheets' paper carries on below them, past the foot of the screen, behind Safari's bar (as a solid
+   shadow, which isn't cut off where the sheet is): so Safari shows the sheet's colour around its bar, not the dimmed
+   page's grey. (After the sheets' own styles, which it adds to.) */
+@media (max-width: 699.98px) {
+  .rules,
+  .tour,
+  .betting { box-shadow: 0 -12px 40px -16px rgba(21, 29, 35, 0.55), 0 50vh 0 0 #fffef8; }
+}
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
   .rules[open],
