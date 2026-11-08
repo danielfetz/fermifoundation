@@ -87,10 +87,11 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   sheets, the rules, the tour and How betting works, slide up from the bottom with a handle, and dragging one down (the
   tour anywhere, the others by their top) closes it (`dragToClose` in `play.js`); while one is open, the page's
   background colour, which Safari paints in the strip above the page, is the table's tone dimmed like the page behind
-  the sheet (`has-sheet`, and `has-sheet-over` for How betting works over the tour). The cards make sounds, as at a table:
-  a card sliding onto the pile as it's turned over, the cards swept up for the next question, a shuffle at the tour's
-  Start playing. They're from Kenney's Casino Audio (CC0, credited on Credits), made MP3 in `assets/sounds/` (iPhones
-  play no OGG), and played through Web Audio after the first tap; Sound in the ⋯ menu turns them off and on, and local
+  the sheet (`has-sheet`, and `has-sheet-over` for How betting works over the tour). The cards make sounds, as at a table, each
+  with what the cards do on screen: a card turned over and flying onto the pile (a hint, the answer, a new question's
+  card), the deck's cards coming in one after another (after the answer, and at the tour's Start playing, where the
+  deck comes in as the tour goes). They're from Kenney's Casino Audio (CC0, credited on Credits), made MP3 in
+  `assets/sounds/` (iPhones play no OGG), and played through Web Audio after the first tap; Sound in the ⋯ menu turns them off and on, and local
   storage keeps `fermi-play-sound` "off" once turned off. They mix with music playing, and an iPhone on silent stays
   silent.
 

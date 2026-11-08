@@ -152,6 +152,14 @@
       node.style.setProperty('--etching-size', `${width}px ${height}px`);
     }
   }
+  // The deck's cards coming in from below, one after another, with their sound
+  function deckArrives(delay) {
+    if (moving()) {
+      [...deck.children].forEach((node, k) => node.animate([{ opacity: 0, translate: '0 70px' }, { opacity: 1, translate: '0 0' }],
+        { duration: 380, delay: delay + k * 70, easing: EASE, fill: 'backwards' }));
+    }
+    sound('arrive', 0.5, moving() ? delay : 0);
+  }
   function renderDeck(n, dealt) {
     const left = lookingBack() ? 0 : 4 - n;
     let button;
@@ -182,20 +190,17 @@
     pile.push(button);
     deck.replaceChildren(...pile);
     lineUpEtching();
-    if (!dealt || !moving()) return;
+    if (!dealt) return;
+    // The answer was dealt: the next question's cards arrive, one after another
+    if (left === 0) return deckArrives(320);
+    if (!moving()) return;
+    // A card was dealt: the ones below each move up a place
     pile.forEach((node, k) => {
       const depth = cards - 1 - k;
-      if (left > 0) {
-        // A card was dealt: the ones below each move up a place
-        const from = STACK[depth + 1];
-        const to = STACK[depth];
-        node.animate([{ translate: `${from.x - to.x}px ${from.y - to.y}px`, rotate: `${from.r - to.r}deg` }, { translate: '0 0', rotate: '0deg' }],
-          { duration: 320, delay: 120, easing: EASE, fill: 'backwards' });
-      } else {
-        // The answer was dealt: the next question's cards arrive, one after another
-        node.animate([{ opacity: 0, translate: '0 70px' }, { opacity: 1, translate: '0 0' }],
-          { duration: 380, delay: 320 + k * 70, easing: EASE, fill: 'backwards' });
-      }
+      const from = STACK[depth + 1];
+      const to = STACK[depth];
+      node.animate([{ translate: `${from.x - to.x}px ${from.y - to.y}px`, rotate: `${from.r - to.r}deg` }, { translate: '0 0', rotate: '0deg' }],
+        { duration: 320, delay: 120, easing: EASE, fill: 'backwards' });
     });
   }
 
@@ -514,12 +519,13 @@
     if (canFlip) node.animate([{ rotate: 'y -90deg' }, { rotate: 'y 0deg' }], { ...timing, easing: 'cubic-bezier(0.3, 0.6, 0.3, 1)' });
   }
 
-  // The cards' sounds, as at a table (Kenney's Casino Audio, CC0, in assets/sounds/): a card sliding onto the pile as
-  // it's turned over, the cards swept up for the next question, a shuffle as the game starts after the tour. Played
-  // through Web Audio, which can start only with a tap; the files are fetched once the page is in, and decoded the
-  // first time they're played. Off and on in the ⋯ menu, remembered on the device. They mix with any music playing,
-  // and an iPhone on silent stays silent.
-  const SOUNDS = { turn: ['card-slide-1', 'card-slide-2', 'card-slide-3', 'card-slide-6'], collect: ['card-shove-1', 'card-shove-3'], shuffle: ['card-shuffle'] };
+  // The cards' sounds, as at a table (Kenney's Casino Audio, CC0, in assets/sounds/), each with what the cards do on
+  // screen: a card turned over and flying onto the pile (a hint, the answer, a new question's card), and the deck's
+  // cards coming in one after another (after the answer, and at the tour's Start playing). Played through Web
+  // Audio, which can start only with a tap; the files are fetched once the page is in, and decoded the first time
+  // they're played. Off and on in the ⋯ menu, remembered on the device. They mix with any music playing, and an
+  // iPhone on silent stays silent.
+  const SOUNDS = { turn: ['card-slide-1', 'card-slide-2', 'card-slide-3', 'card-slide-6'], arrive: ['card-fan-1'] };
   const Context = window.AudioContext || window.webkitAudioContext;
   let soundOn = true;
   try { soundOn = localStorage.getItem(SOUND) !== 'off'; } catch {}
@@ -545,14 +551,18 @@
     }
     if (audio.state === 'suspended') audio.resume().catch(() => {});
   }
-  async function sound(kind, volume = 0.6) {
+  // A sound, now or after a delay (ms), to go with what's moving
+  async function sound(kind, volume = 0.6, delay = 0) {
     if (!Context || !soundOn) return;
     wakeSound();
     if (!audio) return;
+    // All of them decoded the first time, so none waits for that later
     fetchSounds();
+    for (const each of Object.values(SOUNDS).flat()) {
+      buffers[each] ??= files[each].then((data) => (data ? audio.decodeAudioData(data) : null)).catch(() => null);
+    }
     const names = SOUNDS[kind];
     const name = names[Math.floor(Math.random() * names.length)];
-    buffers[name] ??= files[name].then((data) => (data ? audio.decodeAudioData(data) : null)).catch(() => null);
     const buffer = await buffers[name];
     if (!buffer || !soundOn) return;
     const source = audio.createBufferSource();
@@ -560,7 +570,7 @@
     source.buffer = buffer;
     gain.gain.value = volume;
     source.connect(gain).connect(audio.destination);
-    source.start();
+    source.start(audio.currentTime + delay / 1000);
   }
   function showSound() {
     soundItem.setAttribute('aria-pressed', String(soundOn));
@@ -591,7 +601,8 @@
     if (busy) return;
     quietUntil = Date.now() + 400;
     busy = true;
-    sound('collect', 0.5);
+    // The sound wakes within the tap, for the card dealt once the table is cleared
+    wakeSound();
     if (moving()) {
       const cards = [...pile.children];
       await Promise.all(cards.map((node, i) => node.animate(
@@ -887,7 +898,8 @@
   tourNext.addEventListener('click', () => {
     if (tourAt < tourLast) return tourGo(tourAt + 1);
     closeTour();
-    sound('shuffle', 0.5);
+    // The game starts: the deck's cards come in as the tour slides away
+    if (moving()) deckArrives(160);
   });
   // A dot goes straight to its step, back or on
   tourDots.forEach((dot, k) => dot.addEventListener('click', () => tourGo(k)));
@@ -919,7 +931,6 @@
     soundOn = !soundOn;
     try { localStorage.setItem(SOUND, soundOn ? 'on' : 'off'); } catch {}
     showSound();
-    if (soundOn) sound('turn');
   });
 
   // How betting works, from step 3's speech bubble: a sheet over the tour, opening at the top and closing like the
