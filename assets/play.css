@@ -437,9 +437,9 @@ body.play {
 /* On plain paper the round ×, here and on How betting works, is a shade darker than the paper, to stand out a little,
    as it does on the tour's etching */
 .rules__close,
-.betting .tour__close { background: rgba(27, 35, 42, 0.07); }
+.betting .tour__close { background: rgba(27, 35, 42, 0.045); }
 .rules__close:hover,
-.betting .tour__close:hover { background: rgba(27, 35, 42, 0.12); }
+.betting .tour__close:hover { background: rgba(27, 35, 42, 0.09); }
 .rules__body {
   flex: 1 1 auto;
   min-height: 0;
