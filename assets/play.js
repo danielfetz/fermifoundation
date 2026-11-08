@@ -710,17 +710,21 @@
   });
 
   // The tour: what you need, and the game in four steps. The slides scroll sideways, snapping (a swipe), or move on with
-  // Next and the arrow keys; the last button starts playing. It opens and closes like the rule sheet: on its own the
+  // Next and the arrow keys, or go straight to a step with its dot; the last button starts playing. It opens and closes like the rule sheet: on its own the
   // first time on a device (at the end), and from the ⋯ menu any time.
   const tourSlides = tour.querySelector('.tour__slides');
   const tourNext = tour.querySelector('.tour__next');
-  const tourDots = [...tour.querySelectorAll('.tour__dots i')];
+  const tourDots = [...tour.querySelectorAll('.tour__dots button')];
   const tourLast = tourDots.length - 1;
   let tourAt = 0;
   let tourClosing = 0;
   function tourShow(i) {
     tourAt = i;
-    tourDots.forEach((dot, k) => dot.classList.toggle('is-on', k === i));
+    tourDots.forEach((dot, k) => {
+      dot.classList.toggle('is-on', k === i);
+      if (k === i) dot.setAttribute('aria-current', 'step');
+      else dot.removeAttribute('aria-current');
+    });
     tourNext.textContent = i === tourLast ? 'Start playing' : 'Next';
   }
   function tourGo(i) {
@@ -755,6 +759,8 @@
     if (i !== tourAt && i >= 0 && i <= tourLast) tourShow(i);
   }, { passive: true });
   tourNext.addEventListener('click', () => (tourAt === tourLast ? closeTour() : tourGo(tourAt + 1)));
+  // A dot goes straight to its step, back or on
+  tourDots.forEach((dot, k) => dot.addEventListener('click', () => tourGo(k)));
   tour.querySelector('[data-close]').addEventListener('click', closeTour);
   tour.addEventListener('cancel', (event) => {
     event.preventDefault();

@@ -548,9 +548,14 @@ body.play {
 .tour__slide > h2 { margin: 4px 26px 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
 .tour__slide > p { margin: 10px 26px 0; color: #4a5660; font-size: 17px; line-height: 1.45; }
 .tour__foot { flex: none; padding: 18px 26px max(22px, env(safe-area-inset-bottom)); }
-.tour__dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 16px; }
-.tour__dots i { width: 8px; height: 8px; border-radius: 4px; background: rgba(21, 21, 21, 0.18); transition: width 250ms var(--ease), background-color 250ms var(--ease); }
-.tour__dots i.is-on { width: 22px; background: #1b232a; }
+/* The dots, one for each step: each a button that goes to it, bigger to tap than it looks (the dot is its ::before) */
+.tour__dots { display: flex; justify-content: center; margin: -12px 0 4px; }
+.tour__dots button { display: grid; place-items: center; padding: 12px 3.5px; }
+.tour__dots button::before { content: ""; width: 8px; height: 8px; border-radius: 4px; background: rgba(21, 21, 21, 0.18); transition: width 250ms var(--ease), background-color 250ms var(--ease); }
+.tour__dots button:hover::before { background: rgba(21, 21, 21, 0.34); }
+.tour__dots button.is-on::before { width: 22px; background: #1b232a; }
+.tour__dots button:focus-visible { outline: none; }
+.tour__dots button:focus-visible::before { outline: 3px solid var(--blue); outline-offset: 3px; }
 .tour__next {
   display: flex;
   align-items: center;
@@ -671,7 +676,7 @@ body.play {
   .tour[open],
   .tour[open]::backdrop { animation: none; }
   .pc,
-  .tour__dots i { transition: none; }
+  .tour__dots button::before { transition: none; }
 }
 
 .sr-only {
