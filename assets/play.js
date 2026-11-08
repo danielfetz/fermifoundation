@@ -53,9 +53,10 @@
     return order;
   };
   const isOrder = (order) => Array.isArray(order) && order.length === questions.length && [...order].sort((a, b) => a - b).every((v, i) => v === i);
-  // Whether this device has been here before (with these questions or others), or seen the tour: if not, it's shown
-  let beenHere = true;
-  try { beenHere = localStorage.getItem(STORE) !== null || localStorage.getItem(TOUR) !== null; } catch {}
+  // Whether this device has seen the tour yet: once on every device, players from before it came along too (and if the
+  // browser keeps nothing, not at all, rather than every time)
+  let toured = true;
+  try { toured = localStorage.getItem(TOUR) !== null; } catch {}
   let state = null;
   try {
     const saved = JSON.parse(localStorage.getItem(STORE));
@@ -818,7 +819,7 @@
   // The cards are set in web fonts: once they're in, the cards may be a little taller
   document.fonts?.ready.then(reveal);
   // The first time on this device: the tour, once its type is in (or after a moment, whichever comes first)
-  if (!beenHere) {
+  if (!toured) {
     try { localStorage.setItem(TOUR, '1'); } catch {}
     const type = document.fonts ? Promise.all(['34px', 'italic 34px'].map((size) => document.fonts.load(`${size} "Instrument Serif"`))) : Promise.resolve();
     Promise.race([type, new Promise((done) => setTimeout(done, 800))]).then(openTour, openTour);

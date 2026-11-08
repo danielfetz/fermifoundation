@@ -542,6 +542,8 @@ body.play {
 .tour__slides:focus { outline: none; }
 .tour__slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
 .tour__art { position: relative; height: calc(262px * var(--pic)); overflow: hidden; }
+/* The picture fades into the sheet at its foot, as the band behind it does, rather than stopping at an edge */
+.tour__art::after { content: ""; position: absolute; z-index: 1; right: 0; bottom: 0; left: 0; height: 70px; background: linear-gradient(rgba(255, 254, 248, 0), #fffef8); pointer-events: none; }
 .tour__pic { position: absolute; top: 0; left: 50%; width: 390px; height: 262px; margin-left: -195px; transform: scale(var(--pic)); transform-origin: 50% 0; }
 .tour__slide > h2 { margin: 4px 26px 0; font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
 .tour__slide > h2 span { color: #9c4a17; }
