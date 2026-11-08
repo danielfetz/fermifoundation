@@ -132,6 +132,9 @@ body.play {
 .ph-menu svg { flex: none; width: 20px; height: 20px; color: var(--ink-soft); }
 /* While looking back, the way back to the question in play: the arrow the other way */
 .ph-menu button.is-return svg { transform: scaleX(-1); }
+/* The Sound switch's speaker: with waves when on, crossed out when off */
+.ph-menu [data-sound][aria-pressed="true"] .ph-sound-off,
+.ph-menu [data-sound][aria-pressed="false"] .ph-sound-on { display: none; }
 .ph-menu small { display: block; margin-top: 2px; color: var(--ink-soft); font-size: 13.5px; font-weight: 400; }
 .ph__home:focus-visible,
 .ph-btn:focus-visible,
@@ -453,6 +456,10 @@ body.play {
 }
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
+/* On phones, a strip of paper at the foot that doesn't scroll, as the tour and How betting works end in their buttons:
+   the text fades out above it, clear of the iPhone's home bar, and Safari may take the colour under its own bar from
+   it, as it does from theirs, rather than the dimmed page's */
+.rules__foot { flex: none; height: max(14px, env(safe-area-inset-bottom)); background: #fffef8; }
 /* Above the questions: where to learn the game */
 /* A banner on the etching, as the tour's pictures lie on it, with slide 1's chips and a guess on the right, clear of
    the text */
@@ -540,6 +547,7 @@ body.play {
   .rules.is-closing::backdrop { animation-duration: 160ms; }
   .rules__handle { display: none; }
   .rules__head { padding-top: 32px; }
+  .rules__foot { display: none; }
 }
 /* The first visit (play.js): what you need, and the game in four steps, in a sheet like the rule sheet (in the middle
    on bigger screens). Each slide has a picture of the game on top, made of the page's own cards, chips and paper,

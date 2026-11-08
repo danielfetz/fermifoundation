@@ -15,6 +15,7 @@
   const skipItem = menu.querySelector('[data-skip]');
   const backItem = menu.querySelector('[data-back]');
   const tourItem = menu.querySelector('[data-tour]');
+  const soundItem = menu.querySelector('[data-sound]');
   const tour = document.getElementById('tour');
   const rulesButton = document.getElementById('rules-open');
   const rules = document.getElementById('rules');
@@ -30,6 +31,8 @@
   const STORE = 'fermi-play';
   // Set once the tour has been shown on this device
   const TOUR = 'fermi-play-tour';
+  // "off" once the sound has been turned off on this device
+  const SOUND = 'fermi-play-sound';
   const EASE = 'cubic-bezier(0.2, 0.7, 0.2, 1)';
   // Screens up to 1000px tall fold earlier cards (the same media query as in play.css)
   const folding = matchMedia('(max-height: 1000px)');
@@ -511,6 +514,60 @@
     if (canFlip) node.animate([{ rotate: 'y -90deg' }, { rotate: 'y 0deg' }], { ...timing, easing: 'cubic-bezier(0.3, 0.6, 0.3, 1)' });
   }
 
+  // The cards' sounds, as at a table (Kenney's Casino Audio, CC0, in assets/sounds/): a card sliding onto the pile as
+  // it's turned over, the cards swept up for the next question, a shuffle as the game starts after the tour. Played
+  // through Web Audio, which can start only with a tap; the files are fetched once the page is in, and decoded the
+  // first time they're played. Off and on in the ⋯ menu, remembered on the device. They mix with any music playing,
+  // and an iPhone on silent stays silent.
+  const SOUNDS = { turn: ['card-slide-1', 'card-slide-2', 'card-slide-3', 'card-slide-6'], collect: ['card-shove-1', 'card-shove-3'], shuffle: ['card-shuffle'] };
+  const Context = window.AudioContext || window.webkitAudioContext;
+  let soundOn = true;
+  try { soundOn = localStorage.getItem(SOUND) !== 'off'; } catch {}
+  let audio = null;
+  const files = {};
+  const buffers = {};
+  function fetchSounds() {
+    if (!Context) return;
+    for (const name of Object.values(SOUNDS).flat()) {
+      files[name] ??= fetch(`/assets/sounds/${name}.mp3`).then((res) => (res.ok ? res.arrayBuffer() : null)).catch(() => null);
+    }
+  }
+  // Within a tap: the sound wakes, as browsers ask
+  function wakeSound() {
+    if (!Context || !soundOn) return;
+    if (!audio) {
+      try {
+        if (navigator.audioSession) navigator.audioSession.type = 'ambient';
+        audio = new Context();
+      } catch {
+        return;
+      }
+    }
+    if (audio.state === 'suspended') audio.resume().catch(() => {});
+  }
+  async function sound(kind, volume = 0.6) {
+    if (!Context || !soundOn) return;
+    wakeSound();
+    if (!audio) return;
+    fetchSounds();
+    const names = SOUNDS[kind];
+    const name = names[Math.floor(Math.random() * names.length)];
+    buffers[name] ??= files[name].then((data) => (data ? audio.decodeAudioData(data) : null)).catch(() => null);
+    const buffer = await buffers[name];
+    if (!buffer || !soundOn) return;
+    const source = audio.createBufferSource();
+    const gain = audio.createGain();
+    source.buffer = buffer;
+    gain.gain.value = volume;
+    source.connect(gain).connect(audio.destination);
+    source.start();
+  }
+  function showSound() {
+    soundItem.setAttribute('aria-pressed', String(soundOn));
+    soundItem.querySelector('small').textContent = soundOn ? 'On' : 'Off';
+  }
+  showSound();
+
   // Taps on the deck that come too quickly after a card was turned over are ignored, so a double tap can't turn over
   // two cards
   let quietUntil = 0;
@@ -523,6 +580,7 @@
     state.shown[state.q] = n + 1;
     open = -1;
     save();
+    sound('turn');
     render(liftTopCard(), was);
     const q = questionAt(state.q);
     live.textContent = n === 3 ? `Answer: ${q.answer}. ${q.note || ''}` : `${CARDS[n].name}: ${textOf(q, n)}`;
@@ -533,6 +591,7 @@
     if (busy) return;
     quietUntil = Date.now() + 400;
     busy = true;
+    sound('collect', 0.5);
     if (moving()) {
       const cards = [...pile.children];
       await Promise.all(cards.map((node, i) => node.animate(
@@ -547,6 +606,7 @@
     open = -1;
     save();
     busy = false;
+    sound('turn');
     render(liftTopCard());
     live.textContent = `${again ? 'The first question again' : 'New question'}: ${questionAt(state.q).question}`;
   }
@@ -824,7 +884,11 @@
     }
     if (i !== tourAt && i >= 0 && i <= tourLast) tourShow(i);
   }, { passive: true });
-  tourNext.addEventListener('click', () => (tourAt === tourLast ? closeTour() : tourGo(tourAt + 1)));
+  tourNext.addEventListener('click', () => {
+    if (tourAt < tourLast) return tourGo(tourAt + 1);
+    closeTour();
+    sound('shuffle', 0.5);
+  });
   // A dot goes straight to its step, back or on
   tourDots.forEach((dot, k) => dot.addEventListener('click', () => tourGo(k)));
   tour.querySelector('[data-close]').addEventListener('click', closeTour);
@@ -850,6 +914,12 @@
   tourItem.addEventListener('click', () => {
     showMenu(false);
     openTour();
+  });
+  soundItem.addEventListener('click', () => {
+    soundOn = !soundOn;
+    try { localStorage.setItem(SOUND, soundOn ? 'on' : 'off'); } catch {}
+    showSound();
+    if (soundOn) sound('turn');
   });
 
   // How betting works, from step 3's speech bubble: a sheet over the tour, opening at the top and closing like the
@@ -993,6 +1063,7 @@
   window.visualViewport?.addEventListener('resize', measureEdge);
 
   render();
+  if (soundOn) (window.requestIdleCallback || ((then) => setTimeout(then, 1500)))(fetchSounds);
   // The cards are set in web fonts: once they're in, the cards may be a little taller
   document.fonts?.ready.then(reveal);
   // The first time on this device: the tour, once its type is in (or after a moment, whichever comes first)
