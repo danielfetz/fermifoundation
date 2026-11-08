@@ -444,17 +444,11 @@ body.play {
 }
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
-/* Above the questions: where to learn the game, and how a question goes, at a glance */
+/* Above the questions: where to learn the game */
 .rules__intro { margin-top: 16px; padding: 12px 15px; border-radius: 12px; background: #f4efe6; color: #3d4a54; font-size: 15px; line-height: 1.4; }
 .rules__tour { color: var(--pc-ink); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .rules__tour:hover { color: var(--blue); }
 .rules__tour:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-.rules__label { margin-top: 22px; color: #6b6158; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.rules__flow { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 9px; padding: 0; list-style: none; }
-.rules__flow li { position: relative; padding: 5px 11px 6px; border-radius: 999px; box-shadow: inset 0 0 0 1.2px rgba(27, 35, 42, 0.32); font-size: 14px; font-weight: 600; line-height: 1.2; }
-.rules__flow .is-bet { background: #1b232a; color: #fffef8; box-shadow: none; }
-/* An arrow in the gap before each step but the first (drawn, so screen readers don't read it out) */
-.rules__flow li + li::before { content: ""; position: absolute; top: 50%; left: -11px; width: 5px; height: 5px; border-top: 1.5px solid #8a9299; border-right: 1.5px solid #8a9299; transform: translateY(-50%) rotate(45deg); }
 /* The questions, under a heading for each part of the game: each opens to its answer */
 .rules section { padding-top: 28px; }
 .rules h3 { margin-bottom: 6px; font-family: 'Instrument Serif', Georgia, serif; font-size: 29px; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
