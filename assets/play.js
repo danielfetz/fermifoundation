@@ -722,12 +722,35 @@
   // Next and the arrow keys, or go straight to a step with its dot; the last button starts playing. It opens and closes like the rule sheet: on its own the
   // first time on a device (at the end), and from the ⋯ menu any time.
   const tourSlides = tour.querySelector('.tour__slides');
+  const tourSteps = [...tour.querySelectorAll('.tour__slide')];
   const tourNext = tour.querySelector('.tour__next');
   const tourDots = [...tour.querySelectorAll('.tour__dots button')];
   const tourLast = tourDots.length - 1;
   let tourAt = 0;
   let tourClosing = 0;
-  function tourShow(i) {
+  // The sheet keeps one height through the steps, the tallest one's, leaving out step 3's question about betting (its
+  // bubble and the room around it): on step 3 it grows to show that too, and shrinks again after (play.css eases it)
+  function tourFit(atOnce) {
+    if (!tour.open) return;
+    const bare = (step) => {
+      const ask = step.querySelector('.tour__ask');
+      if (!ask) return step.offsetHeight;
+      const style = getComputedStyle(ask);
+      return step.offsetHeight - ask.offsetHeight - parseFloat(style.marginTop) - parseFloat(style.marginBottom);
+    };
+    const height = Math.max(...tourSteps.map(bare), tourSteps[tourAt].offsetHeight);
+    if (atOnce) tourSlides.style.transition = 'none';
+    tourSlides.style.height = `${height}px`;
+    if (atOnce) {
+      // Laid out at this height before the easing comes back
+      tourSlides.getBoundingClientRect();
+      tourSlides.style.transition = '';
+    }
+  }
+  // The steps' text can change height (the type coming in, the phone turned): the sheet follows at once
+  const stepsResized = new ResizeObserver(() => tourFit(true));
+  tourSteps.forEach((step) => stepsResized.observe(step));
+  function tourShow(i, atOnce) {
     tourAt = i;
     tourDots.forEach((dot, k) => {
       dot.classList.toggle('is-on', k === i);
@@ -735,6 +758,7 @@
       else dot.removeAttribute('aria-current');
     });
     tourNext.textContent = i === tourLast ? 'Start playing' : 'Next';
+    tourFit(atOnce);
   }
   function tourGo(i) {
     const to = Math.max(0, Math.min(tourLast, i));
@@ -746,7 +770,7 @@
     dimmed(true);
     tour.showModal();
     tourSlides.scrollLeft = 0;
-    tourShow(0);
+    tourShow(0, true);
     tourSlides.focus({ preventScroll: true });
   }
   function closeTour() {

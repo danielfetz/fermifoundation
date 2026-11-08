@@ -585,16 +585,20 @@ body.play {
   color: #1b232a;
 }
 .tour__close svg { width: 20px; height: 20px; }
+/* Each step as tall as its own text. play.js sets their height: the tallest step's, leaving out step 3's question
+   about betting, so the other steps don't get taller for it; on step 3 the sheet grows, easing, to show it too. */
 .tour__slides {
   position: relative;
   display: flex;
   flex: 1 1 auto;
+  align-items: flex-start;
   min-height: 0;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  transition: height 280ms var(--ease);
 }
 .tour__slides::-webkit-scrollbar { display: none; }
 /* It takes the focus when the sheet opens, so the arrow keys move the slides; a ring around it isn't needed */
@@ -821,6 +825,7 @@ body.play {
   .betting[open],
   .betting[open]::backdrop { animation: none; }
   .pc,
+  .tour__slides,
   .tour__dots button::before,
   .tour__ask svg { transition: none; }
 }
