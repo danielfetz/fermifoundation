@@ -662,7 +662,10 @@ body.play {
 .tour-guess--1 { left: 12px; top: 28px; transform: rotate(-5deg); }
 .tour-guess--2 { left: 214px; top: 22px; transform: rotate(5deg); }
 .tour-guess--3 { left: 6px; top: 168px; transform: rotate(3deg); }
-.tour-guess--4 { left: 238px; top: 152px; transform: rotate(3deg); }
+.tour-guess--4 { left: 224px; top: 142px; transform: rotate(3deg); filter: drop-shadow(0 1px 1px rgba(30, 22, 8, 0.16)) drop-shadow(0 16px 16px rgba(30, 22, 8, 0.3)); }
+/* The winner bigger, lifted off the table a little */
+.tour-guess--4 .tour-note__paper { padding: 12px 16px 6px 30px; }
+.tour-guess--4 .tour-note__paper b { font-size: 33px; line-height: 42px; }
 
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
