@@ -21,7 +21,7 @@ PAGE = ROOT / 'play' / 'index.html'
 RX, RY, T = 30, 10.5, 8.5
 COLOURS = {'r': '#9c4a17', 'k': '#1b232a', 'c': '#d9cdb4'}
 # Each pile: (centre, where its foot stands, its chips' colours from the bottom up), from the back to the front
-STACKS = [(86, 76, 'rrrrrrr'), (38, 86, 'ccccc'), (133, 89, 'kkkk')]
+STACKS = [(86, 76, 'rrrr'), (38, 86, 'ccc'), (133, 89, 'kk')]
 POT = [(118, 58, 'ccrr'), (74, 66, 'rcr'), (160, 70, 'rc'), (40, 80, 'c'), (104, 84, 'r'), (178, 88, 'c')]
 
 

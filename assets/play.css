@@ -656,11 +656,12 @@ body.play {
 .tour-say--call::after,
 .tour-say--allin::after { right: 15px; bottom: -12px; clip-path: polygon(0 0, 70% 0, 100% 100%); }
 .tour-say--bet::after { top: -12px; right: 18px; clip-path: polygon(0 100%, 70% 100%, 100% 0); }
-/* 4: the answer in the middle, the guesses around it as on the table, the wrong ones struck through */
+/* 4: the answer in the middle, the guesses around it as on the table, the wrong ones struck through and under the
+   card, only the winner on it */
 .tour__pic--wins .tour-card--answer { left: 104px; top: 66px; width: 182px; transform: rotate(-2deg); }
 .tour-guess--1 { left: 12px; top: 28px; transform: rotate(-5deg); }
 .tour-guess--2 { left: 214px; top: 22px; transform: rotate(5deg); }
-.tour-guess--3 { left: 18px; top: 150px; transform: rotate(3deg); }
+.tour-guess--3 { left: 6px; top: 168px; transform: rotate(3deg); }
 .tour-guess--4 { left: 238px; top: 152px; transform: rotate(3deg); }
 
 @media (prefers-reduced-motion: reduce) {
