@@ -82,8 +82,8 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   `fermi-play-tour` once it has been shown, and "How it works" in the ⋯ menu brings it back. It's `#tour` in
   `play/index.html`, with its styles after the rule sheet's in `play.css`. On the betting step, a speech bubble, "How
   does betting work?", opens How betting works (`#betting`) over the tour: the moves, each beside what players say
-  for it (the step's bubbles), and when a betting round ends, in the rule sheet's words ("What can I do on my turn?"
-  and "When does a betting round end?"), so change them together; closing it goes back to the step. On phones the
+  for it (the step's bubbles), who acts first, and when a betting round ends, in the rule sheet's words, near enough
+  ("Who acts first?", "What can I do on my turn?" and "When does a betting round end?"), so change them together; closing it goes back to the step. On phones the
   sheets, the rules, the tour and How betting works, slide up from the bottom with a handle, and dragging one down (the
   tour anywhere, the others by their top) closes it (`dragToClose` in `play.js`); while one is open, the page's
   background colour, which Safari paints in the strip above the page, is the table's tone dimmed like the page behind

@@ -718,18 +718,26 @@
     closeRules();
   });
 
+  // Phones, where the sheets come up from the bottom (play.css)
+  const sheets = matchMedia('not all and (min-width: 700px)');
+
   // The tour: what you need, and the game in four steps. The slides scroll sideways, snapping (a swipe), or move on with
   // Next and the arrow keys, or go straight to a step with its dot; the last button starts playing. It opens and closes like the rule sheet: on its own the
   // first time on a device (at the end), and from the ⋯ menu any time.
   const tourSlides = tour.querySelector('.tour__slides');
   const tourSteps = [...tour.querySelectorAll('.tour__slide')];
+  const tourFoot = tour.querySelector('.tour__foot');
   const tourNext = tour.querySelector('.tour__next');
   const tourDots = [...tour.querySelectorAll('.tour__dots button')];
   const tourLast = tourDots.length - 1;
   let tourAt = 0;
   let tourClosing = 0;
   // The sheet keeps one height through the steps, the tallest one's, leaving out step 3's question about betting (its
-  // bubble and the room around it): on step 3 it grows to show that too, and shrinks again after (play.css eases it)
+  // bubble and the room around it): on step 3 it grows to show that too, and shrinks again after (play.css eases it).
+  // On phones the slides keep the tallest step's height, question and all, and the sheet is moved down by what a step
+  // doesn't need, its foot (the dots and Next) moved up as much, so it stays put: moving it rather than changing its
+  // size, which would get in the way of the slides scrolling sideways under the finger. In the middle of bigger
+  // screens, the slides take the step's height.
   function tourFit(atOnce) {
     if (!tour.open) return;
     const bare = (step) => {
@@ -739,12 +747,20 @@
       return step.offsetHeight - ask.offsetHeight - parseFloat(style.marginTop) - parseFloat(style.marginBottom);
     };
     const height = Math.max(...tourSteps.map(bare), tourSteps[tourAt].offsetHeight);
-    if (atOnce) tourSlides.style.transition = 'none';
-    tourSlides.style.height = `${height}px`;
+    const eased = [tour, tourFoot, tourSlides];
+    if (atOnce) eased.forEach((part) => { part.style.transition = 'none'; });
+    if (sheets.matches) {
+      tourSlides.style.height = '';
+      // A pixel to spare, as the heights are rounded
+      tour.style.setProperty('--shift', `${Math.max(0, tourSlides.clientHeight - height - 1)}px`);
+    } else {
+      tour.style.removeProperty('--shift');
+      tourSlides.style.height = `${height}px`;
+    }
     if (atOnce) {
-      // Laid out at this height before the easing comes back
-      tourSlides.getBoundingClientRect();
-      tourSlides.style.transition = '';
+      // In place before the easing comes back
+      tour.getBoundingClientRect();
+      eased.forEach((part) => { part.style.transition = ''; });
     }
   }
   // The steps' text can change height (the type coming in, the phone turned): the sheet follows at once
@@ -760,10 +776,21 @@
     tourNext.textContent = i === tourLast ? 'Start playing' : 'Next';
     tourFit(atOnce);
   }
+  // Next, a dot or an arrow key shows its step at once, the sheet fitting it as the slides scroll there, rather than
+  // when they arrive, and the steps they pass on the way are skipped (until a finger takes over, or a moment later)
+  let tourHeading = -1;
+  let tourHeadingEnds = 0;
   function tourGo(i) {
     const to = Math.max(0, Math.min(tourLast, i));
+    if (to !== tourAt) {
+      tourHeading = to;
+      clearTimeout(tourHeadingEnds);
+      tourHeadingEnds = setTimeout(() => { tourHeading = -1; }, 1000);
+      tourShow(to);
+    }
     tourSlides.scrollTo({ left: to * tourSlides.clientWidth, behavior: calm.matches ? 'auto' : 'smooth' });
   }
+  tourSlides.addEventListener('pointerdown', () => { tourHeading = -1; });
   function openTour() {
     if (tour.open) return;
     tour.classList.remove('is-closing');
@@ -791,6 +818,10 @@
   });
   tourSlides.addEventListener('scroll', () => {
     const i = Math.round(tourSlides.scrollLeft / tourSlides.clientWidth);
+    if (tourHeading >= 0) {
+      if (i !== tourHeading) return;
+      tourHeading = -1;
+    }
     if (i !== tourAt && i >= 0 && i <= tourLast) tourShow(i);
   }, { passive: true });
   tourNext.addEventListener('click', () => (tourAt === tourLast ? closeTour() : tourGo(tourAt + 1)));
@@ -867,7 +898,6 @@
   // (the tour anywhere, the others by their top), the sheet follows the finger, and far enough down, or flicked, it
   // closes; otherwise it springs back. A drag that ends on a button doesn't press it. (Sideways is the tour's slides,
   // and up is nothing.)
-  const sheets = matchMedia('not all and (min-width: 700px)');
   function dragToClose(sheet, from, close) {
     let drag = null;
     let pressed = true;
@@ -905,7 +935,7 @@
       pressed = false;
       setTimeout(() => { pressed = true; });
       if (!cancelled && (dy > Math.min(140, sheet.offsetHeight / 4) || (speed > 0.5 && dy > 24))) return close();
-      sheet.style.transition = 'transform 220ms var(--ease)';
+      sheet.style.transition = 'transform 220ms var(--ease), translate 280ms var(--ease)';
       sheet.style.transform = '';
       sheet.style.removeProperty('--drag');
     };

@@ -594,8 +594,9 @@ body.play {
   color: #1b232a;
 }
 .tour__close svg { width: 20px; height: 20px; }
-/* Each step as tall as its own text. play.js sets their height: the tallest step's, leaving out step 3's question
-   about betting, so the other steps don't get taller for it; on step 3 the sheet grows, easing, to show it too. */
+/* Each step as tall as its own text. The sheet is as tall as the tallest step, leaving out step 3's question about
+   betting, so the other steps don't get taller for it; on step 3 it grows, easing, to show it too (play.js). In the
+   middle of bigger screens, the slides take that height; on phones (below) the sheet moves instead. */
 .tour__slides {
   position: relative;
   display: flex;
@@ -649,6 +650,12 @@ body.play {
   .tour__slide > p { margin-inline: 20px; font-size: 16px; }
   .tour__ask { margin-inline: 20px; font-size: 21px; }
   .tour__foot { padding-inline: 20px; }
+}
+/* On phones the slides keep the tallest step's height, and the sheet is moved down by what a step doesn't need
+   (--shift, from play.js), its foot (the dots and Next) moved up as much, over the slides' empty foot, so it stays put */
+@media (max-width: 699.98px) {
+  .tour { translate: 0 var(--shift, 0px); transition: translate 280ms var(--ease); }
+  .tour__foot { position: relative; z-index: 1; background: #fffef8; translate: 0 calc(var(--shift, 0px) * -1); transition: translate 280ms var(--ease); }
 }
 @media (max-height: 720px) { .tour { --pic: 0.8; } }
 @media (max-height: 620px) { .tour { --pic: 0.66; } }
@@ -834,7 +841,9 @@ body.play {
   .betting[open],
   .betting[open]::backdrop { animation: none; }
   .pc,
+  .tour,
   .tour__slides,
+  .tour__foot,
   .tour__dots button::before,
   .tour__ask svg { transition: none; }
 }
