@@ -700,6 +700,11 @@
     rulesBody.focus({ preventScroll: true });
   });
   rules.querySelector('[data-close]').addEventListener('click', closeRules);
+  // "How it works", above the questions: the tour, once the rules have gone
+  rules.querySelector('[data-tour-open]').addEventListener('click', () => {
+    rules.addEventListener('close', openTour, { once: true });
+    closeRules();
+  });
   // A click on the dialog itself, not its contents, is a click on the dimmed page around it
   rules.addEventListener('click', (event) => {
     if (event.target === rules) closeRules();

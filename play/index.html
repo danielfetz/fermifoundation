@@ -77,8 +77,9 @@
 
   <p class="sr-only" id="play-live" aria-live="polite"></p>
 
-  <!-- The rules needed at the table, in the words of the printed rule sheet (files/fermi-poker-rules.pdf), without its
-       introduction and example, the game variants and the end of the game. When the rules change, change both. -->
+  <!-- The rules, as the questions players ask at the table, each opening to its answer: in the words of the printed rule
+       sheet (files/fermi-poker-rules.pdf) and of the guide (How to play), with an example where a rule is hard to
+       picture. When the rules change, change them here too. -->
   <dialog class="rules" id="rules" aria-labelledby="rules-title">
     <div class="rules__head">
       <h2 id="rules-title">Rules</h2>
@@ -87,59 +88,96 @@
       </button>
     </div>
     <div class="rules__body" tabindex="-1">
-      <div class="rules__cols">
-        <section>
-          <h3>Before you start</h3>
-          <ul>
-            <li>Everyone starts with the same amount of chips.</li>
-            <li>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</li>
-            <li>Don’t use calculators or the internet.</li>
-            <li>The organizer announces the ante and how often it goes up, for example every 20 minutes.</li>
-          </ul>
-        </section>
-        <section>
-          <h3>How a question is played</h3>
-          <ol>
-            <li><b>Ante.</b> Everyone puts in the ante, a small mandatory bet. Then the question is revealed.</li>
-            <li><b>Guess.</b> Everyone secretly writes down a range they think contains the answer, for example <span class="nowrap">“400–1100”</span>. Then betting <span class="nowrap">round 1</span>.</li>
-            <li><b>Hint 1.</b> Then betting round 2.</li>
-            <li><b>Hint 2.</b> Then betting round 3.</li>
-            <li><b>Answer reveal.</b> Then betting round 4.</li>
-            <li><b>Showdown.</b> The remaining players reveal their ranges, and the best one wins the pot. Revealing is voluntary for everyone who folded.</li>
-          </ol>
-        </section>
-        <section>
-          <h3>Your guess</h3>
-          <ul>
-            <li>Write it secretly and place it face down. Once betting round 1 starts, you can’t change it.</li>
-            <li>A range includes both of its endpoints.</li>
-            <li>Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they’re clearly written and not ambiguous.</li>
-          </ul>
-        </section>
-        <section class="rules__betting">
-          <h3>Betting</h3>
-          <p>Play moves clockwise. On your turn you can:</p>
-          <ul>
-            <li><b>Check:</b> pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</li>
-            <li><b>Bet or raise:</b> increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</li>
-            <li><b>Call:</b> match the highest bet so far.</li>
-            <li><b>Fold:</b> drop out of this question. You give up the chips you’ve put in, but risk nothing more.</li>
-            <li><b>All-in:</b> bet all your chips. This is possible even if what you have left is less than the highest bet.</li>
-          </ul>
-          <p>A betting round ends once everyone has acted and matched the highest bet or folded. Within a betting round, you can only raise again if someone else raised after you.</p>
-          <p>If you’re <span class="nowrap">all-in</span>, you can win from each player only as much as you put in yourself. Extra bets go into a side pot that only the players who paid into it can win. Can’t pay the ante? You’re automatically <span class="nowrap">all-in</span>.</p>
-        </section>
-        <section>
-          <h3>Who wins the pot</h3>
-          <ul>
-            <li>The <b>narrowest range that contains the answer</b> wins. Width is the high endpoint minus the low one: if the answer is 500, a range of <span class="nowrap">“200–600”</span> (400) beats a range of <span class="nowrap">“400–1100”</span> (700).</li>
-            <li>Equally narrow? Split the pot.</li>
-            <li>No range contains the answer? The range whose midpoint (halfway between low and high) is closest to the answer wins.</li>
-            <li>Everyone else folded? The last remaining player wins and doesn’t have to reveal their guess.</li>
-            <li>Everyone, or all but one, is <span class="nowrap">all-in</span>? Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</li>
-          </ul>
-        </section>
-      </div>
+      <p class="rules__intro">New to the game? <button type="button" class="rules__tour" data-tour-open>How it works</button> shows it in four steps.</p>
+      <p class="rules__label" id="rules-flow">Each question</p>
+      <ol class="rules__flow" aria-labelledby="rules-flow"><li>Ante</li><li>Question</li><li>Guess</li><li class="is-bet">Bet</li><li>Hint 1</li><li class="is-bet">Bet</li><li>Hint 2</li><li class="is-bet">Bet</li><li>Answer</li><li class="is-bet">Bet</li><li>Showdown</li></ol>
+      <section>
+        <h3>Before you start</h3>
+        <details><summary>Who acts first?</summary>
+          <div class="rules__a"><p>Randomly pick who acts first during the betting rounds. For the next question, the player on their left goes first, and so on.</p></div>
+        </details>
+        <details><summary>How many chips does everyone get?</summary>
+          <div class="rules__a"><p>Everyone starts with the same amount of chips. A good default is to give each player chips worth 1,000, with the ante starting at 25.</p></div>
+        </details>
+        <details><summary>What’s the ante?</summary>
+          <div class="rules__a"><p>Everyone puts in the ante, a small mandatory bet. Then the question is revealed. It goes up over time, so you can’t wait forever for a question you’re sure about.</p></div>
+        </details>
+        <details><summary>How fast does the ante go up?</summary>
+          <div class="rules__a"><p>The organizer announces the ante and how often it goes up, for example every 20 minutes. If you want to use a fixed ante schedule, here’s a good default for players starting with chips worth 1,000:</p><table class="rules__table"><thead><tr><th>Minutes</th><th>Ante</th></tr></thead><tbody><tr><td>0–20</td><td>25</td></tr><tr><td>20–40</td><td>50</td></tr><tr><td>40–60</td><td>75</td></tr><tr><td>60–80</td><td>100</td></tr><tr><td>80–100</td><td>150</td></tr><tr><td>100–120</td><td>200</td></tr><tr><td>120 and later</td><td>300</td></tr></tbody></table></div>
+        </details>
+        <details><summary>Can we use a calculator or look things up?</summary>
+          <div class="rules__a"><p>Don’t use the internet. Calculators are out too, unless your group agrees to allow them.</p></div>
+        </details>
+        <details><summary>What if someone has seen the question before?</summary>
+          <div class="rules__a"><p>Just skip to the next question, with Skip this question in the ⋯ menu.</p></div>
+        </details>
+      </section>
+      <section>
+        <h3>Your guess</h3>
+        <details><summary>How do I write my guess?</summary>
+          <div class="rules__a"><p>Write it secretly and place it face down. Write numbers however you like, for example 3,000,000, 3&nbsp;&times;&nbsp;10<sup>6</sup>, 3 million or 3M, as long as they’re clearly written and not ambiguous.</p></div>
+        </details>
+        <details><summary>Does a range include its endpoints?</summary>
+          <div class="rules__a"><p>A range includes both of its endpoints.</p></div>
+        </details>
+        <details><summary>Can I change my guess?</summary>
+          <div class="rules__a"><p>Once betting round 1 starts, you can’t change it.</p></div>
+        </details>
+        <details><summary>How long do we have to guess?</summary>
+          <div class="rules__a"><p>There’s no limit. If someone keeps everyone waiting, try a 60-second clock: once half the players have written down their guesses, the rest have 60 seconds. Use a phone timer or a one-minute sand timer.</p></div>
+        </details>
+      </section>
+      <section>
+        <h3>Betting</h3>
+        <details><summary>What can I do on my turn?</summary>
+          <div class="rules__a"><p>Play moves clockwise. On your turn you can:</p><dl class="rules__moves"><dt>Check</dt><dd>Pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</dd><dt>Bet or raise</dt><dd>Increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</dd><dt>Call</dt><dd>Match the highest bet so far.</dd><dt>Fold</dt><dd>Drop out of this question. You give up the chips you’ve put in, but risk nothing more.</dd><dt>All-in</dt><dd>Bet all your chips. This is possible even if what you have left is less than the highest bet.</dd></dl></div>
+        </details>
+        <details><summary>What’s the minimum bet or raise?</summary>
+          <div class="rules__a"><p>The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</p></div>
+        </details>
+        <details><summary>Can I raise again?</summary>
+          <div class="rules__a"><p>Only if someone raised after you. If nobody bets more after you, your turn doesn’t come back anyway, so this only matters when someone goes all-in with less than a full raise.</p><p class="rules__eg">Say Alice bets 100 and Bob goes all-in with his last 150. A raise would have had to make it at least 200, so Alice can only call the extra 50 or fold.</p></div>
+        </details>
+        <details><summary>When does a betting round end?</summary>
+          <div class="rules__a"><p>A betting round ends once everyone has acted and matched the highest bet or folded.</p></div>
+        </details>
+        <details><summary>Fewer chips than the ante?</summary>
+          <div class="rules__a"><p>Put in all you have: you’re automatically all-in.</p></div>
+        </details>
+        <details><summary>How does all-in work?</summary>
+          <div class="rules__a"><p>If you’re all-in, you can win from each player only as much as you put in yourself. Extra bets go into a side pot that only the players who paid into it can win.</p><p class="rules__eg">Say Bob bets 200, Carol calls, and Alice goes all-in with the 100 she has left. Even with the best range, Alice can win only 100 from each of them. The rest of their bets, 100 each, go into a side pot, which goes to whichever of Bob and Carol has the better range. So a question can have two winners.</p></div>
+        </details>
+      </section>
+      <section>
+        <h3>Who wins the pot</h3>
+        <details><summary>Who wins?</summary>
+          <div class="rules__a"><p>At the showdown, the remaining players reveal their ranges. The narrowest range that contains the answer wins. Width is the high endpoint minus the low one: if the answer is 500, a range of <span class="nowrap">“200–600”</span> (400) beats a range of <span class="nowrap">“400–1100”</span> (700).</p></div>
+        </details>
+        <details><summary>Equally narrow?</summary>
+          <div class="rules__a"><p>Split the pot.</p></div>
+        </details>
+        <details><summary>No range contains the answer?</summary>
+          <div class="rules__a"><p>The range whose midpoint (halfway between low and high) is closest to the answer wins.</p></div>
+        </details>
+        <details><summary>Everyone else folded?</summary>
+          <div class="rules__a"><p>The last remaining player wins and doesn’t have to reveal their guess.</p></div>
+        </details>
+        <details><summary>Everyone, or all but one, is all-in?</summary>
+          <div class="rules__a"><p>Since no more betting is possible, read the remaining hints and answer. Then go to the showdown.</p></div>
+        </details>
+        <details><summary>Do I have to show my range if I folded?</summary>
+          <div class="rules__a"><p>Revealing is voluntary for everyone who folded.</p></div>
+        </details>
+      </section>
+      <section>
+        <h3>End of the game</h3>
+        <details><summary>What if I run out of chips?</summary>
+          <div class="rules__a"><p>A player with no chips left is out, but can stay seated for a while and keep guessing for fun, just without betting.</p></div>
+        </details>
+        <details><summary>When does the game end?</summary>
+          <div class="rules__a"><p>The game ends when one player has all the chips. If you have a fixed end time, you can instead stop on time, and whoever has the most chips wins.</p></div>
+        </details>
+      </section>
       <p class="rules__more">
         <a href="/how-to-play/">The rules with an example</a>
         <a href="/files/fermi-poker-rules.pdf">The rule sheet to print</a>

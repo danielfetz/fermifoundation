@@ -62,9 +62,10 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   without that). Its styles and script are
   `assets/play.css` and `assets/play.js`. Its cards use the printed cards' font, IBM Plex Sans, the answer in it too
   (`assets/fonts/ibm-plex-sans-var-latin.woff2`, Open Font License, self-hosted as Google Fonts serves it). It isn't in the menu
-  yet. Its Rules button opens the rules needed
-  at the table, in the rule sheet's words (the PDF's text without its introduction and example, the game variants and
-  the end of the game), so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
+  yet. Its Rules button opens the rules as the questions players ask at the table ("Who acts first?", "Can I
+  raise again?"), grouped under five headings, each opening to its answer in the words of the rule sheet and the guide
+  (the guide's ante schedule and 60-second clock among them), with an example for raising again and for side pots, and
+  a link to the tour above them; so when the rules change, change it along with the PDF and How to play. The ⋯ menu skips a question, always for one not seen yet, or looks back at the one before (only
   that one, and only to look at it: the menu and the deck then take you back to the question in play). While the page
   is open, it keeps the screen on. Zooming in is turned off there, as the table is laid out for the whole screen: in
   the viewport tag, with `touch-action` in `play.css`, and for Safari's pinch, which can ignore both, in `play.js`.

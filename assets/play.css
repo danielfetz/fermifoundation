@@ -428,25 +428,43 @@ body.play {
 }
 /* It takes the focus when the sheet opens, so the keys scroll it; a ring around the whole sheet isn't needed */
 .rules__body:focus { outline: none; }
-/* Space above a section is its padding rather than a margin, so on laptops both columns start at the same height */
-.rules section { padding-top: 20px; }
-.rules h3 {
-  margin-bottom: 9px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.3;
-}
+/* Above the questions: where to learn the game, and how a question goes, at a glance */
+.rules__intro { margin-top: 16px; padding: 12px 15px; border-radius: 12px; background: #f4efe6; color: #3d4a54; font-size: 15px; line-height: 1.4; }
+.rules__tour { color: var(--pc-ink); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.rules__tour:hover { color: var(--blue); }
+.rules__tour:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.rules__label { margin-top: 22px; color: #6b6158; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.rules__flow { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 9px; padding: 0; list-style: none; }
+.rules__flow li { position: relative; padding: 5px 11px 6px; border-radius: 999px; box-shadow: inset 0 0 0 1.2px rgba(27, 35, 42, 0.32); font-size: 14px; font-weight: 600; line-height: 1.2; }
+.rules__flow .is-bet { background: #1b232a; color: #fffef8; box-shadow: none; }
+/* An arrow in the gap before each step but the first (drawn, so screen readers don't read it out) */
+.rules__flow li + li::before { content: ""; position: absolute; top: 50%; left: -11px; width: 5px; height: 5px; border-top: 1.5px solid #8a9299; border-right: 1.5px solid #8a9299; transform: translateY(-50%) rotate(45deg); }
+/* The questions, under a heading for each part of the game: each opens to its answer */
+.rules section { padding-top: 28px; }
+.rules h3 { margin-bottom: 6px; font-family: 'Instrument Serif', Georgia, serif; font-size: 29px; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
+.rules details { border-bottom: 1px solid rgba(21, 21, 21, 0.12); }
+.rules h3 + details { border-top: 1px solid rgba(21, 21, 21, 0.12); }
+.rules summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; font-weight: 600; cursor: pointer; list-style: none; }
+.rules summary::-webkit-details-marker { display: none; }
+.rules summary::after { content: ""; flex: none; width: 9px; height: 9px; margin-right: 4px; border-right: 1.8px solid #6b6158; border-bottom: 1.8px solid #6b6158; transform: translateY(-3px) rotate(45deg); }
+.rules details[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.rules summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+.rules__a { padding-bottom: 14px; }
+.rules__a > * + * { margin-top: 10px; }
 .rules b { font-weight: 700; }
-.rules ul,
-.rules ol { padding-left: 20px; }
-.rules ul { list-style: disc; }
-.rules ol { list-style: decimal; }
-.rules li::marker { color: #6a6a6a; }
-.rules li + li { margin-top: 5px; }
-.rules section > * + p,
-.rules section > p + ul { margin-top: 9px; }
+/* The moves, each name beside what it does */
+.rules__moves { display: grid; grid-template-columns: max-content 1fr; column-gap: 14px; }
+.rules__moves dt,
+.rules__moves dd { padding: 8px 0; border-top: 1px solid rgba(21, 21, 21, 0.1); }
+.rules__moves dt { font-weight: 700; }
+.rules__moves dd { margin: 0; }
+/* The ante schedule */
+.rules__table { border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.rules__table th,
+.rules__table td { padding: 4px 32px 4px 0; border-bottom: 1px solid rgba(21, 21, 21, 0.1); text-align: left; }
+.rules__table th { font-size: 14px; font-weight: 700; }
+/* An example, set apart from the rule it explains */
+.rules__eg { padding: 10px 13px; border-radius: 10px; background: #f4efe6; color: #2d353c; }
 .rules__more { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 22px; font-size: 15px; }
 .rules__more a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .rules__more a:hover { color: var(--blue); }
@@ -466,13 +484,6 @@ body.play {
   .rules.is-closing::backdrop { animation-duration: 160ms; }
   .rules__head { padding: 14px 16px 12px 30px; }
   .rules__body { padding: 0 30px 28px; }
-}
-/* Laptops: two columns, split where the printed sheet splits them */
-@media (min-width: 900px) {
-  .rules { width: min(880px, 100% - 64px); }
-  .rules__cols { columns: 2; column-gap: 44px; }
-  .rules__cols > section { break-inside: avoid; }
-  .rules__betting { break-before: column; }
 }
 /* The first visit (play.js): what you need, and the game in four steps, in a sheet like the rule sheet (in the middle
    on bigger screens). Each slide has a picture of the game on top, made of the page's own cards, chips and paper,
