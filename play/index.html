@@ -229,6 +229,7 @@
         </div></div>
         <h2><span>3.</span> Bet like in poker</h2>
         <p>There are four betting rounds: one after everyone has written down their guess, one after each of the two hints, and one after the answer is revealed. Betting works like in poker.</p>
+        <button type="button" class="tour__ask" data-betting-open>How does betting work? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </section>
       <section class="tour__slide" aria-label="4 of 4">
         <div class="tour__art" aria-hidden="true"><div class="tour__pic tour__pic--wins">
@@ -250,6 +251,32 @@
         <button type="button" aria-label="Step 4"></button>
       </div>
       <button type="button" class="tour__next">Next</button>
+    </div>
+  </dialog>
+
+  <!-- How betting works, from the tour's step 3: a sheet over the tour with the moves, each beside what players say for
+       it (the speech bubbles of step 3's picture), in the rules' own words; closing it goes back to step 3 -->
+  <dialog class="betting" id="betting" aria-labelledby="betting-title">
+    <div class="betting__head">
+      <span class="tour__handle" aria-hidden="true"></span>
+      <h2 id="betting-title">How betting works</h2>
+      <button type="button" class="tour__close" data-close aria-label="Back to step 3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="betting__body" tabindex="-1">
+      <p>Play moves clockwise. On your turn you can:</p>
+      <dl class="betting__moves">
+        <dt><span class="tour-say">Check.</span></dt><dd>Pass the action to the next player without betting. Only possible if nobody has bet yet in this betting round.</dd>
+        <dt><span class="tour-say">Bet 100.</span><span class="tour-say">Raise to 200.</span></dt><dd>Increase the highest bet. Others must match it to stay in. The minimum bet is the current ante, and a raise must be at least the size of the last bet or raise in this betting round.</dd>
+        <dt><span class="tour-say">Call.</span></dt><dd>Match the highest bet so far.</dd>
+        <dt><span class="tour-say">Fold.</span></dt><dd>Drop out of this question. You give up the chips you’ve put in, but risk nothing more.</dd>
+        <dt><span class="tour-say">All-in!</span></dt><dd>Bet all your chips. This is possible even if what you have left is less than the highest bet.</dd>
+      </dl>
+      <p class="betting__end">A betting round ends once everyone has acted and matched the highest bet or folded.</p>
+    </div>
+    <div class="tour__foot">
+      <button type="button" class="tour__next" data-close>Back to step 3</button>
     </div>
   </dialog>
 </body>

@@ -23,9 +23,11 @@ html.play-page { touch-action: pan-x pan-y; }
 /* Safari paints the page's own background in the strip above it (under the notch on iPhones, behind the tab bar on
    iPads and Macs): here, the tone of the table at its very top, where the etching fades in from it (.rome). While the
    rules or the tour are open (play.js: has-sheet), the same tone as dimmed by their backdrop (rgba(21, 29, 35, 0.45)
-   over it), so the strip doesn't stay bright above the dimmed table. */
+   over it), so the strip doesn't stay bright above the dimmed table; with How betting works over the tour as well
+   (has-sheet-over), dimmed again by its backdrop (rgba(21, 29, 35, 0.3) over that). */
 html.play-page { --table-top: #eae9dc; --page-bg: var(--table-top); }
 html.play-page.has-sheet { --page-bg: #8a8d89; }
+html.play-page.has-sheet.has-sheet-over { --page-bg: #676c6a; }
 body.play {
   position: relative;
   display: flex;
@@ -394,13 +396,15 @@ body.play {
 /* As a sheet is dragged down (play.js sets --drag on it, 0 to 1), the page behind it lightens, where browsers let the
    backdrop see the sheet's variables */
 .rules::backdrop,
-.tour::backdrop { opacity: calc(1 - 0.8 * var(--drag, 0)); }
+.tour::backdrop,
+.betting::backdrop { opacity: calc(1 - 0.8 * var(--drag, 0)); }
 /* On phones a vertical drag is the sheets' own (play.js): on the tour anywhere, its slides still scrolling sideways; on
-   the rules by their top, their text still scrolling */
+   the rules and How betting works by their top, their text still scrolling */
 @media (max-width: 699.98px) {
   .tour,
   .tour__slides { touch-action: pan-x; }
-  .rules__head { touch-action: none; }
+  .rules__head,
+  .betting__head { touch-action: none; }
 }
 .rules[open]::backdrop { animation: rules-fade-in 260ms ease-out; }
 .rules.is-closing { animation: rules-down 200ms ease-in forwards; }
@@ -630,6 +634,7 @@ body.play {
   .tour { --pic: 0.85; }
   .tour__slide > h2 { margin-inline: 20px; font-size: 31px; }
   .tour__slide > p { margin-inline: 20px; font-size: 16px; }
+  .tour__ask { margin-inline: 20px; font-size: 21px; }
   .tour__foot { padding-inline: 20px; }
 }
 @media (max-height: 720px) { .tour { --pic: 0.8; } }
@@ -723,15 +728,101 @@ body.play {
 .tour-guess--2 { left: 214px; top: 22px; transform: rotate(5deg); }
 .tour-guess--3 { left: 6px; top: 168px; transform: rotate(3deg); }
 .tour-guess--4 { left: 238px; top: 152px; transform: rotate(3deg); }
+/* Step 3's way into How betting works: a speech bubble like the picture's, straight, asking it. Its tail and shadow
+   need the room below it, as the slides are cut off at their foot. */
+.tour__ask {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 26px 26px;
+  padding: 7px 14px 9px 15px;
+  border-radius: 17px;
+  background: #fffdf6;
+  color: #1b232a;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 23px;
+  font-style: italic;
+  line-height: 1;
+  filter: drop-shadow(0 0 1px rgba(30, 22, 8, 0.32)) drop-shadow(0 4px 5px rgba(30, 22, 8, 0.16));
+}
+.tour__ask::after { content: ""; position: absolute; bottom: -11px; left: 17px; width: 15px; height: 12px; background: inherit; clip-path: polygon(30% 0, 100% 0, 0 100%); }
+.tour__ask svg { width: 17px; height: 17px; color: #9c4a17; transition: transform 150ms var(--ease); }
+.tour__ask:hover svg { transform: translateX(3px); }
+.tour__ask:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+/* How betting works (play.js): a sheet over the tour, from its step 3, like the tour (in the middle on bigger screens)
+   and the page dimmed again behind it. Its head stays, with the handle, the title and ×; the moves scroll under it
+   when they need to, each beside what players say for it, the bubbles of step 3's picture; Back to step 3 at the foot. */
+.betting {
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  max-height: calc(100% - 24px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 28px 28px 0 0;
+  background: #fffef8;
+  color: #1b232a;
+  font-family: 'IBM Plex Sans', sans-serif;
+  box-shadow: 0 -12px 40px -16px rgba(21, 29, 35, 0.55);
+}
+.betting[open] { display: flex; flex-direction: column; animation: rules-up 320ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+.betting::backdrop { background: rgba(21, 29, 35, 0.3); }
+.betting[open]::backdrop { animation: rules-fade-in 260ms ease-out; }
+.betting.is-closing { animation: rules-down 200ms ease-in forwards; }
+.betting.is-closing::backdrop { animation: rules-fade-out 200ms ease-in forwards; }
+.betting__head { position: relative; flex: none; padding: 36px 66px 0 26px; }
+.betting__head h2 { font-family: 'Instrument Serif', Georgia, serif; font-size: 33px; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
+.betting__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 26px 22px;
+  color: #2d353c;
+  font-size: 15.5px;
+  line-height: 1.45;
+  /* Fading out at the top and the foot, where the moves scroll under the head and the button */
+  -webkit-mask-image: linear-gradient(transparent, #000 8px, #000 calc(100% - 22px), transparent);
+  mask-image: linear-gradient(transparent, #000 8px, #000 calc(100% - 22px), transparent);
+}
+/* It takes the focus when the sheet opens, so the keys scroll it; a ring around it isn't needed */
+.betting__body:focus { outline: none; }
+.betting__body > p:first-child { color: #4a5660; font-size: 16.5px; }
+.betting__moves { display: grid; grid-template-columns: max-content 1fr; margin-top: 10px; }
+.betting__moves dt,
+.betting__moves dd { padding: 11px 0 12px; border-top: 1px solid rgba(21, 21, 21, 0.1); }
+.betting__moves dt { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; padding: 11px 16px 12px 2px; }
+.betting__moves dd { margin: 0; }
+.betting .tour-say { position: relative; padding: 4px 10px 6px; border-radius: 13px; font-size: 18px; filter: drop-shadow(0 1px 1px rgba(30, 22, 8, 0.16)) drop-shadow(0 5px 6px rgba(30, 22, 8, 0.16)); }
+.betting .tour-say::after { bottom: -9px; left: 11px; width: 12px; height: 10px; clip-path: polygon(30% 0, 100% 0, 0 100%); }
+.betting__end { padding-top: 11px; border-top: 1px solid rgba(21, 21, 21, 0.1); }
+@media (max-width: 370px) {
+  .betting__head { padding-left: 20px; }
+  .betting__head h2 { font-size: 30px; }
+  .betting__body { padding-inline: 20px; }
+}
+@media (min-width: 700px) {
+  .betting { inset: 0; width: 500px; max-height: min(100% - 48px, 760px); margin: auto; border-radius: 26px; box-shadow: 0 2px 6px rgba(21, 29, 35, 0.15), 0 30px 70px -20px rgba(21, 29, 35, 0.6); }
+  .betting[open] { animation-name: rules-in; animation-duration: 240ms; }
+  .betting.is-closing { animation-name: rules-out; animation-duration: 160ms; }
+  .betting.is-closing::backdrop { animation-duration: 160ms; }
+  .betting__head { padding-top: 32px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .ph-menu,
   .rules[open],
   .rules[open]::backdrop,
   .tour[open],
-  .tour[open]::backdrop { animation: none; }
+  .tour[open]::backdrop,
+  .betting[open],
+  .betting[open]::backdrop { animation: none; }
   .pc,
-  .tour__dots button::before { transition: none; }
+  .tour__dots button::before,
+  .tour__ask svg { transition: none; }
 }
 
 .sr-only {

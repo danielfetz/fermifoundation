@@ -797,9 +797,52 @@
     openTour();
   });
 
-  // On phones the rule sheet and the tour are sheets from the bottom, with a handle: dragged down (the tour anywhere,
-  // the rules by their top), the sheet follows the finger, and far enough down, or flicked, it closes; otherwise it
-  // springs back. A drag that ends on a button doesn't press it. (Sideways is the tour's slides, and up is nothing.)
+  // How betting works, from step 3's speech bubble: a sheet over the tour, opening at the top and closing like the
+  // others (×, Back to step 3, Escape, a tap beside it), which leaves the tour at step 3 and the focus on the bubble
+  const betting = document.getElementById('betting');
+  const bettingBody = betting.querySelector('.betting__body');
+  let bettingClosing = 0;
+  // The page behind is dimmed once more, and Safari's strip with it (play.css)
+  const dimmedOver = (on) => document.documentElement.classList.toggle('has-sheet-over', on);
+  function closeBetting() {
+    if (!betting.open || bettingClosing) return;
+    if (!moving()) return betting.close();
+    betting.classList.add('is-closing');
+    // In case the animation never ends (a hidden tab, say)
+    bettingClosing = setTimeout(() => betting.close(), 400);
+  }
+  tour.querySelector('[data-betting-open]').addEventListener('click', () => {
+    if (betting.open) return;
+    betting.classList.remove('is-closing');
+    dimmedOver(true);
+    betting.showModal();
+    bettingBody.scrollTop = 0;
+    bettingBody.focus({ preventScroll: true });
+  });
+  betting.addEventListener('animationend', (event) => {
+    if (bettingClosing && event.target === betting && /^rules-(down|out)$/.test(event.animationName)) betting.close();
+  });
+  betting.addEventListener('close', () => {
+    dimmedOver(false);
+    clearTimeout(bettingClosing);
+    bettingClosing = 0;
+    betting.classList.remove('is-closing');
+  });
+  betting.querySelectorAll('[data-close]').forEach((button) => button.addEventListener('click', closeBetting));
+  betting.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeBetting();
+  });
+  betting.addEventListener('click', (event) => {
+    if (event.target !== betting) return;
+    const box = betting.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeBetting();
+  });
+
+  // On phones the rule sheet, the tour and How betting works are sheets from the bottom, with a handle: dragged down
+  // (the tour anywhere, the others by their top), the sheet follows the finger, and far enough down, or flicked, it
+  // closes; otherwise it springs back. A drag that ends on a button doesn't press it. (Sideways is the tour's slides,
+  // and up is nothing.)
   const sheets = matchMedia('not all and (min-width: 700px)');
   function dragToClose(sheet, from, close) {
     let drag = null;
@@ -858,6 +901,7 @@
   }
   dragToClose(rules, rules.querySelector('.rules__head'), closeRules);
   dragToClose(tour, tour, closeTour);
+  dragToClose(betting, betting.querySelector('.betting__head'), closeBetting);
 
   // No zooming in (see play.css and the viewport tag): Safari lets you pinch the page anyway, unless the pinch is
   // stopped as it starts

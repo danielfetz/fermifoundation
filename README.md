@@ -80,10 +80,14 @@ The Fermi Foundation website: plain HTML and CSS, no build step.
   around it, the wrong ones struck through). The cards are drawn like the page's own; the chips are SVG drawn by
   `python3 scripts/tour_chips.py`, which writes them into `play/index.html` (change their colours or piles there). Its text is in the guide's words, so change them together. Local storage keeps
   `fermi-play-tour` once it has been shown, and "How it works" in the ⋯ menu brings it back. It's `#tour` in
-  `play/index.html`, with its styles after the rule sheet's in `play.css`. On phones both sheets, the rules and the tour,
-  slide up from the bottom with a handle, and dragging one down (the tour anywhere, the rules by their top) closes it
-  (`dragToClose` in `play.js`); while one is open, the page's background colour, which Safari paints in the strip
-  above the page, is the table's tone dimmed like the page behind the sheet (`has-sheet`).
+  `play/index.html`, with its styles after the rule sheet's in `play.css`. On the betting step, a speech bubble, "How
+  does betting work?", opens How betting works (`#betting`) over the tour: the moves, each beside what players say
+  for it (the step's bubbles), and when a betting round ends, in the rule sheet's words ("What can I do on my turn?"
+  and "When does a betting round end?"), so change them together; closing it goes back to the step. On phones the
+  sheets, the rules, the tour and How betting works, slide up from the bottom with a handle, and dragging one down (the
+  tour anywhere, the others by their top) closes it (`dragToClose` in `play.js`); while one is open, the page's
+  background colour, which Safari paints in the strip above the page, is the table's tone dimmed like the page behind
+  the sheet (`has-sheet`, and `has-sheet-over` for How betting works over the tour).
 
 The menu and footer are repeated on every page (except Play, which has neither), so change them on all seventeen (the five tournaments' pages, Partner with us and the page not found among them). On wide
 screens the menu shows For schools, For companies, FAQ and Donate, and the phone menu shows the same four; the footer
