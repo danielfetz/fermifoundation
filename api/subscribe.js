@@ -1,4 +1,4 @@
-// Sign-ups for updates, from the forms on the site (assets/site.js) or, without JavaScript, posted straight here.
+// Sign-ups for updates, from the forms on the site (assets/site.js); anything else posted here is taken for a bot.
 // Adds the address to Resend's contacts, not yet subscribed, and emails a link to confirm it (api/confirm.js). Someone
 // already on the list gets no email, but the same answer, so the form never tells who's subscribed.
 const { FROM, ROLES, EVERYONE, resend, sign, contactFor, segmentsOf, confirmEmail, origin } = require('./_resend.js')
@@ -15,8 +15,9 @@ module.exports = async function subscribe(req, res) {
     : res.redirect(303, ok ? '/updates/#sent' : '/updates/#failed')
 
   const body = req.body && typeof req.body === 'object' ? req.body : {}
-  // Only bots fill in the hidden field: pretend it worked
-  if (body.website) return answer(true)
+  // Only bots fill in the hidden field, post here without the form's script (which says how long the form was on
+  // screen), or send it within a moment: pretend it worked
+  if (body.website || !json || !(Number(body.shown) >= 2500)) return answer(true)
   const email = String(body.email || '').trim().toLowerCase()
   const role = Object.hasOwn(ROLES, body.role) ? body.role : ''
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return answer(false)

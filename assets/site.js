@@ -262,12 +262,15 @@ const updatesForm = id => `
   </div>`
 
 function wireUpdates(form) {
+  // How long the form was on screen before it was sent: api/subscribe.js takes sign-ups only from this script, and
+  // not within a moment, which only bots manage
+  const shown = Date.now()
   const done = form.nextElementSibling
   const button = form.querySelector('button[type="submit"]')
   const error = form.querySelector('.su__error')
   form.addEventListener('submit', async event => {
     event.preventDefault()
-    const data = Object.fromEntries(new FormData(form))
+    const data = { ...Object.fromEntries(new FormData(form)), shown: Date.now() - shown }
     button.disabled = true
     error.hidden = true
     try {

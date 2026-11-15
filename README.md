@@ -248,8 +248,11 @@ students", "Teachers and professors" or "Others" (what they said they are; "Stud
 university were asked apart), emails contact@fermi.org about the new sign-up, and shows the
 Get updates page saying so. These, and `api/interest.js`, `api/guide.js` and `api/team.js`, need Resend's key as
 `RESEND_API_KEY` in the project's environment variables on Vercel, and fermi.org verified in Resend. To send news,
-write a Broadcast in Resend to a segment; Resend adds the link to unsubscribe. Without JavaScript the forms still work:
-the Get updates page shows what happened (`#sent`, `#confirmed`, `#invalid`, `#failed`).
+write a Broadcast in Resend to a segment; Resend adds the link to unsubscribe. Against bots, `api/subscribe.js` takes
+sign-ups only from the forms' script, which says how long the form was on screen, and not within 2.5 seconds; a
+hidden field only bots fill in, a post without the script, or one too quick gets "sent" but no email and no contact.
+So without JavaScript the forms no longer sign anyone up. The Get updates page shows what the confirmation link did
+(`#confirmed`, `#invalid`, `#failed`).
 
 In Resend, a contact is subscribed or not as a whole, and what it hears about is the segments it's in: whether someone
 gets updates is whether they're subscribed and in "Fermi Poker updates". The free plan has three segments, so the link
